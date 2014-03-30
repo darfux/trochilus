@@ -27,20 +27,29 @@ test:
 
 production:
   adapter: mysql2
-  <% if ENV['JAE_MYSQL_DBNAME'] %>
-  database: <%= ENV['JAE_MYSQL_DBNAME'] %>
+  database: dark1389-mysql-mMevwxgL
   pool: 5
   timeout: 5000
-  host: <%= ENV['JAE_MYSQL_IP'] %>
-  username: <%= ENV['JAE_MYSQL_USERNAME'] %>
-  password: <%= ENV['JAE_MYSQL_PASSWORD'] %>
-  port: <%= ENV['JAE_MYSQL_PORT'] %>
-  encoding: <%= ENV['JAE_MYSQL_ENCODING'] %>
-  <% else %>
-  database: jae-trochilus-production
-  pool: 5
-  timeout: 5000
-  host: 127.0.0.1
-  username: test
-  password: "123456"
-  <% end %>
+  host: 10.0.16.16
+  username: xfVAmPal
+  password: "QeToGu79Q6Mi"
+  port: 4066
+  encoding: utf-8
+  # adapter: mysql2
+  # <% if ENV['JAE_MYSQL_DBNAME'] %>
+  # database: <%= ENV['JAE_MYSQL_DBNAME'] %>
+  # pool: 5
+  # timeout: 5000
+  # host: <%= ENV['JAE_MYSQL_IP'] %>
+  # username: <%= ENV['JAE_MYSQL_USERNAME'] %>
+  # password: <%= ENV['JAE_MYSQL_PASSWORD'] %>
+  # port: <%= ENV['JAE_MYSQL_PORT'] %>
+  # encoding: <%= ENV['JAE_MYSQL_ENCODING'] %>
+  # <% else %>
+  # database: jae-trochilus-production
+  # pool: 5
+  # timeout: 5000
+  # host: 127.0.0.1
+  # username: test
+  # password: "123456"
+  # <% end %>
