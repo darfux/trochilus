@@ -1,3 +1,4 @@
+# encoding: utf-8
 class FalseClass
   def ch
     '否'
