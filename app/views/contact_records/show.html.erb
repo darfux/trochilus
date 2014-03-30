@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Customer:</strong>
+  <%= @contact_record.customer %>
+</p>
+
+<p>
+  <strong>Employee:</strong>
+  <%= @contact_record.employee %>
+</p>
+
+<%= link_to 'Edit', edit_contact_record_path(@contact_record) %> |
+<%= link_to 'Back', contact_records_path %>

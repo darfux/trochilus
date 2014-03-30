@@ -1,0 +1,57 @@
+<%= form_for(@project) do |f| %>
+  <% if @project.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@project.errors.count, "error") %> prohibited this project from being saved:</h2>
+
+      <ul>
+      <% @project.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :名称 %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :序列号 %><br>
+    <%= f.text_field :serialnum %>
+  </div>
+  <div class="field">
+    <%= f.label :创建日期 %><br>
+    <%= f.date_select :create_date, use_month_names: %w{一月 二月 三月 四月 五月 六月 七月 八月 九月 十月 十一月 十二月} %>
+  </div>
+  <div class="field">
+    <%= f.label :创建者 %><br>
+    <%= f.text_field :funder %>
+  </div>
+  <div class="field">
+    <%= f.label :简介 %><br>
+    <%= f.text_area :brief %>
+  </div>
+  <div class="field">
+    <%= f.label :总额 %><br>
+    <%= f.text_field :gross %>
+  </div>
+  <div class="field">
+    <%= f.label :余额 %><br>
+    <%= f.text_field :balance %>
+  </div>
+  <div class="field">
+    <%= f.label :留本 %><br>
+    <%= f.check_box :endowment %>
+  </div>
+  <div class="field">
+    <%= f.label :项目级别 %><br>
+    <%= f.select :project_level_id, options_from_collection_for_select(ProjectLevel.all, "id", "name")%>
+  </div>
+  <div class="field">
+    <%= f.label :项目状态 %><br>
+    <%= f.select :project_level_id, options_from_collection_for_select(ProjectState.all, "id", "name")%>
+  </div>
+  <div class="actions">
+    <%= f.submit :提交 %>
+  </div>
+<% end %>

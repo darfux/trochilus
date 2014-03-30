@@ -1,0 +1,27 @@
+<h1>Listing project_levels</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @project_levels.each do |project_level| %>
+      <tr>
+        <td><%= project_level.name %></td>
+        <td><%= link_to 'Show', project_level %></td>
+        <td><%= link_to 'Edit', edit_project_level_path(project_level) %></td>
+        <td><%= link_to 'Destroy', project_level, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Project level', new_project_level_path %>

@@ -1,0 +1,3 @@
+unless ENV['ADMIN_PASSWORD']
+  ENV['ADMIN_PASSWORD'] = '123456'
+end

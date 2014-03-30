@@ -1,0 +1,23 @@
+<%= link_to 'admin', cms_admin_path %>
+<h1>Cms#index</h1>
+<p>Find me in app/views/cms/index.html.erb</p>
+
+<div class="cms-main">
+  <div class="cms-channel">
+    <h2>通知公告</h2>
+    <% Article.where(channel_id: Channel.find_by(name: '通知公告')).each do |annonce| %>
+    <p>
+      <%= link_to annonce.title, annonce %>
+    </p>
+    <% end %>
+  </div>
+
+  <div class="cms-channel">
+    <h2>新闻</h2>
+    <% Article.where(channel_id: Channel.find_by(name: '新闻')).each do |annonce| %>
+    <p>
+      <%= link_to annonce.title, annonce %>
+    </p>
+    <% end %>
+  </div>
+</div>

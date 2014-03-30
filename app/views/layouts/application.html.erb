@@ -1,14 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>JdRubyRails</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
+  <title>Trochilus</title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => false %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-
-<%= yield %>
+<div id="main-content">
+<%= link_to '客户', customers_path %>
+<%= link_to '项目', projects_path %>
+<%= link_to '专员', employees_path %>
+<%= link_to 'CMS', cms_path %>
+<hr>
+  <%= yield %>
+</div>
 
 </body>
 </html>
