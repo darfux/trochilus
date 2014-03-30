@@ -1,0 +1,28 @@
+<h1>Listing customer_types</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Type Name</th>
+      <th>Table Name</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @customer_types.each do |customer_type| %>
+      <tr>
+        <td><%= customer_type.type_name %></td>
+        <td><%= customer_type.table_name %></td>
+        <td><%= link_to 'Show', customer_type %></td>
+        <td><%= link_to 'Edit', edit_customer_type_path(customer_type) %></td>
+        <td><%= link_to 'Destroy', customer_type, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Customer type', new_customer_type_path %>

@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @article.title %>
+</p>
+
+<p>
+  <strong>Cotent:</strong>
+  <%= @article.cotent %>
+</p>
+
+<p>
+  <strong>Time:</strong>
+  <%= @article.time %>
+</p>
+
+<p>
+  <strong>Counter:</strong>
+  <%= @article.counter %>
+</p>
+
+<p>
+  <strong>Channel:</strong>
+  <%= @article.channel.name %>
+</p>
+<p>
+  <strong>IP:</strong>
+  <%= @ip %>
+</p>
+
+<%= link_to 'Edit', edit_article_path(@article) %> |
+<%= link_to 'Back', articles_path %>

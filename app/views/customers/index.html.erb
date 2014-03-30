@@ -1,0 +1,35 @@
+
+<h1>客户列表</h1>
+<%= link_to '个人客户', individual_customers_path %>
+<%= link_to '企业客户', corporate_customers_path %>
+<%= link_to '组织客户', orgnization_customers_path %>
+<%= link_to '在线客户', online_customers_path %>
+<table>
+  <thead>
+    <tr>
+      <th>姓名</th>
+      <th>客户类型</th>
+      <th>负责人</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @customers.each do |customer| %>
+      <tr>
+        <td><%= customer.name %></td>
+        <td><%= ChTranser.trans customer[:customer_type] %></td>
+        <td><%= customer.employee.name %></td>
+        <td><%= link_to '显示', customer %></td>
+        <td><%= link_to '编辑', edit_customer_path(customer) %></td>
+        <td><%= link_to '删除', customer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%# link_to '新建客户', new_customer_path %>

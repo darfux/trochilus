@@ -1,4 +1,39 @@
 JdRubyRails::Application.routes.draw do
+  resources :contact_records
+
+  resources :employees
+
+  resources :online_customers
+
+  resources :corporate_customers
+
+  resources :orgnization_customers
+
+  resources :individual_customers
+
+  resources :customer_types
+
+  resources :customers
+
+  root :to => 'main#index'
+
+  resources :project_states
+
+  resources :project_levels
+
+  resources :projects
+
+  get "cms/index"
+  get "cms/admin"
+
+  get "cms" => "cms#index", as: "cms"
+  
+  resources :channels
+
+  resources :articles
+
+  
+  # get "main/index"
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

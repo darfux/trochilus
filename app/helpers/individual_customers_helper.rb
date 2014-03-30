@@ -1,0 +1,2 @@
+module IndividualCustomersHelper
+end
