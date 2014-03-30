@@ -34,7 +34,7 @@ production:
   username: xfVAmPal
   password: "QeToGu79Q6Mi"
   port: 4066
-  encoding: utf-8
+  encoding: utf8
   # adapter: mysql2
   # <% if ENV['JAE_MYSQL_DBNAME'] %>
   # database: <%= ENV['JAE_MYSQL_DBNAME'] %>
