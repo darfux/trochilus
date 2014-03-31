@@ -1,4 +1,9 @@
 JdRubyRails::Application.routes.draw do
+  get "admin" => "admin#index", :as => 'admin'
+
+  post "admin/do_migrate", :as => 'migrate'
+  post "admin/rails_r", :as => 'rails_r'
+
   resources :contact_records
 
   resources :employees
