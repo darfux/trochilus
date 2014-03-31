@@ -41,7 +41,7 @@ class IndividualCustomersController < ApplicationController
   # PATCH/PUT /individual_customers/1.json
   def update
     respond_to do |format|
-      if @individual_customer.update(individual_customer_params)
+      if @individual_customer.update_attributes(individual_customer_params)
         format.html { redirect_to @individual_customer, notice: 'Individual customer was successfully updated.' }
         format.json { head :no_content }
       else
