@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 # http://stackoverflow.com/questions/15913950/ruby-hash-with-multiple-keys-pointing-to-the-same-value?answertab=votes#answer-15914313
 class AliasedHash < Hash
   def initialize(*args)
