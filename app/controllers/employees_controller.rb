@@ -1,6 +1,8 @@
 class EmployeesController < ApplicationController
   before_action :set_employee, only: [:show, :edit, :update, :destroy]
 
+  require 'user_param'
+  include UserParam
   # GET /employees
   # GET /employees.json
   def index
@@ -24,15 +26,16 @@ class EmployeesController < ApplicationController
   # POST /employees
   # POST /employees.json
   def create
-    @employee = Employee.new(employee_params)
+    @employee = Employee.new(employee_params)    
+    @employee.user = User.new(user_params)
 
     respond_to do |format|
-      if @employee.save
+      if @employee.save&&@employee.user.save
         format.html { redirect_to @employee, notice: 'Employee was successfully created.' }
         format.json { render action: 'show', status: :created, location: @employee }
       else
         format.html { render action: 'new' }
-        format.json { render json: @employee.errors, status: :unprocessable_entity }
+        format.json { render json: @employee.user.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -71,4 +74,7 @@ class EmployeesController < ApplicationController
     def employee_params
       params.require(:employee).permit(:name)
     end
+    # def user_params
+    #   params.require(:user).permit(:account, :password, :password_confirmation, :user_id)
+    # end
 end

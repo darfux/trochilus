@@ -15,6 +15,23 @@
     <%= f.label :姓名 %><br>
     <%= f.text_field :name %>
   </div>
+
+  <%= fields_for :user, @employee.user do |u_f| %>
+    <div class="field">
+      <%= u_f.label :account %><br />
+      <%= u_f.text_field :account %>
+    </div>
+    <div class="field">
+      <%= u_f.label :password, 'Password:' %><br>
+      <%= u_f.password_field :password %>
+    </div>
+   
+    <div class="field">
+      <%= u_f.label :password_confirmation, 'Confirm:' %><br>
+      <%= u_f.password_field :password_confirmation %>
+    </div>
+  <% end %>
+
   <div class="actions">
     <%= f.submit '提交'%>
   </div>
