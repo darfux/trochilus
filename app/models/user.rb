@@ -9,5 +9,5 @@ class User < ActiveRecord::Base
                                                           # Don't forget to check your patams permit in controller too.
   validates_confirmation_of :password
   validates :account, :presence => true, :uniqueness => true
-  validates :password, :presence => true
+  validates :password, :presence => true, :on => :create
 end

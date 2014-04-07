@@ -44,11 +44,7 @@ class EmployeesController < ApplicationController
   # PATCH/PUT /employees/1.json
   def update
     respond_to do |format|
-      success = @employee.transaction do
-        @employee.user.update_attributes(user_params)
-        @employee.update_attributes(employee_params)
-      end
-      if success
+      if @employee.update(employee_params)
         format.html { redirect_to @employee, notice: 'Employee was successfully updated.' }
         format.json { head :no_content }
       else
