@@ -25,7 +25,7 @@ class IndividualCustomersController < ApplicationController
   # POST /individual_customers.json
   def create
     @individual_customer = IndividualCustomer.new(individual_customer_params)
-    @individual_customer.customer = Customer.new(customer_params)
+    @individual_customer.customer = @individual_customer.build_customer(customer_params)
     respond_to do |format|
       if @individual_customer.save
         format.html { redirect_to @individual_customer, notice: 'Individual customer was successfully created.' }

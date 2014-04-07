@@ -3,11 +3,14 @@ JdRubyRails::Application.routes.draw do
 
 
   get "session/index"
+  post "login" => "session#login"
 
   get "admin" => "admin#index", :as => 'admin'
 
   post "admin/do_migrate", :as => 'migrate'
   post "admin/rails_r", :as => 'rails_r'
+
+  get "employee/manage" => "employees#manage", :as => 'employee_manage'
 
   resources :contact_records
 
@@ -25,7 +28,7 @@ JdRubyRails::Application.routes.draw do
 
   resources :customers
 
-  root :to => 'session#login'
+  root :to => 'session#index'
 
   resources :project_states
 

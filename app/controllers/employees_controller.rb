@@ -27,10 +27,10 @@ class EmployeesController < ApplicationController
   # POST /employees.json
   def create
     @employee = Employee.new(employee_params)    
-    @employee.user = User.new(user_params)
+    @employee.user = @employee.build_user(user_params)
 
     respond_to do |format|
-      if @employee.save&&@employee.user.save
+      if @employee.save
         format.html { redirect_to @employee, notice: 'Employee was successfully created.' }
         format.json { render action: 'show', status: :created, location: @employee }
       else
@@ -64,6 +64,9 @@ class EmployeesController < ApplicationController
     end
   end
 
+  def manage
+  end
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_employee
@@ -74,7 +77,8 @@ class EmployeesController < ApplicationController
     def employee_params
       params.require(:employee).permit(:name)
     end
-    # def user_params
-    #   params.require(:user).permit(:account, :password, :password_confirmation, :user_id)
-    # end
+
+    def user_params
+      params.require(:user).permit(:account, :password, :password_confirmation)
+    end
 end
