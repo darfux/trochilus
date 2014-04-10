@@ -1,8 +1,9 @@
 class EmployeesController < ApplicationController
   before_action :set_employee, only: [:show, :edit, :update, :destroy]
+  before_action :set_employee_by_user, only: [:manage]
+  before_action :set_customers, only: [:manage]
 
-  require 'user_param'
-  include UserParam
+  
   # GET /employees
   # GET /employees.json
   def index
@@ -69,6 +70,17 @@ class EmployeesController < ApplicationController
   end
 
   def manage
+
+  end
+
+  def add_customer
+    case params[:customer_type]
+    when nil
+      render 'customers/new'
+    when "individual"
+      @self_customer = IndividualCustomer.new
+      render new_individual_customer_path
+    end
   end
   
   private
@@ -77,6 +89,12 @@ class EmployeesController < ApplicationController
       @employee = Employee.find(params[:id])
     end
 
+    def set_employee_by_user
+      @employee = Employee.find(User.find(session[:user_id]).user_id)
+    end
+    def set_customers
+      @customers = @employee.customers
+    end
     # Never trust parameters from the scary internet, only allow the white list through.
     def employee_params
       params.require(:employee).permit(:name)

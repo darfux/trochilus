@@ -2,8 +2,8 @@
 
 <p>
   <strong>Customer:</strong>
-  <%= @individual_customer.customer.name %>
+  <%= @self_customer.customer.name %>
 </p>
 
-<%= link_to 'Edit', edit_individual_customer_path(@individual_customer) %> |
-<%= link_to 'Back', individual_customers_path %>
+<%= link_to 'Edit', edit_individual_customer_path(@self_customer) %> |
+<%= link_to 'Back', get_back_path(individual_customers_path) %>

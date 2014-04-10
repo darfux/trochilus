@@ -1,0 +1,26 @@
+<h2>个人管理页面(<%= @employee.name %>)</h2>
+<hr>
+<div>
+  <div id="manage-subjects">
+    <div class="manage-subject">
+      <ul>
+      <li>项目</li>
+      <% Project.all.each do |pro| %>
+        <li><%= link_to pro.name, pro %></li>
+      <% end %>
+      <br>
+      <%= link_to "添加项目", new_project_path %>
+    </ul>
+    </div>
+    <div class="manage-subject">
+        <ul>
+      <li>客户</li>
+      <% @customers.each do |cus| %>
+        <li><%= link_to cus.name, cus %></li>
+      <% end %>
+      <br>
+      <%= link_to "添加客户", employee_add_customer_path %>
+      </ul>
+    </div>
+  </div>
+</div>

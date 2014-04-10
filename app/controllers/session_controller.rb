@@ -4,7 +4,10 @@ class SessionController < ApplicationController
   def index
   end
   def login
-    if User.find_by_account(params[:account]).authenticate(params[:password])
+    user = User.find_by_account(params[:account])
+    if user&&user.authenticate(params[:password])
+      session[:user_id] = user.id
+      session[:user_type] = :employee
       redirect_to employee_manage_path
     else
       redirect_to root_url

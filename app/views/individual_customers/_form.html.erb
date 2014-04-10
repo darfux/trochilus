@@ -1,17 +1,17 @@
-<%= form_for(@individual_customer) do |f| %>
-  <% if @individual_customer.errors.any? %>
+<%= form_for(@self_customer) do |f| %>
+  <% if @self_customer.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@individual_customer.errors.count, "error") %> prohibited this individual_customer from being saved:</h2>
+      <h2><%= pluralize(@self_customer.errors.count, "error") %> prohibited this individual_customer from being saved:</h2>
 
       <ul>
-      <% @individual_customer.errors.full_messages.each do |msg| %>
+      <% @self_customer.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
       </ul>
     </div>
   <% end %>
 
-  <%= fields_for :customer, @individual_customer.customer do |c_f| %>
+  <%= fields_for :customer, @self_customer.customer do |c_f| %>
     <div class="field">
       <%= c_f.label :姓名 %><br>
       <%= c_f.text_field :name %>

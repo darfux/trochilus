@@ -2,6 +2,13 @@ JdRubyRails::Application.routes.draw do
   resources :users
 
 
+
+
+  #==Employee==
+  get "employee/manage" => "employees#manage", :as => 'employee_manage'
+  get "employee/manage/add_customer" => "employees#add_customer", :as => 'employee_add_customer'
+  get "employee/manage/add_customer/individual" => "individual_customers#new", :as => 'employee_add_individual_customer'
+  #============
   get "session/index"
   post "login" => "session#login"
 
@@ -10,7 +17,7 @@ JdRubyRails::Application.routes.draw do
   post "admin/do_migrate", :as => 'migrate'
   post "admin/rails_r", :as => 'rails_r'
 
-  get "employee/manage" => "employees#manage", :as => 'employee_manage'
+  
 
   resources :contact_records
 
