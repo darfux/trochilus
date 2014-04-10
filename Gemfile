@@ -13,6 +13,8 @@ gem 'strong_parameters'
 group :development do
   # Use sqlite3 as the database for Active Record
   gem 'sqlite3'
+  
+  gem 'quiet_assets'
 end
 
 
@@ -31,7 +33,7 @@ end
 gem 'jquery-rails'
 
 # To use ActiveModel has_secure_password
-gem 'bcrypt-ruby', '~> 3.0.1'
+gem 'bcrypt-ruby', '~> 3.0.1', :platforms => :ruby
 
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'
