@@ -1,8 +1,6 @@
 class EmployeesController < ApplicationController
   before_action :set_employee, only: [:show, :edit, :update, :destroy]
-  before_action :set_employee_by_user, only: [:manage]
   before_action :set_customers, only: [:manage]
-
   
   # GET /employees
   # GET /employees.json
@@ -69,8 +67,13 @@ class EmployeesController < ApplicationController
     end
   end
 
+
+#===MANAGE ACTIONS===
   def manage
 
+  end
+
+  def manage
   end
 
   def add_customer
@@ -88,13 +91,11 @@ class EmployeesController < ApplicationController
     def set_employee
       @employee = Employee.find(params[:id])
     end
-
-    def set_employee_by_user
-      @employee = Employee.find(User.find(session[:user_id]).user_id)
-    end
+    
     def set_customers
-      @customers = @employee.customers
+      @customers = @current_user.customers
     end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def employee_params
       params.require(:employee).permit(:name)

@@ -1,10 +1,12 @@
-<h2>个人管理页面(<%= @employee.name %>)</h2>
-<hr>
+<%= content_for :nav_bar_title do %>
+  专员_<%= @current_user.name %>
+<% end %>
+
 <div>
   <div id="manage-subjects">
     <div class="manage-subject">
       <ul>
-      <li>项目</li>
+      <li class="title">项目</li>
       <% Project.all.each do |pro| %>
         <li><%= link_to pro.name, pro %></li>
       <% end %>
@@ -14,7 +16,7 @@
     </div>
     <div class="manage-subject">
         <ul>
-      <li>客户</li>
+      <li class="title">客户</li>
       <% @customers.each do |cus| %>
         <li><%= link_to cus.name, cus %></li>
       <% end %>

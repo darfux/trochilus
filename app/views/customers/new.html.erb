@@ -1,4 +1,10 @@
-<h1>新建客户</h1>
+<%= content_for :nav_bar_title do %>
+  新建客户
+<% end %>
+
+<% content_for :nav_bar_function_area do %>
+  返回
+<% end %>
 
 <%= link_to '个人客户', employee_add_individual_customer_path %>
 <%= link_to '企业客户', new_corporate_customer_path %>

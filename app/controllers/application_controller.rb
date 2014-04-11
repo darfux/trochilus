@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  before_action :set_current_user
   layout :set_layout
   # before_filter :authorize
   protect_from_forgery
@@ -8,11 +9,20 @@ class ApplicationController < ActionController::Base
         redirect_to root_url
       end
     end
-    def user_employee
-      Employee.find(User.find(session[:user_id]).user_id)
+
+    def current_user_id
+      User.find(session[:user_id]).user_id
     end
+
     def set_layout
       return session[:user_type].to_s if session[:user_type]
       "application"
+    end
+
+    def set_current_user
+      case session[:user_type]
+      when :employee
+        @current_user = Employee.find(current_user_id)
+      end
     end
 end

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Trochilus</title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application" %>
+  <%= javascript_include_tag "employee" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<div id="employee-nav-bar">
+  <div id="employee-nav-bar-title">
+    <span><%= yield :nav_bar_title %></span>
+  </div>
+  <div class="link">
+    <div class="elm"><%= link_to "首页", employee_manage_path %></div>
+    <div class="elm"><%= link_to "项目", employee_manage_project_path %></div>
+    <div class="elm"><%= link_to "资金", employee_manage_path %></div>
+    <div class="elm"><%= link_to "客户", employee_manage_path %></div>
+  </div>
+  <div id="employee-nav-bar-function-area"><div><%= yield :nav_bar_function_area %></div></div>
+</div>
+
+<div id="main-content">
+<%#= link_to 'CMS', cms_path %>
+  <%= yield %>
+</div>
+
+</body>
+</html>
