@@ -7,7 +7,9 @@
 // }
 
 body{
-  margin:0;padding:0;
+  margin:0;
+  padding:0;
+  overflow-y:scroll;
 }
 
 p, ol, ul, td {
@@ -71,3 +73,16 @@ div {
     list-style: square;
   }
 }
+
+
+//========================
+.common-form, .model-show{
+  width: 500px;
+  margin: 0 auto;
+  text-align: left;
+  $boder : 1px solid gray;
+  padding: 20px;
+  border: $boder;
+  // border-right: $boder;
+}
+

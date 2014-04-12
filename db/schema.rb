@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140409052801) do
+ActiveRecord::Schema.define(:version => 20140412051214) do
 
   create_table "articles", :force => true do |t|
     t.string   "title"
@@ -97,6 +97,12 @@ ActiveRecord::Schema.define(:version => 20140409052801) do
     t.datetime "updated_at"
   end
 
+  create_table "project_types", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "projects", :force => true do |t|
     t.string   "name"
     t.string   "serialnum"
@@ -110,6 +116,7 @@ ActiveRecord::Schema.define(:version => 20140409052801) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "employee_id"
+    t.string   "project_type"
   end
 
   add_index "projects", ["project_level_id"], :name => "index_projects_on_project_level_id"

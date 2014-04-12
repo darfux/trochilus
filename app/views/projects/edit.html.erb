@@ -1,6 +1,18 @@
-<h1>Editing project</h1>
+<%= content_for :nav_bar_title do %>
+    编辑项目
+<% end %>
+
+<%= content_for :nav_bar_function_area do %>
+  <% if @current_user.user.user_type.downcase == :employee.to_s %>
+    <%= link_to '返回', project_path(@project.id) %>
+  <% end %>
+<% end %>
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @project %> |
-<%= link_to 'Back', projects_path %>
+<% if @current_user.nil? %>
+  <%= link_to 'Show', @project %> |
+  <%= link_to 'Back', projects_path %>
+<% end %>
+
+

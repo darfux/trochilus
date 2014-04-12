@@ -1,4 +1,7 @@
 JdRubyRails::Application.routes.draw do
+  resources :project_types
+
+
   resources :users
 
 

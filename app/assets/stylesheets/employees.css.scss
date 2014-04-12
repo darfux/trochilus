@@ -25,7 +25,7 @@ $nav_bar_height : 30px;
 }
 
 #employee-nav-bar-title{
-	position: fixed;
+	position: absolute;
 	margin-top: 3px;
 	font-size: 1.2em;
 	font-weight: 900;
@@ -55,21 +55,22 @@ $elm_padding_top: 4px;
 
 #employee-nav-bar-function-area{
 	box-sizing: border-box;
-	position: fixed;
+	position: absolute;
 	top: 0px;
 	left: 50%;
-	width: 180px;
+	// width: 180px;
 	height: $nav_bar_height;
-	margin-left: -90px;
+	padding: 0 15px;
+	// margin-left: -90px;
 	text-align:center;
 	background-color: lighten($heliotrope, 40%);
   &:hover {
-  	cursor: pointer;
-  	$border-style : 1px solid white;
-  	border-left: $border-style;
-  	border-right: $border-style;
-    color: #fff;
-    background-color: lighten($heliotrope, 20%);
+  	// cursor: pointer;
+  	// $border-style : 1px solid white;
+  	// border-left: $border-style;
+  	// border-right: $border-style;
+   //  color: #fff;
+   //  background-color: lighten($heliotrope, 20%);
   }
 }
 
@@ -115,3 +116,23 @@ $elm_padding_top: 4px;
 .manage-subject + .manage-subject{
 	border-left: 1px solid gray;
 }
+
+
+//====MANAGE====
+.employee-data-table{
+	border-collapse:collapse;  
+	border-spacing:0; 
+	width: 80%;
+}
+
+.employee-data-table th{
+	height: 32px;
+	background-color: #7C124F;
+	color: white;
+}
+
+.employee-data-table th,td{
+	 border: 1px solid black;
+	 padding: 0px;
+}
+

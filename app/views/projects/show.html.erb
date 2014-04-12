@@ -1,54 +1,66 @@
+<%= content_for :nav_bar_function_area do %>
+  <% if @current_user.user.user_type.downcase == :employee.to_s %>
+    <%= link_to '编辑', edit_project_path(@project) %> |
+    <%= link_to '返回', employee_manage_project_path %>
+  <% end %>
+<% end %>
+
 <p id="notice"><%= notice %></p>
+<div class="model-show">
+  <p>
+    <strong>名称:</strong>
+    <%= @project.name %>
+  </p>
 
-<p>
-  <strong>名称:</strong>
-  <%= @project.name %>
-</p>
+  <p>
+    <strong>序列号:</strong>
+    <%= @project.serialnum %>
+  </p>
 
-<p>
-  <strong>序列号:</strong>
-  <%= @project.serialnum %>
-</p>
+  <p>
+    <strong>创建日期:</strong>
+    <%= @project.create_date %>
+  </p>
 
-<p>
-  <strong>创建日期:</strong>
-  <%= @project.create_date %>
-</p>
+  <p>
+    <strong>创建者:</strong>
+    <%= @project.employee.name %>
+  </p>
 
-<p>
-  <strong>创建者:</strong>
-  <%= @project.employee.name %>
-</p>
+  <p>
+    <strong>简介:</strong>
+    <%= @project.brief %>
+  </p>
 
-<p>
-  <strong>简介:</strong>
-  <%= @project.brief %>
-</p>
+  <p>
+    <strong>总额:</strong>
+    <%= @project.gross %>
+  </p>
 
-<p>
-  <strong>总额:</strong>
-  <%= @project.gross %>
-</p>
+  <p>
+    <strong>余额:</strong>
+    <%= @project.balance %>
+  </p>
 
-<p>
-  <strong>余额:</strong>
-  <%= @project.balance %>
-</p>
+  <p>
+    <strong>留本:</strong>
+    <%= @project.endowment.ch %>
+  </p>
 
-<p>
-  <strong>留本:</strong>
-  <%= @project.endowment.ch %>
-</p>
+  <p>
+    <strong>级别:</strong>
+    <%= @project.project_level %>
+  </p>
 
-<p>
-  <strong>级别:</strong>
-  <%= @project.project_level %>
-</p>
+  <p>
+    <strong>状态:</strong>
+    <%= @project.project_state %>
+  </p>
+</div>
 
-<p>
-  <strong>状态:</strong>
-  <%= @project.project_state %>
-</p>
 
-<%= link_to '编辑', edit_project_path(@project) %> |
-<%= link_to '返回', projects_path %>
+
+<% if @current_user.nil? %>
+  <%= link_to '编辑', edit_project_path(@project) %> |
+  <%= link_to '返回', projects_path %>
+<% end %>

@@ -1,6 +1,7 @@
 module ApplicationHelper
   require 'ch_transer'
   require 'path_table'
+  require 'patch'
   def get_brief_text(text, num=6)
     if text[0..num].ascii_only?
       text[0..num*2] << '...'
