@@ -5,58 +5,185 @@
   <% end %>
 <% end %>
 
-<p id="notice"><%= notice %></p>
-<div class="model-show">
-  <p>
-    <strong>名称:</strong>
-    <%= @project.name %>
-  </p>
+<%= content_for :nav_bar_title do %>
+    项目信息
+<% end %>
 
-  <p>
-    <strong>序列号:</strong>
-    <%= @project.serialnum %>
-  </p>
-
-  <p>
-    <strong>创建日期:</strong>
-    <%= @project.create_date %>
-  </p>
-
-  <p>
-    <strong>创建者:</strong>
-    <%= @project.employee.name %>
-  </p>
-
-  <p>
-    <strong>简介:</strong>
-    <%= @project.brief %>
-  </p>
-
-  <p>
-    <strong>总额:</strong>
-    <%= @project.gross %>
-  </p>
-
-  <p>
-    <strong>余额:</strong>
-    <%= @project.balance %>
-  </p>
-
-  <p>
-    <strong>留本:</strong>
-    <%= @project.endowment.ch %>
-  </p>
-
-  <p>
-    <strong>级别:</strong>
-    <%= @project.project_level %>
-  </p>
-
-  <p>
-    <strong>状态:</strong>
-    <%= @project.project_state %>
-  </p>
+<!-- <div id="project-info-header"></div> -->
+<div id="project-info">
+  <div class="info-block">
+    <p>
+      <div><strong>名称：</strong> <span><%= @project.name %></span></div>
+      <div><strong>编号：</strong> <span><%= @project.serialnum %></span></div>
+      <div><strong>基金类型：</strong> <span><%= @project.project_type.name %></span></div>
+    </p>
+    <p>
+      <div><strong>基金级别：</strong> <span><%= @project.project_level.name %></span></div>
+      <div><strong>是否留本：</strong> <span><%= @project.endowment.ch %></span></div>
+    </p>
+    <p>
+      <div><strong>创建日期：</strong> <span><%= @project.create_date %></span></div>
+    </p>
+  </div>
+  <hr>
+  <div class="info-block">
+    <p>
+      <div><strong>创建单位：</strong> <span>数学研究所</span></div>
+    </p>
+    <p>
+      <div><strong>电话：</strong> <span>0991-2280233</span></div>
+      <div><strong>邮箱：</strong> <span>cheungmm@gmail.com</span></div>
+      <div><strong>传真：</strong> <span>0991-2280233-1</span></div>
+      <div><strong>邮编：</strong> <span>300071</span></div>
+    </p>
+  </div>
+  <hr>
+  <div class="info-block">
+    <p>
+      <div><strong>概要：</strong> <span><%= @project.brief %></span></div>
+    </p>
+  </div>
 </div>
+
+  <table class="employee-data-table">
+    <tbody>
+      <tr>
+        <th>序号 </th>
+        <th>编号</th>
+        <th>捐赠人</th>
+        <th>目标捐资</th>
+        <th>币种备注</th>
+        <th>用途</th>
+        <th>分发类型</th>
+        <th>日期</th>
+        <th>其他</th>
+        <th>计划到账</th>
+        <th>实际到账</th>
+      </tr>
+
+      <tr>
+        <td>01</td>
+        <td>20120204000101</td>
+        <td>张某某</td>
+        <td>40，000</td>
+        <td>20，000港币</td>
+        <td>奖学金</td>
+        <td>一次付清</td>
+        <td>2013-1-1</td>
+        <td>详情 修改 删除</td>
+        <td>40，000</td>
+        <td>40，000</td>
+      </tr>
+
+      <tr> 
+        <td>02</td>
+        <td>20120204000102</td>
+        <td><a href="donor_02.html">王某某</a></td>
+        <td>100，000</td>
+        <td>30，000港币</td>
+        <td>奖学金</td>
+        <td>分次付清</td>
+        <td>2013-1-2</td>
+        <td><a href="donor_02_1.html">详情</a> 修改 删除</td>
+        <td>100，000</td>
+        <td>60，000</td>
+      </tr>
+      
+      <tr>
+        <td>03</td>
+        <td>20120204000103</td>
+        <td>杨某某</td>
+        <td>150，000</td>
+        <td>—</td>
+        <td>奖学金</td>
+        <td>一次付清</td>
+        <td>2013-3-1</td>
+        <td>详情 修改 删除</td>
+        <td>150，000</td>
+        <td>150，000</td>
+      </tr>
+      
+      <tr>
+        <td>04</td>
+        <td>20120204000104</td>
+        <td>白某某</td>
+        <td>200，000</td>
+        <td>—</td>
+        <td>奖学金</td>
+        <td>分次付清</td>
+        <td>2013-4-1</td>
+        <td>详情 修改 删除</td>
+        <td>200，000</td>
+        <td>150，000</td>
+      </tr>
+    </tbody>
+  </table>
+  <div colspan="11">捐赠记录    计划到账：490，000      已到账总额：400，000</div>
+
+  <p></p>
+
+  <table class="employee-data-table">
+    <tbody>
+      <tr>
+        <th>序号 </th>
+        <th>日期</th>
+        <th>经办人</th>
+        <th>使用金额</th>
+        <th>用途</th>
+        <th>文件</th>
+        <th>其他</th>
+      </tr>
+
+      <tr>
+        <td>01</td>
+        <td>2013-1-1</td>
+        <td><a href="donor_01.html">张某某</a></td>
+        <td>10，000</td>
+        <td>用于奖励学生科研</td>
+        <td>
+          <input name="Confirm3" type="submit" value="查看">
+        </td>
+        <td> 修改 删除</td>
+      </tr>
+
+      <tr>
+        <td>02</td>
+        <td>2013-1-2</td>
+        <td><a href="donor_02.html">王某某</a></td>
+        <td>50，000</td>
+        <td>用于奖励学生科研</td>
+        <td>
+          <input name="Confirm4" type="submit" value="查看">
+        </td>
+        <td>修改 删除</td>
+      </tr>
+
+      <tr>
+        <td>03</td>
+        <td>2013-3-1</td>
+        <td>杨某某</td>
+        <td>50，000</td>
+        <td>用于奖励学生科研</td>
+        <td>
+          <input name="Confirm5" type="submit" value="查看">
+        </td>
+        <td> 修改 删除</td>
+      </tr>
+      
+      <tr> 
+        <td>04</td>
+        <td>2013-4-1</td>
+        <td>白某某</td>
+        <td>100，000</td>
+        <td>用于奖励学生科研</td>
+        <td>
+          <input name="Confirm6" type="submit" value="查看">
+        </td>
+        <td> 修改 删除</td>
+      </tr>
+    </tbody>
+  </table>
+  <div>使用记录总支出：210，000  项目现余额：190，000</div>
 
 
 

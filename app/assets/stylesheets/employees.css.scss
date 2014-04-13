@@ -136,3 +136,31 @@ $elm_padding_top: 4px;
 	 padding: 0px;
 }
 
+//====PROJECT-SHOW(tmp)====
+#project-info hr{
+	width: 80%;
+}
+
+#project-info-header{
+	text-align: center;
+	height: 24px;
+	background-color: #45726B;
+}
+
+#project-info .info-block{
+	position: relative;
+	left: 50%;
+	$width: 600px;
+	width: $width;
+	margin-left: -$width/2;
+	text-align: left;
+}
+
+#project-info .info-block div{
+	display: inline;
+	margin-right: 15px;
+}
+
+#project-info div span{
+	color: green;
+}

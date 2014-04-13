@@ -25,7 +25,9 @@ class ProjectsController < ApplicationController
   # POST /projects.json
   def create
     @project = Project.new(project_params)
-
+    if session[:user_type] == :employee
+      @project.employee = @current_user
+    end
     respond_to do |format|
       if @project.save
         format.html { redirect_to @project, notice: '项目创建成功' }
