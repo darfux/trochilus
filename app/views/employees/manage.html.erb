@@ -16,7 +16,7 @@
     <div class="manage-subject">
         <ul>
       <li class="title">客户</li>
-      <% @customers.each do |cus| %>
+      <% @current_user.customers.each do |cus| %>
         <li><%= link_to cus.name, cus %></li>
       <% end %>
       <br>

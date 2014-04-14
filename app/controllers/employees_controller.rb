@@ -1,6 +1,6 @@
 class EmployeesController < ApplicationController
   before_action :set_employee, only: [:show, :edit, :update, :destroy]
-  before_action :set_customers, only: [:manage]
+  # before_action :set_customers, only: [:manage, :manage_customer]
   
   # GET /employees
   # GET /employees.json
@@ -70,12 +70,16 @@ class EmployeesController < ApplicationController
 
 #===MANAGE ACTIONS===
   def manage
-
   end
 
-  def manage
+  def manage_project
+  end 
+
+  def manage_customer
   end
 
+  def manage_fund
+  end
   def add_customer
     case params[:customer_type]
     when nil
@@ -85,16 +89,16 @@ class EmployeesController < ApplicationController
       render new_individual_customer_path
     end
   end
-  
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_employee
       @employee = Employee.find(params[:id])
     end
     
-    def set_customers
-      @customers = @current_user.customers
-    end
+    # def set_customers
+    #   @customers = @current_user.customers
+    # end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def employee_params
@@ -104,4 +108,6 @@ class EmployeesController < ApplicationController
     def user_params
       params.require(:user).permit(:account, :password, :password_confirmation)
     end
+
+
 end

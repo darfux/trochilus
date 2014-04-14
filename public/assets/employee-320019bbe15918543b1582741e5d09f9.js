@@ -1,0 +1,1 @@
+(function(){$(document).ready(function(){var e,t;return e=$("#employee-nav-bar-function-area"),t=$("#employee-nav-bar-function-area div"),""===t.html()?e.hide():e.css("margin-left",-e.outerWidth()/2)})}).call(this);

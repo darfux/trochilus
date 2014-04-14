@@ -60,7 +60,7 @@ class CommonCustomersController < ApplicationController
   def destroy
     @self_customer.destroy
     respond_to do |format|
-      format.html { redirect_to self_customers_url }
+      format.html { redirect_to self.send("#{}") }
       format.json { head :no_content }
     end
   end
