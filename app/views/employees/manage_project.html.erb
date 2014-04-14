@@ -1,0 +1,49 @@
+<%= content_for :nav_bar_title do %>
+    项目管理
+<% end %>
+
+<%= content_for :nav_bar_function_area do %>
+  <%= link_to '新项目', new_project_path %>   
+<% end %>
+
+<p></p>
+<table class="employee-data-table">
+  <tbody>
+    <tr>
+      <div>
+        <%= form_tag("", :class => "form") do %>
+          <%= select_tag :project_type_id, options_from_collection_for_select(ProjectType.all, "id", "name")%>
+          <%= select_tag :project_level_id, options_from_collection_for_select(ProjectLevel.all, "id", "name")%>
+          <%= submit_tag "筛选", :id => "submit", :name => "submit", :class => "form_submit", :disabled => false, :disable_with => "Please wait..." %>
+        <% end -%>
+      </div>
+    </tr>
+    <tr>
+      <th>序号</th>
+      <th>编号</th>
+      <th>名称</th>
+      <th>类型</th>
+      <th>级别</th>
+      <th>创建单位</th>
+      <th>是否留本</th>
+      <th>总额</th>
+      <th>余额</th>
+      <!-- <td>其他</td> -->
+    </tr>
+    <% counter=0 %>
+    <% @current_user.project.each do |p| %>
+    <tr>
+      <td><%= (counter+=1).to_s.rjust(2, '0') %></td>
+      <td><%= p.serialnum %></td>
+      <td><%= link_to p.name, p %></td>
+      <td><%= p.project_type.name %></td>
+      <td><%= p.project_level.name %></td>
+      <td>南开大学</td>
+      <td><%= p.endowment.ch %></td>
+      <td><%= p.gross %></td>
+      <td><%= p.balance %></td>
+      <!-- <td><%= link_to "详情", p %> 修改 删除</td> -->
+    </tr>
+    <% end %>
+  </tbody>
+</table>

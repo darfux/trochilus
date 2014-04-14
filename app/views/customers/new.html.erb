@@ -1,5 +1,12 @@
-<h1>New customer</h1>
+<%= content_for :nav_bar_title do %>
+  新建客户
+<% end %>
 
-<%= render 'form' %>
+<% content_for :nav_bar_function_area do %>
+  返回
+<% end %>
 
-<%= link_to 'Back', customers_path %>
+<%= link_to '个人客户', employee_add_individual_customer_path %>
+<%= link_to '企业客户', new_corporate_customer_path %>
+<%= link_to '组织客户', new_orgnization_customer_path %>
+<%= link_to '在线客户', new_online_customer_path %>

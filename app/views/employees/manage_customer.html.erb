@@ -1,0 +1,32 @@
+<%= content_for :nav_bar_title do %>
+    客户管理
+<% end %>
+<table class="employee-data-table">
+  <tbody>
+    <tr>
+      <th>序号</th>
+      <th>编号</th>
+      <th>姓名</th>
+      <th>校友</th>
+      <th>国籍</th>
+      <th>联系电话</th>
+      <th>总捐赠额</th>
+      <th>评级</th>
+      <!-- <td>其他</td> -->
+    </tr>
+    <% counter=0 %>
+    <% @current_user.customers.each do |c| %>
+    <tr>
+      <td><%= (counter+=1).to_s.rjust(2, '0') %></td>
+      <td>X1234</td>
+      <td><%= link_to c.name, c.customer %></td>
+      <td>是</td>
+      <td>中国大陆</td>
+      <td>18222993222</td>
+      <td>60，000</td>
+      <td>5*</td>
+      <!-- <td><%= link_to "详情", p %> 修改 删除</td> -->
+    </tr>
+    <% end %>
+  </tbody>
+</table>

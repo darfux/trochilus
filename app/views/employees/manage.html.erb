@@ -1,0 +1,27 @@
+<%= content_for :nav_bar_title do %>
+<% end %>
+
+<div>
+  <div id="manage-subjects">
+    <div class="manage-subject">
+      <ul>
+      <li class="title">项目</li>
+      <% Project.all.each do |pro| %>
+        <li><%= link_to pro.name, pro %></li>
+      <% end %>
+      <br>
+      <%= link_to "添加项目", new_project_path %>
+    </ul>
+    </div>
+    <div class="manage-subject">
+        <ul>
+      <li class="title">客户</li>
+      <% @current_user.customers.each do |cus| %>
+        <li><%= link_to cus.name, cus %></li>
+      <% end %>
+      <br>
+      <%= link_to "添加客户", employee_add_customer_path %>
+      </ul>
+    </div>
+  </div>
+</div>

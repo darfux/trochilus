@@ -1,9 +1,11 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Name:</strong>
-  <%= @employee.name %>
+  <strong>姓名:</strong>
+<%= @employee.name %><br>
+  <strong>账号:</strong>
+  <%= @employee.user.account %>
 </p>
 
-<%= link_to 'Edit', edit_employee_path(@employee) %> |
-<%= link_to 'Back', employees_path %>
+<%= link_to '编辑', edit_employee_path(@employee) %> |
+<%= link_to '返回', employees_path %>

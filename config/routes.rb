@@ -1,13 +1,33 @@
-JdRubyRails::Application.routes.draw do
+Trochilus::Application.routes.draw do
+  root :to => 'session#index'
+
+  resources :project_types
+
+
   resources :users
 
 
+
+
+  #==Employee==
+  get "employee/manage" => "employees#manage", :as => 'employee_manage'
+  get "employee/manage/projects" => "employees#manage_project", :as => 'employee_manage_project'
+  get "employee/manage/customers" => "employees#manage_customer", :as => 'employee_manage_customer'
+  get "employee/manage/fund" => "employees#manage_fund", :as => 'employee_manage_fund'
+
+  get "employee/manage/add_customer" => "employees#add_customer", :as => 'employee_add_customer'
+  get "employee/manage/add_customer/individual" => "individual_customers#new", :as => 'employee_add_individual_customer'
+  #============
   get "session/index"
+  post "login" => "session#login"
 
   get "admin" => "admin#index", :as => 'admin'
 
   post "admin/do_migrate", :as => 'migrate'
   post "admin/rails_r", :as => 'rails_r'
+
+
+  resources :individual_customers
 
   resources :contact_records
 
@@ -19,13 +39,11 @@ JdRubyRails::Application.routes.draw do
 
   resources :orgnization_customers
 
-  resources :individual_customers
 
   resources :customer_types
 
   resources :customers
 
-  root :to => 'session#login'
 
   resources :project_states
 

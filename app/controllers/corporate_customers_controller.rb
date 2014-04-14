@@ -1,4 +1,4 @@
-class CorporateCustomersController < ApplicationController
+class CorporateCustomersController < CommonCustomersController
   before_action :set_corporate_customer, only: [:show, :edit, :update, :destroy]
 
   # GET /corporate_customers

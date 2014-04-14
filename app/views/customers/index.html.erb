@@ -21,7 +21,7 @@
       <tr>
         <td><%= customer.name %></td>
         <td><%= ChTranser.trans customer[:customer_type] %></td>
-        <td><%= customer.employee.name %></td>
+        <td><%= customer.employee.nil? ? "" : customer.employee.name%></td>
         <td><%= link_to '显示', customer %></td>
         <td><%= link_to '编辑', edit_customer_path(customer) %></td>
         <td><%= link_to '删除', customer, method: :delete, data: { confirm: 'Are you sure?' } %></td>

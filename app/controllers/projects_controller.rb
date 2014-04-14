@@ -25,10 +25,12 @@ class ProjectsController < ApplicationController
   # POST /projects.json
   def create
     @project = Project.new(project_params)
-
+    if session[:user_type] == :employee
+      @project.employee = @current_user
+    end
     respond_to do |format|
       if @project.save
-        format.html { redirect_to @project, notice: 'Project was successfully created.' }
+        format.html { redirect_to @project, notice: '项目创建成功' }
         format.json { render action: 'show', status: :created, location: @project }
       else
         format.html { render action: 'new' }
@@ -41,8 +43,8 @@ class ProjectsController < ApplicationController
   # PATCH/PUT /projects/1.json
   def update
     respond_to do |format|
-      if @project.update(project_params)
-        format.html { redirect_to @project, notice: 'Project was successfully updated.' }
+      if @project.update_attributes(project_params)
+        format.html { redirect_to @project, notice: '项目更新成功' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -69,6 +71,7 @@ class ProjectsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
-      params.require(:project).permit(:name, :serialnum, :create_date, :funder, :brief, :gross, :balance, :endowment, :project_level_id, :project_state_id)
+      params.require(:project).permit(:name, :serialnum, :create_date, :funder, :brief, :employee_id,
+        :gross, :balance, :endowment, :project_level_id, :project_state_id, :project_type_id)
     end
 end

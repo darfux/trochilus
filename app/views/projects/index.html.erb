@@ -2,6 +2,7 @@
 <%= link_to '新项目', new_project_path %> | 
 <%= link_to '级别管理', project_levels_path %>
 <%= link_to '状态管理', project_states_path %>
+<%= link_to '类型管理', project_types_path %>
 
 <table>
   <thead>
@@ -28,7 +29,7 @@
         <td><%= project.name %></td>
         <td><%= project.serialnum %></td>
         <td><%= project.create_date %></td>
-        <td><%= project.funder %></td>
+        <td><%= project.employee.name %></td>
         <td><%= get_brief_text project.brief, 24 %></td>
         <td><%= project.gross %></td>
         <td><%= project.balance %></td>

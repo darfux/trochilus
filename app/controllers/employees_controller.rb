@@ -1,8 +1,7 @@
 class EmployeesController < ApplicationController
   before_action :set_employee, only: [:show, :edit, :update, :destroy]
-
-  require 'user_param'
-  include UserParam
+  # before_action :set_customers, only: [:manage, :manage_customer]
+  
   # GET /employees
   # GET /employees.json
   def index
@@ -27,10 +26,10 @@ class EmployeesController < ApplicationController
   # POST /employees.json
   def create
     @employee = Employee.new(employee_params)    
-    @employee.user = User.new(user_params)
+    @employee.user = @employee.build_user(user_params)
 
     respond_to do |format|
-      if @employee.save&&@employee.user.save
+      if @employee.save
         format.html { redirect_to @employee, notice: 'Employee was successfully created.' }
         format.json { render action: 'show', status: :created, location: @employee }
       else
@@ -44,7 +43,11 @@ class EmployeesController < ApplicationController
   # PATCH/PUT /employees/1.json
   def update
     respond_to do |format|
-      if @employee.update(employee_params)
+      success = @employee.transaction do
+        @employee.user.update_attributes(user_params)
+        @employee.update_attributes(employee_params)
+      end
+      if success
         format.html { redirect_to @employee, notice: 'Employee was successfully updated.' }
         format.json { head :no_content }
       else
@@ -64,17 +67,47 @@ class EmployeesController < ApplicationController
     end
   end
 
+
+#===MANAGE ACTIONS===
+  def manage
+  end
+
+  def manage_project
+  end 
+
+  def manage_customer
+  end
+
+  def manage_fund
+  end
+  def add_customer
+    case params[:customer_type]
+    when nil
+      render 'customers/new'
+    when "individual"
+      @self_customer = IndividualCustomer.new
+      render new_individual_customer_path
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_employee
       @employee = Employee.find(params[:id])
     end
+    
+    # def set_customers
+    #   @customers = @current_user.customers
+    # end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def employee_params
       params.require(:employee).permit(:name)
     end
-    # def user_params
-    #   params.require(:user).permit(:account, :password, :password_confirmation, :user_id)
-    # end
+
+    def user_params
+      params.require(:user).permit(:account, :password, :password_confirmation)
+    end
+
+
 end

@@ -1,4 +1,6 @@
 class AdminController < ApplicationController
+  skip_before_filter :authorize
+
   TIMEOUT = 5
   POLL_INTERVAL = 0.1
   def index
