@@ -1,3 +1,7 @@
 <%= render 'individual_customers/form' %>
 
-<%= link_to '返回', get_back_path(get_self_path) %>
+<%= content_for :nav_bar_function_area do %>
+  <% if session[:user_type] == :employee %>
+    <%= link_to '返回', get_back_path(get_self_path) %>
+  <% end %>
+<% end %>

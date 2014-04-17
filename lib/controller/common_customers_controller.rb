@@ -87,6 +87,6 @@ class CommonCustomersController < ApplicationController
     end
 
     def customer_params
-      params.require(:customer).permit(:name).tap{ |p| p[:employee_id] = user_employee.id }
+      params.require(:customer).permit(:name).tap{ |p| p[:employee_id] = @current_user.id }
     end
 end

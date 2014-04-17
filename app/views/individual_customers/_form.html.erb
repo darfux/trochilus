@@ -1,3 +1,4 @@
+<div class="common-form">
 <%= form_for(@self_customer) do |f| %>
   <% if @self_customer.errors.any? %>
     <div id="error_explanation">
@@ -23,6 +24,7 @@
   <% end %>
 
   <div class="actions">
-    <%= f.submit '创建'%>
+    <%= f.submit '提交'%>
   </div>
 <% end %>
+</div>

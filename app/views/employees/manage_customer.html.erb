@@ -1,6 +1,9 @@
 <%= content_for :nav_bar_title do %>
     客户管理
 <% end %>
+<%= content_for :nav_bar_function_area do %>
+  <%= link_to '新客户', new_customer_path %>
+<% end %>
 <table class="employee-data-table">
   <tbody>
     <tr>
