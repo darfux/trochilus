@@ -12,7 +12,7 @@
     </div>
   <% end %>
 
-  <%= fields_for :customer, @self_customer.customer do |c_f| %>
+  <%= f.fields_for :customer do |c_f| %>
     <div class="field">
       <%= c_f.label :姓名 %><br>
       <%= c_f.text_field :name %>

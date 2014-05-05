@@ -27,8 +27,8 @@ class CommonCustomersController < ApplicationController
   # POST /self_customers
   # POST /self_customers.json
   def create
-    @self_customer = @SelfActiveRecord.new(self_customer_params)
-    @self_customer.customer = @self_customer.build_customer(customer_params)
+    @self_customer = @SelfActiveRecord.new(self_params) #using :child:_attributes for nested
+    # @self_customer.customer = @self_customer.build_customer(customer_params)
 
     respond_to do |format|
       if @self_customer.save
@@ -44,11 +44,17 @@ class CommonCustomersController < ApplicationController
   # PATCH/PUT /self_customers/1
   # PATCH/PUT /self_customers/1.json
   def update
+    # @self_customer.customer = @self_customer.update_attributes_customer(customer_params)
     respond_to do |format|
-      if @self_customer.update_attributes(self_customer_params)
+      # success = @self_customer.transaction do
+      #   @self_customer.customer.update_attributes(customer_params)
+      #   @self_customer.update_attributes(self_customer_params)
+      # end
+      if @self_customer.update_attributes(self_params)
         format.html { redirect_to @self_customer, notice: 'Individual customer was successfully updated.' }
         format.json { head :no_content }
       else
+        raise 'wrong update'
         format.html { render action: 'edit' }
         format.json { render json: @self_customer.errors, status: :unprocessable_entity }
       end
@@ -79,14 +85,8 @@ class CommonCustomersController < ApplicationController
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def self_customer_params
-      parm_name = @SelfActiveRecord.to_s.tableize.to_sym
-      if params[parm_name]
-        params.require(parm_name).permit()
-      end
-    end
-
-    def customer_params
-      params.require(:customer).permit(:name).tap{ |p| p[:employee_id] = @current_user.id }
+    def self_params
+      params.require(@SelfActiveRecord.to_s.underscore.to_sym).
+        permit(customer_attributes:[:name]).tap{ |p| p[:customer_attributes][:employee_id] = @current_user.id }
     end
 end
