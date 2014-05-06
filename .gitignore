@@ -16,5 +16,5 @@
 /log/*.log
 /tmp
 
-/design
-/front
+/design/*.bak
+/design/*~

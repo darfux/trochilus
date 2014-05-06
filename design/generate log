@@ -1,0 +1,35 @@
+rails g scaffold Article title:string cotent:text time:datetime counter:integer channel_id:references
+
+rails g model ArticleTag tag_id:references article:references
+
+rails g model Tag name:string
+
+rails g scaffold Channel name:string
+
+rails g controller Cms index admin
+
+rails g scaffold Project name:string serialnum:string create_date:date employee:references brief:text gross:decimal balance:decimal endowment:boolean project_level:references project_state:references project_type:references
+
+rails g scaffold ProjectLevel name:string
+
+rails g scaffold ProjectState name:string
+
+rails g scaffold Customer name:string customer_id:integer customer_type:string employee:references
+
+rails g scaffold CustomerType name:string
+
+rails g scaffold IndividualCustomer
+
+rails g scaffold OrgnizationCustomer
+
+rails g scaffold CorporateCustomer
+
+rails g scaffold OnlineCustomer
+
+rails g scaffold Employee name:string
+
+rails g scaffold ContactRecord customer:references employee:references 
+
+rails g scaffold User account:string password_digest:string user_id:integer user_type:string
+
+rails g scaffold ProjectType name:string
