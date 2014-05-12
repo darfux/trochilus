@@ -1,0 +1,11 @@
+<%= content_for :nav_bar_title do %>
+    新建捐赠记录
+<% end %>
+
+<%= render 'form' %>
+
+<%= content_for :nav_bar_function_area do %>
+  <% if session[:user_type] == :employee %>
+    <%= link_to '返回', project_path(params[:project]) %>
+  <% end %>
+<% end %>

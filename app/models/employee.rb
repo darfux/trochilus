@@ -1,6 +1,7 @@
 class Employee < ActiveRecord::Base
   #see http://guides.rubyonrails.org/association_basics.html#options-for-has-one-validate
   has_many :customers
+  has_many :donation_records
   has_one :user, as: :user, dependent: :destroy, validate: true
   has_many :project
 

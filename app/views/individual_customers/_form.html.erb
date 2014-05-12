@@ -13,14 +13,7 @@
   <% end %>
 
   <%= f.fields_for :customer do |c_f| %>
-    <div class="field">
-      <%= c_f.label :姓名 %><br>
-      <%= c_f.text_field :name %>
-    </div>
-    <div class="field">
-      <%= c_f.label :专员 %><br>
-      <%= c_f.select :employee_id, options_from_collection_for_select(Employee.all, :id, :name_with_id) %>
-    </div>
+    <%= render 'customers/form', :f => c_f %>
   <% end %>
 
   <div class="actions">

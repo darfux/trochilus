@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Customer project:</b>
+  <%= @donation_record.customer_project_id %>
+</p>
+
+<p>
+  <b>Employee:</b>
+  <%= @donation_record.employee_id %>
+</p>
+
+<p>
+  <b>Fund:</b>
+  <%= @donation_record.fund_id %>
+</p>
+
+<p>
+  <b>Donation type:</b>
+  <%= @donation_record.donation_type_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_donation_record_path(@donation_record) %> |
+<%= link_to 'Back', donation_records_path %>

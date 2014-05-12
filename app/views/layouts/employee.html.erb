@@ -14,12 +14,25 @@
     <span><%= yield :nav_bar_title %></span>
   </div>
   <div class="link">
-    <div class="elm"><%= link_to "首页", employee_manage_path %></div>
-    <div class="elm"><%= link_to "项目", employee_manage_project_path %></div>
-    <div class="elm"><%= link_to "客户", employee_manage_customer_path %></div>
-    <div class="elm"><%= link_to "资金", employee_manage_fund_path %></div>
+    <%= link_to employee_manage_path do %>
+      <div class="elm">首页</div>
+    <% end %>    
+    <%= link_to employee_manage_project_path do %>
+      <div class="elm">项目</div>
+    <% end %>    
+    <%= link_to employee_manage_customer_path do %>
+      <div class="elm">客户</div>
+    <% end %>    
+    <%= link_to employee_manage_fund_path do %>
+      <div class="elm">资金</div>
+    <% end %>
   </div>
   <div id="employee-nav-bar-function-area"><div><%= yield :nav_bar_function_area %></div></div>
+  <div class="right">
+    <%= link_to logout_path do %>
+      <div class="elm">注销</div>
+    <% end %>
+  </div>
 </div>
 
 <div id="main-content">

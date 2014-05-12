@@ -1,0 +1,2 @@
+module DonationRecordsHelper
+end

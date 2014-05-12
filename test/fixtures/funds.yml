@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  amount: 9.99
+  time: 2014-05-06 19:48:50
+  fund_type: 
+  comment: MyText
+
+two:
+  amount: 9.99
+  time: 2014-05-06 19:48:50
+  fund_type: 
+  comment: MyText

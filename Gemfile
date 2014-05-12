@@ -46,3 +46,6 @@ gem 'bcrypt-ruby', '~> 3.0.1'
 
 # To use debugger
 # gem 'debugger'
+
+#Automatically initialize associations
+gem "auto_build"

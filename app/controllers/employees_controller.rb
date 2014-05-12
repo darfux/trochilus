@@ -80,6 +80,7 @@ class EmployeesController < ApplicationController
 
   def manage_fund
   end
+  
   def add_customer
     case params[:customer_type]
     when nil

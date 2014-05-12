@@ -1,5 +1,35 @@
+#====patch====
+module ActionDispatch
+  module Routing
+    class Mapper
+      module Resources
+        def gen_get(path, controller, action)
+          get path => "#{controller}\##{action}", :as => "#{controller.singularize}_#{action}"
+        end
+      end
+    end
+  end
+end
+#========
 Trochilus::Application.routes.draw do
+
   root :to => 'session#index'
+
+  resources :donation_records
+
+
+  resources :customer_projects
+
+
+  resources :donation_types
+
+
+  resources :funds
+
+
+  resources :fund_types
+
+
 
   resources :project_types
 
@@ -10,16 +40,20 @@ Trochilus::Application.routes.draw do
 
 
   #==Employee==
-  get "employee/manage" => "employees#manage", :as => 'employee_manage'
-  get "employee/manage/projects" => "employees#manage_project", :as => 'employee_manage_project'
-  get "employee/manage/customers" => "employees#manage_customer", :as => 'employee_manage_customer'
-  get "employee/manage/fund" => "employees#manage_fund", :as => 'employee_manage_fund'
+  scope 'employee/manage/' do
+    gen_get "projects", "employees", "manage_project"
+    gen_get "", "employees", "manage"
+    get "customers" => "employees#manage_customer", :as => 'employee_manage_customer'
+    get "fund" => "employees#manage_fund", :as => 'employee_manage_fund'
 
-  get "employee/manage/add_customer" => "employees#add_customer", :as => 'employee_add_customer'
-  get "employee/manage/add_customer/individual" => "individual_customers#new", :as => 'employee_add_individual_customer'
+    get "add_customer" => "employees#add_customer", :as => 'employee_add_customer'
+    get "add_customer/individual" => "individual_customers#new", :as => 'employee_add_individual_customer'
+  end
+
   #============
   get "session/index"
   post "login" => "session#login"
+  get "logout" => "session#logout", as: 'logout'
 
   get "admin" => "admin#index", :as => 'admin'
 

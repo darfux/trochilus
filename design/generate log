@@ -33,3 +33,14 @@ rails g scaffold ContactRecord customer:references employee:references
 rails g scaffold User account:string password_digest:string user_id:integer user_type:string
 
 rails g scaffold ProjectType name:string
+
+#2014-05-06 19:33:56
+rails g scaffold FundType name:string
+
+rails g scaffold Fund amount:decimal time:datetime fund_type:references comment:text
+
+rails g scaffold DonationType name:string
+
+rails g scaffold CustomerProject customer_id:integer project_id:integer
+
+rails g scaffold DonationRecord customer_project_id:integer employee_id:integer fund_id:integer donation_type_id:integer

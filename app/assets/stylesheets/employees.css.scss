@@ -44,8 +44,14 @@ $nav_bar_height : 30px;
 	height: $nav_bar_height;
 }
 
+#employee-nav-bar .right{
+	position: absolute;
+	right: 10px;
+	height: $nav_bar_height;
+}
+
 $elm_padding_top: 4px;
-#employee-nav-bar .link .elm{
+#employee-nav-bar .elm{
 	padding: $elm_padding_top 5px 0px 5px;
 	height: $nav_bar_height - $elm_padding_top;
 	&:hover {
@@ -163,4 +169,9 @@ $elm_padding_top: 4px;
 
 #project-info div span{
 	color: green;
+}
+
+//====FUND LIST====
+#fund-list{
+	color: black;
 }

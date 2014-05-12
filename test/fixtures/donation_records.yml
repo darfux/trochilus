@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  customer_project_id: 1
+  employee_id: 1
+  fund_id: 1
+  donation_type_id: 1
+
+two:
+  customer_project_id: 1
+  employee_id: 1
+  fund_id: 1
+  donation_type_id: 1
