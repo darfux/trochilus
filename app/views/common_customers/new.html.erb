@@ -1,4 +1,4 @@
-<%= render 'individual_customers/form' %>
+<%= render "#{@SelfType.to_s.pluralize}/form" %>
 
 <%= content_for :nav_bar_function_area do %>
   <% if session[:user_type] == :employee %>

@@ -1,3 +1,4 @@
 class OrgnizationCustomer < ActiveRecord::Base
-  has_one :customer, as: :customer
+  include CommonCustomer
+  acts_as_common_customer
 end

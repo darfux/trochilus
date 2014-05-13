@@ -43,4 +43,4 @@ rails g scaffold DonationType name:string
 
 rails g scaffold CustomerProject customer_id:integer project_id:integer
 
-rails g scaffold DonationRecord customer_project_id:integer employee_id:integer fund_id:integer donation_type_id:integer
+rails g scaffold DonationRecord customer_id:integer project_id:integer employee_id:integer fund_id:integer donation_type_id:integer

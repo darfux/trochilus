@@ -1,9 +1,15 @@
 class CommonCustomersController < ApplicationController
   before_action :set_self_active_record, except: [:employee_add_customer]
+  before_action :set_self_type, except: [:employee_add_customer]
   before_action :set_self_customer, only: [:show, :edit, :update, :destroy]
   before_action :set_back_path
+  before_action :set_customer_labels
   # GET /self_customers
   # GET /self_customers.json
+  @@Customer_labels = {
+    name:     :姓名,
+    employee: :专员
+  }
   def index
     @self_customers = @SelfActiveRecord.all
   end
@@ -80,8 +86,16 @@ class CommonCustomersController < ApplicationController
       @SelfActiveRecord = Object.const_get(self.class.to_s.gsub("Controller","").singularize)
     end
 
+    def set_self_type
+      @SelfType = @SelfActiveRecord.to_s.underscore.to_sym
+    end
+
     def set_self_customer
       @self_customer = @SelfActiveRecord.find(params[:id])
+    end
+
+    def set_customer_labels
+      @customer_labels = @@Customer_labels
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

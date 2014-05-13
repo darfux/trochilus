@@ -1,3 +1,4 @@
 class CorporateCustomer < ActiveRecord::Base
-  has_one :customers, as: :customer, dependent: :destroy, validate: true
+  include CommonCustomer
+  acts_as_common_customer
 end
