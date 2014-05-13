@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140506143308) do
+ActiveRecord::Schema.define(:version => 20140513114312) do
 
   create_table "articles", :force => true do |t|
     t.string   "title"
@@ -72,12 +72,13 @@ ActiveRecord::Schema.define(:version => 20140506143308) do
   add_index "customers", ["employee_id"], :name => "index_customers_on_employee_id"
 
   create_table "donation_records", :force => true do |t|
-    t.integer  "customer_project_id"
     t.integer  "employee_id"
     t.integer  "fund_id"
     t.integer  "donation_type_id"
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+    t.integer  "customer_id"
+    t.integer  "project_id"
   end
 
   create_table "donation_types", :force => true do |t|
