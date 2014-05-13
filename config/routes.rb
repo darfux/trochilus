@@ -4,7 +4,7 @@ module ActionDispatch
     class Mapper
       module Resources
         def gen_get(path, controller, action)
-          get path => "#{controller}\##{action}", :as => "#{controller.singularize}_#{action}"
+          get path => "#{controller}\##{action}", :as => "#{controller.to_s.singularize}_#{action}"
         end
       end
     end
@@ -41,12 +41,14 @@ Trochilus::Application.routes.draw do
 
   #==Employee==
   scope 'employee/manage/' do
-    gen_get "projects", "employees", "manage_project"
-    gen_get "", "employees", "manage"
-    get "customers" => "employees#manage_customer", :as => 'employee_manage_customer'
-    get "fund" => "employees#manage_fund", :as => 'employee_manage_fund'
+    gen_get "projects", :employees, "manage_project"
+    gen_get "", :employees, "manage"
+    gen_get "customers", :employees, "manage_customer"
+    gen_get "fund", :employees, "manage_fund"
 
-    get "add_customer" => "employees#add_customer", :as => 'employee_add_customer'
+    gen_get "add_customer", :employees, "add_customer"
+    gen_get "customers", :employees, "manage_customer"
+
     get "add_customer/individual" => "individual_customers#new", :as => 'employee_add_individual_customer'
   end
 

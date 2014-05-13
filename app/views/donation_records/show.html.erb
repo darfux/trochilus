@@ -1,8 +1,13 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Customer project:</b>
-  <%= @donation_record.customer_project_id %>
+  <b>Customer:</b>
+  <%= @donation_record.customer.name %>
+</p>
+
+<p>
+  <b>Project:</b>
+  <%= @donation_record.project.name %>
 </p>
 
 <p>

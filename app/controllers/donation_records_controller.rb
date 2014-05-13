@@ -25,7 +25,7 @@ class DonationRecordsController < ApplicationController
   # GET /donation_records/new.json
   def new
     @donation_record = DonationRecord.new
-    @donation_record.customer_project.project_id = params[:project]
+    @donation_record.project_id = params[:project]
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @donation_record }
@@ -41,6 +41,7 @@ class DonationRecordsController < ApplicationController
   # POST /donation_records.json
   def create
     @donation_record = DonationRecord.new(donation_record_params)
+    @donation_record.donation_type = DonationType.first
     respond_to do |format|
       if @donation_record.save
         format.html { redirect_to @donation_record, notice: 'Donation record was successfully created.' }
@@ -87,10 +88,9 @@ class DonationRecordsController < ApplicationController
     # Also, you can specialize this method with per-user checking of permissible attributes.
     def donation_record_params
       params.require(:donation_record)
-        .permit(  fund_attributes: [:amount, :time],
-                  customer_attributes: [:id], 
-                  donation_type: [:id],
-                  customer_project_attributes: [:customer_id, :project_id]
+        .permit(  :customer_id, :project_id,
+                  fund_attributes: [:amount, :time],
+                  customer_attributes: [:id],
                   )
         .tap{ |p| 
           p[:employee_id] = @current_user.id

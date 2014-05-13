@@ -61,19 +61,21 @@
         <th>实际到账</th>
       </tr>
 
+    <% @project.donation_records.each do |r| %>
       <tr>
-        <td>01</td>
-        <td>20120204000101</td>
-        <td>张某某</td>
-        <td>40，000</td>
-        <td>20，000港币</td>
-        <td>奖学金</td>
-        <td>一次付清</td>
-        <td>2013-1-1</td>
+        <td>nil</td>
+        <td>nil</td>
+        <td><%= r.customer.name %></td>
+        <td><%= r.fund.amount %></td>
+        <td>nil</td>
+        <td>nil</td>
+        <td>nil</td>
+        <td><%= r.fund.time %></td>
         <td>详情 修改 删除</td>
-        <td>40，000</td>
-        <td>40，000</td>
+        <td>nil</td>
+        <td>nil</td>
       </tr>
+    <% end %>
 
     </tbody>
   </table>

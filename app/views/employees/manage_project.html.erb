@@ -11,11 +11,11 @@
   <tbody>
     <tr>
       <div>
-        <%= form_tag("", :class => "form") do %>
+        <!--<% form_tag("", :class => "form") do %>
           <%= select_tag :project_type_id, options_from_collection_for_select(ProjectType.all, "id", "name")%>
           <%= select_tag :project_level_id, options_from_collection_for_select(ProjectLevel.all, "id", "name")%>
           <%= submit_tag "筛选", :id => "submit", :name => "submit", :class => "form_submit", :disabled => false, :disable_with => "Please wait..." %>
-        <% end -%>
+        <% end -%> -->
       </div>
     </tr>
     <tr>
