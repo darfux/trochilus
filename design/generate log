@@ -37,10 +37,15 @@ rails g scaffold ProjectType name:string
 #2014-05-06 19:33:56
 rails g scaffold FundType name:string
 
-rails g scaffold Fund amount:decimal time:datetime fund_type:references comment:text
+rails g scaffold Fund amount:decimal time:datetime fund_type_id:integer comment:text currency_id:integer origin_amount:decimal
 
 rails g scaffold DonationType name:string
 
-rails g scaffold CustomerProject customer_id:integer project_id:integer
+rails g model CustomerProject customer_id:integer project_id:integer
 
 rails g scaffold DonationRecord customer_id:integer project_id:integer employee_id:integer fund_id:integer donation_type_id:integer
+
+#2014-05-14 19:36:06
+rails g model DonationRecordActualFund donation_record_id:integer fund_id:integer
+
+rails g model Currency name:string symbol:string

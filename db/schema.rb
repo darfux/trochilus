@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140513114312) do
+ActiveRecord::Schema.define(:version => 20140514115039) do
 
   create_table "articles", :force => true do |t|
     t.string   "title"
@@ -46,6 +46,13 @@ ActiveRecord::Schema.define(:version => 20140513114312) do
     t.datetime "updated_at"
   end
 
+  create_table "currencies", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.string   "symbol"
+  end
+
   create_table "customer_projects", :force => true do |t|
     t.integer  "customer_id"
     t.integer  "project_id"
@@ -71,9 +78,16 @@ ActiveRecord::Schema.define(:version => 20140513114312) do
 
   add_index "customers", ["employee_id"], :name => "index_customers_on_employee_id"
 
+  create_table "donation_record_actual_funds", :force => true do |t|
+    t.integer  "donation_record_id"
+    t.integer  "fund_id"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+  end
+
   create_table "donation_records", :force => true do |t|
     t.integer  "employee_id"
-    t.integer  "fund_id"
+    t.integer  "plan_fund_id"
     t.integer  "donation_type_id"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
@@ -104,8 +118,10 @@ ActiveRecord::Schema.define(:version => 20140513114312) do
     t.datetime "time"
     t.integer  "fund_type_id"
     t.text     "comment"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.integer  "currency_id"
+    t.decimal  "origin_amount"
   end
 
   add_index "funds", ["fund_type_id"], :name => "index_funds_on_fund_type_id"

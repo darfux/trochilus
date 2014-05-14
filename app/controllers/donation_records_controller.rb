@@ -42,10 +42,11 @@ class DonationRecordsController < ApplicationController
   def create
     @donation_record = DonationRecord.new(donation_record_params)
     @donation_record.donation_type = DonationType.first
+    
     respond_to do |format|
       if @donation_record.save
-        format.html { redirect_to @donation_record, notice: 'Donation record was successfully created.' }
-        format.json { render json: @donation_record, status: :created, location: @donation_record }
+        format.html { redirect_to project_path(@donation_record.project_id), notice: 'Donation record was successfully created.' }
+        # format.json { render json: @donation_record, status: :created, location: @donation_record }
       else
         format.html { render action: "new" }
         format.json { render json: @donation_record.errors, status: :unprocessable_entity }
@@ -89,7 +90,7 @@ class DonationRecordsController < ApplicationController
     def donation_record_params
       params.require(:donation_record)
         .permit(  :customer_id, :project_id,
-                  fund_attributes: [:amount, :time],
+                  plan_fund_attributes: [:amount, :time],
                   customer_attributes: [:id],
                   )
         .tap{ |p| 

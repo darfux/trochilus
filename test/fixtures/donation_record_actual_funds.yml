@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  donation_record_id: 1
+  fund_id: 1
+
+two:
+  donation_record_id: 1
+  fund_id: 1
