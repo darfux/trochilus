@@ -1,0 +1,34 @@
+<%= form_for(@actual_fund) do |f| %>
+  <% if @actual_fund.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@actual_fund.errors.count, "error") %> prohibited this fund from being saved:</h2>
+
+      <ul>
+      <% @actual_fund.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :amount %><br />
+    <%= f.text_field :amount %>
+  </div>
+  <div class="field">
+    <%= f.label :time %><br />
+    <%= f.datetime_select :time %>
+  </div>
+  <div class="field">
+    <%= f.label :fund_type %><br />
+    <%= f.text_field :fund_type %>
+  </div>
+  <div class="field">
+    <%= f.label :comment %><br />
+    <%= f.text_area :comment %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+  
+<% end %>

@@ -13,9 +13,21 @@ end
 #========
 Trochilus::Application.routes.draw do
 
+  get "actual_funds/show"
+
+  get "actual_funds/new"
+
+  get "actual_funds/create"
+
+  get "actual_funds/update"
+
+  get "actual_funds/destroy"
+
   root :to => 'session#index'
 
-  resources :donation_records
+  resources :donation_records do
+    resources :actual_funds
+  end
 
 
   resources :customer_projects

@@ -49,3 +49,5 @@ rails g scaffold DonationRecord customer_id:integer project_id:integer employee_
 rails g model DonationRecordActualFund donation_record_id:integer fund_id:integer
 
 rails g model Currency name:string symbol:string
+
+rails g model 
