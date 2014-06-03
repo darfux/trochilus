@@ -42,7 +42,7 @@
     <p>
       <div><strong>联系人：</strong> 
         <% @project.link_men.each do |lm| %>
-          <span><%= link_to lm.name, lm %></span>
+          <span><%= link_to lm.name, project_link_man_path(@project.id, lm.id) %></span>
         <% end %>
         <%= link_to '添加', new_project_link_man_path(@project.id) %>
       </div>

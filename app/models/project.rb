@@ -7,4 +7,7 @@ class Project < ActiveRecord::Base
   has_many :project_link_men
   has_many :link_men, class_name: :Customer, through: :project_link_men, source: :customer
   has_many :donation_records
+
+  validates_associated :link_men
+  validates_associated :project_link_men
 end

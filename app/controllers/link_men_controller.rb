@@ -1,4 +1,6 @@
 class LinkMenController < ApplicationController
+  before_action :set_project
+  before_action :set_link_man, only: [:show, :destroy]
   def show
   end
 
@@ -7,10 +9,24 @@ class LinkMenController < ApplicationController
   end
 
   def create
-    render 'new'
+    # raise params.inspect
+    params[:customer].each do |c_id|
+      customer = IndividualCustomer.find(c_id).customer
+      begin
+        @project.link_men<<customer
+      rescue
+        next
+      end
+    end
+    redirect_to @project
   end
 
   def edit
+  end
+
+  def destroy
+    @project.link_men.delete(@link_man.customer)
+    redirect_to @project
   end
 
   def search
@@ -21,11 +37,18 @@ class LinkMenController < ApplicationController
       @customers = IndividualCustomer.all
     else
       @customers = Customer.where(
-        "name LIKE ? AND customer_type = ?", "%#{search_name}%", IndividualCustomer.to_s).reject{ |c| c.customer }
+        "name LIKE ? AND customer_type = ?", "%#{search_name}%", IndividualCustomer.to_s).collect{ |c| c.customer }
     end
     respond_to do |format|
       format.js
     end
   end
 
+  private
+    def set_project
+      @project = Project.find(params[:project_id])
+    end
+    def set_link_man
+      @link_man  = IndividualCustomer.find(params[:id])
+    end
 end

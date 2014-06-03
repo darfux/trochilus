@@ -7,11 +7,12 @@
 <% end -%>
 
 <div class = "employee-common-list">
-<%= form_tag(new_project_link_man_path(params[:project_id])) do -%>
+<%= form_tag(project_link_men_path(params[:project_id])) do -%>
 <dt>
   <div class = "employee-common-list-cell">
   <%= render 'link_men_list' %>
   </div>
 </dt>
 <div>
+<div><%= submit_tag '提交' %></div>
 <% end %>

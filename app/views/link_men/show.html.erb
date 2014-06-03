@@ -1,2 +1,7 @@
-<h1>LinkMen#show</h1>
-<p>Find me in app/views/link_men/show.html.erb</p>
+<%= content_for :nav_bar_function_area do %>
+  <% if @current_user.user.user_type.downcase == :employee.to_s %>
+    <%= link_to '删除', '', method: :delete %> |
+    <%= link_to '返回', @project %>
+  <% end %>
+<% end %>
+<%= @link_man.name! %>
