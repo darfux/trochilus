@@ -21,7 +21,7 @@ class LinkMenController < ApplicationController
       @customers = IndividualCustomer.all
     else
       @customers = Customer.where(
-        "name LIKE ? AND customer_type = ?", "%#{search_name}%", IndividualCustomer.to_s)
+        "name LIKE ? AND customer_type = ?", "%#{search_name}%", IndividualCustomer.to_s).reject{ |c| c.customer }
     end
     respond_to do |format|
       format.js

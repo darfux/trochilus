@@ -7,11 +7,11 @@ module CommonCustomer
 			accepts_nested_attributes_for :customer, update_only: true	
 			after_initialize :set_default_customer
 			Customer.column_names.each do |name|
-		  	unless self.method_defined?(name)
-		      define_method(name) do
+		  	# unless self.method_defined?(name)
+		      define_method(name+'!') do
 		      	self.customer.send(name)
 		      end
-		    end
+		    # end
 		  end
 		end
 	end

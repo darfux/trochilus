@@ -1,5 +1,6 @@
-  <% @customers.each do |customer| %>
+  <% @customers.each do |i_customer| %>
   <dl>
-    <%= link_to customer.name, customer %>
+    <%= check_box_tag 'accept', i_customer.id%>
+    <%= link_to i_customer.name!, i_customer %>
   </dl>
   <% end %>
