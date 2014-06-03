@@ -1,4 +1,5 @@
-<%= form_for(@actual_fund) do |f| %>
+<% @actual_fund = @fund %>
+<%= form_for(@actual_fund, url: donation_record_actual_funds_path) do |f| %>
   <% if @actual_fund.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@actual_fund.errors.count, "error") %> prohibited this fund from being saved:</h2>
@@ -19,10 +20,12 @@
     <%= f.label :time %><br />
     <%= f.datetime_select :time %>
   </div>
-  <div class="field">
+
+  <%= hidden_field_tag :donation_record_id, @donation_record_actual.id %>
+<!--   <div class="field">
     <%= f.label :fund_type %><br />
     <%= f.text_field :fund_type %>
-  </div>
+  </div> -->
   <div class="field">
     <%= f.label :comment %><br />
     <%= f.text_area :comment %>

@@ -49,3 +49,5 @@ gem 'bcrypt-ruby', '~> 3.0.1'
 
 #Automatically initialize associations
 gem "auto_build"
+
+gem 'pry'

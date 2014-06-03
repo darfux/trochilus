@@ -13,15 +13,21 @@ end
 #========
 Trochilus::Application.routes.draw do
 
-  get "actual_funds/show"
+  get "link_men/show"
 
-  get "actual_funds/new"
+  get "link_men/new"
 
-  get "actual_funds/create"
+  get "link_men/edit"
 
-  get "actual_funds/update"
+  # get "actual_funds/show"
 
-  get "actual_funds/destroy"
+  # get "actual_funds/new"
+
+  # get "actual_funds/create"
+
+  # get "actual_funds/update"
+
+  # get "actual_funds/destroy"
 
   root :to => 'session#index'
 
@@ -62,6 +68,11 @@ Trochilus::Application.routes.draw do
     gen_get "customers", :employees, "manage_customer"
 
     get "add_customer/individual" => "individual_customers#new", :as => 'employee_add_individual_customer'
+
+  end
+
+  resources :projects do
+    resources :link_men
   end
 
   #============

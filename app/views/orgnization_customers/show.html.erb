@@ -1,9 +1,38 @@
-<p id="notice"><%= notice %></p>
+<%= content_for :nav_bar_function_area do %>
+  <% if @current_user.user.user_type.downcase == :employee.to_s %>
+    <%= link_to '编辑', edit_orgnization_customer_path(@self_customer) %> |
+    <%= link_to '返回', employee_manage_customer_path %>
+  <% end %>
+<% end %>
 
-<p>
-  <strong>Customer:</strong>
-  <%= @orgnization_customer.customer %>
-</p>
+<%= content_for :nav_bar_title do %>
+    客户信息
+<% end %>
 
-<%= link_to 'Edit', edit_orgnization_customer_path(@orgnization_customer) %> |
-<%= link_to 'Back', orgnization_customers_path %>
+<!-- <div id="project-info-header"></div> -->
+<div id="project-info">
+  <div class="info-block">
+    <p>
+      <div><strong>组织名：</strong> <span><%= @self_customer.customer.name %></span></div>
+    </p>
+    <p>
+      <div><strong>电话：</strong> <span><%= "空" %></span></div>
+      <div><strong>邮箱：</strong> <span><%= "空" %></span></div>
+      <div><strong>传真：</strong> <span><%= "空" %></span></div>
+      <div><strong>邮编：</strong> <span><%= "空" %></span></div>
+    </p>
+    <p>
+      <div><strong>联系人：</strong> <span><%= "空" %></span></div>
+      <div><strong>电话：</strong> <span><%= "空" %></span></div>
+      <div><strong>邮箱：</strong> <span><%= "空" %></span></div>
+      <div><strong>传真：</strong> <span><%= "空" %></span></div>
+      <div><strong>邮编：</strong> <span><%= "空" %></span></div>
+    </p>
+  </div>
+  <hr>
+  <div class="info-block">
+    <p>
+      <div><strong>来往记录：</strong> <span><%= "空" %></span></div>
+    </p>
+  </div>
+</div>

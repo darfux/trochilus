@@ -1,0 +1,4 @@
+class ProjectLinkMan < ActiveRecord::Base
+  belongs_to :customer
+  belongs_to :project
+end

@@ -1,3 +1,21 @@
 <h1>DonationRecord</h1>
 <!-- id is necessary! -->
+
+  <table>
+  <thead>
+    <tr>
+      <th>金额</th>
+      <th>时间</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @donation_record.actual_funds.each do |actual_fund| %>
+      <tr>
+        <td><%= actual_fund.amount %></td>
+        <td><%= actual_fund.time %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 <%= link_to "add actual fund", new_donation_record_actual_fund_path(@donation_record.id) %>

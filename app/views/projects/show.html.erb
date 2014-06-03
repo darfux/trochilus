@@ -40,6 +40,16 @@
   <hr>
   <div class="info-block">
     <p>
+      <div><strong>联系人：</strong> 
+        <% @project.linkmen.each do |lm| %>
+          <span><%= link_to lm.name, lm %></span>
+        <% end %>
+      </div>
+    </p>
+  </div>
+  <hr>
+  <div class="info-block">
+    <p>
       <div><strong>概要：</strong> <span><%= @project.brief %></span></div>
     </p>
   </div>
@@ -74,7 +84,7 @@
 
     </tbody>
   </table>
-  <div colspan="11">    计划到账：490，000      已到账总额：400，000</div>
+  <div colspan="11">计划到账： <%= get_all_plan @project %> 已到账总额：<%= get_all_actual @project %></div>
 
   <p></p>
 

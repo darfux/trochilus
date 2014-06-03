@@ -1,6 +1,6 @@
 <div class="common-form">
 
-<%= form_for(@donation_record) do |f| %>
+<%= form_for(@donation_record, project: @donation_record.project_id) do |f| %>
   <% if @donation_record.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@donation_record.errors.count, "error") %> prohibited this donation_record from being saved:</h2>
