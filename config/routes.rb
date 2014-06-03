@@ -5,7 +5,7 @@ module ActionDispatch
       module Resources
         def gen_get(path, controller, action)
           get path => "#{controller}\##{action}", :as => "#{controller.to_s.singularize}_#{action}"
-        end
+        end        
       end
     end
   end
@@ -13,21 +13,21 @@ end
 #========
 Trochilus::Application.routes.draw do
 
-  get "link_men/show"
+  get 'link_men/show'
 
-  get "link_men/new"
+  get 'link_men/new'
 
-  get "link_men/edit"
+  get 'link_men/edit'
 
-  # get "actual_funds/show"
+  # get 'actual_funds/show'
 
-  # get "actual_funds/new"
+  # get 'actual_funds/new'
 
-  # get "actual_funds/create"
+  # get 'actual_funds/create'
 
-  # get "actual_funds/update"
+  # get 'actual_funds/update'
 
-  # get "actual_funds/destroy"
+  # get 'actual_funds/destroy'
 
   root :to => 'session#index'
 
@@ -59,31 +59,31 @@ Trochilus::Application.routes.draw do
 
   #==Employee==
   scope 'employee/manage/' do
-    gen_get "projects", :employees, "manage_project"
-    gen_get "", :employees, "manage"
-    gen_get "customers", :employees, "manage_customer"
-    gen_get "fund", :employees, "manage_fund"
+    gen_get 'projects', :employees, 'manage_project'
+    gen_get '', :employees, 'manage'
+    gen_get 'customers', :employees, 'manage_customer'
+    gen_get 'fund', :employees, 'manage_fund'
 
-    gen_get "add_customer", :employees, "add_customer"
-    gen_get "customers", :employees, "manage_customer"
+    gen_get 'add_customer', :employees, 'add_customer'
+    gen_get 'customers', :employees, 'manage_customer'
 
-    get "add_customer/individual" => "individual_customers#new", :as => 'employee_add_individual_customer'
+    get 'add_customer/individual' => 'individual_customers#new', as: 'employee_add_individual_customer'
 
   end
 
   resources :projects do
     resources :link_men
   end
-
+  post 'link_men/search' => 'link_men#search', as: 'link_man_search'
   #============
-  get "session/index"
-  post "login" => "session#login"
-  get "logout" => "session#logout", as: 'logout'
+  get 'session/index'
+  post 'login' => 'session#login'
+  get 'logout' => 'session#logout', as: 'logout'
 
-  get "admin" => "admin#index", :as => 'admin'
+  get 'admin' => 'admin#index', :as => 'admin'
 
-  post "admin/do_migrate", :as => 'migrate'
-  post "admin/rails_r", :as => 'rails_r'
+  post 'admin/do_migrate', :as => 'migrate'
+  post 'admin/rails_r', :as => 'rails_r'
 
 
   resources :individual_customers
@@ -110,10 +110,10 @@ Trochilus::Application.routes.draw do
 
   resources :projects
 
-  get "cms/index"
-  get "cms/admin"
+  get 'cms/index'
+  get 'cms/admin'
 
-  get "cms" => "cms#index", as: "cms"
+  get 'cms' => 'cms#index', as: 'cms'
   
   resources :channels
 

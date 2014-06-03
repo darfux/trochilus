@@ -1,2 +1,17 @@
 <h1>LinkMen#new</h1>
 <p>Find me in app/views/link_men/new.html.erb</p>
+
+
+<%= form_tag(link_man_search_path, remote: true) do -%>
+<div><%= text_field_tag :search %><%= submit_tag '检索' %></div>
+<% end -%>
+
+<div class = "employee-common-list">
+<%= form_tag(new_project_link_man_path(params[:project_id])) do -%>
+<dt>
+  <div class = "employee-common-list-cell">
+  <%= render 'link_men_list' %>
+  </div>
+</dt>
+<div>
+<% end %>

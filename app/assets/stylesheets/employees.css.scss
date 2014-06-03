@@ -141,7 +141,13 @@ $elm_padding_top: 4px;
 	 border: 1px solid black;
 	 padding: 0px;
 }
-
+//====COMMON LIST====
+.employee-common-list{
+	width: 200px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: left;
+}
 //====PROJECT-SHOW(tmp)====
 #project-info hr{
 	width: 80%;
