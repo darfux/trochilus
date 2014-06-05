@@ -85,6 +85,8 @@ $elm_padding_top: 4px;
 	height: $nav_bar_height - $elm_padding_top;
 }
 
+
+//====MANAGE-MAIN-PAGE====
 #manage-subjects{
 	margin-left: 15%;
 }
@@ -124,6 +126,40 @@ $elm_padding_top: 4px;
 }
 
 
+#manage-grid-up, #manage-grid-down{
+	height: 330px;
+	// background-color: gray;
+}
+
+.manage-grid-left, .manage-grid-right{
+	text-align: left;
+	margin: 0;
+	vertical-align: top;
+	display: inline-block;
+	width: 40%;
+	height: 100%;
+	// background-color: gray;
+}
+// .manage-grid-content{
+// 	width: 40%;
+// 	height: 100%;
+// 	background-color: yellow;
+// }
+.manage-grid-vertical-hr{
+	display: inline-block;
+	width: 0;
+	height: 100%;
+	border-left: solid 1px black;
+}
+.manage-grid-hr{
+	margin: 0;
+}
+// .manage-grid-left{
+// 	margin-right: 25px;
+// }
+// .manage-grid-right{
+// 	margin-left: 25px;
+// }
 //====MANAGE====
 .employee-data-table{
 	border-collapse:collapse;  
