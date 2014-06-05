@@ -1,0 +1,3 @@
+class ActualFund < Fund
+
+end

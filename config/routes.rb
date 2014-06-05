@@ -34,6 +34,7 @@ Trochilus::Application.routes.draw do
   resources :donation_records do
     resources :actual_funds
   end
+  resources :actual_funds
 
 
   resources :customer_projects
@@ -74,6 +75,7 @@ Trochilus::Application.routes.draw do
   resources :projects do
     resources :link_men
   end
+  
   post 'link_men/search' => 'link_men#search', as: 'link_man_search'
   #============
   get 'session/index'

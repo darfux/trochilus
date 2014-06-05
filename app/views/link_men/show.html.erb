@@ -4,4 +4,10 @@
     <%= link_to '返回', @project %>
   <% end %>
 <% end %>
-<%= @link_man.name! %>
+
+<%= content_for :nav_bar_title do %>
+    联系人信息
+<% end %>
+<%#= @link_man.name! %>
+<% @self_customer = @link_man %>
+<%= render 'individual_customers/info' %>
