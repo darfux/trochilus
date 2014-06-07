@@ -31,7 +31,7 @@
       <!-- <td>其他</td> -->
     </tr>
     <% counter=0 %>
-    <% @current_user.project.each do |p| %>
+    <% @projects.each do |p| %>
     <tr>
       <td><%= (counter+=1).to_s.rjust(2, '0') %></td>
       <td><%= p.serialnum %></td>

@@ -1,6 +1,7 @@
 class EmployeesController < ApplicationController
   before_action :set_employee, only: [:show, :edit, :update, :destroy]
-  # before_action :set_customers, only: [:manage, :manage_customer]
+  before_action :set_projects, only: [:manage, :manage_project]
+  before_action :set_customers, only: [:manage, :manage_customer]
   
   # GET /employees
   # GET /employees.json
@@ -70,6 +71,8 @@ class EmployeesController < ApplicationController
 
 #===MANAGE ACTIONS===
   def manage
+    @recent_projects = @projects.order("create_date desc").limit(10)
+    @recent_customers = @customers.order("created_at desc").limit(10).collect{ |c| c.customer }
   end
 
   def manage_project
@@ -97,10 +100,12 @@ class EmployeesController < ApplicationController
       @employee = Employee.find(params[:id])
     end
     
-    # def set_customers
-    #   @customers = @current_user.customers
-    # end
-
+    def set_projects
+      @projects = @current_user.projects
+    end
+    def set_customers
+      @customers = @current_user.customers
+    end
     # Never trust parameters from the scary internet, only allow the white list through.
     def employee_params
       params.require(:employee).permit(:name)

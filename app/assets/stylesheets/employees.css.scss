@@ -125,6 +125,68 @@ $elm_padding_top: 4px;
 	border-left: 1px solid gray;
 }
 
+.manage-grid .title{
+	padding: 6px;
+	background-color: #0099CC;
+	color: white;
+	vertical-align: middle;
+	// margin-bottom: 15px;
+	font-size: 12px;
+	a:visited {
+    color: white;
+  }
+  a:hover {
+    color: white;
+  }
+}
+
+.manage-grid .title-text{
+	margin-left: 20px;
+	font-size: 26px;
+	margin-right: 10px;
+}
+
+
+
+.manage-grid .list-cells{
+  border: solid 1px gray;
+  border-top: none;
+  padding: 20px 5px;
+  a{
+  	text-decoration: none;
+		color: #000066;
+		font-weight: 800;
+		margin-left: 30px;
+		&:visited {
+	    color: #000066;
+	  }
+	  &:hover {
+	    color: #000066;
+	  }
+  }
+}
+.manage-grid .date{
+	position: absolute;
+	right: 20%;
+	color: gray;
+	font-size: 10px;
+	height: 16px;
+	line-height: 20px;
+}
+.manage-grid .list-cell-line{
+	position: relative;
+	width: 100%;
+	border-bottom: dashed 1px #CCCCCC;
+	margin-bottom: 2px;
+	&:hover{
+		background-color: lighten(#0099CC, 40%); 
+	}
+}
+.manage-grid .list-cell{
+	display: inline;
+	font-size: 16px;
+	list-style: none;
+}
 
 #manage-grid-up, #manage-grid-down{
 	height: 330px;
@@ -149,7 +211,7 @@ $elm_padding_top: 4px;
 	display: inline-block;
 	width: 0;
 	height: 100%;
-	border-left: solid 1px black;
+	// border-left: solid 1px black;
 }
 .manage-grid-hr{
 	margin: 0;
