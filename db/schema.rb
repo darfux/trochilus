@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140603022812) do
+ActiveRecord::Schema.define(:version => 20140609094728) do
 
   create_table "articles", :force => true do |t|
     t.string   "title"
@@ -177,6 +177,49 @@ ActiveRecord::Schema.define(:version => 20140603022812) do
 
   add_index "projects", ["project_level_id"], :name => "index_projects_on_project_level_id"
   add_index "projects", ["project_state_id"], :name => "index_projects_on_project_state_id"
+
+  create_table "univ_unit_managers", :force => true do |t|
+    t.string   "name"
+    t.integer  "univ_unit_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "univ_unit_managers", ["univ_unit_id"], :name => "index_univ_unit_managers_on_univ_unit_id"
+
+  create_table "univ_units", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "usage_records", :force => true do |t|
+    t.integer  "fund_id"
+    t.integer  "employee_id"
+    t.integer  "project_id"
+    t.integer  "exec_unit_id"
+    t.integer  "exec_manager_id"
+    t.integer  "benefit_unit_id"
+    t.integer  "benefit_manager_id"
+    t.integer  "usage_type_id"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+  end
+
+  add_index "usage_records", ["benefit_manager_id"], :name => "index_usage_records_on_benefit_manager_id"
+  add_index "usage_records", ["benefit_unit_id"], :name => "index_usage_records_on_benefit_unit_id"
+  add_index "usage_records", ["employee_id"], :name => "index_usage_records_on_employee_id"
+  add_index "usage_records", ["exec_manager_id"], :name => "index_usage_records_on_exec_manager_id"
+  add_index "usage_records", ["exec_unit_id"], :name => "index_usage_records_on_exec_unit_id"
+  add_index "usage_records", ["fund_id"], :name => "index_usage_records_on_fund_id"
+  add_index "usage_records", ["project_id"], :name => "index_usage_records_on_project_id"
+  add_index "usage_records", ["usage_type_id"], :name => "index_usage_records_on_usage_type_id"
+
+  create_table "usage_types", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "account"

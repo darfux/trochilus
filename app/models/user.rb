@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  belongs_to :customer, polymorphic: true, dependent: :destroy
+  belongs_to :user, polymorphic: true, dependent: :destroy
   
   attr_accessible :account, :password, :password_confirmation, :user_id
   

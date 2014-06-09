@@ -90,8 +90,7 @@ class DonationRecordsController < ApplicationController
     def donation_record_params
       params.require(:donation_record)
         .permit(  :customer_id, :project_id,
-                  plan_fund_attributes: [:amount, :time],
-                  customer_attributes: [:id],
+                  fund_attributes: [:amount, :time]
                   )
         .tap{ |p| 
           p[:employee_id] = @current_user.id

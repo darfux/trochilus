@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Fund:</b>
+  <%= @usage_record.fund %>
+</p>
+
+<p>
+  <b>Employee:</b>
+  <%= @usage_record.employee %>
+</p>
+
+<p>
+  <b>Univ unit:</b>
+  <%= @usage_record.univ_unit %>
+</p>
+
+<p>
+  <b>Univ unit manager:</b>
+  <%= @usage_record.univ_unit_manager %>
+</p>
+
+<p>
+  <b>Usage type:</b>
+  <%= @usage_record.usage_type %>
+</p>
+
+
+<%= link_to 'Edit', edit_usage_record_path(@usage_record) %> |
+<%= link_to 'Back', usage_records_path %>

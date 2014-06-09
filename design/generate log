@@ -1,4 +1,4 @@
-rails g scaffold Article title:string cotent:text time:datetime counter:integer channel_id:references
+rails g scaffold Article title:string cotent:text time:datetime counter:integer channel:references
 
 rails g model ArticleTag tag_id:references article:references
 
@@ -14,7 +14,7 @@ rails g scaffold ProjectLevel name:string
 
 rails g scaffold ProjectState name:string
 
-rails g scaffold Customer name:string customer_id:integer customer_type:string employee:references
+rails g scaffold Customer name:string customer:references customer_type:string employee:references
 
 rails g scaffold CustomerType name:string
 
@@ -30,24 +30,31 @@ rails g scaffold Employee name:string
 
 rails g scaffold ContactRecord customer:references employee:references 
 
-rails g scaffold User account:string password_digest:string user_id:integer user_type:string
+rails g scaffold User account:string password_digest:string user:references user_type:string
 
 rails g scaffold ProjectType name:string
 
 #2014-05-06 19:33:56
 rails g scaffold FundType name:string
 
-rails g scaffold Fund amount:decimal time:datetime fund_type_id:integer comment:text currency_id:integer origin_amount:decimal
+rails g scaffold Fund amount:decimal time:datetime fund_type:references comment:text currency:references origin_amount:decimal
 
 rails g scaffold DonationType name:string
 
-rails g model CustomerProject customer_id:integer project_id:integer
+rails g model CustomerProject customer:references project:references
 
-rails g scaffold DonationRecord customer_id:integer project_id:integer employee_id:integer fund_id:integer donation_type_id:integer
+rails g scaffold DonationRecord customer:references project:references employee:references fund:references donation_type:references
 
 #2014-05-14 19:36:06
-rails g model DonationRecordActualFund donation_record_id:integer fund_id:integer
+rails g model DonationRecordActualFund donation_record:references fund:references
 
 rails g model Currency name:string symbol:string
 
-rails g model 
+#2014-06-09 11:02:16
+rails g scaffold UsageRecord fund:references employee:references project:references exec_unit:references exec_manager:references benefit_unit:references benefit_manager:references usage_type:references
+
+rails g scaffold UsageType name:string
+
+rails g scaffold UnivUnitManager name:string univ_unit:references
+
+rails g scaffold UnivUnit name:string

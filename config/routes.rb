@@ -12,6 +12,21 @@ module ActionDispatch
 end
 #========
 Trochilus::Application.routes.draw do
+  namespace :admin do
+    get "manage/index"
+  end
+
+  resources :usage_records
+
+
+  resources :univ_units
+
+
+  resources :univ_unit_managers
+
+
+  resources :usage_types
+
 
   get 'link_men/show'
 

@@ -1,0 +1,23 @@
+<h1>Listing usage_types</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @usage_types.each do |usage_type| %>
+  <tr>
+    <td><%= usage_type.name %></td>
+    <td><%= link_to 'Show', usage_type %></td>
+    <td><%= link_to 'Edit', edit_usage_type_path(usage_type) %></td>
+    <td><%= link_to 'Destroy', usage_type, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Usage type', new_usage_type_path %>
