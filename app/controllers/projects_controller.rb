@@ -1,7 +1,7 @@
 # encoding: utf-8
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy]
-
+  before_action :set_static_info, only: [:show]
   # GET /projects
   # GET /projects.json
   def index
@@ -69,7 +69,25 @@ class ProjectsController < ApplicationController
     def set_project
       @project = Project.find(params[:id])
     end
+    def set_static_info
+      @all_plan_amount = 0
+      @project.donation_records.each do |d|
+        @all_plan_amount += d.plan_fund.amount
+      end
 
+      @all_actual_amount = 0
+      @project.donation_records.each do |d|
+        @all_actual_amount += d.actual_amount
+      end
+
+      @used_amount = 0
+      @project.usage_records.each do |d|
+        @used_amount += d.fund.amount
+      end
+
+      @all_rest = @all_plan_amount - @used_amount
+      @actual_rest = @all_actual_amount - @used_amount
+    end
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
       params.require(:project).permit(:name, :serialnum, :create_date, :funder, :brief, :employee_id,

@@ -6,7 +6,7 @@ module CommonCustomer
 	 		has_one :customer, as: :customer, dependent: :destroy, validate: true
 			accepts_nested_attributes_for :customer, update_only: true	
 			after_initialize :set_default_customer
-			Customer.column_names.each do |name|
+			Customer.accessable_attributes.each do |name|
 		  	# unless self.method_defined?(name)
 		      define_method(name+'!') do
 		      	self.customer.send(name)

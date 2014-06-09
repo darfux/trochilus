@@ -1,0 +1,68 @@
+<div><b>捐赠记录</b> <%= link_to '添加', new_donation_record_path(project: @project) %></div>
+  <table class="employee-data-table">
+    <tbody>
+      <tr>
+        <th>序号 </th>
+        <th>编号</th>
+        <th>捐赠人</th>
+        <th>币种</th>
+        <th>日期</th>
+        <th>计划到账</th>
+        <th>实际到账</th>
+        <th>其他</th>
+      </tr>
+
+    <% @project.donation_records.each do |r| %>
+              <tr>
+        <td></td>
+        <td></td>
+        <td><%= r.customer.name %></td>
+        <td><%= r.plan_fund.currency.name %></td>
+        <td><%= r.plan_fund.time.localtime.to_s %></td>
+        <td><%= r.plan_fund.amount %></td>
+        <td><%= r.actual_amount %></td>
+        <td><%= link_to "详情", r %>|<%= link_to '删除', r, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+
+    <% end %>
+
+    </tbody>
+  </table>
+  <div colspan="11">计划到账： <%= @all_plan_amount %> 已到账总额：<%= @all_actual_amount %></div>
+
+  <p></p>
+
+<div><b>使用记录</b> <%= link_to '添加', new_usage_record_path(project: @project) %></div>
+  <table class="employee-data-table">
+    <tbody>
+      <tr>
+        <th>序号 </th>
+        <th>日期</th>
+        <th>执行单位</th>
+        <th>执行人</th>        
+        <th>受益单位</th>
+        <th>负责人</th>
+        <th>使用金额</th>
+        <th>用途</th>
+        <th>文件</th>
+        <th>其他</th>
+      </tr>
+      <% @project.usage_records.each do |r| %>
+      <tr>
+        <td>xx</td>
+        <td><%= r.fund.time %></td>
+        <td><%= r.exec_unit.name %></td>
+        <td><%= link_to r.exec_manager.name, r.exec_manager%></td>        
+        <td><%= r.benefit_unit.name %></td>
+        <td><%= link_to r.benefit_manager.name, r.benefit_manager%></td>
+        <td><%= r.fund.amount%></td>
+        <td><%= r.usage_type.name%></td>
+        <td>
+          <input name="Confirm3" type="submit" value="查看">
+        </td>
+        <td><%= link_to '删除', r, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <div>总支出：<%= @used_amount %> 总余额：<%= @all_rest %> 账面余额：<%= @actual_rest %></div>
