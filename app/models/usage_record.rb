@@ -1,5 +1,5 @@
 class UsageRecord < ActiveRecord::Base
-  belongs_to :fund
+  belongs_to :fund, dependent: :destroy
   belongs_to :employee
   belongs_to :project
   belongs_to :exec_unit, class_name: :UnivUnit

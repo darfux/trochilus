@@ -78,7 +78,7 @@
         <td><%= r.plan_fund.time.localtime.to_s %></td>
         <td><%= r.plan_fund.amount %></td>
         <td><%= r.actual_amount %></td>
-        <td><%= link_to "详情", r %></td>
+        <td><%= link_to "详情", r %>|<%= link_to '删除', r, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
 
     <% end %>
@@ -117,7 +117,7 @@
         <td>
           <input name="Confirm3" type="submit" value="查看">
         </td>
-        <td> 修改 删除</td>
+        <td><%= link_to '删除', r, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
       <% end %>
     </tbody>
