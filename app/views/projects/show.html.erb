@@ -44,7 +44,9 @@
         <% @project.link_men.each do |lm| %>
           <span><%= link_to lm.name, project_link_man_path(@project.id, lm.id) %></span>
         <% end %>
-        <%= link_to '添加', new_project_link_man_path(@project.id) %>
+        <%= link_to new_project_link_man_path(@project.id) do %>
+          <%= button_tag '添加' %>
+        <% end %>
       </div>
     </p>
   </div>

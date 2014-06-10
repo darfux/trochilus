@@ -12,6 +12,9 @@ module ActionDispatch
 end
 #========
 Trochilus::Application.routes.draw do
+  resources :customer_groups
+
+
   namespace :admin do
     get "manage/index"
   end

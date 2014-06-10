@@ -1,5 +1,6 @@
 class Customer < ActiveRecord::Base
   belongs_to :customer, polymorphic: true, dependent: :destroy
+  has_and_belongs_to_many :customer_groups
   # belongs_to :customer_type
   belongs_to :employee
   has_many :donation_records

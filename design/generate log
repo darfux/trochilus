@@ -58,3 +58,7 @@ rails g scaffold UsageType name:string
 rails g scaffold UnivUnitManager name:string univ_unit:references
 
 rails g scaffold UnivUnit name:string
+
+rails g scaffold CustomerGroup
+
+#rails g model CustomerGroupsCustomers customer:references customer_group:references ##directly use migration
