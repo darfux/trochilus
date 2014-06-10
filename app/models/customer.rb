@@ -16,7 +16,9 @@ class Customer < ActiveRecord::Base
     amount
   end
   def self.accessable_attributes
-    self.column_names << "total_donation"
+    #don't use << to append!!
+    #see more: https://ruby-china.org/topics/10084
+    self.column_names + ["total_donation"]
   end
   def to_s
     name
