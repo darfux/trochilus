@@ -8,7 +8,10 @@ class UsageRecord < ActiveRecord::Base
   belongs_to :benefit_manager, class_name: :UnivUnitManager
   belongs_to :usage_type
 
+  validates_associated :fund
+
   accepts_nested_attributes_for :fund
   auto_build :fund
+
   # attr_accessible :title, :body
 end

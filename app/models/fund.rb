@@ -3,7 +3,6 @@ class Fund < ActiveRecord::Base
   belongs_to :donation_record_plan, class_name: :DonationRecord, :foreign_key => :plan_fund_id
   belongs_to :currency
   belongs_to :usage_record
-  belongs_to :fund_type
 
   has_one :donation_record_actual_fund
   has_one :donation_record_actual, class_name: :DonationRecord, through: :donation_record_actual_fund, source: :donation_record

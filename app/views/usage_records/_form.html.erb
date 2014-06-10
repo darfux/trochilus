@@ -22,6 +22,14 @@
       <%= f_f.label '时间' %><br />
       <%= f_f.datetime_select :time %>
     </div>
+    <% if @usage_record.project.endowment %>
+      <div class="field">
+        <%= f_f.radio_button :fund_type_id, FundType.where(name: '本金').first.id %> <%= label_tag :本金 %>
+        <%= f_f.radio_button :fund_type_id, FundType.where(name: '利息').first.id  %> <%= label_tag :利息 %>
+      </div>
+    <% else %>
+      <%= hidden_field :actual_fund, :fund_type_id %>
+    <% end %>
   <% end %>
 
   <div class="field">

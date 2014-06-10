@@ -24,10 +24,20 @@
 
   <%= hidden_field_tag :donation_record_id, @donation_record_actual.id %>
 
+  <% if @donation_record_actual.project.endowment %>
+    <div class="field">
+      <%= f.radio_button :fund_type_id, FundType.where(name: '本金').first.id %> <%= label_tag :本金 %>
+      <%= f.radio_button :fund_type_id, FundType.where(name: '利息').first.id  %> <%= label_tag :利息 %>
+    </div>
+  <% else %>
+    <%= hidden_field :actual_fund, :fund_type_id %>
+  <% end %>
+
   <div class="field">
     <%= f.label :备注 %><br />
     <%= f.text_area :comment %>
   </div>
+
   <div class="actions">
     <%= f.submit '提交'%>
   </div>

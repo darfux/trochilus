@@ -90,7 +90,7 @@ class UsageRecordsController < ApplicationController
       params.require(:usage_record)
         .permit(  :customer_id, :project_id, :exec_unit_id, :exec_manager_id, 
                   :benefit_unit_id, :benefit_manager_id,:usage_type_id,
-                  fund_attributes: [:amount, :time]
+                  fund_attributes: [:amount, :time, :fund_type_id]
                   )
         .tap{ |p| 
           p[:employee_id] = @current_user.id

@@ -71,22 +71,25 @@ class ProjectsController < ApplicationController
     end
     def set_static_info
       @all_plan_amount = 0
+      @all_actual_amount = 0
+      @all_interest_amount = 0
+
       @project.donation_records.each do |d|
         @all_plan_amount += d.plan_fund.amount
-      end
-
-      @all_actual_amount = 0
-      @project.donation_records.each do |d|
         @all_actual_amount += d.actual_amount
+        @all_interest_amount += d.interest_amount
       end
 
-      @used_amount = 0
+      @principle_used_amount = 0
+      @interest_used_amount = 0
       @project.usage_records.each do |d|
-        @used_amount += d.fund.amount
+        @principle_used_amount += d.fund.amount if d.fund.fund_type.name == '本金'
+        @interest_used_amount += d.fund.amount if d.fund.fund_type.name == '利息'
       end
 
-      @all_rest = @all_plan_amount - @used_amount
-      @actual_rest = @all_actual_amount - @used_amount
+      @all_principle_rest = @all_plan_amount - @principle_used_amount
+      @actual_principle_rest = @all_actual_amount - @principle_used_amount
+      @intereset_rest = @all_interest_amount - @interest_used_amount
     end
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params

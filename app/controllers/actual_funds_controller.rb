@@ -6,6 +6,9 @@ class ActualFundsController < ApplicationController
 
   def new
     @fund = ActualFund.new
+    unless @donation_record_actual.project.endowment
+      @fund.fund_type = FundType.where(name: '本金').first
+    end
   end
   def edit
     @fund = ActualFund.find(params[:id])
@@ -13,6 +16,7 @@ class ActualFundsController < ApplicationController
   def create
     @fund = ActualFund.new(fund_params)
     @fund.donation_record_actual = @donation_record_actual
+
     # raise @donation_record_actual.inspect
     # raise "!" if @donation_record_actual.nil?
     respond_to do |format|
