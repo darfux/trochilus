@@ -30,13 +30,6 @@ Trochilus::Application.routes.draw do
 
   resources :usage_types
 
-
-  get 'link_men/show'
-
-  get 'link_men/new'
-
-  get 'link_men/edit'
-
   # get 'actual_funds/show'
 
   # get 'actual_funds/new'
@@ -94,6 +87,7 @@ Trochilus::Application.routes.draw do
     resources :link_men
   end
   
+  resources :link_men
   post 'link_men/search' => 'link_men#search', as: 'link_man_search'
   #============
   get 'session/index'
