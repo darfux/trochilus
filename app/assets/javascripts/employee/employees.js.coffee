@@ -1,5 +1,5 @@
 # puts = (args...) -> console.log(args)
-$(document).ready ->
+$ ->
 	# puts $('#employee-nav-bar-function-area').html()
 	bar = $('#employee-nav-bar-function-area')
 	bardiv = $('#employee-nav-bar-function-area div')
