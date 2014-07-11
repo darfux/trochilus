@@ -1,10 +1,6 @@
- <p class="notice"><%= notice %></p>
- <p class="alert"><%= alert %></p>
- 
 <h2>Sign in</h2>
 
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-
   <div><%= f.label :account %><br />
   <%= f.text_field :account, autofocus: true %></div>  
 
