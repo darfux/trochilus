@@ -1,0 +1,64 @@
+rails g scaffold Article title:string cotent:text time:datetime counter:integer channel:references
+
+rails g model ArticleTag tag_id:references article:references
+
+rails g model Tag name:string
+
+rails g scaffold Channel name:string
+
+rails g controller Cms index admin
+
+rails g scaffold Project name:string serialnum:string create_date:date employee:references brief:text gross:decimal balance:decimal endowment:boolean project_level:references project_state:references project_type:references
+
+rails g scaffold ProjectLevel name:string
+
+rails g scaffold ProjectState name:string
+
+rails g scaffold Customer name:string customer:references customer_type:string employee:references
+
+rails g scaffold CustomerType name:string
+
+rails g scaffold IndividualCustomer
+
+rails g scaffold OrgnizationCustomer
+
+rails g scaffold CorporateCustomer
+
+rails g scaffold OnlineCustomer
+
+rails g scaffold Employee name:string
+
+rails g scaffold ContactRecord customer:references employee:references 
+
+rails g scaffold User account:string password_digest:string user:references user_type:string
+
+rails g scaffold ProjectType name:string
+
+#2014-05-06 19:33:56
+rails g scaffold FundType name:string
+
+rails g scaffold Fund amount:decimal time:datetime fund_type:references comment:text currency:references origin_amount:decimal
+
+rails g scaffold DonationType name:string
+
+rails g model CustomerProject customer:references project:references
+
+rails g scaffold DonationRecord customer:references project:references employee:references fund:references donation_type:references
+
+#2014-05-14 19:36:06
+rails g model DonationRecordActualFund donation_record:references fund:references
+
+rails g model Currency name:string symbol:string
+
+#2014-06-09 11:02:16
+rails g scaffold UsageRecord fund:references employee:references project:references exec_unit:references exec_manager:references benefit_unit:references benefit_manager:references usage_type:references
+
+rails g scaffold UsageType name:string
+
+rails g scaffold UnivUnitManager name:string univ_unit:references
+
+rails g scaffold UnivUnit name:string
+
+rails g scaffold CustomerGroup
+
+#rails g model CustomerGroupsCustomers customer:references customer_group:references ##directly use migration
