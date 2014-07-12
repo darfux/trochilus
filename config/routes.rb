@@ -1,8 +1,24 @@
 Rails.application.routes.draw do
+  namespace :employee do
+    get 'manage' => 'manage#index'
+    get 'manage/projects'
+    get 'manage/customers'
+    get 'manage/funds'
+  end
+
+  resources :employees
+
   devise_for :users, controllers: { sessions: "users/sessions" }
+
+  devise_scope :user do
+    get "sign_in", to: "devise/sessions#new", as: :login
+    delete "sign_out", to: "devise/sessions#destroy", as: :logout
+  end
+
   root to: 'main#index'
   
   get 'main/index'
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
