@@ -1,7 +1,10 @@
 class Employee < ActiveRecord::Base
-  has_many :customers
+  include CommonUser
+  acts_as_common_user
+
+  has_many :created_customers, class_name: "Customer", foreign_key: "creator_id"
   has_many :donation_records
-  has_one :user, as: :user, dependent: :destroy, validate: true
+
   has_many :projects
 
   validates_presence_of :name

@@ -1,9 +1,13 @@
 class Customer < ActiveRecord::Base
+  include PolymorphicExtension
   belongs_to :customer, polymorphic: true, dependent: :destroy
   has_and_belongs_to_many :customer_groups
   belongs_to :creator, class_name: "Employee"
   has_many :donation_records
   validates_presence_of :name
+  
+  set_accessable_attributes ["total_donation"]
+
   def customer_type
     super
   end
@@ -13,11 +17,6 @@ class Customer < ActiveRecord::Base
       amount+=r.plan_fund.amount
     end
     amount
-  end
-  def self.accessable_attributes
-    #don't use << to append!!
-    #see more: https://ruby-china.org/topics/10084
-    self.column_names + ["total_donation"]
   end
   def to_s
     name
