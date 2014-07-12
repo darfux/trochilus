@@ -11,9 +11,13 @@ class ApplicationController < ActionController::Base
     def configure_permitted_parameters
       devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:account, :email, :password, :password_confirmation) }
     end
+
+    def current_people
+      @current_people ||= current_user ? current_user.user : nil
+    end
     
     def set_layout
-      return current_user.user_type.downcase.to_s if current_user
+      return current_people.user_type!.downcase.to_s if current_people
       "application"
     end
 end
