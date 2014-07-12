@@ -1,0 +1,13 @@
+<%= content_for :nav_bar_function_area do %>
+  <% if current_user.user_type.downcase == :employee.to_s %>
+    <%= link_to '编辑', edit_corporate_customer_path(@self_customer) %> |
+    <%= link_to '返回', employee_manage_customers_path %>
+  <% end %>
+<% end %>
+
+<%= content_for :nav_bar_title do %>
+    客户信息
+<% end %>
+
+<!-- <div id="project-info-header"></div> -->
+<%= render 'common_customers/info' %>

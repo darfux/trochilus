@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  resources :online_customers
+
+  resources :corporate_customers
+
+  resources :individual_customers
+
+  resources :customers
+
   namespace :employee do
     get 'manage' => 'manage#index'
     get 'manage/projects'
