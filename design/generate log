@@ -8,19 +8,20 @@ rails g scaffold Channel name:string
 
 rails g controller Cms index admin
 
+
+#===============================
+
 rails g scaffold Project name:string serialnum:string create_date:date employee:references brief:text gross:decimal balance:decimal endowment:boolean project_level:references project_state:references project_type:references
 
 rails g scaffold ProjectLevel name:string
 
 rails g scaffold ProjectState name:string
 
-rails g scaffold Customer name:string customer:references customer_type:string employee:references
+rails g scaffold Customer name:string customer:references{polymorphic} creator:references
 
-rails g scaffold CustomerType name:string
+rails g model EmployeeCustomer employee:references customer:references
 
 rails g scaffold IndividualCustomer
-
-rails g scaffold OrgnizationCustomer
 
 rails g scaffold CorporateCustomer
 
@@ -30,7 +31,7 @@ rails g scaffold Employee name:string
 
 rails g scaffold ContactRecord customer:references employee:references 
 
-rails g scaffold User account:string password_digest:string user:references user_type:string
+#[instead by devise]rails g scaffold User account:string password_digest:string user:references{polymorphic}
 
 rails g scaffold ProjectType name:string
 
