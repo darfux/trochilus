@@ -11,7 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140712122521) do
+ActiveRecord::Schema.define(version: 20140713051001) do
+
+  create_table "contact_records", force: true do |t|
+    t.integer  "customer_id"
+    t.integer  "employee_id"
+    t.datetime "time"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "contact_records", ["customer_id"], name: "index_contact_records_on_customer_id"
+  add_index "contact_records", ["employee_id"], name: "index_contact_records_on_employee_id"
 
   create_table "corporate_customers", force: true do |t|
     t.datetime "created_at"
@@ -45,6 +57,25 @@ ActiveRecord::Schema.define(version: 20140712122521) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "projects", force: true do |t|
+    t.string   "name"
+    t.string   "serialnum"
+    t.date     "create_date"
+    t.integer  "creator_id"
+    t.text     "brief"
+    t.boolean  "endowment"
+    t.integer  "project_level_id"
+    t.integer  "project_state_id"
+    t.integer  "project_type_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "projects", ["creator_id"], name: "index_projects_on_creator_id"
+  add_index "projects", ["project_level_id"], name: "index_projects_on_project_level_id"
+  add_index "projects", ["project_state_id"], name: "index_projects_on_project_state_id"
+  add_index "projects", ["project_type_id"], name: "index_projects_on_project_type_id"
 
   create_table "users", force: true do |t|
     t.string   "account",                             null: false

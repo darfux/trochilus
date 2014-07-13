@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  customer_id: 
+  employee_id: 
+  time: 2014-07-13 11:07:00
+  description: MyText
+
+two:
+  customer_id: 
+  employee_id: 
+  time: 2014-07-13 11:07:00
+  description: MyText

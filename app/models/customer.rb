@@ -4,9 +4,10 @@ class Customer < ActiveRecord::Base
   has_and_belongs_to_many :customer_groups
   belongs_to :creator, class_name: "Employee"
   has_many :donation_records
+  has_many :contact_records
   validates_presence_of :name
   
-  set_accessable_attributes ["total_donation"]
+  set_accessable_attributes [:total_donation, :contact_records]
 
   def customer_type
     super
