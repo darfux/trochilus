@@ -24,9 +24,9 @@ module CommonUser
 	  	build_user unless self.user #check customer.extists? to avoid loop when show .all
 	  end
 
-	  def method_missing(methId, *args)
-	  	user.send(methId, args)
-	  end
+	  # def method_missing(methId, *args)
+	  # 	user.send(methId, args)
+	  # end
 	end
 	
 

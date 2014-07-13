@@ -6,7 +6,7 @@ module PolymorphicExtension
 		receiver.class_eval %q{
 			cattr_accessor :accessable_attributes
 			def self.set_accessable_attributes(attributes)
-				@@accessable_attributes += attributes
+				@@accessable_attributes += attributes.collect{|a| a.to_s}
 			end
 		}
 	end
