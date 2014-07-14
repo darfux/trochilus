@@ -1,0 +1,25 @@
+<%= form_for(@univ_unit_manager) do |f| %>
+  <% if @univ_unit_manager.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@univ_unit_manager.errors.count, "error") %> prohibited this univ_unit_manager from being saved:</h2>
+
+      <ul>
+      <% @univ_unit_manager.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :univ_unit %><br />
+    <%= f.select(:univ_unit_id, UnivUnit.all.collect {|u| [ u.name, u.id ] }, { include_blank: true }) %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

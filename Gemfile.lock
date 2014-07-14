@@ -28,6 +28,8 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
     arel (5.0.1.20140414130214)
+    auto_build (0.5.0)
+      rails (> 3.1.0)
     bcrypt (3.1.7)
     builder (3.2.2)
     cancancan (1.8.4)
@@ -129,6 +131,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  auto_build
   cancancan (~> 1.8)
   coffee-rails (~> 4.0.0)
   devise

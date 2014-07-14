@@ -1,0 +1,23 @@
+<%= content_for :nav_bar_function_area do %>
+  <% if @current_user.user.user_type.downcase == :employee.to_s %>
+    <%= link_to '返回', @project %>
+  <% end %>
+<% end %>
+
+<%= content_for :nav_bar_title do %>
+    添加联系人
+<% end %>
+<%= form_tag(link_man_search_path, remote: true) do -%>
+<div><%= text_field_tag :search %><%= submit_tag '检索' %></div>
+<% end -%>
+
+<div class = "employee-common-list">
+<%= form_tag(project_link_men_path(params[:project_id])) do -%>
+<dt>
+  <div class = "employee-common-list-cell">
+  <%= render 'link_men_list' %>
+  </div>
+</dt>
+</div>
+<div><%= submit_tag '提交' %></div>
+<% end %>

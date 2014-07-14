@@ -1,0 +1,45 @@
+<div class="common-form">
+
+<%= form_for(@donation_record, project: @donation_record.project_id) do |f| %>
+  <% if @donation_record.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@donation_record.errors.count, "error") %> prohibited this donation_record from being saved:</h2>
+
+      <ul>
+      <% @donation_record.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.fields_for :plan_fund, @donation_record.plan_fund do |f_f| %>
+    <div class="field">
+      <%= f_f.label '数额' %><br />
+      <%= f_f.text_field :amount %>
+    </div>
+    <div class="field">
+      <%= f_f.label '时间' %><br />
+      <%= f_f.datetime_select :time %>
+    </div>
+  <% end %>
+
+    <div class="field">
+      <%= f.label '客户' %><br />
+      <%= f.select(:customer_id, Customer.all.collect {|p| [ p.name, p.id ] }, { include_blank: true }) %>
+    </div>
+
+  <%= f.fields_for :donation_type, @donation_record.donation_type do |f_dcrt| %>
+      <div class="field">
+      <%= f_dcrt.label '捐赠类型' %><br />
+      <%= f_dcrt.select(:id, DonationType.all.collect {|p| [ p.name, p.id ] }, { include_blank: true }) %>
+    </div>
+  <% end %>
+  <%= f.hidden_field(:project_id) %>
+  
+  <div class="actions">
+    <%= f.submit '提交'%>
+  </div>
+<% end %>
+
+</div>

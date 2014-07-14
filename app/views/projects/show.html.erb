@@ -1,7 +1,7 @@
 <%= content_for :nav_bar_function_area do %>
-  <% if @current_user.user.user_type.downcase == :employee.to_s %>
+  <% if current_user.user_type == :Employee.to_s %>
     <%= link_to '编辑', edit_project_path(@project) %> |
-    <%= link_to '返回', employee_manage_project_path %>
+    <%= link_to '返回', employee_manage_projects_path %>
   <% end %>
 <% end %>
 
@@ -19,7 +19,7 @@
     </p>
     <p>
       <div><strong>基金级别：</strong> <span><%= @project.project_level.name %></span></div>
-      <div><strong>是否留本：</strong> <span><%= @project.endowment.ch %></span></div>
+      <div><strong>是否留本：</strong> <span><%= @project.endowment %></span></div>
     </p>
     <p>
       <div><strong>创建日期：</strong> <span><%= @project.create_date %></span></div>

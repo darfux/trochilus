@@ -1,0 +1,37 @@
+<h1>Listing usage_records</h1>
+
+<table>
+  <tr>
+    <th>Fund</th>
+    <th>Employee</th>
+    <th>Project</th>
+    <th>Exec unit</th>
+    <th>Exec manager</th>
+    <th>Benefit unit</th>
+    <th>Benefit manager</th>
+    <th>Usage type</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @usage_records.each do |usage_record| %>
+  <tr>
+    <td><%= usage_record.fund %></td>
+    <td><%= usage_record.employee %></td>
+    <td><%= usage_record.project %></td>
+    <td><%= usage_record.exec_unit %></td>
+    <td><%= usage_record.exec_manager %></td>
+    <td><%= usage_record.benefit_unit %></td>
+    <td><%= usage_record.benefit_manager %></td>
+    <td><%= usage_record.usage_type %></td>
+    <td><%= link_to 'Show', usage_record %></td>
+    <td><%= link_to 'Edit', edit_usage_record_path(usage_record) %></td>
+    <td><%= link_to 'Destroy', usage_record, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Usage record', new_usage_record_path %>

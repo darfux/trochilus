@@ -1,0 +1,32 @@
+<div id="fund-list">
+<h1>资金清单</h1>
+
+<table>
+  <tr>
+    <th>数额</th>
+    <th>时间</th>
+    <th>类型</th>
+    <th>备注</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% Fund.all.each do |fund| %>
+  <tr>
+    <td><%= fund.amount %></td>
+    <td><%= fund.time %></td>
+    <td><%= fund.fund_type %></td>
+    <td><%= fund.comment %></td>
+    <td><%= link_to '显示', fund %></td>
+    <td><%= link_to '编辑', edit_fund_path(fund) %></td>
+    <td><%= link_to '删除', fund, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to '新建', new_fund_path %>
+</div>
+

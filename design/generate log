@@ -43,9 +43,9 @@ rails g scaffold Fund amount:decimal time:datetime fund_type:references comment:
 
 rails g scaffold DonationType name:string
 
-rails g model CustomerProject customer:references project:references
+rails g model ProjectLinkMan customer:references project:references
 
-rails g scaffold DonationRecord customer:references project:references employee:references fund:references donation_type:references
+rails g scaffold DonationRecord customer:references project:references creator:references plan_fund:references donation_type:references
 
 #2014-05-14 19:36:06
 rails g model DonationRecordActualFund donation_record:references fund:references

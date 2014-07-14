@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140713055202) do
+ActiveRecord::Schema.define(version: 20140714070113) do
 
   create_table "contact_records", force: true do |t|
     t.integer  "customer_id"
@@ -30,6 +30,13 @@ ActiveRecord::Schema.define(version: 20140713055202) do
     t.datetime "updated_at"
   end
 
+  create_table "currencies", force: true do |t|
+    t.string   "name"
+    t.string   "symbol"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "customers", force: true do |t|
     t.string   "name"
     t.integer  "customer_id"
@@ -42,11 +49,63 @@ ActiveRecord::Schema.define(version: 20140713055202) do
   add_index "customers", ["creator_id"], name: "index_customers_on_creator_id"
   add_index "customers", ["customer_id"], name: "index_customers_on_customer_id"
 
+  create_table "donation_record_actual_funds", force: true do |t|
+    t.integer  "donation_record_id"
+    t.integer  "fund_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "donation_record_actual_funds", ["donation_record_id"], name: "index_donation_record_actual_funds_on_donation_record_id"
+  add_index "donation_record_actual_funds", ["fund_id"], name: "index_donation_record_actual_funds_on_fund_id"
+
+  create_table "donation_records", force: true do |t|
+    t.integer  "customer_id"
+    t.integer  "project_id"
+    t.integer  "creator_id"
+    t.integer  "plan_fund_id"
+    t.integer  "donation_type_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "donation_records", ["creator_id"], name: "index_donation_records_on_creator_id"
+  add_index "donation_records", ["customer_id"], name: "index_donation_records_on_customer_id"
+  add_index "donation_records", ["donation_type_id"], name: "index_donation_records_on_donation_type_id"
+  add_index "donation_records", ["plan_fund_id"], name: "index_donation_records_on_plan_fund_id"
+  add_index "donation_records", ["project_id"], name: "index_donation_records_on_project_id"
+
+  create_table "donation_types", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "employees", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "fund_types", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "funds", force: true do |t|
+    t.decimal  "amount"
+    t.datetime "time"
+    t.integer  "fund_type_id"
+    t.text     "comment"
+    t.integer  "currency_id"
+    t.decimal  "origin_amount"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "funds", ["currency_id"], name: "index_funds_on_currency_id"
+  add_index "funds", ["fund_type_id"], name: "index_funds_on_fund_type_id"
 
   create_table "individual_customers", force: true do |t|
     t.datetime "created_at"
@@ -63,6 +122,16 @@ ActiveRecord::Schema.define(version: 20140713055202) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "project_link_men", force: true do |t|
+    t.integer  "customer_id"
+    t.integer  "project_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "project_link_men", ["customer_id"], name: "index_project_link_men_on_customer_id"
+  add_index "project_link_men", ["project_id"], name: "index_project_link_men_on_project_id"
 
   create_table "project_states", force: true do |t|
     t.string   "name"
@@ -94,6 +163,49 @@ ActiveRecord::Schema.define(version: 20140713055202) do
   add_index "projects", ["project_level_id"], name: "index_projects_on_project_level_id"
   add_index "projects", ["project_state_id"], name: "index_projects_on_project_state_id"
   add_index "projects", ["project_type_id"], name: "index_projects_on_project_type_id"
+
+  create_table "univ_unit_managers", force: true do |t|
+    t.string   "name"
+    t.integer  "univ_unit_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "univ_unit_managers", ["univ_unit_id"], name: "index_univ_unit_managers_on_univ_unit_id"
+
+  create_table "univ_units", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "usage_records", force: true do |t|
+    t.integer  "fund_id"
+    t.integer  "employee_id"
+    t.integer  "project_id"
+    t.integer  "exec_unit_id"
+    t.integer  "exec_manager_id"
+    t.integer  "benefit_unit_id"
+    t.integer  "benefit_manager_id"
+    t.integer  "usage_type_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "usage_records", ["benefit_manager_id"], name: "index_usage_records_on_benefit_manager_id"
+  add_index "usage_records", ["benefit_unit_id"], name: "index_usage_records_on_benefit_unit_id"
+  add_index "usage_records", ["employee_id"], name: "index_usage_records_on_employee_id"
+  add_index "usage_records", ["exec_manager_id"], name: "index_usage_records_on_exec_manager_id"
+  add_index "usage_records", ["exec_unit_id"], name: "index_usage_records_on_exec_unit_id"
+  add_index "usage_records", ["fund_id"], name: "index_usage_records_on_fund_id"
+  add_index "usage_records", ["project_id"], name: "index_usage_records_on_project_id"
+  add_index "usage_records", ["usage_type_id"], name: "index_usage_records_on_usage_type_id"
+
+  create_table "usage_types", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "account",                             null: false

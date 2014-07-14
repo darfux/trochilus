@@ -38,8 +38,10 @@ gem 'spring',        group: :development
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-#CUSTOMIZE
+##CUSTOMIZE
 gem 'devise'
 
 gem 'cancancan', '~> 1.8'
 
+#Automatically initialize associations
+gem "auto_build"

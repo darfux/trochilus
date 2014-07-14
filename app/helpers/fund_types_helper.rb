@@ -1,0 +1,2 @@
+module FundTypesHelper
+end

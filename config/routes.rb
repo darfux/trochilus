@@ -1,4 +1,20 @@
 Rails.application.routes.draw do
+  resources :donation_types
+
+  resources :univ_units
+
+  resources :univ_unit_managers
+
+  resources :usage_types
+
+  resources :usage_records
+
+  resources :donation_records
+
+  resources :fund_types
+
+  resources :funds
+
   resources :project_types
 
   resources :project_states
@@ -18,6 +34,10 @@ Rails.application.routes.draw do
   resources :individual_customers
 
   resources :customers
+
+  resources :projects do
+    resources :link_men
+  end
 
   namespace :employee do
     get 'manage' => 'manage#index'

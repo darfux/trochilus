@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @univ_unit_manager.name %>
+</p>
+
+<p>
+  <b>Univ unit:</b>
+  <%= link_to @univ_unit_manager.univ_unit.name,  @univ_unit_manager.univ_unit%>
+</p>
+
+
+<%= link_to 'Edit', edit_univ_unit_manager_path(@univ_unit_manager) %> |
+<%= link_to 'Back', univ_unit_managers_path %>
