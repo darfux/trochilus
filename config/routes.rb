@@ -1,4 +1,16 @@
 Rails.application.routes.draw do
+  resources :project_types
+
+  resources :project_states
+
+  resources :project_levels
+
+  resources :projects
+
+  resources :customers do
+    resources :contact_records
+  end
+
   resources :online_customers
 
   resources :corporate_customers

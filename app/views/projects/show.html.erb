@@ -1,0 +1,71 @@
+<%= content_for :nav_bar_function_area do %>
+  <% if @current_user.user.user_type.downcase == :employee.to_s %>
+    <%= link_to '编辑', edit_project_path(@project) %> |
+    <%= link_to '返回', employee_manage_project_path %>
+  <% end %>
+<% end %>
+
+<%= content_for :nav_bar_title do %>
+    项目信息
+<% end %>
+
+<!-- <div id="project-info-header"></div> -->
+<div id="project-info">
+  <div class="info-block">
+    <p>
+      <div><strong>名称：</strong> <span><%= @project.name %></span></div>
+      <div><strong>编号：</strong> <span><%= @project.serialnum %></span></div>
+      <div><strong>基金类型：</strong> <span><%= @project.project_type.name %></span></div>
+    </p>
+    <p>
+      <div><strong>基金级别：</strong> <span><%= @project.project_level.name %></span></div>
+      <div><strong>是否留本：</strong> <span><%= @project.endowment.ch %></span></div>
+    </p>
+    <p>
+      <div><strong>创建日期：</strong> <span><%= @project.create_date %></span></div>
+    </p>
+  </div>
+  <hr>
+  <div class="info-block">
+    <p>
+      <div><strong>创建单位：</strong> <span>数学研究所</span></div>
+    </p>
+    <p>
+      <div><strong>电话：</strong> <span>0991-2280233</span></div>
+      <div><strong>邮箱：</strong> <span>cheungmm@gmail.com</span></div>
+      <div><strong>传真：</strong> <span>0991-2280233-1</span></div>
+      <div><strong>邮编：</strong> <span>300071</span></div>
+    </p>
+  </div>
+  <hr>
+  <div class="info-block">
+    <p>
+      <div><strong>联系人：</strong> 
+        <% @project.link_men.each do |lm| %>
+          <span><%= link_to lm.name, project_link_man_path(@project.id, lm.id) %></span>
+        <% end %>
+        <%= link_to new_project_link_man_path(@project.id) do %>
+          <%= button_tag '添加' %>
+        <% end %>
+      </div>
+    </p>
+  </div>
+  <hr>
+  <div class="info-block">
+    <p>
+      <div><strong>概要：</strong> <span><%= @project.brief %></span></div>
+    </p>
+  </div>
+</div>
+
+<% if @project.endowment %>
+  <%= render 'endowment_detail' %>
+<% else %>
+  <%= render 'none_endowment_detail' %>
+<% end %>
+
+
+<% if @current_user.nil? %>
+  <%= link_to '编辑', edit_project_path(@project) %> |
+  <%= link_to '返回', projects_path %>
+<% end %>

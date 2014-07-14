@@ -1,6 +1,6 @@
 class EmployeesController < ApplicationController
   before_action :set_employee, only: [:show, :edit, :update, :destroy]
-
+  skip_before_action :authenticate_user!, only: [:new, :create]
   # GET /employees
   # GET /employees.json
   def index
