@@ -1,6 +1,6 @@
 <div class="common-form">
 <% @actual_fund = @fund %>
-<%= form_for(@actual_fund) do |f| %>
+<%= form_for([@donation_record_actual.project, @donation_record_actual, @actual_fund]) do |f| %>
   <% if @actual_fund.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@actual_fund.errors.count, "error") %> prohibited this fund from being saved:</h2>

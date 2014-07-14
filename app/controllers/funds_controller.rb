@@ -25,7 +25,7 @@ class FundsController < ApplicationController
   # POST /funds.json
   def create
     @fund = Fund.new(fund_params)
-
+    @fund.currency = Currency.find_by!(sym: :RMB)
     respond_to do |format|
       if @fund.save
         format.html { redirect_to @fund, notice: 'Fund was successfully created.' }

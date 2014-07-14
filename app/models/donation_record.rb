@@ -1,8 +1,8 @@
 class DonationRecord < ActiveRecord::Base
   belongs_to :customer
   belongs_to :project
-  belongs_to :plan_fund, class_name: :Fund, :foreign_key => :plan_fund_id, dependent: :destroy
-  belongs_to :employee
+  belongs_to :plan_fund, class_name: :Fund, foreign_key: :plan_fund_id, dependent: :destroy
+  belongs_to :creator, class_name: :Employee, foreign_key: :creator_id
   belongs_to :donation_type
 
   has_many :donation_record_actual_funds

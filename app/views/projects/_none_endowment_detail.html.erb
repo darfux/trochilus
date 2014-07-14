@@ -1,4 +1,4 @@
-<div><b>捐赠记录</b> <%= link_to '添加', new_donation_record_path(project: @project) %></div>
+<div><b>捐赠记录</b> <%= link_to '添加', new_project_donation_record_path(@project) %></div>
   <table class="employee-data-table">
     <tbody>
       <tr>
@@ -21,7 +21,7 @@
         <td><%= r.plan_fund.time.localtime.to_s %></td>
         <td><%= r.plan_fund.amount %></td>
         <td><%= r.actual_amount %></td>
-        <td><%= link_to "详情", r %>|<%= link_to '删除', r, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to "详情", [@project, r] %>|<%= link_to '删除', [@project, r], method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
 
     <% end %>
@@ -32,7 +32,7 @@
 
   <p></p>
 
-<div><b>使用记录</b> <%= link_to '添加', new_usage_record_path(project: @project) %></div>
+<div><b>使用记录</b> <%= link_to '添加', new_project_usage_record_path(@project) %></div>
   <table class="employee-data-table">
     <tbody>
       <tr>

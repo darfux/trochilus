@@ -7,10 +7,17 @@ Rails.application.routes.draw do
 
   resources :usage_types
 
-  resources :usage_records
 
-  resources :donation_records
 
+
+
+  resources :projects do
+    resources :donation_records do
+      resources :actual_funds
+    end
+    resources :usage_records
+  end
+  
   resources :fund_types
 
   resources :funds

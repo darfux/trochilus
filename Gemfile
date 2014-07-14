@@ -45,3 +45,7 @@ gem 'cancancan', '~> 1.8'
 
 #Automatically initialize associations
 gem "auto_build"
+
+gem 'seed_dump'
+
+gem 'database_cleaner'

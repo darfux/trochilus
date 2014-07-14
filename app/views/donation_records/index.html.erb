@@ -2,8 +2,6 @@
 
 <table>
   <tr>
-    <th>Customer project</th>
-    <th>Employee</th>
     <th>Fund</th>
     <th>Donation type</th>
     <th></th>
@@ -13,8 +11,6 @@
 
 <% @donation_records.each do |donation_record| %>
   <tr>
-    <td><%= donation_record.customer_project_id %></td>
-    <td><%= donation_record.employee_id %></td>
     <td><%= donation_record.fund_id %></td>
     <td><%= donation_record.donation_type_id %></td>
     <td><%= link_to 'Show', donation_record %></td>

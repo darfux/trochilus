@@ -15,6 +15,7 @@ class DonationRecordsController < ApplicationController
   # GET /donation_records/new
   def new
     @donation_record = DonationRecord.new
+    @donation_record.project = Project.find(params[:project_id])
   end
 
   # GET /donation_records/1/edit
@@ -28,7 +29,7 @@ class DonationRecordsController < ApplicationController
 
     respond_to do |format|
       if @donation_record.save
-        format.html { redirect_to @donation_record, notice: 'Donation record was successfully created.' }
+        format.html { redirect_to [@donation_record.project, @donation_record], notice: 'Donation record was successfully created.' }
         format.json { render :show, status: :created, location: @donation_record }
       else
         format.html { render :new }
@@ -42,7 +43,7 @@ class DonationRecordsController < ApplicationController
   def update
     respond_to do |format|
       if @donation_record.update(donation_record_params)
-        format.html { redirect_to @donation_record, notice: 'Donation record was successfully updated.' }
+        format.html { redirect_to [@donation_record.project, @donation_record], notice: 'Donation record was successfully updated.' }
         format.json { render :show, status: :ok, location: @donation_record }
       else
         format.html { render :edit }
@@ -69,6 +70,12 @@ class DonationRecordsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def donation_record_params
-      params.require(:donation_record).permit(:customer_id, :project_id, :creator_id, :plan_fund_id, :donation_type_id)
+      params.require(:donation_record)
+        .permit(  :customer_id, :project_id, :donation_type_id,
+                  plan_fund_attributes: [:amount, :time]
+                  )
+        .tap{ |p| 
+          p[:creator_id] = current_people.id
+        }
     end
 end

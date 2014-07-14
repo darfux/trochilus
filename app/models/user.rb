@@ -5,11 +5,11 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  belongs_to :user, polymorphic: true, dependent: :destroy
-
+  belongs_to :user, polymorphic: true
   validates :account, uniqueness: true, presence: true
 
   protected
+
     def email_required?
       false
     end

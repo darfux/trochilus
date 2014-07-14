@@ -1,6 +1,9 @@
 desc "Static data import"
 
-DATAS = [:project_types, :project_levels, :project_states, :donation_types, :currencies]
+DATAS = [:project_types, :project_levels, :project_states, 
+          :donation_types, :currencies,
+          :fund_types
+        ]
 
 task :import_data => :environment do
   Rails.root.join

@@ -16,11 +16,11 @@
         <tr>
           <td><%= actual_fund.amount %></td>
           <td><%= actual_fund.time.localtime %></td>
-          <td><%= link_to '编辑', edit_donation_record_actual_fund_path(@donation_record, actual_fund) %></td>
+          <td><%= link_to '编辑', edit_project_donation_record_actual_fund_path(@donation_record.project, @donation_record, actual_fund) %></td>
         </tr>
       <% end %>
     </tbody>
   </table>
 
 </div>
-<%= link_to "添加到款", new_donation_record_actual_fund_path(@donation_record.id) %>
+<%= link_to "添加到款", new_project_donation_record_actual_fund_path(@donation_record.project, @donation_record) %>
