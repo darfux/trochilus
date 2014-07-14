@@ -4,12 +4,12 @@
 
 
 # puts = (args...) -> console.log(args)
-$ ->
+ready = ->
 	# puts $('#employee-nav-bar-function-area').html()
 	bar = $('#employee-nav-bar-function-area')
 	bardiv = $('#employee-nav-bar-function-area div')
-	if bardiv.html() == ""
-		bar.hide()
-	else
-		bar.css("margin-left", -bar.outerWidth()/2)
+	bar.css("margin-left", -bar.outerWidth()/2)
+
+$(document).ready(ready)
+$(document).on('page:load', ready)
 # puts $('#employee-nav-bar-function-area')
