@@ -49,3 +49,5 @@ gem "auto_build"
 gem 'seed_dump'
 
 gem 'database_cleaner'
+
+gem 'quiet_assets', group: :development
