@@ -6,6 +6,7 @@ DATAS = [:project_types,  :project_levels,  :project_states,
           :univ_units,    :univ_unit_managers
         ]
 
+namespace :db do
 task :import_data => :environment do
   Rails.root.join
   DATAS.each do |name|
@@ -41,4 +42,5 @@ task :import_data => :environment do
     end
   end
   puts "====All data import complete===="
+end
 end
