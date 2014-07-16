@@ -10,6 +10,8 @@ class UsageRecord < ActiveRecord::Base
 
   validates_associated :fund
 
+  validates_presence_of_all except: :fund_id
+
   accepts_nested_attributes_for :fund
   auto_build :fund
 

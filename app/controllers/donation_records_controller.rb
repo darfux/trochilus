@@ -1,5 +1,6 @@
 class DonationRecordsController < ApplicationController
   before_action :set_donation_record, only: [:show, :edit, :update, :destroy]
+  before_action :set_project, only: [:new, :create, :edit, :update, :destroy]
 
   # GET /donation_records
   # GET /donation_records.json
@@ -15,7 +16,7 @@ class DonationRecordsController < ApplicationController
   # GET /donation_records/new
   def new
     @donation_record = DonationRecord.new
-    @donation_record.project = Project.find(params[:project_id])
+    @donation_record.project = @project
   end
 
   # GET /donation_records/1/edit
@@ -29,7 +30,7 @@ class DonationRecordsController < ApplicationController
 
     respond_to do |format|
       if @donation_record.save
-        format.html { redirect_to [@donation_record.project, @donation_record], notice: 'Donation record was successfully created.' }
+        format.html { redirect_to @project, notice: 'Donation record was successfully created.' }
         format.json { render :show, status: :created, location: @donation_record }
       else
         format.html { render :new }
@@ -43,7 +44,7 @@ class DonationRecordsController < ApplicationController
   def update
     respond_to do |format|
       if @donation_record.update(donation_record_params)
-        format.html { redirect_to [@donation_record.project, @donation_record], notice: 'Donation record was successfully updated.' }
+        format.html { redirect_to @project, notice: 'Donation record was successfully updated.' }
         format.json { render :show, status: :ok, location: @donation_record }
       else
         format.html { render :edit }
@@ -57,7 +58,7 @@ class DonationRecordsController < ApplicationController
   def destroy
     @donation_record.destroy
     respond_to do |format|
-      format.html { redirect_to donation_records_url, notice: 'Donation record was successfully destroyed.' }
+      format.html { redirect_to @project, notice: 'Donation record was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -66,6 +67,16 @@ class DonationRecordsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_donation_record
       @donation_record = DonationRecord.find(params[:id])
+    end
+
+    def set_project
+      @project =  (
+        if @donation_record && @donation_record.project
+          @donation_record.project
+        else
+          Project.find(params[:project_id])
+        end
+      )
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

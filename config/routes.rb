@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  nested_actions = [:show, :new, :create]
+  origin_actions = [:edit, :update, :destroy]
+
   resources :donation_types
 
   resources :univ_units
@@ -12,12 +15,18 @@ Rails.application.routes.draw do
 
 
   resources :projects do
-    resources :donation_records do
-      resources :actual_funds
-    end
-    resources :usage_records
+    resources :donation_records, only: nested_actions
+    resources :usage_records, only: nested_actions
+    resources :link_men
   end
-  
+  resources :usage_records, only: origin_actions
+  resources :donation_records, only: origin_actions
+
+  resources :donation_records do
+    resources :actual_funds, only: nested_actions
+  end
+  resources :actual_funds, only: origin_actions
+
   resources :fund_types
 
   resources :funds
@@ -41,10 +50,6 @@ Rails.application.routes.draw do
   resources :individual_customers
 
   resources :customers
-
-  resources :projects do
-    resources :link_men
-  end
 
   namespace :employee do
     get 'manage' => 'manage#index'

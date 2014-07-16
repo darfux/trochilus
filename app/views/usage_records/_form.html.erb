@@ -1,6 +1,6 @@
 <div class="common-form">
 
-<%= form_for(@usage_record) do |f| %>
+<%= form_for([current_project, @usage_record]) do |f| %>
   <% if @usage_record.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@usage_record.errors.count, "error") %> prohibited this usage_record from being saved:</h2>
@@ -22,7 +22,7 @@
       <%= f_f.label '时间' %><br />
       <%= f_f.datetime_select :time %>
     </div>
-    <% if @usage_record.project.endowment %>
+    <% if current_project.endowment %>
       <div class="field">
         <%= f_f.radio_button :fund_type_id, FundType.where(name: '本金').first.id %> <%= label_tag :本金 %>
         <%= f_f.radio_button :fund_type_id, FundType.where(name: '利息').first.id  %> <%= label_tag :利息 %>
@@ -54,8 +54,6 @@
     <%= f.label '用途' %><br />
     <%= f.select( :usage_type_id, UsageType.all.collect {|u| [ u.name, u.id ] }, { include_blank: true } ) %>
   </div>
-
-  <%= f.hidden_field(:project_id) %>
   
   <div class="actions">
     <%= f.submit '提交' %>
