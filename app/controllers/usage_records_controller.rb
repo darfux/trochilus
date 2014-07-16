@@ -30,7 +30,7 @@ class UsageRecordsController < ApplicationController
 
     respond_to do |format|
       if @usage_record.save
-        format.html { redirect_to @usage_record, notice: 'Usage record was successfully created.' }
+        format.html { redirect_to @project, notice: 'Usage record was successfully created.' }
         format.json { render :show, status: :created, location: @usage_record }
       else
         format.html { render :new }
@@ -44,7 +44,7 @@ class UsageRecordsController < ApplicationController
   def update
     respond_to do |format|
       if @usage_record.update(usage_record_params)
-        format.html { redirect_to @usage_record, notice: 'Usage record was successfully updated.' }
+        format.html { redirect_to @project, notice: 'Usage record was successfully updated.' }
         format.json { render :show, status: :ok, location: @usage_record }
       else
         format.html { render :edit }
