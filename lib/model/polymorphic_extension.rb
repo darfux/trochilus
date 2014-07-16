@@ -1,5 +1,6 @@
 module PolymorphicExtension
 	def self.included(receiver)
+		return unless receiver.table_exists?
 		receiver.class_variable_set(:@@accessable_attributes, receiver.column_names)
 
 		#It seems that #class_exec has a bug of context
