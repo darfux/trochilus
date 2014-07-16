@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140714070113) do
+ActiveRecord::Schema.define(version: 20140716034728) do
 
   create_table "contact_records", force: true do |t|
     t.integer  "customer_id"
@@ -181,7 +181,7 @@ ActiveRecord::Schema.define(version: 20140714070113) do
 
   create_table "usage_records", force: true do |t|
     t.integer  "fund_id"
-    t.integer  "employee_id"
+    t.integer  "creator_id"
     t.integer  "project_id"
     t.integer  "exec_unit_id"
     t.integer  "exec_manager_id"
@@ -194,7 +194,7 @@ ActiveRecord::Schema.define(version: 20140714070113) do
 
   add_index "usage_records", ["benefit_manager_id"], name: "index_usage_records_on_benefit_manager_id"
   add_index "usage_records", ["benefit_unit_id"], name: "index_usage_records_on_benefit_unit_id"
-  add_index "usage_records", ["employee_id"], name: "index_usage_records_on_employee_id"
+  add_index "usage_records", ["creator_id"], name: "index_usage_records_on_creator_id"
   add_index "usage_records", ["exec_manager_id"], name: "index_usage_records_on_exec_manager_id"
   add_index "usage_records", ["exec_unit_id"], name: "index_usage_records_on_exec_unit_id"
   add_index "usage_records", ["fund_id"], name: "index_usage_records_on_fund_id"
