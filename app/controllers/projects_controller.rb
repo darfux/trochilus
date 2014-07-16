@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy]
-  # before_action :set_static_info, only: [:show]
+  before_action :set_static_info, only: [:show]
   # GET /projects
   # GET /projects.json
   def index

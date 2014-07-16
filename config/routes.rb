@@ -10,15 +10,12 @@ Rails.application.routes.draw do
 
   resources :usage_types
 
-
-
-
-
   resources :projects do
     resources :donation_records, only: nested_actions
     resources :usage_records, only: nested_actions
     resources :link_men
   end
+
   resources :usage_records, only: origin_actions
   resources :donation_records, only: origin_actions
 
