@@ -1,8 +1,4 @@
 <div class="field">
-  <%= f.label @customer_labels[:name] %><br>
+  <%= f.label :name %><br>
   <%= f.text_field :name %>
-</div>
-<div class="field">
-  <%= f.label :专员 %><br>
-  <%= f.select :employee_id, options_from_collection_for_select(Employee.all, :id, :name_with_id) %>
 </div>

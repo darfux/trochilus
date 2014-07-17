@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  fund_id: 
+  employee_id: 
+  project_id: 
+  exec_unit_id: 
+  exec_manager_id: 
+  benefit_unit_id: 
+  benefit_manager_id: 
+  usage_type_id: 
+
+two:
+  fund_id: 
+  employee_id: 
+  project_id: 
+  exec_unit_id: 
+  exec_manager_id: 
+  benefit_unit_id: 
+  benefit_manager_id: 
+  usage_type_id: 

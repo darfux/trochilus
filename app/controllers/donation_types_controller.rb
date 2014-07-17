@@ -1,40 +1,24 @@
 class DonationTypesController < ApplicationController
+  before_action :set_donation_type, only: [:show, :edit, :update, :destroy]
+
   # GET /donation_types
   # GET /donation_types.json
   def index
     @donation_types = DonationType.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @donation_types }
-    end
   end
 
   # GET /donation_types/1
   # GET /donation_types/1.json
   def show
-    @donation_type = DonationType.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @donation_type }
-    end
   end
 
   # GET /donation_types/new
-  # GET /donation_types/new.json
   def new
     @donation_type = DonationType.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @donation_type }
-    end
   end
 
   # GET /donation_types/1/edit
   def edit
-    @donation_type = DonationType.find(params[:id])
   end
 
   # POST /donation_types
@@ -45,9 +29,9 @@ class DonationTypesController < ApplicationController
     respond_to do |format|
       if @donation_type.save
         format.html { redirect_to @donation_type, notice: 'Donation type was successfully created.' }
-        format.json { render json: @donation_type, status: :created, location: @donation_type }
+        format.json { render :show, status: :created, location: @donation_type }
       else
-        format.html { render action: "new" }
+        format.html { render :new }
         format.json { render json: @donation_type.errors, status: :unprocessable_entity }
       end
     end
@@ -56,14 +40,12 @@ class DonationTypesController < ApplicationController
   # PATCH/PUT /donation_types/1
   # PATCH/PUT /donation_types/1.json
   def update
-    @donation_type = DonationType.find(params[:id])
-
     respond_to do |format|
-      if @donation_type.update_attributes(donation_type_params)
+      if @donation_type.update(donation_type_params)
         format.html { redirect_to @donation_type, notice: 'Donation type was successfully updated.' }
-        format.json { head :no_content }
+        format.json { render :show, status: :ok, location: @donation_type }
       else
-        format.html { render action: "edit" }
+        format.html { render :edit }
         format.json { render json: @donation_type.errors, status: :unprocessable_entity }
       end
     end
@@ -72,20 +54,20 @@ class DonationTypesController < ApplicationController
   # DELETE /donation_types/1
   # DELETE /donation_types/1.json
   def destroy
-    @donation_type = DonationType.find(params[:id])
     @donation_type.destroy
-
     respond_to do |format|
-      format.html { redirect_to donation_types_url }
+      format.html { redirect_to donation_types_url, notice: 'Donation type was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_donation_type
+      @donation_type = DonationType.find(params[:id])
+    end
 
-    # Use this method to whitelist the permissible parameters. Example:
-    # params.require(:person).permit(:name, :age)
-    # Also, you can specialize this method with per-user checking of permissible attributes.
+    # Never trust parameters from the scary internet, only allow the white list through.
     def donation_type_params
       params.require(:donation_type).permit(:name)
     end

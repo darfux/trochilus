@@ -1,25 +1,27 @@
-<%= form_for(@contact_record) do |f| %>
+<div class="common-form">
+<%= form_for([@customer, @contact_record]) do |f| %>
   <% if @contact_record.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@contact_record.errors.count, "error") %> prohibited this contact_record from being saved:</h2>
 
       <ul>
-      <% @contact_record.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
+      <% @contact_record.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
       <% end %>
       </ul>
     </div>
   <% end %>
 
   <div class="field">
-    <%= f.label :customer_id %><br>
-    <%= f.text_field :customer_id %>
+    <%= f.label :time %><br>
+    <%= f.datetime_select :time %>
   </div>
   <div class="field">
-    <%= f.label :employee_id %><br>
-    <%= f.text_field :employee_id %>
+    <%= f.label :description %><br>
+    <%= f.text_area :description %>
   </div>
   <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
+</div>

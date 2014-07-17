@@ -4,8 +4,8 @@
       <h2><%= pluralize(@project_level.errors.count, "error") %> prohibited this project_level from being saved:</h2>
 
       <ul>
-      <% @project_level.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
+      <% @project_level.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
       <% end %>
       </ul>
     </div>

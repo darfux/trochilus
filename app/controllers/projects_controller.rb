@@ -1,7 +1,6 @@
-# encoding: utf-8
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy]
-
+  before_action :set_static_info, only: [:show]
   # GET /projects
   # GET /projects.json
   def index
@@ -69,10 +68,33 @@ class ProjectsController < ApplicationController
     def set_project
       @project = Project.find(params[:id])
     end
+    def set_static_info
+      @all_plan_amount = 0
+      @all_actual_amount = 0
+      @all_interest_amount = 0
 
+      @project.donation_records.each do |d|
+        @all_plan_amount += d.plan_fund.amount
+        @all_actual_amount += d.actual_amount
+        @all_interest_amount += d.interest_amount
+      end
+
+      @principle_used_amount = 0
+      @interest_used_amount = 0
+      @project.usage_records.each do |d|
+        @principle_used_amount += d.fund.amount if d.fund.fund_type.name == '本金'
+        @interest_used_amount += d.fund.amount if d.fund.fund_type.name == '利息'
+      end
+
+      @all_principle_rest = @all_plan_amount - @principle_used_amount
+      @actual_principle_rest = @all_actual_amount - @principle_used_amount
+      @intereset_rest = @all_interest_amount - @interest_used_amount
+    end
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
-      params.require(:project).permit(:name, :serialnum, :create_date, :funder, :brief, :employee_id,
-        :gross, :balance, :endowment, :project_level_id, :project_state_id, :project_type_id)
+      params.require(:project).permit(:name, :serialnum, :create_date, :funder, :brief,
+        :gross, :balance, :endowment, :project_level_id, :project_state_id, :project_type_id).tap{|p|
+        p[:creator_id] = current_people.id
+      }
     end
 end

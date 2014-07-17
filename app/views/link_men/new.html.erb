@@ -1,5 +1,5 @@
 <%= content_for :nav_bar_function_area do %>
-  <% if @current_user.user.user_type.downcase == :employee.to_s %>
+  <% if current_user.user_type.downcase == :employee.to_s %>
     <%= link_to '返回', @project %>
   <% end %>
 <% end %>
@@ -18,6 +18,6 @@
   <%= render 'link_men_list' %>
   </div>
 </dt>
-<div>
+</div>
 <div><%= submit_tag '提交' %></div>
 <% end %>

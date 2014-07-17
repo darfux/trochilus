@@ -12,6 +12,7 @@ class CommonCustomersController < ApplicationController
   }
   def index
     @self_customers = @SelfActiveRecord.all
+    # raise @self_customers.inspect
   end
 
   # GET /self_customers/1
@@ -101,6 +102,6 @@ class CommonCustomersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def self_params
       params.require(@SelfActiveRecord.to_s.underscore.to_sym).
-        permit(customer_attributes:[:name]).tap{ |p| p[:customer_attributes][:employee_id] = @current_user.id }
+        permit(customer_attributes:[:name]).tap{ |p| p[:customer_attributes][:creator_id] = current_user.id }
     end
 end

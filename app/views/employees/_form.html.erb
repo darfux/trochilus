@@ -4,15 +4,15 @@
       <h2><%= pluralize(@employee.errors.count, "error") %> prohibited this employee from being saved:</h2>
 
       <ul>
-      <% @employee.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
+      <% @employee.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
       <% end %>
       </ul>
     </div>
   <% end %>
 
   <div class="field">
-    <%= f.label :姓名 %><br>
+    <%= f.label :name %><br>
     <%= f.text_field :name %>
   </div>
 

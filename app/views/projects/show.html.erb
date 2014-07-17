@@ -1,7 +1,7 @@
 <%= content_for :nav_bar_function_area do %>
-  <% if @current_user.user.user_type.downcase == :employee.to_s %>
+  <% if current_user.user_type == :Employee.to_s %>
     <%= link_to '编辑', edit_project_path(@project) %> |
-    <%= link_to '返回', employee_manage_project_path %>
+    <%= link_to '返回', employee_manage_projects_path %>
   <% end %>
 <% end %>
 
@@ -19,7 +19,7 @@
     </p>
     <p>
       <div><strong>基金级别：</strong> <span><%= @project.project_level.name %></span></div>
-      <div><strong>是否留本：</strong> <span><%= @project.endowment.ch %></span></div>
+      <div><strong>是否留本：</strong> <span><%= @project.endowment %></span></div>
     </p>
     <p>
       <div><strong>创建日期：</strong> <span><%= @project.create_date %></span></div>
@@ -44,7 +44,9 @@
         <% @project.link_men.each do |lm| %>
           <span><%= link_to lm.name, project_link_man_path(@project.id, lm.id) %></span>
         <% end %>
-        <%= link_to '添加', new_project_link_man_path(@project.id) %>
+        <%= link_to new_project_link_man_path(@project.id) do %>
+          <%= button_tag '添加' %>
+        <% end %>
       </div>
     </p>
   </div>
@@ -55,107 +57,9 @@
     </p>
   </div>
 </div>
-<div><b>捐赠记录</b> <%= link_to '添加', new_donation_record_path(project: @project) %></div>
-  <table class="employee-data-table">
-    <tbody>
-      <tr>
-        <th>序号 </th>
-        <th>编号</th>
-        <th>捐赠人</th>
-        <th>币种</th>
-        <th>日期</th>
-        <th>计划到账</th>
-        <th>实际到账</th>
-        <th>其他</th>
-      </tr>
 
-    <% @project.donation_records.each do |r| %>
-              <tr>
-        <td></td>
-        <td></td>
-        <td><%= r.customer.name %></td>
-        <td><%= r.plan_fund.currency.name %></td>
-        <td><%= r.plan_fund.time.localtime.to_s %></td>
-        <td><%= r.plan_fund.amount %></td>
-        <td><%= r.actual_amount %></td>
-        <td><%= link_to "详情", r %></td>
-      </tr>
-
-    <% end %>
-
-    </tbody>
-  </table>
-  <div colspan="11">计划到账： <%= get_all_plan @project %> 已到账总额：<%= get_all_actual @project %></div>
-
-  <p></p>
-
-<div><b>使用记录</b></div>
-  <table class="employee-data-table">
-    <tbody>
-      <tr>
-        <th>序号 </th>
-        <th>日期</th>
-        <th>经办人</th>
-        <th>使用金额</th>
-        <th>用途</th>
-        <th>文件</th>
-        <th>其他</th>
-      </tr>
-
-      <tr>
-        <td>01</td>
-        <td>2013-1-1</td>
-        <td><a href="donor_01.html">张某某</a></td>
-        <td>10，000</td>
-        <td>用于奖励学生科研</td>
-        <td>
-          <input name="Confirm3" type="submit" value="查看">
-        </td>
-        <td> 修改 删除</td>
-      </tr>
-
-      <tr>
-        <td>02</td>
-        <td>2013-1-2</td>
-        <td><a href="donor_02.html">王某某</a></td>
-        <td>50，000</td>
-        <td>用于奖励学生科研</td>
-        <td>
-          <input name="Confirm4" type="submit" value="查看">
-        </td>
-        <td>修改 删除</td>
-      </tr>
-
-      <tr>
-        <td>03</td>
-        <td>2013-3-1</td>
-        <td>杨某某</td>
-        <td>50，000</td>
-        <td>用于奖励学生科研</td>
-        <td>
-          <input name="Confirm5" type="submit" value="查看">
-        </td>
-        <td> 修改 删除</td>
-      </tr>
-      
-      <tr> 
-        <td>04</td>
-        <td>2013-4-1</td>
-        <td>白某某</td>
-        <td>100，000</td>
-        <td>用于奖励学生科研</td>
-        <td>
-          <input name="Confirm6" type="submit" value="查看">
-        </td>
-        <td> 修改 删除</td>
-      </tr>
-    </tbody>
-  </table>
-  <div>总支出：210，000  项目现余额：190，000</div>
-
-
-
-<% if @current_user.nil? %>
-  <%= link_to '编辑', edit_project_path(@project) %> |
-  <%= link_to '返回', projects_path %>
+<% if @project.endowment %>
+  <%= render 'endowment_detail' %>
+<% else %>
+  <%= render 'none_endowment_detail' %>
 <% end %>

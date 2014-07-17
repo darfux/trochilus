@@ -1,12 +1,17 @@
 module ApplicationHelper
-  require 'ch_transer'
-  require 'path_table'
-  require 'patch'
-  def get_brief_text(text, num=6)
-    if text[0..num].ascii_only?
-      text[0..num*2] << '...'
-    else
-      text[0..num] << '...'
-    end
+  def resource_name
+    :user
+  end
+
+  def resource
+    @resource ||= User.new
+  end
+
+  def devise_mapping
+    @devise_mapping ||= Devise.mappings[:user]
+  end
+
+  def current_people
+    @current_people ||= (current_user ? current_user.user : nil)
   end
 end

@@ -1,0 +1,23 @@
+<h1>Listing univ_units</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @univ_units.each do |univ_unit| %>
+  <tr>
+    <td><%= univ_unit.name %></td>
+    <td><%= link_to 'Show', univ_unit %></td>
+    <td><%= link_to 'Edit', edit_univ_unit_path(univ_unit) %></td>
+    <td><%= link_to 'Destroy', univ_unit, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Univ unit', new_univ_unit_path %>

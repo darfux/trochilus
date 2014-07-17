@@ -1,7 +1,7 @@
 <%= content_for :nav_bar_function_area do %>
-  <% if @current_user.user.user_type.downcase == :employee.to_s %>
+  <% if current_user.user_type.downcase == :employee.to_s %>
     <%= link_to '编辑', edit_individual_customer_path(@self_customer) %> |
-    <%= link_to '返回', employee_manage_customer_path %>
+    <%= link_to '返回', employee_manage_customers_path %>
   <% end %>
 <% end %>
 
@@ -9,7 +9,7 @@
     客户信息
 <% end %>
 
-<%= render 'info' %>
+<%= render 'common_customers/info' %>
 
 
 
