@@ -1,5 +1,5 @@
 <%= content_for :nav_bar_function_area do %>
-  <% if @current_user.user.user_type.downcase == :employee.to_s %>
+  <% if current_user.user_type.downcase == :employee.to_s %>
     <%= link_to '删除', '', method: :delete %> |
     <%= link_to '返回', @project %>
   <% end %>

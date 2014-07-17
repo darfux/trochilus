@@ -1,54 +1,39 @@
 class DonationRecordsController < ApplicationController
+  before_action :set_donation_record, only: [:show, :edit, :update, :destroy]
+  before_action :set_project, only: [:new, :create, :edit, :update, :destroy]
+
   # GET /donation_records
   # GET /donation_records.json
   def index
     @donation_records = DonationRecord.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @donation_records }
-    end
   end
 
   # GET /donation_records/1
   # GET /donation_records/1.json
   def show
-    @donation_record = DonationRecord.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @donation_record }
-    end
   end
 
   # GET /donation_records/new
-  # GET /donation_records/new.json
   def new
     @donation_record = DonationRecord.new
-    @donation_record.project_id = params[:project]
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @donation_record }
-    end
+    @donation_record.project = @project
   end
 
   # GET /donation_records/1/edit
   def edit
-    @donation_record = DonationRecord.find(params[:id])
   end
 
   # POST /donation_records
   # POST /donation_records.json
   def create
     @donation_record = DonationRecord.new(donation_record_params)
-    @donation_record.donation_type = DonationType.first
-    
+
     respond_to do |format|
       if @donation_record.save
-        format.html { redirect_to project_path(@donation_record.project_id), notice: 'Donation record was successfully created.' }
-        # format.json { render json: @donation_record, status: :created, location: @donation_record }
+        format.html { redirect_to @project, notice: 'Donation record was successfully created.' }
+        format.json { render :show, status: :created, location: @donation_record }
       else
-        format.html { render action: "new" }
+        format.html { render :new }
         format.json { render json: @donation_record.errors, status: :unprocessable_entity }
       end
     end
@@ -57,14 +42,12 @@ class DonationRecordsController < ApplicationController
   # PATCH/PUT /donation_records/1
   # PATCH/PUT /donation_records/1.json
   def update
-    @donation_record = DonationRecord.find(params[:id])
-
     respond_to do |format|
-      if @donation_record.update_attributes(donation_record_params)
-        format.html { redirect_to @donation_record, notice: 'Donation record was successfully updated.' }
-        format.json { head :no_content }
+      if @donation_record.update(donation_record_params)
+        format.html { redirect_to @project, notice: 'Donation record was successfully updated.' }
+        format.json { render :show, status: :ok, location: @donation_record }
       else
-        format.html { render action: "edit" }
+        format.html { render :edit }
         format.json { render json: @donation_record.errors, status: :unprocessable_entity }
       end
     end
@@ -73,27 +56,37 @@ class DonationRecordsController < ApplicationController
   # DELETE /donation_records/1
   # DELETE /donation_records/1.json
   def destroy
-    @donation_record = DonationRecord.find(params[:id])
     @donation_record.destroy
-
     respond_to do |format|
-      format.html { redirect_to donation_records_url }
+      format.html { redirect_to @project, notice: 'Donation record was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_donation_record
+      @donation_record = DonationRecord.find(params[:id])
+    end
 
-    # Use this method to whitelist the permissible parameters. Example:
-    # params.require(:person).permit(:name, :age)
-    # Also, you can specialize this method with per-user checking of permissible attributes.
+    def set_project
+      @project =  (
+        if @donation_record && @donation_record.project
+          @donation_record.project
+        else
+          Project.find(params[:project_id])
+        end
+      )
+    end
+
+    # Never trust parameters from the scary internet, only allow the white list through.
     def donation_record_params
       params.require(:donation_record)
-        .permit(  :customer_id, :project_id,
+        .permit(  :customer_id, :project_id, :donation_type_id,
                   plan_fund_attributes: [:amount, :time]
                   )
         .tap{ |p| 
-          p[:employee_id] = @current_user.id
+          p[:creator_id] = current_people.id
         }
     end
 end

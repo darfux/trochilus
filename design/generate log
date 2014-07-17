@@ -8,19 +8,22 @@ rails g scaffold Channel name:string
 
 rails g controller Cms index admin
 
-rails g scaffold Project name:string serialnum:string create_date:date employee:references brief:text gross:decimal balance:decimal endowment:boolean project_level:references project_state:references project_type:references
+
+#===============================
+
+rails g scaffold Project name:string serialnum:string create_date:date creator:references brief:text endowment:boolean project_level:references project_state:references project_type:references
 
 rails g scaffold ProjectLevel name:string
 
 rails g scaffold ProjectState name:string
 
-rails g scaffold Customer name:string customer:references customer_type:string employee:references
+rails g scaffold ProjectType name:string
 
-rails g scaffold CustomerType name:string
+rails g scaffold Customer name:string customer:references{polymorphic} creator:references
+
+rails g model EmployeeCustomer employee:references customer:references
 
 rails g scaffold IndividualCustomer
-
-rails g scaffold OrgnizationCustomer
 
 rails g scaffold CorporateCustomer
 
@@ -28,11 +31,10 @@ rails g scaffold OnlineCustomer
 
 rails g scaffold Employee name:string
 
-rails g scaffold ContactRecord customer:references employee:references 
+rails g scaffold ContactRecord customer:references employee:references time:datetime description:text
 
-rails g scaffold User account:string password_digest:string user:references user_type:string
+#[instead by devise]rails g scaffold User account:string password_digest:string user:references{polymorphic}
 
-rails g scaffold ProjectType name:string
 
 #2014-05-06 19:33:56
 rails g scaffold FundType name:string
@@ -41,9 +43,11 @@ rails g scaffold Fund amount:decimal time:datetime fund_type:references comment:
 
 rails g scaffold DonationType name:string
 
-rails g model CustomerProject customer:references project:references
+rails g model ProjectLinkMan customer:references project:references
 
-rails g scaffold DonationRecord customer:references project:references employee:references fund:references donation_type:references
+rails g controller LinkMen show new create edit destroy search
+
+rails g scaffold DonationRecord customer:references project:references creator:references plan_fund:references donation_type:references
 
 #2014-05-14 19:36:06
 rails g model DonationRecordActualFund donation_record:references fund:references

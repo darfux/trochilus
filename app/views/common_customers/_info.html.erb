@@ -1,7 +1,8 @@
 <div id="project-info">
   <div class="info-block">
     <p>
-      <div><strong><%= @customer_labels[:name] %>：</strong> <span><%= @self_customer.customer.name %></span></div>
+      <div><strong><%= @customer_labels[:name] %>：</strong> <span><%= @self_customer.name! %></span></div>
+      <div><strong>创建者：</strong> <span><%= current_people.name %></span></div>
     </p>
     <p>
       <div><strong>电话：</strong> <span><%= "空" %></span></div>
@@ -20,7 +21,12 @@
   <hr>
   <div class="info-block">
     <p>
-      <div><strong>来往记录：</strong> <span><%= "空" %></span></div>
+      <div><strong>来往记录：</strong>
+        <% @self_customer.contact_records!.each do |cr| %>
+          <li><%= link_to cr.time, [@self_customer.customer, cr] %></li>
+        <% end %>
+      </div>
+      <%= link_to :new, new_customer_contact_record_path(@self_customer.customer) %>
     </p>
   </div>
 </div>

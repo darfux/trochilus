@@ -4,15 +4,15 @@
       <h2><%= pluralize(@project_type.errors.count, "error") %> prohibited this project_type from being saved:</h2>
 
       <ul>
-      <% @project_type.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
+      <% @project_type.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
       <% end %>
       </ul>
     </div>
   <% end %>
 
   <div class="field">
-    <%= f.label :name %><br />
+    <%= f.label :name %><br>
     <%= f.text_field :name %>
   </div>
   <div class="actions">

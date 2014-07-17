@@ -1,40 +1,24 @@
 class UsageTypesController < ApplicationController
+  before_action :set_usage_type, only: [:show, :edit, :update, :destroy]
+
   # GET /usage_types
   # GET /usage_types.json
   def index
     @usage_types = UsageType.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @usage_types }
-    end
   end
 
   # GET /usage_types/1
   # GET /usage_types/1.json
   def show
-    @usage_type = UsageType.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @usage_type }
-    end
   end
 
   # GET /usage_types/new
-  # GET /usage_types/new.json
   def new
     @usage_type = UsageType.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @usage_type }
-    end
   end
 
   # GET /usage_types/1/edit
   def edit
-    @usage_type = UsageType.find(params[:id])
   end
 
   # POST /usage_types
@@ -45,9 +29,9 @@ class UsageTypesController < ApplicationController
     respond_to do |format|
       if @usage_type.save
         format.html { redirect_to @usage_type, notice: 'Usage type was successfully created.' }
-        format.json { render json: @usage_type, status: :created, location: @usage_type }
+        format.json { render :show, status: :created, location: @usage_type }
       else
-        format.html { render action: "new" }
+        format.html { render :new }
         format.json { render json: @usage_type.errors, status: :unprocessable_entity }
       end
     end
@@ -56,14 +40,12 @@ class UsageTypesController < ApplicationController
   # PATCH/PUT /usage_types/1
   # PATCH/PUT /usage_types/1.json
   def update
-    @usage_type = UsageType.find(params[:id])
-
     respond_to do |format|
-      if @usage_type.update_attributes(usage_type_params)
+      if @usage_type.update(usage_type_params)
         format.html { redirect_to @usage_type, notice: 'Usage type was successfully updated.' }
-        format.json { head :no_content }
+        format.json { render :show, status: :ok, location: @usage_type }
       else
-        format.html { render action: "edit" }
+        format.html { render :edit }
         format.json { render json: @usage_type.errors, status: :unprocessable_entity }
       end
     end
@@ -72,20 +54,20 @@ class UsageTypesController < ApplicationController
   # DELETE /usage_types/1
   # DELETE /usage_types/1.json
   def destroy
-    @usage_type = UsageType.find(params[:id])
     @usage_type.destroy
-
     respond_to do |format|
-      format.html { redirect_to usage_types_url }
+      format.html { redirect_to usage_types_url, notice: 'Usage type was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_usage_type
+      @usage_type = UsageType.find(params[:id])
+    end
 
-    # Use this method to whitelist the permissible parameters. Example:
-    # params.require(:person).permit(:name, :age)
-    # Also, you can specialize this method with per-user checking of permissible attributes.
+    # Never trust parameters from the scary internet, only allow the white list through.
     def usage_type_params
       params.require(:usage_type).permit(:name)
     end

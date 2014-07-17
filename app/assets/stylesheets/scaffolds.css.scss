@@ -6,12 +6,6 @@
 //   line-height: 18px;
 // }
 
-body{
-  margin:0;
-  padding:0;
-  overflow-y:scroll;
-}
-
 // p, ol, ul, td {
 //   font-family: verdana, arial, helvetica, sans-serif;
 //   font-size: 13px;
@@ -35,11 +29,11 @@ body{
 //   }
 // }
 
-div {
-  &.field, &.actions {
-    margin-bottom: 10px;
-  }
-}
+// div {
+//   &.field, &.actions {
+//     margin-bottom: 10px;
+//   }
+// }
 
 #notice {
   color: green;
@@ -74,8 +68,7 @@ div {
   }
 }
 
-
-//========================
+//======
 .common-form, .model-show{
   width: 500px;
   margin: 0 auto;
@@ -85,4 +78,3 @@ div {
   border: $boder;
   // border-right: $boder;
 }
-

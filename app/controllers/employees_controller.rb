@@ -1,8 +1,6 @@
 class EmployeesController < ApplicationController
   before_action :set_employee, only: [:show, :edit, :update, :destroy]
-  before_action :set_projects, only: [:manage, :manage_project]
-  before_action :set_customers, only: [:manage, :manage_customer]
-  
+  skip_before_action :authenticate_user!, only: [:new, :create]
   # GET /employees
   # GET /employees.json
   def index
@@ -26,16 +24,16 @@ class EmployeesController < ApplicationController
   # POST /employees
   # POST /employees.json
   def create
-    @employee = Employee.new(employee_params)    
+    @employee = Employee.new(employee_params)
     @employee.user = @employee.build_user(user_params)
 
     respond_to do |format|
       if @employee.save
         format.html { redirect_to @employee, notice: 'Employee was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @employee }
+        format.json { render :show, status: :created, location: @employee }
       else
-        format.html { render action: 'new' }
-        format.json { render json: @employee.user.errors, status: :unprocessable_entity }
+        format.html { render :new }
+        format.json { render json: @employee.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -44,15 +42,11 @@ class EmployeesController < ApplicationController
   # PATCH/PUT /employees/1.json
   def update
     respond_to do |format|
-      success = @employee.transaction do
-        @employee.user.update_attributes(user_params)
-        @employee.update_attributes(employee_params)
-      end
-      if success
+      if @employee.update(employee_params)
         format.html { redirect_to @employee, notice: 'Employee was successfully updated.' }
-        format.json { head :no_content }
+        format.json { render :show, status: :ok, location: @employee }
       else
-        format.html { render action: 'edit' }
+        format.html { render :edit }
         format.json { render json: @employee.errors, status: :unprocessable_entity }
       end
     end
@@ -63,16 +57,16 @@ class EmployeesController < ApplicationController
   def destroy
     @employee.destroy
     respond_to do |format|
-      format.html { redirect_to employees_url }
+      format.html { redirect_to employees_url, notice: 'Employee was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
 
-#===MANAGE ACTIONS===
+  #===MANAGE ACTIONS===
   def manage
-    @recent_projects = @projects.order("create_date desc").limit(10)
-    @recent_customers = @customers.order("created_at desc").limit(10).collect{ |c| c.customer }
+    # @recent_projects = @projects.order("create_date desc").limit(10)
+    # @recent_customers = @customers.order("created_at desc").limit(10).collect{ |c| c.customer }
   end
 
   def manage_project
@@ -83,37 +77,20 @@ class EmployeesController < ApplicationController
 
   def manage_fund
   end
-  
-  def add_customer
-    case params[:customer_type]
-    when nil
-      render 'customers/new'
-    when "individual"
-      @self_customer = IndividualCustomer.new
-      render new_individual_customer_path
-    end
-  end
 
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_employee
       @employee = Employee.find(params[:id])
     end
-    
-    def set_projects
-      @projects = @current_user.projects
-    end
-    def set_customers
-      @customers = @current_user.customers
-    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def employee_params
       params.require(:employee).permit(:name)
     end
 
     def user_params
-      params.require(:user).permit(:account, :password, :password_confirmation)
+      params.require(:user).permit(:account, :email, :password, :password_confirmation)
     end
-
-
 end

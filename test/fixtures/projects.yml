@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  serialnum: MyString
+  create_date: 2014-07-13
+  employee_id: 
+  brief: MyText
+  endowment: false
+  project_level_id: 
+  project_state_id: 
+  project_type_id: 
+
+two:
+  name: MyString
+  serialnum: MyString
+  create_date: 2014-07-13
+  employee_id: 
+  brief: MyText
+  endowment: false
+  project_level_id: 
+  project_state_id: 
+  project_type_id: 

@@ -1,11 +1,12 @@
 class Employee < ActiveRecord::Base
-  #see http://guides.rubyonrails.org/association_basics.html#options-for-has-one-validate
-  has_many :customers
-  has_many :donation_records
-  has_one :user, as: :user, dependent: :destroy, validate: true
-  has_many :projects
+  include CommonUser
+  acts_as_common_user
 
-  attr_accessible :name, :account
+  has_many :created_customers, class_name: "Customer", foreign_key: :creator_id
+  has_many :created_projects, class_name: "Project", foreign_key: :creator_id
+
+  has_many :donation_records
+
   validates_presence_of :name
   def name_with_id
     "#{id}-#{name}"

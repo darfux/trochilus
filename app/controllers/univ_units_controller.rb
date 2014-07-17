@@ -1,40 +1,24 @@
 class UnivUnitsController < ApplicationController
+  before_action :set_univ_unit, only: [:show, :edit, :update, :destroy]
+
   # GET /univ_units
   # GET /univ_units.json
   def index
     @univ_units = UnivUnit.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @univ_units }
-    end
   end
 
   # GET /univ_units/1
   # GET /univ_units/1.json
   def show
-    @univ_unit = UnivUnit.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @univ_unit }
-    end
   end
 
   # GET /univ_units/new
-  # GET /univ_units/new.json
   def new
     @univ_unit = UnivUnit.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @univ_unit }
-    end
   end
 
   # GET /univ_units/1/edit
   def edit
-    @univ_unit = UnivUnit.find(params[:id])
   end
 
   # POST /univ_units
@@ -45,9 +29,9 @@ class UnivUnitsController < ApplicationController
     respond_to do |format|
       if @univ_unit.save
         format.html { redirect_to @univ_unit, notice: 'Univ unit was successfully created.' }
-        format.json { render json: @univ_unit, status: :created, location: @univ_unit }
+        format.json { render :show, status: :created, location: @univ_unit }
       else
-        format.html { render action: "new" }
+        format.html { render :new }
         format.json { render json: @univ_unit.errors, status: :unprocessable_entity }
       end
     end
@@ -56,14 +40,12 @@ class UnivUnitsController < ApplicationController
   # PATCH/PUT /univ_units/1
   # PATCH/PUT /univ_units/1.json
   def update
-    @univ_unit = UnivUnit.find(params[:id])
-
     respond_to do |format|
-      if @univ_unit.update_attributes(univ_unit_params)
+      if @univ_unit.update(univ_unit_params)
         format.html { redirect_to @univ_unit, notice: 'Univ unit was successfully updated.' }
-        format.json { head :no_content }
+        format.json { render :show, status: :ok, location: @univ_unit }
       else
-        format.html { render action: "edit" }
+        format.html { render :edit }
         format.json { render json: @univ_unit.errors, status: :unprocessable_entity }
       end
     end
@@ -72,20 +54,20 @@ class UnivUnitsController < ApplicationController
   # DELETE /univ_units/1
   # DELETE /univ_units/1.json
   def destroy
-    @univ_unit = UnivUnit.find(params[:id])
     @univ_unit.destroy
-
     respond_to do |format|
-      format.html { redirect_to univ_units_url }
+      format.html { redirect_to univ_units_url, notice: 'Univ unit was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_univ_unit
+      @univ_unit = UnivUnit.find(params[:id])
+    end
 
-    # Use this method to whitelist the permissible parameters. Example:
-    # params.require(:person).permit(:name, :age)
-    # Also, you can specialize this method with per-user checking of permissible attributes.
+    # Never trust parameters from the scary internet, only allow the white list through.
     def univ_unit_params
       params.require(:univ_unit).permit(:name)
     end

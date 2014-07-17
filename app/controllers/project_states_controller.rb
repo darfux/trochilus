@@ -29,9 +29,9 @@ class ProjectStatesController < ApplicationController
     respond_to do |format|
       if @project_state.save
         format.html { redirect_to @project_state, notice: 'Project state was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @project_state }
+        format.json { render :show, status: :created, location: @project_state }
       else
-        format.html { render action: 'new' }
+        format.html { render :new }
         format.json { render json: @project_state.errors, status: :unprocessable_entity }
       end
     end
@@ -43,9 +43,9 @@ class ProjectStatesController < ApplicationController
     respond_to do |format|
       if @project_state.update(project_state_params)
         format.html { redirect_to @project_state, notice: 'Project state was successfully updated.' }
-        format.json { head :no_content }
+        format.json { render :show, status: :ok, location: @project_state }
       else
-        format.html { render action: 'edit' }
+        format.html { render :edit }
         format.json { render json: @project_state.errors, status: :unprocessable_entity }
       end
     end
@@ -56,7 +56,7 @@ class ProjectStatesController < ApplicationController
   def destroy
     @project_state.destroy
     respond_to do |format|
-      format.html { redirect_to project_states_url }
+      format.html { redirect_to project_states_url, notice: 'Project state was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

@@ -29,9 +29,9 @@ class ProjectLevelsController < ApplicationController
     respond_to do |format|
       if @project_level.save
         format.html { redirect_to @project_level, notice: 'Project level was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @project_level }
+        format.json { render :show, status: :created, location: @project_level }
       else
-        format.html { render action: 'new' }
+        format.html { render :new }
         format.json { render json: @project_level.errors, status: :unprocessable_entity }
       end
     end
@@ -43,9 +43,9 @@ class ProjectLevelsController < ApplicationController
     respond_to do |format|
       if @project_level.update(project_level_params)
         format.html { redirect_to @project_level, notice: 'Project level was successfully updated.' }
-        format.json { head :no_content }
+        format.json { render :show, status: :ok, location: @project_level }
       else
-        format.html { render action: 'edit' }
+        format.html { render :edit }
         format.json { render json: @project_level.errors, status: :unprocessable_entity }
       end
     end
@@ -56,7 +56,7 @@ class ProjectLevelsController < ApplicationController
   def destroy
     @project_level.destroy
     respond_to do |format|
-      format.html { redirect_to project_levels_url }
+      format.html { redirect_to project_levels_url, notice: 'Project level was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

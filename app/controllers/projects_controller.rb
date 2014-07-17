@@ -1,4 +1,3 @@
-# encoding: utf-8
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy]
   before_action :set_static_info, only: [:show]
@@ -93,7 +92,9 @@ class ProjectsController < ApplicationController
     end
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
-      params.require(:project).permit(:name, :serialnum, :create_date, :funder, :brief, :employee_id,
-        :gross, :balance, :endowment, :project_level_id, :project_state_id, :project_type_id)
+      params.require(:project).permit(:name, :serialnum, :create_date, :funder, :brief,
+        :gross, :balance, :endowment, :project_level_id, :project_state_id, :project_type_id).tap{|p|
+        p[:creator_id] = current_people.id
+      }
     end
 end

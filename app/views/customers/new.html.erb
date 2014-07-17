@@ -3,12 +3,12 @@
 <% end %>
 
 <% content_for :nav_bar_function_area do %>
-  <%= link_to '返回', employee_manage_customer_path %>
+  <%= link_to '返回', employee_manage_customers_path %>
 <% end %>
 
-<%= link_to '个人客户', employee_add_individual_customer_path %>
+<%= link_to '个人客户', new_individual_customer_path %>
 <%= link_to '企业客户', new_corporate_customer_path %>
-<%= link_to '组织客户', new_orgnization_customer_path %>
-<%= link_to '团体客户', new_customer_group_path %>
+<%# link_to '组织客户', new_orgnization_customer_path %>
+<%# link_to '团体客户', new_customer_group_path %>
 <a>在线客户</a>
 <%# = link_to '在线客户', new_online_customer_path %>

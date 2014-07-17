@@ -4,7 +4,6 @@
   <title>Trochilus</title>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application" %>
-  <%= javascript_include_tag "employee" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
@@ -17,19 +16,21 @@
     <%= link_to employee_manage_path do %>
       <div class="elm">首页</div>
     <% end %>    
-    <%= link_to employee_manage_project_path do %>
+    <%= link_to employee_manage_projects_path do %>
       <div class="elm">项目</div>
     <% end %>    
-    <%= link_to employee_manage_customer_path do %>
+    <%= link_to employee_manage_customers_path do %>
       <div class="elm">客户</div>
     <% end %>    
-    <%= link_to employee_manage_fund_path do %>
+    <%= link_to employee_manage_funds_path do %>
       <div class="elm">资金</div>
     <% end %>
   </div>
+  <% if content_for?(:nav_bar_function_area) %>
   <div id="employee-nav-bar-function-area"><div><%= yield :nav_bar_function_area %></div></div>
+  <% end %>
   <div class="right">
-    <%= link_to logout_path do %>
+    <%= link_to logout_path, method: :delete do %>
       <div class="elm">注销</div>
     <% end %>
   </div>

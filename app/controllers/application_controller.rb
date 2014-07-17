@@ -1,28 +1,23 @@
 class ApplicationController < ActionController::Base
-  before_action :set_current_user
+  # Prevent CSRF attacks by raising an exception.
+  # For APIs, you may want to use :null_session instead.
+  protect_from_forgery with: :exception
+  
   layout :set_layout
-  # before_filter :authorize
-  protect_from_forgery
+  before_action :authenticate_user!
+  before_filter :configure_permitted_parameters, if: :devise_controller?
+  
   protected
-    def authorize
-      unless User.find_by_id(session[:user_id])
-        redirect_to root_url
-      end
+    def configure_permitted_parameters
+      devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:account, :email, :password, :password_confirmation) }
     end
 
-    def current_user_id
-      User.find(session[:user_id]).user_id
+    def current_people
+      @current_people ||= current_user ? current_user.user : nil
     end
-
+    
     def set_layout
-      return session[:user_type].to_s if session[:user_type]
+      return current_people.user_type!.downcase.to_s if current_people
       "application"
-    end
-
-    def set_current_user
-      case session[:user_type]
-      when :employee
-        @current_user = Employee.find(current_user_id)
-      end
     end
 end

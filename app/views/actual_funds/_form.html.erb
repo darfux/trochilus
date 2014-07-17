@@ -1,6 +1,6 @@
 <div class="common-form">
 <% @actual_fund = @fund %>
-<%= form_for(@actual_fund) do |f| %>
+<%= form_for([@donation_record_actual, @actual_fund]) do |f| %>
   <% if @actual_fund.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@actual_fund.errors.count, "error") %> prohibited this fund from being saved:</h2>
@@ -22,9 +22,7 @@
     <%= f.datetime_select :time %>
   </div>
 
-  <%= hidden_field_tag :donation_record_id, @donation_record_actual.id %>
-
-  <% if @donation_record_actual.project.endowment %>
+  <% if @project.endowment %>
     <div class="field">
       <%= f.radio_button :fund_type_id, FundType.where(name: '本金').first.id %> <%= label_tag :本金 %>
       <%= f.radio_button :fund_type_id, FundType.where(name: '利息').first.id  %> <%= label_tag :利息 %>

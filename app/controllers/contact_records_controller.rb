@@ -1,5 +1,6 @@
 class ContactRecordsController < ApplicationController
   before_action :set_contact_record, only: [:show, :edit, :update, :destroy]
+  before_action :set_customer, only: [:new, :show, :edit, :update, :create, :destroy]
 
   # GET /contact_records
   # GET /contact_records.json
@@ -28,10 +29,10 @@ class ContactRecordsController < ApplicationController
 
     respond_to do |format|
       if @contact_record.save
-        format.html { redirect_to @contact_record, notice: 'Contact record was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @contact_record }
+        format.html { redirect_to @customer, notice: 'Contact record was successfully created.' }
+        format.json { render :show, status: :created, location: @contact_record }
       else
-        format.html { render action: 'new' }
+        format.html { render :new }
         format.json { render json: @contact_record.errors, status: :unprocessable_entity }
       end
     end
@@ -42,10 +43,10 @@ class ContactRecordsController < ApplicationController
   def update
     respond_to do |format|
       if @contact_record.update(contact_record_params)
-        format.html { redirect_to @contact_record, notice: 'Contact record was successfully updated.' }
-        format.json { head :no_content }
+        format.html { redirect_to @customer, notice: 'Contact record was successfully updated.' }
+        format.json { render :show, status: :ok, location: @contact_record }
       else
-        format.html { render action: 'edit' }
+        format.html { render :edit }
         format.json { render json: @contact_record.errors, status: :unprocessable_entity }
       end
     end
@@ -56,7 +57,7 @@ class ContactRecordsController < ApplicationController
   def destroy
     @contact_record.destroy
     respond_to do |format|
-      format.html { redirect_to contact_records_url }
+      format.html { redirect_to contact_records_url, notice: 'Contact record was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -67,8 +68,14 @@ class ContactRecordsController < ApplicationController
       @contact_record = ContactRecord.find(params[:id])
     end
 
+    def set_customer
+      @customer = Customer.find(params[:customer_id])
+    end
     # Never trust parameters from the scary internet, only allow the white list through.
     def contact_record_params
-      params.require(:contact_record).permit(:customer_id, :employee_id)
+      params.require(:contact_record).permit(:time, :description).tap{ |p|
+        p[:employee_id] = current_people.id
+        p[:customer_id] = params[:customer_id]
+      }
     end
 end

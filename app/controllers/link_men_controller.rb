@@ -49,6 +49,7 @@ class LinkMenController < ApplicationController
     def set_project
       @project = Project.find(params[:project_id])
     end
+    
     def set_link_man
       @link_man  = Customer.find(params[:id]).customer
     end
