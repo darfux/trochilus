@@ -1,4 +1,16 @@
 Rails.application.routes.draw do
+  get 'link_men/show'
+
+  get 'link_men/new'
+
+  get 'link_men/create'
+
+  get 'link_men/edit'
+
+  get 'link_men/destroy'
+
+  get 'link_men/search'
+
   nested_actions = [:show, :new, :create]
   origin_actions = [:edit, :update, :destroy]
 
@@ -15,7 +27,8 @@ Rails.application.routes.draw do
     resources :usage_records, only: nested_actions
     resources :link_men
   end
-
+  post 'link_men/search' => 'link_men#search', as: 'link_man_search'
+  
   resources :usage_records, only: origin_actions
   resources :donation_records, only: origin_actions
 

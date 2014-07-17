@@ -5,9 +5,13 @@ class Customer < ActiveRecord::Base
   belongs_to :creator, class_name: "Employee"
   has_many :donation_records
   has_many :contact_records
+
+  has_many :project_link_men
+  has_many :link_projects, class_name: :Project, through: :project_link_men, source: :project
+
   validates_presence_of :name
   
-  set_accessable_attributes [:total_donation, :contact_records]
+  set_accessable_attributes [:total_donation, :contact_records, :link_projects]
 
   def customer_type
     super
