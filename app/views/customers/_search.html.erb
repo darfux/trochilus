@@ -1,0 +1,15 @@
+<%= form_tag(customer_search_path, remote: true, id: 'customer-search-form') do -%>
+<div><%= text_field_tag :search %><%= submit_tag '检索' %></div>
+<% end -%>
+
+<div class = "employee-common-list">
+<dt>
+  <div class = "employee-common-list-cell">
+  </div>
+</dt>
+</div>
+<hr>
+<%= form_tag( (current_form rescue nil) , id: 'customer-select-form') do -%>
+<div id='selected-customers'></div>
+<div><%= submit_tag '提交' %></div>
+<% end %>

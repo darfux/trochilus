@@ -11,7 +11,8 @@ class LinkMenController < ApplicationController
 
   def create
     # raise params.inspect
-    params[:customer].each do |c_id|
+    customers = params[:customer] || []
+    customers.each do |c_id|
       customer = IndividualCustomer.find(c_id).customer
       begin
         @project.link_men<<customer

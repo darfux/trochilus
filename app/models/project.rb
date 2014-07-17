@@ -9,6 +9,8 @@ class Project < ActiveRecord::Base
   has_many :donation_records
   has_many :usage_records
 
+  validates_presence_of :name
+  
   validates_associated :link_men
   validates_associated :project_link_men
 end

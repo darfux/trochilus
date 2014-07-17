@@ -66,3 +66,4 @@ rails g scaffold UnivUnit name:string
 rails g scaffold CustomerGroup
 
 #rails g model CustomerGroupsCustomers customer:references customer_group:references ##directly use migration
+rails g migration CreateJoinTableCustomerCustomerGroup customer customer_group
