@@ -1,14 +1,13 @@
 class CommonCustomersController < ApplicationController
   before_action :set_self_active_record, except: [:employee_add_customer]
-  before_action :set_self_type, except: [:employee_add_customer]
+  before_action :set_self_type
   before_action :set_self_customer, only: [:show, :edit, :update, :destroy]
   before_action :set_back_path
   before_action :set_customer_labels
   # GET /self_customers
   # GET /self_customers.json
   @@Customer_labels = {
-    name:     :姓名,
-    employee: :专员
+    name:     :姓名
   }
   def index
     @self_customers = @SelfActiveRecord.all
@@ -57,7 +56,7 @@ class CommonCustomersController < ApplicationController
       #   @self_customer.customer.update_attributes(customer_params)
       #   @self_customer.update_attributes(self_customer_params)
       # end
-      if @self_customer.update_attributes(self_params)
+      if @self_customer.update(self_params)
         format.html { redirect_to @self_customer, notice: 'Individual customer was successfully updated.' }
         format.json { head :no_content }
       else

@@ -18,10 +18,10 @@ Rails.application.routes.draw do
     resources :link_men
   end
   get 'link_men/search'
-  post 'link_men/search' => 'link_men#search', as: 'link_man_search'
+  post 'link_men/search', to: 'link_men#search', as: 'link_man_search'
   
-  get 'customers/search' => 'customers#search', as: 'customer_search'
-  post 'customers/search' => 'customers#do_search'
+  get 'customers/search', to: 'customers#search', as: 'customer_search'
+  post 'customers/search', to: 'customers#do_search'
 
   resources :usage_records, only: origin_actions
   resources :donation_records, only: origin_actions
@@ -47,6 +47,10 @@ Rails.application.routes.draw do
     resources :contact_records
   end
 
+  resources :customer_groups do
+    delete "customers/:id", to: 'customer_groups#delete_customer', as: :customer
+    get "customers/:id", to: 'customer_groups#delete_customer'
+  end
   resources :online_customers
 
   resources :corporate_customers
@@ -56,7 +60,7 @@ Rails.application.routes.draw do
   resources :customers
 
   namespace :employee do
-    get 'manage' => 'manage#index'
+    get 'manage', to: 'manage#index'
     get 'manage/projects'
     get 'manage/customers'
     get 'manage/funds'

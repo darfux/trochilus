@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140717042205) do
+ActiveRecord::Schema.define(version: 20140718013917) do
 
   create_table "contact_records", force: true do |t|
     t.integer  "customer_id"
@@ -37,18 +37,20 @@ ActiveRecord::Schema.define(version: 20140717042205) do
     t.datetime "updated_at"
   end
 
-  create_table "customer_groups", force: true do |t|
+  create_table "customer_group_customers", force: true do |t|
+    t.integer  "customer_id"
+    t.integer  "customer_group_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "customer_groups_customers", id: false, force: true do |t|
-    t.integer "customer_id",       null: false
-    t.integer "customer_group_id", null: false
-  end
+  add_index "customer_group_customers", ["customer_group_id"], name: "index_customer_group_customers_on_customer_group_id"
+  add_index "customer_group_customers", ["customer_id"], name: "index_customer_group_customers_on_customer_id"
 
-  add_index "customer_groups_customers", ["customer_group_id"], name: "index_customer_groups_customers_on_customer_group_id"
-  add_index "customer_groups_customers", ["customer_id"], name: "index_customer_groups_customers_on_customer_id"
+  create_table "customer_groups", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "customers", force: true do |t|
     t.string   "name"

@@ -43,7 +43,7 @@ class ProjectsController < ApplicationController
   # PATCH/PUT /projects/1.json
   def update
     respond_to do |format|
-      if @project.update_attributes(project_params)
+      if @project.update(project_params)
         format.html { redirect_to @project, notice: '项目更新成功' }
         format.json { head :no_content }
       else

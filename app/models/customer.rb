@@ -1,6 +1,6 @@
 class Customer < ActiveRecord::Base
   include PolymorphicExtension
-  belongs_to :customer, polymorphic: true, dependent: :destroy
+  belongs_to :customer, polymorphic: true
   # has_and_belongs_to_many :customer_groups
   belongs_to :creator, class_name: "Employee"
   has_many :donation_records

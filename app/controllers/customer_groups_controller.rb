@@ -1,75 +1,60 @@
-class CustomerGroupsController < ApplicationController
-  before_action :set_customer_group, only: [:show, :edit, :update, :destroy]
-
-  # GET /customer_groups
-  # GET /customer_groups.json
-  def index
-    @customer_groups = CustomerGroup.all
-  end
-
-  # GET /customer_groups/1
-  # GET /customer_groups/1.json
-  def show
-  end
-
-  # GET /customer_groups/new
-  def new
-    @customer_group = CustomerGroup.new
-  end
-
-  # GET /customer_groups/1/edit
-  def edit
-  end
-
-  # POST /customer_groups
-  # POST /customer_groups.json
+class CustomerGroupsController < CommonCustomersController
+  before_action :set_group, only: [:delete_customer]
+  before_action :set_delete_customer, only: [:delete_customer]
   def create
-    raise params.inspect
-    @customer_group = CustomerGroup.new(customer_group_params)
-
+    @self_customer = @SelfActiveRecord.new(self_params)
+    customers = params[:customer] || []
+    customers.each do |c_id|
+      customer = IndividualCustomer.find(c_id).customer
+      begin
+        @self_customer.customers<<customer
+      rescue
+        next
+      end
+    end
     respond_to do |format|
-      if @customer_group.save
-        format.html { redirect_to @customer_group, notice: 'Customer group was successfully created.' }
-        format.json { render :show, status: :created, location: @customer_group }
+      if @self_customer.save
+        format.html { redirect_to @self_customer, notice: 'Customer group was successfully created.' }
+        format.json { render :show, status: :created, location: @self_customer }
       else
         format.html { render :new }
-        format.json { render json: @customer_group.errors, status: :unprocessable_entity }
+        format.json { render json: @self_customer.errors, status: :unprocessable_entity }
       end
     end
   end
 
-  # PATCH/PUT /customer_groups/1
-  # PATCH/PUT /customer_groups/1.json
   def update
+    customers = params[:customer] || []
+    customers.each do |c_id|
+      customer = IndividualCustomer.find(c_id).customer
+      begin
+        @self_customer.customers<<customer
+      rescue
+        next
+      end
+    end
+    set_self_customer #reset the state of group to avoid duplicate validate of customers
     respond_to do |format|
-      if @customer_group.update(customer_group_params)
-        format.html { redirect_to @customer_group, notice: 'Customer group was successfully updated.' }
-        format.json { render :show, status: :ok, location: @customer_group }
+      if @self_customer.update(self_params)
+        format.html { redirect_to @self_customer, notice: 'Individual customer was successfully updated.' }
+        format.json { head :no_content }
       else
-        format.html { render :edit }
-        format.json { render json: @customer_group.errors, status: :unprocessable_entity }
+        # raise 'wrong update'
+        format.html { render action: 'edit' }
+        format.json { render json: @self_customer.errors, status: :unprocessable_entity }
       end
     end
   end
 
-  # DELETE /customer_groups/1
-  # DELETE /customer_groups/1.json
-  def destroy
-    @customer_group.destroy
-    respond_to do |format|
-      format.html { redirect_to customer_groups_url, notice: 'Customer group was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+  def delete_customer
+    @group.customers.delete @customer
+    redirect_to @group
   end
-
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_customer_group
-      @customer_group = CustomerGroup.find(params[:id])
+    def set_group
+      @group = CustomerGroup.find(params[:customer_group_id])
     end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def customer_group_params
-      params[:customer_group]
+    def set_delete_customer
+      @customer = Customer.find(params[:id])
     end
 end

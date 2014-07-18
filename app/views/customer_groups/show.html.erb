@@ -1,4 +1,29 @@
 <p id="notice"><%= notice %></p>
+<h2>团体名称： <%= @self_customer.name! %></h2>
 
-<%= link_to 'Edit', edit_customer_group_path(@customer_group) %> |
+
+<table>
+  <h4>团体成员</h4>
+  <thead>
+    <tr>
+      <th>姓名</th>
+<!--       <th>客户类型</th>
+      <th>负责人</th> -->
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @self_customer.customers.each do |customer| %>
+      <tr>
+        <td><%= link_to customer.name, customer %></td>
+        <td><%= link_to '删除', [@self_customer, customer], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'Edit', edit_customer_group_path(@self_customer) %> |
 <%= link_to 'Back', customer_groups_path %>
