@@ -1,3 +1,4 @@
+
 desc "Static data import"
 
 DATAS = [ 
@@ -10,6 +11,9 @@ DATAS = [
 namespace :db do
 task :import_data => :environment do
   Rails.root.join
+  if RUBY_VERSION < '2.1.0'
+    require './lib/patches/array#to_h.rb'
+  end
   DATAS.each do |name|
     DatabaseCleaner.clean_with(:truncation, :only => [name])
     File.open("./lib/tasks/data/#{name}", 'r') do |f|
