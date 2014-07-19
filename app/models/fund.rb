@@ -1,4 +1,5 @@
 class Fund < ActiveRecord::Base
+  include PolymorphicExtension
   belongs_to :fund_type
   belongs_to :donation_record_plan, class_name: :DonationRecord, :foreign_key => :plan_fund_id
   belongs_to :currency

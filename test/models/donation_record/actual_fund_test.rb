@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class DonationRecordActualFundTest < ActiveSupport::TestCase
+class DonationRecord::ActualFundTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

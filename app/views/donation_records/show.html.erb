@@ -14,8 +14,8 @@
     <tbody>
       <% @donation_record.actual_funds.each do |actual_fund| %>
         <tr>
-          <td><%= actual_fund.amount %></td>
-          <td><%= actual_fund.time.localtime %></td>
+          <td><%= actual_fund.amount! %></td>
+          <td><%= actual_fund.time!.localtime %></td>
           <td><%= link_to '编辑', edit_actual_fund_path(actual_fund) %></td>
         </tr>
       <% end %>

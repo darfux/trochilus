@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+
+  # namespace :donation_record do
+  #   resources :actual_funds
+  # end
+
   nested_actions = [:show, :new, :create]
   origin_actions = [:edit, :update, :destroy]
 
@@ -26,10 +31,16 @@ Rails.application.routes.draw do
   resources :usage_records, only: origin_actions
   resources :donation_records, only: origin_actions
 
-  resources :donation_records do
-    resources :actual_funds, only: nested_actions
+
+  ##Things below are workarounds for namespaced model to use a nested resource
+  resources :actual_funds, controller: 'donation_record/actual_funds', only: [:edit]
+  namespace :donation_record do
+    resources :actual_funds, only: [:show, :update]
   end
-  resources :actual_funds, only: origin_actions
+  resources :donation_records do
+    resources :actual_funds, controller: 'donation_record/actual_funds', only: nested_actions
+  end
+  ##
 
   resources :fund_types
 

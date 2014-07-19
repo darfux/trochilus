@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140718013917) do
+ActiveRecord::Schema.define(version: 20140719045646) do
 
   create_table "contact_records", force: true do |t|
     t.integer  "customer_id"
@@ -66,19 +66,17 @@ ActiveRecord::Schema.define(version: 20140718013917) do
 
   create_table "donation_record_actual_funds", force: true do |t|
     t.integer  "donation_record_id"
-    t.integer  "fund_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "fund_type_id"
   end
 
   add_index "donation_record_actual_funds", ["donation_record_id"], name: "index_donation_record_actual_funds_on_donation_record_id"
-  add_index "donation_record_actual_funds", ["fund_id"], name: "index_donation_record_actual_funds_on_fund_id"
 
   create_table "donation_records", force: true do |t|
     t.integer  "customer_id"
     t.integer  "project_id"
     t.integer  "creator_id"
-    t.integer  "plan_fund_id"
     t.integer  "donation_type_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -87,7 +85,6 @@ ActiveRecord::Schema.define(version: 20140718013917) do
   add_index "donation_records", ["creator_id"], name: "index_donation_records_on_creator_id"
   add_index "donation_records", ["customer_id"], name: "index_donation_records_on_customer_id"
   add_index "donation_records", ["donation_type_id"], name: "index_donation_records_on_donation_type_id"
-  add_index "donation_records", ["plan_fund_id"], name: "index_donation_records_on_plan_fund_id"
   add_index "donation_records", ["project_id"], name: "index_donation_records_on_project_id"
 
   create_table "donation_types", force: true do |t|
@@ -111,16 +108,16 @@ ActiveRecord::Schema.define(version: 20140718013917) do
   create_table "funds", force: true do |t|
     t.decimal  "amount"
     t.datetime "time"
-    t.integer  "fund_type_id"
     t.text     "comment"
     t.integer  "currency_id"
     t.decimal  "origin_amount"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "fund_instance_type"
+    t.integer  "fund_instance_id"
   end
 
   add_index "funds", ["currency_id"], name: "index_funds_on_currency_id"
-  add_index "funds", ["fund_type_id"], name: "index_funds_on_fund_type_id"
 
   create_table "individual_customers", force: true do |t|
     t.datetime "created_at"
@@ -195,7 +192,6 @@ ActiveRecord::Schema.define(version: 20140718013917) do
   end
 
   create_table "usage_records", force: true do |t|
-    t.integer  "fund_id"
     t.integer  "creator_id"
     t.integer  "project_id"
     t.integer  "exec_unit_id"
@@ -205,6 +201,7 @@ ActiveRecord::Schema.define(version: 20140718013917) do
     t.integer  "usage_type_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "fund_type_id"
   end
 
   add_index "usage_records", ["benefit_manager_id"], name: "index_usage_records_on_benefit_manager_id"
@@ -212,7 +209,6 @@ ActiveRecord::Schema.define(version: 20140718013917) do
   add_index "usage_records", ["creator_id"], name: "index_usage_records_on_creator_id"
   add_index "usage_records", ["exec_manager_id"], name: "index_usage_records_on_exec_manager_id"
   add_index "usage_records", ["exec_unit_id"], name: "index_usage_records_on_exec_unit_id"
-  add_index "usage_records", ["fund_id"], name: "index_usage_records_on_fund_id"
   add_index "usage_records", ["project_id"], name: "index_usage_records_on_project_id"
   add_index "usage_records", ["usage_type_id"], name: "index_usage_records_on_usage_type_id"
 

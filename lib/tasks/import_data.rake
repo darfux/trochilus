@@ -1,9 +1,10 @@
 desc "Static data import"
 
-DATAS = [:project_types,  :project_levels,  :project_states, 
-          :currencies,
-          :fund_types,    :usage_types,     :donation_types,
-          :univ_units,    :univ_unit_managers
+DATAS = [ 
+          :project_types,   :project_levels,  :project_states, 
+          :fund_types,       :currencies,
+          :usage_types,     :donation_types,
+          :univ_units,      :univ_unit_managers
         ]
 
 namespace :db do

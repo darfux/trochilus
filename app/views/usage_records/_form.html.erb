@@ -22,14 +22,15 @@
       <%= f_f.label '时间' %><br />
       <%= f_f.datetime_select :time %>
     </div>
-    <% if current_project.endowment %>
-      <div class="field">
-        <%= f_f.radio_button :fund_type_id, FundType.where(name: '本金').take.id %> <%= label_tag :本金 %>
-        <%= f_f.radio_button :fund_type_id, FundType.where(name: '利息').take.id  %> <%= label_tag :利息 %>
-      </div>
-    <% else %>
-      <%= f_f.hidden_field :fund_type_id, value: FundType.where(name: '本金').take.id %>
-    <% end %>
+  <% end %>
+
+  <% if current_project.endowment %>
+    <div class="field">
+      <%= f.radio_button :fund_type_id, FundType.where(name: '本金').take.id %> <%= label_tag :本金 %>
+      <%= f.radio_button :fund_type_id, FundType.where(name: '利息').take.id  %> <%= label_tag :利息 %>
+    </div>
+  <% else %>
+    <%= f.hidden_field :fund_type_id, value: FundType.where(name: '本金').take.id %>
   <% end %>
 
   <div class="field">
@@ -54,7 +55,9 @@
     <%= f.label '用途' %><br />
     <%= f.select( :usage_type_id, UsageType.all.collect {|u| [ u.name, u.id ] }, { include_blank: true } ) %>
   </div>
-  
+
+
+
   <div class="actions">
     <%= f.submit '提交' %>
   </div>

@@ -82,8 +82,8 @@ class ProjectsController < ApplicationController
       @principle_used_amount = 0
       @interest_used_amount = 0
       @project.usage_records.each do |d|
-        @principle_used_amount += d.fund.amount if d.fund.fund_type.name == '本金'
-        @interest_used_amount += d.fund.amount if d.fund.fund_type.name == '利息'
+        @principle_used_amount += d.fund.amount if d.fund_type.name == '本金'
+        @interest_used_amount += d.fund.amount if d.fund_type.name == '利息'
       end
 
       @all_principle_rest = @all_plan_amount - @principle_used_amount

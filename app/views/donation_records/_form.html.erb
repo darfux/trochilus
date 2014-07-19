@@ -13,7 +13,7 @@
     </div>
   <% end %>
 
-  <%= f.fields_for :plan_fund, @donation_record.plan_fund do |f_f| %>
+  <%= f.fields_for :fund do |f_f| %>
     <div class="field">
       <%= f_f.label '数额' %><br />
       <%= f_f.text_field :amount %>
