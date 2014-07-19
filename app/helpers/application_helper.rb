@@ -14,4 +14,12 @@ module ApplicationHelper
   def current_people
     @current_people ||= (current_user ? current_user.user : nil)
   end
+
+  def localize_time(time)
+    time.localtime.strftime("%Y-%m-%d %H:%M")
+  end
+  
+  def localize_date(time)
+    time.localtime.strftime("%Y-%m-%d")
+  end
 end

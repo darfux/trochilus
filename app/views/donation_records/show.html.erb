@@ -18,7 +18,7 @@
       <% @donation_record.actual_funds.each do |actual_fund| %>
         <tr>
           <td><%= actual_fund.amount! %></td>
-          <td><%= actual_fund.time!.localtime.strftime("%Y-%m-%d %H:%M") %></td>
+          <td><%= localize_time actual_fund.time! %></td>
           <% if @project.endowment %>
           <td><%= actual_fund.fund_type.name %></td>
           <% end %>
