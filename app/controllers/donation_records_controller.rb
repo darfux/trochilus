@@ -1,6 +1,6 @@
 class DonationRecordsController < ApplicationController
   before_action :set_donation_record, only: [:show, :edit, :update, :destroy]
-  before_action :set_project, only: [:new, :create, :edit, :update, :destroy]
+  before_action :set_project, only: [:show, :new, :create, :edit, :update, :destroy]
 
   # GET /donation_records
   # GET /donation_records.json

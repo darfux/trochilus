@@ -26,10 +26,10 @@ class DonationRecord < ActiveRecord::Base
   
   def interest_amount
     interest_amount = 0
-    # interest = FundType.where(name: '利息').first
-    # self.actual_funds.where(fund_type_id: interest.id).each do |a|
-    #   interest_amount+=a.amount
-    # end
+    interest = FundType.where(name: '利息').first
+    self.actual_funds.where(fund_type_id: interest.id).each do |a|
+      interest_amount+=a.amount!
+    end
     interest_amount
   end
   def plan_fund

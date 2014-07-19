@@ -8,6 +8,9 @@
       <tr>
         <th>金额</th>
         <th>时间</th>
+        <% if @project.endowment %>
+        <th>类型</th>
+        <% end %>
       </tr>
     </thead>
 
@@ -15,7 +18,10 @@
       <% @donation_record.actual_funds.each do |actual_fund| %>
         <tr>
           <td><%= actual_fund.amount! %></td>
-          <td><%= actual_fund.time!.localtime %></td>
+          <td><%= actual_fund.time!.localtime.strftime("%Y-%m-%d %H:%M") %></td>
+          <% if @project.endowment %>
+          <td><%= actual_fund.fund_type.name %></td>
+          <% end %>
           <td><%= link_to '编辑', edit_actual_fund_path(actual_fund) %></td>
         </tr>
       <% end %>
