@@ -1,2 +1,8 @@
-<h1>Employee::Manage#funds</h1>
-<p>Find me in app/views/employee/manage/funds.html.erb</p>
+<h1>资金页面</h1>
+<div id='employee-fund-list'>
+  <ul>
+  <% Fund.all.order('updated_at DESC').each do |fund| %>
+    <li><%= link_to fund.fund_instance_type, fund %><span><%= localize_time fund.updated_at %></span></li>
+  <% end %>
+  </ul>
+</div>

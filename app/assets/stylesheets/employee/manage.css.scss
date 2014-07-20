@@ -278,6 +278,14 @@ $elm_padding_top: 4px;
 }
 
 //====FUND LIST====
-#fund-list{
+#employee-fund-list{
 	color: black;
+	text-align: left;
+	width: 640px;
+	margin: 0 auto;
+	ul{
+		span{
+			float: right;
+		}
+	}
 }
