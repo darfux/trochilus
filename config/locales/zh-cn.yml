@@ -20,6 +20,23 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 zh-cn:
+  date:
+    # Don't forget the nil at the beginning; there's no such thing as a 0th month
+    month_names: [~, "一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"]
+    abbr_month_names: [~, "一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"]
+    # Used in date_select and datetime_select.
+    order:
+      - year
+      - month
+      - day
+  activerecord:
+    models:
+      project: 项目
+    attributes:
+      project:
+        name: 项目名称
+      fund:
+        amount: 金额
   fund:
     instance_type:
       project:
