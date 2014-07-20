@@ -13,4 +13,39 @@ class Project < ActiveRecord::Base
   
   validates_associated :link_men
   validates_associated :project_link_men
+
+  def endowment_t
+    endowment ? :eyes : :eno
+  end
+
+  # def #{pre}_amount
+  #   amount = 0
+  #   donation_records.each do |d|
+  #     amount+=d.#{pre}_amount
+  #   end
+  #   amount
+  # end
+  [:total_amount, :actual_amount, :interest_amount].each do |method_name|      
+    define_method(method_name) do             
+      amount = 0                                
+      donation_records.each do |r|                
+        amount+=r.send(method_name)               
+      end
+      amount
+    end
+  end
+
+  [:principle_used, :interest_used].each do |method_name|
+    type = method_name.to_s.split('_')[0]
+    type_id = FundType.where(name: type).take
+    define_method(method_name) do             
+      amount = 0                                
+      usage_records = UsageRecord.where(fund_type_id: type_id)
+      usage_records.each do |r|
+        amount += r.fund.amount
+      end
+      amount
+    end
+  end
+
 end

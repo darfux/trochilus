@@ -22,8 +22,7 @@
       <th>创建单位</th>
       <th>是否留本</th>
       <th>总额</th>
-      <th>余额</th>
-      <!-- <td>其他</td> -->
+      <th>到款</th>
     </tr>
     <% counter=0 %>
     <% @projects.each do |p| %>
@@ -34,10 +33,9 @@
       <td><%= p.project_type.name %></td>
       <td><%= p.project_level.name %></td>
       <td>南开大学</td>
-      <td><%= p.endowment %></td>
-      <td><%= -1 %></td>
-      <td><%= -1 %></td>
-      <!-- <td><%= link_to "详情", p %> 修改 删除</td> -->
+      <td><%= t(p.endowment_t, scope: 'project.endowment') %></td>
+      <td><%= p.total_amount %></td>
+      <td><%= p.actual_amount %></td>
     </tr>
     <% end %>
   </tbody>

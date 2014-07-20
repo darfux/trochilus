@@ -17,7 +17,7 @@ class DonationRecord < ActiveRecord::Base
   
   def actual_amount
     actual_amount = 0
-    principle = FundType.where(name: '本金').first
+    principle = FundType.where(name: :principle).take
     self.actual_funds.where(fund_type_id: principle.id).each do |a|
       actual_amount+=a.amount!
     end
@@ -26,7 +26,7 @@ class DonationRecord < ActiveRecord::Base
   
   def interest_amount
     interest_amount = 0
-    interest = FundType.where(name: '利息').first
+    interest = FundType.where(name: :interest).take
     self.actual_funds.where(fund_type_id: interest.id).each do |a|
       interest_amount+=a.amount!
     end
@@ -34,9 +34,8 @@ class DonationRecord < ActiveRecord::Base
   end
   def plan_fund
     fund
-  end
-  def plan_fund_type
-  end
-  def actual_intreset_fund_type
+  end  
+  def total_amount
+    fund.amount
   end
 end

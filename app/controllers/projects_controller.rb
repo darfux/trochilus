@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy]
-  before_action :set_static_info, only: [:show]
+  before_action :set_statistics_info, only: [:show]
   # GET /projects
   # GET /projects.json
   def index
@@ -68,23 +68,13 @@ class ProjectsController < ApplicationController
     def set_project
       @project = Project.find(params[:id])
     end
-    def set_static_info
-      @all_plan_amount = 0
-      @all_actual_amount = 0
-      @all_interest_amount = 0
+    def set_statistics_info
+      @all_plan_amount = @project.total_amount
+      @all_actual_amount = @project.actual_amount
+      @all_interest_amount = @project.interest_amount
 
-      @project.donation_records.each do |d|
-        @all_plan_amount += d.plan_fund.amount
-        @all_actual_amount += d.actual_amount
-        @all_interest_amount += d.interest_amount
-      end
-
-      @principle_used_amount = 0
-      @interest_used_amount = 0
-      @project.usage_records.each do |d|
-        @principle_used_amount += d.fund.amount if d.fund_type.name == '本金'
-        @interest_used_amount += d.fund.amount if d.fund_type.name == '利息'
-      end
+      @principle_used_amount = @project.principle_used
+      @interest_used_amount = @project.interest_used
 
       @all_principle_rest = @all_plan_amount - @principle_used_amount
       @actual_principle_rest = @all_actual_amount - @principle_used_amount
