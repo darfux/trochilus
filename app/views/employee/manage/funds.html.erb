@@ -2,7 +2,7 @@
 <div id='employee-fund-list'>
   <ul>
   <% Fund.all.order('updated_at DESC').each do |fund| %>
-    <li><%= link_to fund.fund_instance_type, fund %><span><%= localize_time fund.updated_at %></span></li>
+    <li><%= link_to t(fund.fund_instance_type, scope: 'fund.instance_type.project'), fund %><span><%= localize_time fund.updated_at %></span></li>
   <% end %>
   </ul>
 </div>
