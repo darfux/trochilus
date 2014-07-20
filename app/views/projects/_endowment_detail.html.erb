@@ -53,7 +53,7 @@
       <% @project.usage_records.each do |r| %>
       <tr>
         <td>xx</td>
-        <td><%= r.fund_type.name %></td>
+        <td><%= t r.fund_type.name, scope: 'fund.type' %></td>
         <td><%= localize_date r.fund.time.localtime %></td>
         <td><%= r.exec_unit.name %></td>
         <td><%= link_to r.exec_manager.name, r.exec_manager%></td>        

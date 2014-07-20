@@ -14,6 +14,12 @@ class FundsController < ApplicationController
     when 'DonationRecord'
       @donation_record = @fund.fund_instance
       render 'donation_record'
+    when 'DonationRecord::ActualFund'
+      @donation_record = @fund.fund_instance.donation_record
+      render 'donation_record_actual_fund'
+    when 'UsageRecord'
+      @usage_record = @fund.fund_instance
+      render 'usage_record'
     end
   end
 

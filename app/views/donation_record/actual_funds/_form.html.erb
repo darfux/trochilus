@@ -30,8 +30,8 @@
 
   <% if @project.endowment %>
     <div class="field">
-      <%= f.radio_button :fund_type_id, FundType.where(name: '本金').first.id %> <%= label_tag :本金 %>
-      <%= f.radio_button :fund_type_id, FundType.where(name: '利息').first.id  %> <%= label_tag :利息 %>
+      <%= f.radio_button :fund_type_id, FundType.where(name: :principle).take.id %> <%= label_tag :本金 %>
+      <%= f.radio_button :fund_type_id, FundType.where(name: :interest).take.id  %> <%= label_tag :利息 %>
     </div>
   <% else %>
     <%= f.hidden_field  :fund_type_id %>

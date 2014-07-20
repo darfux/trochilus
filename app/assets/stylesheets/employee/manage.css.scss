@@ -286,6 +286,20 @@ $elm_padding_top: 4px;
 	ul{
 		span{
 			float: right;
+			margin-right: 10px;
 		}
 	}
+}
+
+.fund-data-table{
+	text-align: left;
+	td, th{
+		padding-right: 25px;
+	}
+}
+
+.fund-detail{
+	text-align: left;
+	width: 360px;
+	margin: 0 auto;
 }

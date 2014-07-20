@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1>资金——捐赠记录（新建）</h1>
+<h1>资金——捐赠记录（到款）</h1>
 <div class='fund-detail'>
   <p>
     <strong><%= Project.model_name.human %>:</strong>
@@ -11,8 +11,8 @@
     <%= @fund.amount %>
   </p>
   <p>
-    <strong><%= DonationRecord.human_attribute_name :created_at %>:</strong>
-    <%= l @donation_record.created_at, format: :long %>
+    <strong><%= DonationRecord.human_attribute_name :actual_fund_time %>:</strong>
+    <%= l @fund.time, format: :long %>
   </p>
   <p>
     <strong><%= DonationRecord.human_attribute_name :creator %>:</strong>

@@ -18,9 +18,9 @@
       <% @donation_record.actual_funds.each do |actual_fund| %>
         <tr>
           <td><%= actual_fund.amount! %></td>
-          <td><%= localize_time actual_fund.time! %></td>
+          <td><%= l actual_fund.time! %></td>
           <% if @project.endowment %>
-          <td><%= actual_fund.fund_type.name %></td>
+          <td><%= t actual_fund.fund_type.name, scope: 'fund.type' %></td>
           <% end %>
           <td><%= link_to '编辑', edit_actual_fund_path(actual_fund) %></td>
         </tr>
