@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  
+  get 'users/search'
 
   # namespace :donation_record do
   #   resources :actual_funds

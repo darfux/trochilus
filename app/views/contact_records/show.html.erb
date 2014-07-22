@@ -14,11 +14,14 @@
   <strong>Time:</strong>
   <%= @contact_record.time %>
 </p>
-
+类型
 <p>
   <strong>Description:</strong>
   <%= @contact_record.description %>
 </p>
-
+相关人员
+执行人
+联系人
+其他人员
 <%= link_to 'Edit', edit_customer_contact_record_path(@customer, @contact_record) %> |
 <%= link_to 'Back', @customer %>

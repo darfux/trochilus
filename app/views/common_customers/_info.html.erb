@@ -23,7 +23,7 @@
     <p>
       <div><strong>来往记录：</strong>
         <% @self_customer.contact_records!.each do |cr| %>
-          <li><%= link_to cr.time, [@self_customer.customer, cr] %></li>
+          <li><%= link_to l(cr.time), [@self_customer.customer, cr] %></li>
         <% end %>
       </div>
       <%= link_to :new, new_customer_contact_record_path(@self_customer.customer) %>

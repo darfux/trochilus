@@ -20,6 +20,7 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 zh-cn:
+  #DATE
   date:
     formats:
       # Use the strftime parameters for formats.
@@ -36,6 +37,8 @@ zh-cn:
       - year
       - month
       - day
+
+  #TIME
   time:
     formats:
       default: "%Y-%m-%d  %H:%M"
@@ -46,6 +49,8 @@ zh-cn:
   user:
     role:
       creator: &user_as_creator 创建人
+
+  #ACTIVERECORD
   activerecord:
     models:
       project: 项目
@@ -74,3 +79,13 @@ zh-cn:
     type:
       principle: 本金
       interest: 利息
+
+  #HELPERS
+  helpers:
+    label: 
+      contact_record: 
+        time: 联系时间
+        description: 联系内容
+    submit:
+      contact_record:
+        create: 添加记录

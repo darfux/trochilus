@@ -17,8 +17,20 @@
     <%= f.datetime_select :time %>
   </div>
   <div class="field">
+    <%= f.label :major_participants %><br>
+    <%= f. :major_participants%>
+  </div>
+  <div class="field">
+    <%# f.label :other_participants %><br>
+    <%# f. :other_participants%>
+  </div>
+  <div class="field">
     <%= f.label :description %><br>
     <%= f.text_area :description %>
+  </div>
+  <div class="field">
+    <%= f.label :conclusion %><br>
+    <%= f.text_area :conclusion %>
   </div>
   <div class="actions">
     <%= f.submit %>
