@@ -17,7 +17,7 @@
   <% end %>
 
   <div>  
-    <button id='go-select-customer'>选择客户</button>
+    <button data-target="myModal" data-toggle="modal">选择客户</button>
   </div>
 
   <div id='group-customer-result'></div>
@@ -26,14 +26,12 @@
     <%= f.submit %>
   </div>
 <% end %>
-<div class='modal-mask'>
+
+<div class="modal-dialog" id="myModal">
+  <span class='close' data-dismiss="modal">X</span>
+  <div id='customer-select-panel-content'>
+    <%= render 'customers/search' %>
+  </div>
 </div>
 
-  <div id='customer-select-panel'>
-    <span class='close'>X</span>
-    <div id='customer-select-panel-content'>
-      <%= render 'customers/search' %>
-    </div>
-  </div>
-
-  <div id='controller-mark' name="<%=params[:controller]%>"></div>
+<div id='controller-mark' name="<%=params[:controller]%>"></div>
