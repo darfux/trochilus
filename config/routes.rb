@@ -24,7 +24,13 @@ Rails.application.routes.draw do
     resources :donation_records, only: nested_actions
     resources :usage_records, only: nested_actions
     resources :link_men
+    member do
+      get 'new_attachment'
+      post 'attachments', to: 'projects#create_attachment', as: :attachments
+      delete 'attachments/:attachment_id', to: 'projects#destroy_attachment', as: :attachment
+    end
   end
+
   get 'link_men/search'
   post 'link_men/search', to: 'link_men#search', as: 'link_man_search'
   

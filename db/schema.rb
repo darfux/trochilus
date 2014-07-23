@@ -11,7 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140723064039) do
+ActiveRecord::Schema.define(version: 20140723122844) do
+
+  create_table "attachments", force: true do |t|
+    t.integer  "attachment_owner_id"
+    t.string   "attachment_owner_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "file_file_name"
+    t.string   "file_content_type"
+    t.integer  "file_file_size"
+    t.datetime "file_updated_at"
+  end
+
+  add_index "attachments", ["attachment_owner_id", "attachment_owner_type"], name: "index_attachments_on_its_owner_id_and_owner_type"
 
   create_table "contact_records", force: true do |t|
     t.integer  "customer_id"

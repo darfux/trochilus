@@ -66,3 +66,6 @@ rails g scaffold UnivUnit name:string
 rails g scaffold CustomerGroup
 
 rails g model CustomerGroupCustomer customer:references customer_group:references
+
+#2014-07-23 19:59:28
+rails g model Attachment attachment_owner:references{polymorphic}

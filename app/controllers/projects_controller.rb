@@ -1,5 +1,7 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :edit, :update, :destroy]
+  before_action :set_project, only: [:show, :edit, :update, :destroy, 
+    :new_attachment, :create_attachment, :destroy_attachment]
+  before_action :set_attachments, only: [:show]
   before_action :set_statistics_info, only: [:show]
   # GET /projects
   # GET /projects.json
@@ -63,11 +65,31 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def new_attachment
+    @attachment = Attachment.new
+  end
+
+  def create_attachment
+    @attachment = Attachment.create(attachment_params)
+    redirect_to @project
+  end
+
+  def destroy_attachment
+    @attachment = Attachment.find(params[:attachment_id])
+    raise 'unmatched project' if @project != @attachment.owner
+    @attachment.destroy
+    redirect_to @project
+  end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_project
       @project = Project.find(params[:id])
     end
+
+    def set_attachments
+      @attachments = @project.attachments
+    end
+
     def set_statistics_info
       @all_plan_amount = @project.total_amount
       @all_actual_amount = @project.actual_amount
@@ -86,5 +108,8 @@ class ProjectsController < ApplicationController
         :gross, :balance, :endowment, :project_level_id, :project_state_id, :project_type_id).tap{|p|
         p[:creator_id] = current_people.id
       }
+    end
+    def attachment_params
+      params.require(:attachment).permit(:file).tap{ |p| p[:attachment_owner]=@project }
     end
 end

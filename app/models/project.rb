@@ -9,11 +9,13 @@ class Project < ActiveRecord::Base
   has_many :donation_records
   has_many :usage_records
 
+  has_many :attachments, as: :attachment_owner, validate: true
+
   validates_presence_of :name
   
   validates_associated :link_men
   validates_associated :project_link_men
-
+  
   def endowment_t
     endowment ? :eyes : :eno
   end

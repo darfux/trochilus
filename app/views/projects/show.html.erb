@@ -55,6 +55,14 @@
     <p>
       <div><strong>概要：</strong> <span><%= @project.brief %></span></div>
     </p>
+    <p>
+      <div><strong>附件：</strong>
+        <% @attachments.each do |a| %>
+        <p><%= link_to a.filename, a.file.url %><span class='delete-attachment'><%= link_to t('helpers.link.delete.name'),attachment_project_path(@project, a), method: :delete, data: { confirm: t('helpers.link.delete.confirm') } %></span></p>
+        <% end %>
+        <div><%= link_to '新建', new_attachment_project_path %></div>
+      </div>
+    </p>
   </div>
 </div>
 

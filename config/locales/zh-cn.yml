@@ -82,13 +82,23 @@ zh-cn:
 
   #HELPERS
   helpers:
+    link:
+      delete:
+        name: 删除
+        confirm: 确定删除？
+        confirm_with_name: 确定删除 %{name}？
     label: 
       contact_record: 
         time: 联系时间
         description: 联系内容
         conclusion: 总结
         location: 地点
+    file_field:
+      attachment:
+        file: 文件
     submit:
       contact_record:
         create: 添加记录
         update: 更新记录
+      attachment:
+        create: 上传
