@@ -86,6 +86,9 @@ zh-cn:
       contact_record: 
         time: 联系时间
         description: 联系内容
+        conclusion: 总结
+        location: 地点
     submit:
       contact_record:
         create: 添加记录
+        update: 更新记录

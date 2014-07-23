@@ -6,7 +6,7 @@ class DonationRecord < ActiveRecord::Base
 
   belongs_to :customer
   belongs_to :project
-  belongs_to :creator, class_name: :Employee, foreign_key: :creator_id
+  belongs_to :creator, class_name: :User, foreign_key: :creator_id
   belongs_to :donation_type
 
   has_many :actual_funds, class_name: :'DonationRecord::ActualFund'

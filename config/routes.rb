@@ -2,7 +2,6 @@ Rails.application.routes.draw do
   
   get 'users/search'
   post 'users/search', to:'users#do_search', as: 'user_search'
-  post 'users/tmp'
 
   # namespace :donation_record do
   #   resources :actual_funds

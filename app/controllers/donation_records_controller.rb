@@ -86,7 +86,7 @@ class DonationRecordsController < ApplicationController
                   fund_attributes: [:amount, :time]
                   )
         .tap{ |p| 
-          p[:creator_id] = current_people.id
+          p[:creator_id] = current_user.id
         }
     end
 end

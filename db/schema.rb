@@ -11,19 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140719045646) do
+ActiveRecord::Schema.define(version: 20140723064039) do
 
   create_table "contact_records", force: true do |t|
     t.integer  "customer_id"
-    t.integer  "employee_id"
+    t.integer  "creator_id"
     t.datetime "time"
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "conclusion"
+    t.string   "location"
   end
 
+  add_index "contact_records", ["creator_id"], name: "index_contact_records_on_creator_id"
   add_index "contact_records", ["customer_id"], name: "index_contact_records_on_customer_id"
-  add_index "contact_records", ["employee_id"], name: "index_contact_records_on_employee_id"
 
   create_table "corporate_customers", force: true do |t|
     t.datetime "created_at"

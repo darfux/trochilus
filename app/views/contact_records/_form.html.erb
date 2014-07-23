@@ -17,12 +17,24 @@
     <%= f.datetime_select :time %>
   </div>
   <div class="field">
-    <%= f.label :major_participants %><br>
-    <%= f. :major_participants%>
+    <%# f.label :major_participants %><br>
+    <%# f. :major_participants%>
   </div>
   <div class="field">
     <%# f.label :other_participants %><br>
     <%# f. :other_participants%>
+  </div>
+<!--   <div>  
+    <button data-target="select-customer" data-toggle="modal">选择客户</button>
+  </div>
+  <div id='customer-result'></div>
+  <div>  
+    <button data-target="select-user" data-toggle="modal">选择人员</button>
+  </div> -->
+  <div id='user-result'></div>
+  <div class="field">
+    <%= f.label :location %><br>
+    <%= f.text_field :location %>
   </div>
   <div class="field">
     <%= f.label :description %><br>
@@ -35,5 +47,22 @@
   <div class="actions">
     <%= f.submit %>
   </div>
+
 <% end %>
 </div>
+
+
+<!-- <div class="modal-dialog" id="select-customer">
+  <span class='close' data-dismiss="modal">X</span>
+  <div class='select-panel-content'>
+    <%= render 'customers/search' %>
+  </div>
+</div>
+<div class="modal-dialog" id="select-user">
+  <span class='close' data-dismiss="modal">X</span>
+  <div class='select-panel-content'>
+    <%= render 'users/search' %>
+  </div>
+</div> -->
+
+<!-- <div id='controller-mark' name="<%=params[:controller]%>"></div> -->

@@ -85,7 +85,7 @@ class UsageRecordsController < ApplicationController
               fund_attributes: [:amount, :time]
               )
         .tap{ |p|
-        p[:creator_id] = current_people.id
+        p[:creator_id] = current_user.id
         p[:project_id] = params[:project_id]
       }
     end
