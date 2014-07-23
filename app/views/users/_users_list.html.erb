@@ -1,0 +1,7 @@
+  <% @users.each do |u| %>
+  <dl>
+    <%= check_box_tag nil, u.id!, nil, :class=>'user-check', name: :user %>
+    <%= hidden_field_tag 'user[]', u.id! %>
+    <%= link_to u.name, u, id: "user-#{u.id!}" %>
+  </dl>
+  <% end %>

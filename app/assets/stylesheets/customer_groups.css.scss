@@ -1,27 +1,13 @@
 // Place all the styles related to the CustomerGroups controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-#customer-select-panel{
-	position: absolute;
-	left: 50%;
-	top: 20%;
-	margin-left: -180px;
-	width: 360px;
-	height: 540px;
-	border: solid 2px black;
-	background-color: #EEEEEE;
-	border-radius: 8px;
-	.close{
-		float: right;
-		font-size: 32px;
-		margin-right: 5px;
-		margin-top: 5px;
-		&:hover{
-			cursor: pointer;
-		}
-	}
+.select-panel-content{
+	margin-top: 100px;
 }
 
-#customer-select-panel-content{
-	margin-top: 100px;
+.selected-deletor{
+	margin-left: 10px;
+	&:hover{
+		cursor: pointer;
+	}
 }

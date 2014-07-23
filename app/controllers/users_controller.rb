@@ -1,13 +1,17 @@
 class UsersController < ApplicationController
   def search
+  end
+  def do_search
     search_name = params[:search]
+    search_type = params[:type]
     # raise params[:search].inspect
     # project = Project.find(params[:project_id])
+    klass = search_type.classify.constantize
     unless search_name
-      @customers = IndividualCustomer.all
+      @users = klass.all
     else
-      @customers = Customer.where(
-        "name LIKE ? AND customer_type = ?", "%#{search_name}%", IndividualCustomer.to_s).collect{ |c| c.customer }
+      @users = klass.where(
+        "name LIKE ?", "%#{search_name}%")
     end
     respond_to do |format|
       format.js

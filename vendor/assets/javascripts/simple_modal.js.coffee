@@ -23,7 +23,6 @@ class ModalModule
 		@id = button.attr 'data-target'
 		@dialog = $("##{@id}")
 		@close = @dialog.children("[data-dismiss='modal']")
-		console.log(@id)
 		@mask = ModalModule.MASK
 		@initButton()
 		@initDialog()
