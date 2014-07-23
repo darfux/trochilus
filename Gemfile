@@ -54,3 +54,6 @@ gem 'seed_dump'
 gem 'database_cleaner'
 
 gem 'quiet_assets', group: :development
+
+#file_upload
+gem "paperclip", "~> 4.1"
