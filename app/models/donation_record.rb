@@ -10,8 +10,8 @@ class DonationRecord < ActiveRecord::Base
   belongs_to :donation_type
 
   has_many :actual_funds, class_name: :'DonationRecord::ActualFund'
-  # has_many :actual_funds, through: :donation_record_actual_funds, source: :fund, dependent: :destroy, validate: true
-
+  has_many :attachments, as: :attachment_owner, validate: true
+  
   validates :customer_id, presence: true
   # validates_associated :actual_funds
   

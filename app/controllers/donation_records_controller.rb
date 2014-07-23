@@ -1,7 +1,8 @@
 class DonationRecordsController < ApplicationController
-  before_action :set_donation_record, only: [:show, :edit, :update, :destroy]
+  before_action :set_donation_record, only: [:show, :edit, :update, :destroy,
+    :new_attachment, :create_attachment, :destroy_attachment]
   before_action :set_project, only: [:show, :new, :create, :edit, :update, :destroy]
-
+  before_action :set_attachments, only: [:show]
   # GET /donation_records
   # GET /donation_records.json
   def index
@@ -63,10 +64,30 @@ class DonationRecordsController < ApplicationController
     end
   end
 
+  def new_attachment
+    @attachment = Attachment.new
+  end
+
+  def create_attachment
+    @attachment = Attachment.create(attachment_params)
+    redirect_to @donation_record
+  end
+
+  def destroy_attachment
+    @attachment = Attachment.find(params[:attachment_id])
+    raise 'unmatched donation record' if @donation_record != @attachment.owner
+    @attachment.destroy
+    redirect_to @donation_record
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_donation_record
       @donation_record = DonationRecord.find(params[:id])
+    end
+
+    def set_attachments
+      @attachments = @donation_record.attachments
     end
 
     def set_project
@@ -88,5 +109,8 @@ class DonationRecordsController < ApplicationController
         .tap{ |p| 
           p[:creator_id] = current_user.id
         }
+    end
+    def attachment_params
+      params.require(:attachment).permit(:file).tap{ |p| p[:attachment_owner]=@donation_record }
     end
 end

@@ -38,7 +38,14 @@ Rails.application.routes.draw do
   post 'customers/search', to: 'customers#do_search'
 
   resources :usage_records, only: origin_actions
-  resources :donation_records, only: origin_actions
+
+  resources :donation_records, only: origin_actions do
+    member do
+      get 'new_attachment'
+      post 'attachments', to: 'donation_records#create_attachment', as: :attachments
+      delete 'attachments/:attachment_id', to: 'donation_records#destroy_attachment', as: :attachment
+    end
+  end
 
 
   ##Things below are workarounds for namespaced model to use a nested resource
