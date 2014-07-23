@@ -14,6 +14,14 @@ class User < ActiveRecord::Base
   has_many :usage_records
   
   set_accessable_attributes [:created_customers, :created_projects]
+
+  def name
+    if user.respond_to? :name
+      user.name
+    else
+      raise 'No name of user'
+    end
+  end
   protected
 
     def email_required?

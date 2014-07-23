@@ -16,3 +16,6 @@
 /tmp
 
 *.bak
+
+# Ignore paperclip's upload folder
+/public/system

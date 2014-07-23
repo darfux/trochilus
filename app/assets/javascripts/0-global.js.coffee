@@ -22,8 +22,18 @@ createFormReg = ->
 				obj['link'] = link
 			action(data)
 
+formUploadValidate = ->
+	$('form[enctype="multipart/form-data"]').submit (event) ->
+		file = $('form[enctype="multipart/form-data"]').children('input[type="file"]').val()
+		if file==""
+			alert('请选择要上传的文件')
+			false
+		else
+			true
+			
 ready = ->
   createFormReg()
+  formUploadValidate()
 
 
 $(document).ready(ready)

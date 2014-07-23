@@ -1,4 +1,8 @@
 class UsersController < ApplicationController
+  before_action :set_user, only: [:show]
+  def show
+    redirect_to @user.user
+  end
   def search
   end
   def do_search
@@ -17,4 +21,9 @@ class UsersController < ApplicationController
       format.js
     end
   end
+
+  private
+    def set_user
+      @user = User.find(params[:id])
+    end
 end
