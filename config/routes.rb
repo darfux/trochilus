@@ -7,8 +7,11 @@ Rails.application.routes.draw do
   #   resources :actual_funds
   # end
 
-  nested_actions = [:show, :new, :create]
-  origin_actions = [:edit, :update, :destroy]
+  nested_actions = [:new, :create]
+  origin_actions = [:show, :edit, :update, :destroy]
+
+
+  get 'users/:id', to: 'users#show', as: :user
 
   resources :customer_groups
 
@@ -37,7 +40,13 @@ Rails.application.routes.draw do
   get 'customers/search', to: 'customers#search', as: 'customer_search'
   post 'customers/search', to: 'customers#do_search'
 
-  resources :usage_records, only: origin_actions
+  resources :usage_records, only: origin_actions do
+    member do
+      get 'new_attachment'
+      post 'attachments', to: 'usage_records#create_attachment', as: :attachments
+      delete 'attachments/:attachment_id', to: 'usage_records#destroy_attachment', as: :attachment
+    end
+  end
 
   resources :donation_records, only: origin_actions do
     member do

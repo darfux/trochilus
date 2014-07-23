@@ -61,9 +61,7 @@
         <td><%= link_to r.benefit_manager.name, r.benefit_manager%></td>
         <td><%= r.fund.amount%></td>
         <td><%= r.usage_type.name%></td>
-        <td>
-          <input name="Confirm3" type="submit" value="查看">
-        </td>
+        <td><%= link_to '查看', r %></td>
         <td><%= link_to '删除', r, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
       <% end %>

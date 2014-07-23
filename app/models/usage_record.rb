@@ -10,6 +10,7 @@ class UsageRecord < ActiveRecord::Base
   belongs_to :benefit_manager, class_name: :UnivUnitManager
   belongs_to :usage_type
   belongs_to :fund_type
+  
+  has_many :attachments, as: :attachment_owner, validate: true
   validates_presence_of_all except: :fund_id
-
 end

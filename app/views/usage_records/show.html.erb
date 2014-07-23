@@ -1,30 +1,12 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <b>Fund:</b>
-  <%= @usage_record.fund %>
-</p>
-
-<p>
-  <b>Employee:</b>
-  <%= @usage_record.employee %>
-</p>
-
-<p>
-  <b>Univ unit:</b>
-  <%= @usage_record.univ_unit %>
-</p>
-
-<p>
-  <b>Univ unit manager:</b>
-  <%= @usage_record.univ_unit_manager %>
-</p>
-
-<p>
-  <b>Usage type:</b>
-  <%= @usage_record.usage_type %>
-</p>
-
-
-<%= link_to 'Edit', edit_usage_record_path(@usage_record) %> |
-<%= link_to 'Back', usage_records_path %>
+<%= content_for :nav_bar_function_area do %>
+  <% if current_user.user_type == :Employee.to_s %>
+    <%= link_to '返回项目', @project %>
+  <% end %>
+<% end %>
+<div>  
+  <h4>文件</h4>
+  <% @attachments.each do |a| %>
+  <p><%= link_to a.filename, a.file.url %><span class='delete-attachment'><%= link_to t('helpers.link.delete.name'), attachment_usage_record_path(@usage_record, a), method: :delete, data: { confirm: t('helpers.link.delete.confirm') } %></span></p>
+  <% end %>
+  <div><%= link_to '新建', new_attachment_usage_record_path %></div>
+</div>
