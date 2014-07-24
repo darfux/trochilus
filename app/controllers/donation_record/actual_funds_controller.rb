@@ -17,7 +17,7 @@ class DonationRecord::ActualFundsController < ApplicationController
   def new
     @donation_record_actual_fund = DonationRecord::ActualFund.new
     unless @donation_record.project.endowment
-      @donation_record_actual_fund.fund_type = FundType.where(name: '本金').first
+      @donation_record_actual_fund.fund_type = FundType.where(name: :principle).first
     end
     # raise params.inspect
   end

@@ -122,5 +122,8 @@ zh-cn:
       contact_record:
         create: 添加记录
         update: 更新记录
+      customer_group:
+        create: 添加团体客户
+        update: 更新团体客户
       attachment:
         create: 上传
