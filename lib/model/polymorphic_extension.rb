@@ -1,5 +1,10 @@
 module PolymorphicExtension
 	def self.included(receiver)
+		receiver.class_eval %q{
+			def self.set_accessable_attributes(attributes)
+				nil
+			end
+		}
 		return unless receiver.table_exists?
 		receiver.class_variable_set(:@@accessable_attributes, receiver.column_names)
 
