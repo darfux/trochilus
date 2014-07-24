@@ -1,4 +1,4 @@
-class LinkMenController < ApplicationController
+class Projects::LinkMenController < ApplicationController
   before_action :set_project, except: [:search]
   before_action :set_link_man, only: [:show, :destroy]
   def show

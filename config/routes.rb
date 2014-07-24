@@ -26,7 +26,7 @@ Rails.application.routes.draw do
   resources :projects do
     resources :donation_records, only: nested_actions
     resources :usage_records, only: nested_actions
-    resources :link_men
+    resources :link_men, controller: 'projects/link_men'
     member do
       get 'new_attachment'
       post 'attachments', to: 'projects#create_attachment', as: :attachments
