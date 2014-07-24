@@ -19,7 +19,7 @@
     </p>
     <p>
       <div><strong>基金级别：</strong> <span><%= @project.project_level.name %></span></div>
-      <div><strong>是否留本：</strong> <span><%= @project.endowment %></span></div>
+      <div><strong>是否留本：</strong> <span><%= @project.endowment_t %></span></div>
     </p>
     <p>
       <div><strong>创建日期：</strong> <span><%= @project.create_date %></span></div>
@@ -64,6 +64,15 @@
       </div>
     </p>
   </div>
+  <% if @project.endowment %>
+  <hr>
+  <div class="info-block">
+    <strong>利率：</strong>
+    <div><%= @project.interest_rate %>%</div>
+  </div>
+  <% end %>
+
+
 </div>
 
 <% if @project.endowment %>

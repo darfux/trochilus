@@ -36,8 +36,18 @@
   </div>
   <div class="field">
     <%= f.label "留本" %><br>
+    <% if @project.endowment %>
+    <%= f.check_box :endowment, disabled: true %>
+    <% else %>
     <%= f.check_box :endowment %>
+    <% end %>
   </div>
+  <% if @project.endowment %>
+  <div class="field">
+    <%= f.label "利率" %><br>
+    <%= f.text_field :interest_rate %>%
+  </div>
+  <% end %>
   <div class="field">
     <%= f.label "项目级别" %><br>
     <%= f.select :project_level_id, options_from_collection_for_select(ProjectLevel.all, "id", "name")%>

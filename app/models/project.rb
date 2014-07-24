@@ -17,7 +17,8 @@ class Project < ActiveRecord::Base
   validates_associated :project_link_men
   
   def endowment_t
-    endowment ? :eyes : :eno
+    e = endowment ? :eyes : :eno
+    I18n.translate(e, scope: 'project.endowment')
   end
 
   # def #{pre}_amount

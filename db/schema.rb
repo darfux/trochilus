@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140724014911) do
+ActiveRecord::Schema.define(version: 20140724064249) do
 
   create_table "attachments", force: true do |t|
     t.integer  "attachment_owner_id"
@@ -195,6 +195,7 @@ ActiveRecord::Schema.define(version: 20140724014911) do
     t.integer  "project_type_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.decimal  "interest_rate"
   end
 
   add_index "projects", ["creator_id"], name: "index_projects_on_creator_id"
