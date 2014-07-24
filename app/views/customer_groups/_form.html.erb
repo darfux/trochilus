@@ -13,7 +13,7 @@
   <% end %>
 
   <%= f.fields_for :customer do |c_f| %>
-    <%= render 'customers/form', :f => c_f %>
+    <%= render 'customers/form', {f: c_f, of: f} %>
   <% end %>
 
   <div>  

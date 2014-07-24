@@ -306,3 +306,19 @@ $elm_padding_top: 4px;
 	width: 360px;
 	margin: 0 auto;
 }
+
+.info-show{
+	.info-block{
+		position: relative;
+		$width: 600px;
+		width: $width;
+		text-align: left;
+	}
+	div span{
+		color: green;
+	}
+	div{
+		display: inline;
+		margin-right: 15px;
+	}
+}

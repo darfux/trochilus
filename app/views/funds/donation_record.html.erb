@@ -12,7 +12,7 @@
   </p>
   <p>
     <strong><%= DonationRecord.human_attribute_name :created_at %>:</strong>
-    <%= l @donation_record.created_at, format: :long %>
+    <%= lt @donation_record.created_at, format: :long %>
   </p>
   <p>
     <strong><%= DonationRecord.human_attribute_name :creator %>:</strong>

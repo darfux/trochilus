@@ -10,11 +10,11 @@ class Project < ActiveRecord::Base
   has_many :usage_records
 
   has_many :attachments, as: :attachment_owner, validate: true
-
-  validates_presence_of :name
   
   validates_associated :link_men
   validates_associated :project_link_men
+
+  validates_presence_of_all except: [:interest_rate, :endowment, :brief]
   
   def endowment_t
     e = endowment ? :eyes : :eno

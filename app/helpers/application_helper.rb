@@ -15,9 +15,9 @@ module ApplicationHelper
     @current_people ||= (current_user ? current_user.user : nil)
   end
 
-  def l(*args)
+  def lt(*args)
     args[0] = args[0].getlocal
-    super(*args)
+    l(*args)
   end
   
   def localize_date(time)

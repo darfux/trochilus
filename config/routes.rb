@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
   
+  resources :majors
+
+  resources :degrees
+
   get 'users/search'
   post 'users/search', to:'users#do_search', as: 'user_search'
 
@@ -92,7 +96,14 @@ Rails.application.routes.draw do
     resources :link_men, controller: 'corporate_customers/link_men'
   end
 
-  resources :individual_customers
+  resources :individual_customers do
+    resources :univ_experiences, controller: :schoolfellows
+    # resources :schoolfellows
+    # post 'univ_experiences', to: 'schoolfellows#create', as: :univ_experiences
+    # get 'univ_experiences/:id/edit', to: 'schoolfellows#create', as: :univ_experiences_edit
+    # put 'univ_experiences/:id', to: 'schoolfellows#update'
+    # delete 'univ_experiences/:id', to: 'schoolfellows#destroy'
+  end
 
   resources :customers
 

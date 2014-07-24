@@ -72,3 +72,9 @@ rails g model Attachment attachment_owner:references{polymorphic}
 
 #2014-07-24 09:47:08
 rails g model CorporateLinkMan corporate_customer:references individual_customer:references comment:text
+
+#2014-07-24 18:13:01
+rails g model Schoolfellow individual_customer:references 
+rails g model UnivExperience schoolfellow:references major:references degree:references univ_unit:references attendance_date:date graduated_date:date student_number:string
+rails g scaffold Major name:string univ_unit:references
+rails g scaffold Degree name:string

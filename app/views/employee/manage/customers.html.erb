@@ -23,7 +23,7 @@
       <td><%= (counter+=1).to_s.rjust(2, '0') %></td>
       <td>X1234</td>
       <td><%= link_to c.name, c.customer %></td>
-      <td><%# c.customer.class.ch %></td>
+      <td><%= c.customer.class.model_name.human %> <%= judge_sf(c) ? '（校友）' : '' %></td>
       <!-- <td>中国大陆</td> -->
       <!-- <td>18222993222</td> -->
       <td><%# c.total_donation %></td>

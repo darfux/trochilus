@@ -5,7 +5,7 @@ DATAS = [
           :project_types,   :project_levels,  :project_states, 
           :fund_types,       :currencies,
           :usage_types,     :donation_types,
-          :univ_units,      :univ_unit_managers
+          :univ_units,      :univ_unit_managers, :majors, :degrees
         ]
 
 namespace :db do

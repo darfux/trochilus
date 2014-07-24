@@ -24,12 +24,6 @@
     <%= f.label "创建日期" %><br>
     <%= f.date_select :create_date %>
   </div>
-  <% if session[:user_type].nil? %>
-  <div class="field">
-    <%= f.label "创建者" %><br>
-    <%= f.select :creator_id, options_from_collection_for_select(Employee.all, :id, :name_with_id) %>
-  </div>
-  <% end %>
   <div class="field">
     <%= f.label "简介" %><br>
     <%= f.text_area :brief %>

@@ -28,7 +28,7 @@ zh-cn:
       # You can provide other formats here if you like!
       default: "%Y-%m-%d"
       short: "%b %d"
-      long: "%B %d, %Y"
+      long: "%Y年 %b %d日"
     # Don't forget the nil at the beginning; there's no such thing as a 0th month
     month_names: [~, "一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"]
     abbr_month_names: [~, "1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"]
@@ -55,6 +55,8 @@ zh-cn:
     models:
       project: 项目
       individual_customer: 个人客户
+      corporate_customer: 公司客户
+      customer_group: 团体客户
     attributes:
       project:
         name: 项目名称
@@ -94,12 +96,25 @@ zh-cn:
         name: 删除
         confirm: 确定删除？
         confirm_with_name: 确定删除 %{name}？
-    label: 
+    label:
+      individual_customer:
+        name: 姓名
+      corporate_customer:
+        name: 公司名
+      customer_group:
+        name: 团体名称
       contact_record: 
         time: 联系时间
         description: 联系内容
         conclusion: 总结
         location: 地点
+      univ_experience:
+        student_number: 学号
+        attendance_date: 入学时间
+        graduated_date: 毕业时间
+        degree: 学位
+        univ_unit: 学院
+        major: 专业
     file_field:
       attachment:
         file: 文件

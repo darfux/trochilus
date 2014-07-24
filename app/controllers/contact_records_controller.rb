@@ -1,7 +1,6 @@
 class ContactRecordsController < ApplicationController
   before_action :set_contact_record, only: [:show, :edit, :update, :destroy]
   before_action :set_customer, only: [:new, :show, :edit, :update, :create, :destroy]
-
   # GET /contact_records
   # GET /contact_records.json
   def index

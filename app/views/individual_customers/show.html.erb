@@ -1,7 +1,8 @@
 <%= content_for :nav_bar_function_area do %>
   <% if current_user.user_type.downcase == :employee.to_s %>
     <%= link_to '编辑', edit_individual_customer_path(@self_customer) %> |
-    <%= link_to '返回', employee_manage_customers_path %>
+    <%= link_to '返回', employee_manage_customers_path %> |
+    <%= link_to '删除', individual_customer_path(@self_customer), method: :delete, data: { confirm: t('helpers.link.delete.confirm') } %>
   <% end %>
 <% end %>
 
@@ -11,7 +12,24 @@
 
 <%= render 'common_customers/info' %>
 
-
+<div class="info-show">
+  <p>
+    <strong>校友信息：</strong><%= link_to :new, new_individual_customer_univ_experience_path(@self_customer) %>
+    <div class="info-block">    
+    <% @univ_experiences.each do |e| %>
+    <p>
+      <div><strong>学历：</strong> <span><%= e.degree.name %></span></div>
+      <div><strong>学号：</strong> <span><%= e.student_number %></span></div>
+      <div><strong>入学时间：</strong> <span><%= l e.attendance_date, format: :long %></span></div>
+      <div><strong>毕业时间：</strong> <span><%= l e.graduated_date, format: :long %></span></div>
+      <div><strong>学院：</strong> <span><%= e.college.name %></span></div>
+      <div><strong>专业：</strong> <span><%= e.major.name %></span></div>
+      <%= link_to '删除', individual_customer_univ_experience_path(@self_customer, e), method: :delete, data: { confirm: t('helpers.link.delete.confirm') } %>
+    </p>
+    <% end %>
+    </div>
+  </p>
+</div>
 
 
 <%# if @current_user.nil? %>
