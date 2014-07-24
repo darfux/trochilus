@@ -69,3 +69,6 @@ rails g model CustomerGroupCustomer customer:references customer_group:reference
 
 #2014-07-23 19:59:28
 rails g model Attachment attachment_owner:references{polymorphic}
+
+#2014-07-24 09:47:08
+rails g model CorporateLinkMan corporate_customer:references individual_customer:references comment:text

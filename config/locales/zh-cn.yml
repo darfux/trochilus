@@ -54,6 +54,7 @@ zh-cn:
   activerecord:
     models:
       project: 项目
+      individual_customer: 个人客户
     attributes:
       project:
         name: 项目名称
@@ -66,6 +67,12 @@ zh-cn:
       usage_record:
         use_time: 使用时间
         creator: *user_as_creator
+      individual_customer:
+        name: 姓名
+      corporate_customer:
+        name: 公司名
+      customer_group:
+        name: 团体名称
   project:
     endowment:
       eyes: 是

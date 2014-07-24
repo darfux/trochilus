@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140723122844) do
+ActiveRecord::Schema.define(version: 20140724014911) do
 
   create_table "attachments", force: true do |t|
     t.integer  "attachment_owner_id"
@@ -44,6 +44,17 @@ ActiveRecord::Schema.define(version: 20140723122844) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "corporate_link_men", force: true do |t|
+    t.integer  "corporate_customer_id"
+    t.integer  "individual_customer_id"
+    t.text     "comment"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "corporate_link_men", ["corporate_customer_id"], name: "index_corporate_link_men_on_corporate_customer_id"
+  add_index "corporate_link_men", ["individual_customer_id"], name: "index_corporate_link_men_on_individual_customer_id"
 
   create_table "currencies", force: true do |t|
     t.string   "name"

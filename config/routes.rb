@@ -11,7 +11,6 @@ Rails.application.routes.draw do
   origin_actions = [:show, :edit, :update, :destroy]
 
 
-  get 'users/:id', to: 'users#show', as: :user
 
   resources :customer_groups
 
@@ -89,7 +88,9 @@ Rails.application.routes.draw do
   end
   resources :online_customers
 
-  resources :corporate_customers
+  resources :corporate_customers do
+    resources :link_men, controller: 'corporate_customers/link_men'
+  end
 
   resources :individual_customers
 
@@ -110,6 +111,7 @@ Rails.application.routes.draw do
     get "sign_in", to: "devise/sessions#new", as: :login
     delete "sign_out", to: "devise/sessions#destroy", as: :logout
   end
+  resources :users, only: [:show] #don't set this before devise, which will be confused between /:id <=> /sign_up
 
   root to: 'main#index'
   

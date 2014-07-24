@@ -11,3 +11,15 @@
 
 <!-- <div id="project-info-header"></div> -->
 <%= render 'common_customers/info' %>
+
+<hr>
+<div>
+  <strong>联系人：</strong> 
+  <% @self_customer.link_men.each do |lm| %>
+    <span><%= link_to lm.name!, corporate_customer_link_man_path(@self_customer, lm.id) %></span>
+  <% end %>
+  <%= link_to new_corporate_customer_link_man_path(@self_customer) do %>
+    <%= button_tag '添加' %>
+  <% end %>
+</div>
+
