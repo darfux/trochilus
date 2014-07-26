@@ -49,7 +49,7 @@ gem 'cancancan', '~> 1.8'
 #Automatically initialize associations
 gem "auto_build"
 
-gem 'seed_dump'
+# gem 'seed_dump'
 
 gem 'database_cleaner'
 
@@ -57,3 +57,5 @@ gem 'quiet_assets', group: :development
 
 #file_upload
 gem "paperclip", "~> 4.1"
+
+gem 'yaml_db', github: 'jetthoughts/yaml_db', ref: 'fb4b6bd7e12de3cffa93e0a298a1e5253d7e92ba'

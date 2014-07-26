@@ -19,3 +19,6 @@
 
 # Ignore paperclip's upload folder
 /public/system
+
+# Ignore db dump yml
+/db/data.yml
