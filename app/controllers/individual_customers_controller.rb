@@ -1,10 +1,11 @@
 class IndividualCustomersController < CommonCustomersController
   before_action :set_school_fellow
-  before_action :set_univ_experience
+  before_action :set_experiences
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_univ_experience
-      @univ_experiences = @schoolfellow ? @schoolfellow.univ_experiences : []
+    def set_experiences
+      @study_experiences = @schoolfellow ? @schoolfellow.study_experiences.order(:attendance_date) : []
+      @teach_experiences = @schoolfellow ? @schoolfellow.teach_experiences.order(:teach_start) : []
     end
     def set_school_fellow
       @schoolfellow = @self_customer ?  @self_customer.schoolfellow : nil 

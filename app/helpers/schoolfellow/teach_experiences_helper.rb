@@ -1,0 +1,2 @@
+module Schoolfellow::TeachExperiencesHelper
+end

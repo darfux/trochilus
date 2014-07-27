@@ -14,9 +14,10 @@
 
 <div class="info-show">
   <p>
-    <strong>校友信息：</strong><%= link_to :new, new_individual_customer_univ_experience_path(@self_customer) %>
+    <strong>校友信息：</strong><%= link_to lkt('new_study_experience'), new_individual_customer_study_experience_path(@self_customer) %>
+    |<%= link_to lkt('new_teach_experience'), new_individual_customer_teach_experience_path(@self_customer) %>
     <div class="info-block">    
-    <% @univ_experiences.each do |e| %>
+    <% @study_experiences.each do |e| %>
     <p>
       <div><strong>学历：</strong> <span><%= e.degree.name %></span></div>
       <div><strong>学号：</strong> <span><%= e.student_number %></span></div>
@@ -24,7 +25,17 @@
       <div><strong>毕业时间：</strong> <span><%= l e.graduated_date, format: :long %></span></div>
       <div><strong>学院：</strong> <span><%= e.college.name %></span></div>
       <div><strong>专业：</strong> <span><%= e.major.name %></span></div>
-      <%= link_to '删除', individual_customer_univ_experience_path(@self_customer, e), method: :delete, data: { confirm: t('helpers.link.delete.confirm') } %>
+      <%= link_to '删除', individual_customer_study_experience_path(@self_customer, e), method: :delete, data: { confirm: t('helpers.link.delete.confirm') } %>
+    </p>
+    <% end %>
+    <% @teach_experiences.each do |e| %>
+    <p>
+      <div><strong>职工号：</strong> <span><%= e.idnum %></span></div>
+      <div><strong>任教时间：</strong> <span><%= l e.teach_start, format: :long %></span>—
+        <span><%= l e.teach_end, format: :long %></span></div>
+      <div><strong>学院：</strong> <span><%= e.college.name %></span></div>
+      <div><strong>职位：</strong> <span><%= e.title %></span></div>
+      <%= link_to '删除', individual_customer_teach_experience_path(@self_customer, e), method: :delete, data: { confirm: t('helpers.link.delete.confirm') } %>
     </p>
     <% end %>
     </div>

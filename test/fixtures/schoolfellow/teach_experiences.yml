@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  schoolfellow_id: 
+  teacher_title_id: 
+  teach_start: 2014-07-27
+  teach_end: 2014-07-27
+  teacher_id: MyString
+
+two:
+  schoolfellow_id: 
+  teacher_title_id: 
+  teach_start: 2014-07-27
+  teach_end: 2014-07-27
+  teacher_id: MyString

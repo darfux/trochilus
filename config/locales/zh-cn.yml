@@ -92,6 +92,9 @@ zh-cn:
   #HELPERS
   helpers:
     link:
+      individual_customer:
+        new_study_experience: 添加学习经历
+        new_teach_experience: 添加教学经历
       delete:
         name: 删除
         confirm: 确定删除？
@@ -108,13 +111,18 @@ zh-cn:
         description: 联系内容
         conclusion: 总结
         location: 地点
-      univ_experience:
+      schoolfellow_study_experience:
         student_number: 学号
         attendance_date: 入学时间
         graduated_date: 毕业时间
         degree: 学位
         univ_unit: 学院
         major: 专业
+      schoolfellow_teach_experience:
+        idnum: 职工号
+        teach_duration: 任教时间
+        univ_unit: 单位
+        teacher_title: 职位
     file_field:
       attachment:
         file: 文件
@@ -127,3 +135,7 @@ zh-cn:
         update: 更新团体客户
       attachment:
         create: 上传
+      schoolfellow_study_experience:
+        create: 添加学习经历
+      schoolfellow_teach_experience:
+        create: 添加教学经历

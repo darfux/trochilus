@@ -1,0 +1,35 @@
+<h1>Listing schoolfellow_study_experiences</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Schoolfellow</th>
+      <th>Major</th>
+      <th>Degree</th>
+      <th>Attendance date</th>
+      <th>Graduated date</th>
+      <th>Student number</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @schoolfellow_study_experiences.each do |schoolfellow_study_experience| %>
+      <tr>
+        <td><%= schoolfellow_study_experience.schoolfellow %></td>
+        <td><%= schoolfellow_study_experience.major %></td>
+        <td><%= schoolfellow_study_experience.degree %></td>
+        <td><%= schoolfellow_study_experience.attendance_date %></td>
+        <td><%= schoolfellow_study_experience.graduated_date %></td>
+        <td><%= schoolfellow_study_experience.student_number %></td>
+        <td><%= link_to 'Show', schoolfellow_study_experience %></td>
+        <td><%= link_to 'Edit', edit_schoolfellow_study_experience_path(schoolfellow_study_experience) %></td>
+        <td><%= link_to 'Destroy', schoolfellow_study_experience, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Study experience', new_schoolfellow_study_experience_path %>

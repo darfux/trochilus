@@ -17,10 +17,6 @@
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label "序列号" %><br>
-    <%= f.text_field :serialnum %>
-  </div>
-  <div class="field">
     <%= f.label "创建日期" %><br>
     <%= f.date_select :create_date %>
   </div>
@@ -42,6 +38,14 @@
     <%= f.text_field :interest_rate %>%
   </div>
   <% end %>
+  <div class="field">
+    <%= f.label "创建单位" %><br>
+    <%= f.select :create_unit_id, options_from_collection_for_select(UnivUnit.all, "id", "name")%>
+  </div>
+  <div class="field">
+    <%= f.label "负责人" %><br>
+    <%= f.select :create_manager_id, options_from_collection_for_select(UnivUnitManager.all, "id", "name")%>
+  </div>
   <div class="field">
     <%= f.label "项目级别" %><br>
     <%= f.select :project_level_id, options_from_collection_for_select(ProjectLevel.all, "id", "name")%>

@@ -28,7 +28,8 @@
   <hr>
   <div class="info-block">
     <p>
-      <div><strong>创建单位：</strong> <span>数学研究所</span></div>
+      <div><strong>创建单位：</strong> <span><%= @project.create_unit.name %></span></div>
+      <div><strong>负责人：</strong> <span><%= @project.create_manager.name %></span></div>
     </p>
     <p>
       <div><strong>电话：</strong> <span>0991-2280233</span></div>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140726114123) do
+ActiveRecord::Schema.define(version: 20140727132041) do
 
   create_table "attachments", force: true do |t|
     t.integer  "attachment_owner_id"
@@ -211,12 +211,59 @@ ActiveRecord::Schema.define(version: 20140726114123) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.decimal  "interest_rate"
+    t.integer  "create_unit_id"
+    t.integer  "create_manager_id"
   end
 
   add_index "projects", ["creator_id"], name: "index_projects_on_creator_id"
   add_index "projects", ["project_level_id"], name: "index_projects_on_project_level_id"
   add_index "projects", ["project_state_id"], name: "index_projects_on_project_state_id"
   add_index "projects", ["project_type_id"], name: "index_projects_on_project_type_id"
+
+  create_table "school_fellow_study_experiences", force: true do |t|
+    t.integer  "schoolfellow_id"
+    t.integer  "major_id"
+    t.integer  "degree_id"
+    t.date     "attendance_date"
+    t.date     "graduated_date"
+    t.string   "student_number"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "school_fellow_study_experiences", ["degree_id"], name: "index_school_fellow_study_experiences_on_degree_id"
+  add_index "school_fellow_study_experiences", ["major_id"], name: "index_school_fellow_study_experiences_on_major_id"
+  add_index "school_fellow_study_experiences", ["schoolfellow_id"], name: "index_school_fellow_study_experiences_on_schoolfellow_id"
+
+  create_table "schoolfellow_study_experiences", force: true do |t|
+    t.integer  "schoolfellow_id"
+    t.integer  "major_id"
+    t.integer  "degree_id"
+    t.date     "attendance_date"
+    t.date     "graduated_date"
+    t.string   "student_number"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "schoolfellow_study_experiences", ["degree_id"], name: "index_schoolfellow_study_experiences_on_degree_id"
+  add_index "schoolfellow_study_experiences", ["major_id"], name: "index_schoolfellow_study_experiences_on_major_id"
+  add_index "schoolfellow_study_experiences", ["schoolfellow_id"], name: "index_schoolfellow_study_experiences_on_schoolfellow_id"
+
+  create_table "schoolfellow_teach_experiences", force: true do |t|
+    t.integer  "schoolfellow_id"
+    t.integer  "teacher_title_id"
+    t.integer  "univ_unit_id"
+    t.date     "teach_start"
+    t.date     "teach_end"
+    t.string   "idnum"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "schoolfellow_teach_experiences", ["schoolfellow_id"], name: "index_schoolfellow_teach_experiences_on_schoolfellow_id"
+  add_index "schoolfellow_teach_experiences", ["teacher_title_id"], name: "index_schoolfellow_teach_experiences_on_teacher_title_id"
+  add_index "schoolfellow_teach_experiences", ["univ_unit_id"], name: "index_schoolfellow_teach_experiences_on_univ_unit_id"
 
   create_table "schoolfellows", force: true do |t|
     t.integer  "individual_customer_id"
@@ -226,22 +273,11 @@ ActiveRecord::Schema.define(version: 20140726114123) do
 
   add_index "schoolfellows", ["individual_customer_id"], name: "index_schoolfellows_on_individual_customer_id"
 
-  create_table "univ_experiences", force: true do |t|
-    t.integer  "schoolfellow_id"
-    t.integer  "major_id"
-    t.integer  "degree_id"
-    t.integer  "univ_unit_id"
-    t.date     "attendance_date"
-    t.date     "graduated_date"
-    t.string   "student_number"
+  create_table "teacher_titles", force: true do |t|
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  add_index "univ_experiences", ["degree_id"], name: "index_univ_experiences_on_degree_id"
-  add_index "univ_experiences", ["major_id"], name: "index_univ_experiences_on_major_id"
-  add_index "univ_experiences", ["schoolfellow_id"], name: "index_univ_experiences_on_schoolfellow_id"
-  add_index "univ_experiences", ["univ_unit_id"], name: "index_univ_experiences_on_univ_unit_id"
 
   create_table "univ_unit_managers", force: true do |t|
     t.string   "name"

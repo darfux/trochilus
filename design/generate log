@@ -11,7 +11,7 @@ rails g controller Cms index admin
 
 #===============================
 
-rails g scaffold Project name:string serialnum:string create_date:date creator:references brief:text endowment:boolean project_level:references project_state:references project_type:references
+rails g scaffold Project name:string serialnum:string create_date:date creator:references brief:text endowment:boolean project_level:references project_state:references project_type:references create_unit:references create_manager:references
 
 rails g scaffold ProjectLevel name:string
 
@@ -76,7 +76,7 @@ rails g model CorporateLinkMan corporate_customer:references individual_customer
 #2014-07-24 18:13:01
 rails g model Schoolfellow individual_customer:references 
 
-rails g model UnivExperience schoolfellow:references major:references degree:references univ_unit:references attendance_date:date graduated_date:date student_number:string
+rails g scaffold Schoolfellow::StudyExperience schoolfellow:references major:references degree:references attendance_date:date graduated_date:date student_number:string
 
 rails g scaffold Major name:string univ_unit:references
 
@@ -84,3 +84,8 @@ rails g scaffold Degree name:string
 
 #2014-07-26 14:18:10
 rails g model UsageRecord::UsedFund usage_record:references fund_type:references
+
+#2014-07-27 21:10:25
+rails g scaffold TeacherTitle name:string
+
+rails g scaffold Schoolfellow::TeachExperience schoolfellow:references teacher_title:references univ_unit:references teach_start:date teach_end:date teacher_id:string

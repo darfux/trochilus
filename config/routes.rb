@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+  namespace :schoolfellow do
+    resources :teach_experiences
+  end
+
+  resources :teacher_titles
+
   resources :majors
 
   resources :degrees
@@ -73,6 +79,10 @@ Rails.application.routes.draw do
   end
   resources :usage_records do
     resources :funds, controller: 'usage_record/funds', only: nested_actions
+  end
+  resources :individual_customers do
+    resources :study_experiences, controller: 'schoolfellow/study_experiences'
+    resources :teach_experiences, controller: 'schoolfellow/teach_experiences'
   end
   ##
 

@@ -2,7 +2,9 @@ class Project < ActiveRecord::Base
   belongs_to :project_level
   belongs_to :project_state
   belongs_to :project_type
-  belongs_to :employee, class_name: :Employee, foreign_key: :creator_id
+  belongs_to :creator, class_name: :Employee, foreign_key: :creator_id
+  belongs_to :create_unit, class_name: :UnivUnit, foreign_key: :create_unit_id
+  belongs_to :create_manager, class_name:  :UnivUnitManager, foreign_key: :create_manager_id
 
   has_many :project_link_men
   has_many :link_men, class_name: :Customer, through: :project_link_men, source: :customer
@@ -14,7 +16,7 @@ class Project < ActiveRecord::Base
   validates_associated :link_men
   validates_associated :project_link_men
 
-  validates_presence_of_all except: [:interest_rate, :endowment, :brief]
+  validates_presence_of_all except: [:interest_rate, :endowment, :brief, :serialnum]
   
   def endowment_t
     e = endowment ? :eyes : :eno

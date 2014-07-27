@@ -1,0 +1,45 @@
+<div class="common-form">
+<%= form_for(@schoolfellow_study_experience, url: individual_customer_study_experiences_path(@customer)) do |f| %>
+  <% if @schoolfellow_study_experience.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@schoolfellow_study_experience.errors.count, "error") %> prohibited this schoolfellow_study_experience from being saved:</h2>
+
+      <ul>
+      <% @schoolfellow_study_experience.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <div class="field">
+    <%= f.label :student_number %><br />
+    <%= f.text_field :student_number %>
+  </div>
+
+  <div class="field">
+    <%= f.label :attendance_date %><br />
+    <%= f.date_select :attendance_date, start_year: Date.today.year - 70 %>
+  </div>
+
+  <div class="field">
+    <%= f.label :graduated_date %><br />
+    <%= f.date_select :graduated_date %>
+  </div>
+
+  <div class="field">
+    <%= f.label :degree %><br />
+    <%= f.select(:degree_id, Degree.all.collect {|e| [ e.name, e.id ] }) %>
+  </div>
+
+  <div class="field">
+    <%= f.label :major %><br />
+    <%= f.select(:major_id, Major.all.collect {|e| [ e.name+"(#{e.univ_unit.name})", e.id ] }) %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+</div>

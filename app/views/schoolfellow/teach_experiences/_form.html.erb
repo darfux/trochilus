@@ -1,0 +1,37 @@
+<div class="common-form">
+<%= form_for(@schoolfellow_teach_experience, url: individual_customer_teach_experiences_path(@customer)) do |f| %>
+  <% if @schoolfellow_teach_experience.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@schoolfellow_teach_experience.errors.count, "error") %> prohibited this schoolfellow_teach_experience from being saved:</h2>
+
+      <ul>
+      <% @schoolfellow_teach_experience.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :idnum %><br>
+    <%= f.text_field :idnum %>
+  </div>
+  <div class="field">
+    <%= f.label :teach_duration %><br>
+    <%= f.date_select :teach_start %> 
+    ——
+    <%= f.date_select :teach_end %>
+  </div>
+  <div class="field">
+    <%= f.label :univ_unit %><br />
+    <%= f.select(:univ_unit_id, UnivUnit.all.collect {|e| [ e.name, e.id ] }) %>
+  </div>
+  <div class="field">
+    <%= f.label :teacher_title %><br />
+    <%= f.select(:teacher_title_id, TeacherTitle.all.collect {|e| [ e.name, e.id ] }) %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+</div>
