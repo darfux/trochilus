@@ -1,38 +1,57 @@
 <div class="common-form">
 
 <%= form_for([current_project, @usage_record]) do |f| %>
-  <% if @usage_record.errors.any? %>
+  <% if @errors && @errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@usage_record.errors.count, "error") %> prohibited this usage_record from being saved:</h2>
+      <h2><%= pluralize(@errors.count, "error") %> prohibited this usage_record from being saved:</h2>
 
       <ul>
-      <% @usage_record.errors.full_messages.each do |msg| %>
+      <% @errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
       </ul>
     </div>
   <% end %>
 
-  <%= f.fields_for :fund, @usage_record.fund do |f_f| %>
-    <div class="field">
-      <%= f_f.label '数额' %><br />
-      <%= f_f.text_field :amount %>
-    </div>
-    <div class="field">
-      <%= f_f.label '时间' %><br />
-      <%= f_f.datetime_select :time %>
-    </div>
-  <% end %>
-
   <% if current_project.endowment %>
-    <div class="field">
-      <%= f.radio_button :fund_type_id, FundType.where(name: :principle).take.id %> <%= label_tag :本金 %>
-      <%= f.radio_button :fund_type_id, FundType.where(name: :interest).take.id  %> <%= label_tag :利息 %>
-    </div>
+  <fieldset>
+      <legend>利息</legend>
+      <%= f.fields_for :interest_fund do |i_f| %>
+        <%= i_f.fields_for :fund do |f_f| %>
+        <div class="field">
+          <%= check_box_tag :'use[interest]', '1', true %>
+          <%= f_f.label '数额' %>
+          <%= f_f.text_field :amount %>
+        </div>
+        <% end %>   
+      <% end %>
+  </fieldset>
+  <fieldset>
+    <legend>本金</legend>
+     <%= f.fields_for :principle_fund do |p_f| %>
+        <%= p_f.fields_for :fund do |f_f| %>
+        <div class="field">
+          <%= check_box_tag :'use[principle]' %>
+          <%= f_f.label '数额' %>
+          <%= f_f.text_field :amount %>
+        </div>
+        <% end %>
+      <% end %>
+ </fieldset>
   <% else %>
-    <%= f.hidden_field :fund_type_id, value: FundType.where(name: :principle).take.id %>
+      <%= f.fields_for :principle_fund do |p_f| %>
+        <%= p_f.fields_for :fund do |f_f| %>
+        <div class="field">
+          <%= f_f.label '数额' %><br />
+          <%= f_f.text_field :amount %>
+        </div>
+        <% end %>
+      <% end %>
   <% end %>
-
+  <div class="field">
+    <%= label_tag '时间' %><br />
+    <%= datetime_select :fund_time, :time %>
+  </div>
   <div class="field">
     <%= f.label '执行单位' %><br />
     <%= f.select(:exec_unit_id, UnivUnit.all.collect {|u| [ u.name, u.id ] }, { include_blank: true }) %>

@@ -10,6 +10,7 @@ class Fund < ActiveRecord::Base
   # accepts_nested_attributes_for :donation_record_plan
 
   validates :amount, presence: true
+  validates :time, presence: true
 
   after_initialize :defaults
   def defaults

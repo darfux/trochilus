@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  
+
   resources :majors
 
   resources :degrees
@@ -61,12 +61,18 @@ Rails.application.routes.draw do
 
 
   ##Things below are workarounds for namespaced model to use a nested resource
-  resources :actual_funds, controller: 'donation_record/actual_funds', only: [:edit]
   namespace :donation_record do
-    resources :actual_funds, only: [:show, :update]
+    resources :actual_funds, only: [:show, :update, :edit]
   end
   resources :donation_records do
     resources :actual_funds, controller: 'donation_record/actual_funds', only: nested_actions
+  end
+
+  namespace :usage_record do
+    resources :funds, only: [:show, :update, :edit]
+  end
+  resources :usage_records do
+    resources :funds, controller: 'usage_record/funds', only: nested_actions
   end
   ##
 

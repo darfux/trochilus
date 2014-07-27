@@ -23,4 +23,5 @@ module ApplicationHelper
   def localize_date(time)
     time.localtime.strftime("%Y-%m-%d")
   end
+  alias_method :l_d, :localize_date
 end

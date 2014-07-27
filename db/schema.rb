@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140724132925) do
+ActiveRecord::Schema.define(version: 20140726114123) do
 
   create_table "attachments", force: true do |t|
     t.integer  "attachment_owner_id"
@@ -258,6 +258,16 @@ ActiveRecord::Schema.define(version: 20140724132925) do
     t.datetime "updated_at"
   end
 
+  create_table "usage_record_used_funds", force: true do |t|
+    t.integer  "usage_record_id"
+    t.integer  "fund_type_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "usage_record_used_funds", ["fund_type_id"], name: "index_usage_record_used_funds_on_fund_type_id"
+  add_index "usage_record_used_funds", ["usage_record_id"], name: "index_usage_record_used_funds_on_usage_record_id"
+
   create_table "usage_records", force: true do |t|
     t.integer  "creator_id"
     t.integer  "project_id"
@@ -268,7 +278,6 @@ ActiveRecord::Schema.define(version: 20140724132925) do
     t.integer  "usage_type_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "fund_type_id"
   end
 
   add_index "usage_records", ["benefit_manager_id"], name: "index_usage_records_on_benefit_manager_id"

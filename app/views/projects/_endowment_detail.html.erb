@@ -39,13 +39,13 @@
     <tbody>
       <tr>
         <th>序号 </th>
-        <th>类型 </th>
         <th>日期</th>
         <th>执行单位</th>
         <th>执行人</th>        
         <th>受益单位</th>
         <th>负责人</th>
-        <th>使用金额</th>
+        <th>使用本金</th>
+        <th>使用利息</th>
         <th>用途</th>
         <th>文件</th>
         <th>其他</th>
@@ -53,13 +53,13 @@
       <% @project.usage_records.each do |r| %>
       <tr>
         <td>xx</td>
-        <td><%= t r.fund_type.name, scope: 'fund.type' %></td>
-        <td><%= localize_date r.fund.time.localtime %></td>
+        <td><%= l_d r.time %></td>
         <td><%= r.exec_unit.name %></td>
         <td><%= link_to r.exec_manager.name, r.exec_manager%></td>        
         <td><%= r.benefit_unit.name %></td>
         <td><%= link_to r.benefit_manager.name, r.benefit_manager%></td>
-        <td><%= r.fund.amount%></td>
+        <td><%= r.principle_amount%></td>
+        <td><%= r.interest_amount%></td>
         <td><%= r.usage_type.name%></td>
         <td><%= link_to '查看', r %></td>
         <td><%= link_to '删除', r, method: :delete, data: { confirm: 'Are you sure?' } %></td>

@@ -34,7 +34,7 @@
           <% if @project.endowment %>
           <td><%= t actual_fund.fund_type.name, scope: 'fund.type' %></td>
           <% end %>
-          <td><%= link_to '编辑', edit_actual_fund_path(actual_fund) %></td>
+          <td><%= link_to '编辑', edit_donation_record_actual_fund_path(actual_fund) %></td>
         </tr>
       <% end %>
     </tbody>

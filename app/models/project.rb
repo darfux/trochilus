@@ -43,8 +43,8 @@ class Project < ActiveRecord::Base
     type_id = FundType.where(name: type).take
     define_method(method_name) do             
       amount = 0                                
-      usage_records.where(fund_type_id: type_id).each do |r|
-        amount += r.fund.amount
+      usage_records.each do |r|
+        amount += r.send("#{type}_amount")
       end
       amount
     end
