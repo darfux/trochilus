@@ -1,21 +1,16 @@
 <div id="project-info">
   <div class="info-block">
     <p>
-      <div><strong><%= @self_customer.class.human_attribute_name :name %>：</strong> <span><%= @self_customer.name! %></span></div>
-      <div><strong>创建者：</strong> <span><%= current_people.name %></span></div>
+      <div><strong>国家：</strong> <span><%= @self_customer.tel! %></span></div>
+      <div><strong>省份：</strong> <span><%= @self_customer.tel! %></span></div>
+      <div><strong>城市：</strong> <span><%= @self_customer.tel! %></span></div>
+      <div><strong>地址：</strong> <span><%= @self_customer.address! %></span></div>
     </p>
     <p>
-      <div><strong>电话：</strong> <span><%= "空" %></span></div>
-      <div><strong>邮箱：</strong> <span><%= "空" %></span></div>
-      <div><strong>传真：</strong> <span><%= "空" %></span></div>
-      <div><strong>邮编：</strong> <span><%= "空" %></span></div>
-    </p>
-    <p>
-      <div><strong>联系人：</strong> <span><%= "空" %></span></div>
-      <div><strong>电话：</strong> <span><%= "空" %></span></div>
-      <div><strong>邮箱：</strong> <span><%= "空" %></span></div>
-      <div><strong>传真：</strong> <span><%= "空" %></span></div>
-      <div><strong>邮编：</strong> <span><%= "空" %></span></div>
+      <div><strong>电话：</strong> <span><%= @self_customer.tel! %></span></div>
+      <div><strong>邮箱：</strong> <span><%= @self_customer.email! %></span></div>
+      <div><strong>传真：</strong> <span><%= @self_customer.fax! %></span></div>
+      <div><strong>邮编：</strong> <span><%= @self_customer.postcode! %></span></div>
     </p>
   </div>
   <hr>
@@ -26,7 +21,7 @@
           <li><%= link_to l(cr.time), [@self_customer.customer, cr] %></li>
         <% end %>
       </div>
-      <%= link_to :new, new_customer_contact_record_path(@self_customer.customer) %>
+      <%= button_to '添加', new_customer_contact_record_path(@self_customer.customer), method: :get %>
     </p>
   </div>
 </div>

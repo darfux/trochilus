@@ -13,7 +13,10 @@
   <% end %>
 
   <%= f.fields_for :customer do |c_f| %>
-    <%= render 'customers/form', {f: c_f, of: f} %>
+    <div class="field">
+      <%= f.label :name %><br>
+      <%= c_f.text_field :name %>
+    </div>
   <% end %>
 
   <div>  

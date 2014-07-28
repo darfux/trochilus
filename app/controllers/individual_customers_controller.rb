@@ -12,10 +12,8 @@ class IndividualCustomersController < CommonCustomersController
     end
     def self_params
       sp = super
-      if params[:is_schoolfellow]
-        sp[:schoolfellow_attributes] = {}
-        sp.merge params.require(@SelfType).permit(schoolfellow_attributes:[])
-      end
+      sp.merge! params.require(@SelfType).permit(:gender, :nation, :native_place, :birthday,
+        :corporate_customer_id, :title)
       sp
     end
 end

@@ -100,10 +100,26 @@ zh-cn:
         confirm: 确定删除？
         confirm_with_name: 确定删除 %{name}？
     label:
+      customer:
+        country: 国家或地区
+        province: 省份
+        city: 城市
+        tel: 电话
+        email: 电子邮件
+        fax: 传真
+        postcode: 邮编
       individual_customer:
         name: 姓名
+        address: 住址
+        gender: 性别
+        birthday: 生日
+        nation: 民族
+        native_place: 籍贯
+        corporate: 公司（单位）
+        title: 职位（头衔）
       corporate_customer:
         name: 公司名
+        address: 公司地址
       customer_group:
         name: 团体名称
       contact_record: 

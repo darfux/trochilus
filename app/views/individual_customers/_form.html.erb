@@ -15,7 +15,30 @@
   <%= f.fields_for :customer do |c_f| %>
     <%= render 'customers/form', {f: c_f, of: f} %>
   <% end %>
-
+  <div class="field">
+    <%= f.label :gender %><br>
+    <%= f.select :gender, options_for_select({'男'=>1,'女'=>0}, default_gender)%>
+  </div>
+  <div class="field">
+    <%= f.label :birthday %><br>
+    <%= f.date_select :birthday %>
+  </div>
+  <div class="field">
+    <%= f.label :nation %><br>
+    <%= f.text_field :nation %>
+  </div>
+  <div class="field">
+    <%= f.label :native_place %><br>
+    <%= f.text_field :native_place %>
+  </div>
+  <div class="field">
+    <%= f.label :corporate %><br>
+    <%= f.select :corporate_customer_id, options_from_collection_for_select(CorporateCustomer.all, "id", "name!")%>
+  </div>
+  <div class="field">
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </div>
   <div class="actions">
     <%= f.submit '提交'%>
   </div>

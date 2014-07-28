@@ -9,7 +9,14 @@
     客户信息
 <% end %>
 
-<!-- <div id="project-info-header"></div> -->
+<div class="info-show">
+  <div class="info-block">
+    <p>
+      <div><strong><%= @self_customer.class.human_attribute_name :name %>：</strong> <span><%= @self_customer.name! %></span></div>
+      <div><small>创建者： <span><%= current_people.name %></span></small></div>
+    </p>
+  </div>
+</div>
 <%= render 'common_customers/info' %>
 
 <hr>

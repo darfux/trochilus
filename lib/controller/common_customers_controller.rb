@@ -94,6 +94,9 @@ class CommonCustomersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def self_params
       params.require(@SelfType).
-        permit(customer_attributes:[:name]).tap{ |p| p[:customer_attributes][:creator_id] = current_user.id }
+        permit(customer_attributes:[:name, :country, :province, :city, :address, :tel,
+          :email, :fax, :postcode]).tap{ |p| 
+          p[:customer_attributes][:creator_id] = current_user.id 
+      }
     end
 end

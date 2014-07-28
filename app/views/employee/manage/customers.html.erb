@@ -18,7 +18,7 @@
       <!-- <td>其他</td> -->
     </tr>
     <% counter=0 %>
-    <% current_people.created_customers!.each do |c| %>
+    <% @customers.each do |c| %>
     <tr>
       <td><%= (counter+=1).to_s.rjust(2, '0') %></td>
       <td>X1234</td>

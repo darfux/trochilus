@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140727132041) do
+ActiveRecord::Schema.define(version: 20140728004314) do
 
   create_table "attachments", force: true do |t|
     t.integer  "attachment_owner_id"
@@ -85,6 +85,14 @@ ActiveRecord::Schema.define(version: 20140727132041) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "creator_id"
+    t.string   "country"
+    t.string   "province"
+    t.string   "city"
+    t.string   "address"
+    t.string   "tel"
+    t.string   "email"
+    t.string   "fax"
+    t.string   "postcode"
   end
 
   add_index "customers", ["creator_id"], name: "index_customers_on_creator_id"
@@ -154,7 +162,15 @@ ActiveRecord::Schema.define(version: 20140727132041) do
   create_table "individual_customers", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "gender"
+    t.string   "nation"
+    t.string   "native_place"
+    t.date     "birthday"
+    t.integer  "corporate_customer_id"
+    t.string   "title"
   end
+
+  add_index "individual_customers", ["corporate_customer_id"], name: "index_individual_customers_on_corporate_customer_id"
 
   create_table "majors", force: true do |t|
     t.string   "name"

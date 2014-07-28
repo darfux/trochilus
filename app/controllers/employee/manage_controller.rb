@@ -7,6 +7,7 @@ class Employee::ManageController < ApplicationController
   end
 
   def customers
+    @customers = current_people.created_customers!
   end
 
   def funds
