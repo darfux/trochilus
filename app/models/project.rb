@@ -16,6 +16,7 @@ class Project < ActiveRecord::Base
   validates_associated :link_men
   validates_associated :project_link_men
 
+  validates_presence_of :project_level
   validates_presence_of_all except: [:interest_rate, :endowment, :brief, :serialnum]
   
   def endowment_t

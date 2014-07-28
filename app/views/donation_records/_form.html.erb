@@ -30,7 +30,7 @@
     </div>
 
     <div class="field">
-      <%= f.label '捐赠类型' %><br />
+      <%= f.label '捐赠类型' %> <%= link_to '新建', new_donation_type_path, target: :_blank  %><br />
       <%= f.select(:donation_type_id, DonationType.all.collect {|e| [ e.name, e.id ] }, { include_blank: true }) %>
     </div>
 

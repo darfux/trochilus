@@ -43,6 +43,9 @@
   padding: 2px;
   background-color: red;
   display: table;
+  & .label{
+    display: inline;
+  }
 }
 
 #error_explanation {

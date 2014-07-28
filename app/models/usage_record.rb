@@ -21,7 +21,7 @@ class UsageRecord < ActiveRecord::Base
 
   # auto_build :interest_fund, :principle_fund if oncreate
   after_initialize :set_default_fund
-  validates_presence_of_all except: [:interest_fund_id, :principle_fund_id]
+  validates_presence_of_all except: [:interest_fund, :principle_fund]
   validate :at_least_one_fund
 
   def set_default_fund

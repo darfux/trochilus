@@ -57,9 +57,17 @@ zh-cn:
       individual_customer: 个人客户
       corporate_customer: 公司客户
       customer_group: 团体客户
+      donation_type: 捐赠类型
+      univ_unit_manager: 学校人员
     attributes:
       project:
         name: 项目名称
+        create_date: 创建时间
+        project_level: 项目级别
+        project_state: 项目状态
+        project_type: 项目类型
+        create_unit: 创建单位
+        create_manager: 负责人
       fund:
         amount: 金额
       donation_record:
@@ -75,6 +83,49 @@ zh-cn:
         name: 公司名
       customer_group:
         name: 团体名称
+      donation_type:
+        name: 名称
+      univ_unit_manager:
+        name: 姓名
+        univ_unit: 所在单位
+    errors:
+      template:
+        header:
+          one:   "%{model}存在1项验证不通过"
+          other: "%{model}存在%{count}项验证不通过"
+        body:    "未通过的项："
+      models: 
+        commoner: &common_errors
+          taken: 已存在
+          blank: 不能为空
+        donation_type:
+          attributes:
+            name:
+              <<: *common_errors
+        univ_unit_manager:
+          attributes:
+            name:
+              <<: *common_errors
+            univ_unit:
+              <<: *common_errors
+            attributes:
+        project:
+          attributes:
+            name: 
+              <<: *common_errors
+            create_date: 
+              <<: *common_errors
+            project_level: 
+              <<: *common_errors
+            project_state: 
+              <<: *common_errors
+            project_type: 
+              <<: *common_errors
+            create_unit: 
+              <<: *common_errors
+            create_manager: 
+              <<: *common_errors  
+  #SINGLE
   project:
     endowment:
       eyes: 是
@@ -88,6 +139,7 @@ zh-cn:
     type:
       principle: 本金
       interest: 利息
+
 
   #HELPERS
   helpers:
@@ -103,7 +155,7 @@ zh-cn:
           confirm: 确定删除此客户？（将会删除其个人数据）
         link_man:
           confirm: 确定删除此联系人？（仅删除关系，不会删除其个人数据）
-    label:
+    label: 
       customer: &peopleinfo
         country: 国家或地区
         province: 省份
@@ -148,6 +200,8 @@ zh-cn:
         <<: *peopleinfo
         mobile: 手机
         univ_unit: 所在单位
+      donation_type:
+        name: 名称
       user:
         account: 账号
         password: 密码
@@ -170,3 +224,5 @@ zh-cn:
         create: 添加教学经历
       user:
         create: 登录
+      donation_type:
+        create: 添加

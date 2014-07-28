@@ -1,6 +1,6 @@
 class UnivUnitManager < ActiveRecord::Base
   belongs_to :univ_unit
-  
+  validates_presence_of :name, :univ_unit
   def self.all_spy
     all.sort_by{ |e| e.name_with_py }
   end

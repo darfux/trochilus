@@ -2,13 +2,7 @@
 <%= form_for(@univ_unit_manager) do |f| %>
   <% if @univ_unit_manager.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@univ_unit_manager.errors.count, "error") %> prohibited this univ_unit_manager from being saved:</h2>
-
-      <ul>
-      <% @univ_unit_manager.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+      <%= error_messages_for @univ_unit_manager %>
     </div>
   <% end %>
 
