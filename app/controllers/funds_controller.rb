@@ -10,17 +10,17 @@ class FundsController < ApplicationController
   # GET /funds/1
   # GET /funds/1.json
   def show
-    case @fund.fund_instance_type
-    when 'DonationRecord'
-      @donation_record = @fund.fund_instance
-      render 'donation_record'
-    when 'DonationRecord::ActualFund'
-      @donation_record = @fund.fund_instance.donation_record
-      render 'donation_record_actual_fund'
-    when 'UsageRecord'
-      @usage_record = @fund.fund_instance
-      render 'usage_record'
-    end
+    # case @fund.fund_instance_type
+    # when 'DonationRecord'
+    #   @donation_record = @fund.fund_instance
+    #   redirect_to @donation_record
+    # when 'DonationRecord::ActualFund'
+    #   @donation_record = @fund.fund_instance.donation_record
+    #   render 'donation_record_actual_fund'
+    # when 'UsageRecord'
+    #   @usage_record = @fund.fund_instance
+    #   render 'usage_record'
+    # end
   end
 
   # GET /funds/new

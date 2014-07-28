@@ -1,24 +1,42 @@
 <h1>资金页面</h1>
+<%= link_to '实际资金', url_for(:only_path => false, type: :actual) %>|
+<%= link_to '计划资金', url_for(:only_path => false, type: :plan) %>
+<% if params[:type].nil? || params[:type]=='actual' %>
 <table class="fund-data-table">
   <tbody>
     <tr>
-      <th>类别 </th>
+      <th>项目</th>
       <th>金额</th>
       <th>时间</th>
     </tr>
 
-  <% Fund.all.order('updated_at DESC').each do |fund| %>
+  <% @actual_funds.each do |fund| %>
     <tr>
-      <td><%= link_to t(fund.fund_instance_type, scope: 'fund.instance_type.project'), fund %></td>
-      <td><%= fund.amount %></td>
+      <td><%= link_to fund.project.name, fund.project %></td>
+      <%= decorate_amount fund.real_amount %>
       <td><%= lt fund.updated_at %></td>
     </tr>
-
   <% end %>
 
   </tbody>
 </table>
-<div id='employee-fund-list'>
-  <ul>
-  </ul>
-</div>
+<% else %>
+<table class="fund-data-table">
+  <tbody>
+    <tr>
+      <th>项目</th>
+      <th>金额</th>
+      <th>时间</th>
+    </tr>
+
+  <% @plan_funds.each do |fund| %>
+    <tr>
+      <td><%= link_to fund.project.name, fund.project %></td>
+      <td><%= fund.amount %></td>
+      <td><%= lt fund.updated_at %></td>
+    </tr>
+  <% end %>
+
+  </tbody>
+</table>
+<% end %>

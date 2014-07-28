@@ -316,3 +316,13 @@ $elm_padding_top: 4px;
 		margin-right: 15px;
 	}
 }
+
+.fund-amount-show{
+	text-align: right;
+	&.positive{
+		color: blue;
+	}
+	&.negative{
+		color: red;
+	}
+}

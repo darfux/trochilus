@@ -16,4 +16,24 @@ class Fund < ActiveRecord::Base
   def defaults
     self.currency = Currency.where(symbol: :RMB).first
   end
+
+  def project
+    case fund_instance_type
+    when 'DonationRecord'
+      fund_instance.project
+    when 'DonationRecord::ActualFund'
+      fund_instance.donation_record.project
+    when 'UsageRecord::UsedFund'
+      fund_instance.usage_record.project
+    end
+  end
+
+  def real_amount
+    case fund_instance_type
+    when 'DonationRecord', 'DonationRecord::ActualFund'
+      amount
+    when 'UsageRecord::UsedFund'
+      -amount
+    end
+  end
 end

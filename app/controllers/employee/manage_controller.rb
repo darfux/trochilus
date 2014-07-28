@@ -11,5 +11,7 @@ class Employee::ManageController < ApplicationController
   end
 
   def funds
+    @actual_funds = Fund.where('fund_instance_type != ?', 'DonationRecord').order('updated_at DESC')
+    @plan_funds = Fund.where('fund_instance_type == ?', 'DonationRecord').order('updated_at DESC')
   end
 end
