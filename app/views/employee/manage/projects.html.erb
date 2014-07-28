@@ -15,7 +15,7 @@
     </tr>
     <tr>
       <th>序号</th>
-      <th>编号</th>
+      <!-- <th>编号</th> -->
       <th>名称</th>
       <th>类型</th>
       <th>级别</th>
@@ -28,7 +28,7 @@
     <% @projects.each do |p| %>
     <tr>
       <td><%= (counter+=1).to_s.rjust(2, '0') %></td>
-      <td><%= p.serialnum %></td>
+      <!-- <td><%= p.serialnum %></td> -->
       <td><%= link_to p.name, p %></td>
       <td><%= p.project_type.name %></td>
       <td><%= p.project_level.name %></td>

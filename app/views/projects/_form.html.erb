@@ -40,7 +40,7 @@
   <% end %>
   <div class="field">
     <%= f.label "创建单位" %><br>
-    <%= f.select :create_unit_id, options_from_collection_for_select(UnivUnit.all, "id", "name")%>
+    <%= f.select :create_unit_id, options_from_collection_for_select(UnivUnit.all_spy, "id", "name_with_py")%>
   </div>
   <div class="field">
     <%= f.label "负责人" %><br>

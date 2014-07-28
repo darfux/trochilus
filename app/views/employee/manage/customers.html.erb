@@ -8,12 +8,12 @@
   <tbody>
     <tr>
       <th>序号</th>
-      <th>编号</th>
+      <!-- <th>编号</th> -->
       <th>姓名</th>
       <th>类型</th>
       <!-- <th>国籍</th> -->
       <!-- <th>联系电话</th> -->
-      <th>总捐赠额</th>
+      <!-- <th>总捐赠额</th> -->
       <!-- <th>评级</th> -->
       <!-- <td>其他</td> -->
     </tr>
@@ -21,12 +21,12 @@
     <% @customers.each do |c| %>
     <tr>
       <td><%= (counter+=1).to_s.rjust(2, '0') %></td>
-      <td>X1234</td>
+      <!-- <td>X1234</td> -->
       <td><%= link_to c.name, c.customer %></td>
       <td><%= c.customer.class.model_name.human %> <%= judge_sf(c) ? '（校友）' : '' %></td>
       <!-- <td>中国大陆</td> -->
       <!-- <td>18222993222</td> -->
-      <td><%# c.total_donation %></td>
+      <!-- <td><%# c.total_donation %></td> -->
       <!-- <td>5*</td> -->
     </tr>
     <% end %>
