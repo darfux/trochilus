@@ -39,6 +39,7 @@
       <% end %>
  </fieldset>
   <% else %>
+      <%= hidden_field :use, :principle, value: 1 %>
       <%= f.fields_for :principle_fund do |p_f| %>
         <%= p_f.fields_for :fund do |f_f| %>
         <div class="field">
@@ -54,20 +55,20 @@
   </div>
   <div class="field">
     <%= f.label '执行单位' %><br />
-    <%= f.select(:exec_unit_id, UnivUnit.all.collect {|u| [ u.name, u.id ] }, { include_blank: true }) %>
+    <%= f.select(:exec_unit_id, options_from_collection_for_select(UnivUnit.all_spy, "id", "name_with_py"), { include_blank: true }) %>
   </div>
   <div class="field">
-    <%= f.label '执行人' %><br />
-    <%= f.select(:exec_manager_id, UnivUnitManager.all.collect {|u| [ u.name, u.id ] }, { include_blank: true }) %>
+    <%= f.label '执行人' %> <%= link_to '新建', new_univ_unit_manager_path, target: :_blank  %><br />
+    <%= f.select(:exec_manager_id, options_from_collection_for_select(UnivUnitManager.all_spy, "id", "name_with_py"), { include_blank: true }) %>
   </div>
 
   <div class="field">
     <%= f.label '受益单位' %><br />
-    <%= f.select(:benefit_unit_id, UnivUnit.all.collect {|u| [ u.name, u.id ] }, { include_blank: true }) %>
+    <%= f.select(:benefit_unit_id, options_from_collection_for_select(UnivUnit.all_spy, "id", "name_with_py"), { include_blank: true }) %>
   </div>
   <div class="field">
-    <%= f.label '受益单位负责人' %><br />
-    <%= f.select(:benefit_manager_id, UnivUnitManager.all.collect {|u| [ u.name, u.id ] }, { include_blank: true }) %>
+    <%= f.label '受益单位负责人' %> <%= link_to '新建', new_univ_unit_manager_path, target: :_blank  %><br />
+    <%= f.select(:benefit_manager_id, options_from_collection_for_select(UnivUnitManager.all_spy, "id", "name_with_py"), { include_blank: true }) %>
   </div>
 
   <div class="field">

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140728004314) do
+ActiveRecord::Schema.define(version: 20140728053857) do
 
   create_table "attachments", force: true do |t|
     t.integer  "attachment_owner_id"
@@ -300,6 +300,11 @@ ActiveRecord::Schema.define(version: 20140728004314) do
     t.integer  "univ_unit_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "tel"
+    t.string   "mobile"
+    t.string   "email"
+    t.string   "fax"
+    t.string   "postcode"
   end
 
   add_index "univ_unit_managers", ["univ_unit_id"], name: "index_univ_unit_managers_on_univ_unit_id"

@@ -3,6 +3,14 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 @import 'common_color';
 
+//====SIGN-IN====
+#sign-in{
+	width: 220px;
+	margin: 0 auto;
+	.alert{
+		color: red;
+	}
+}
 //====NAV-BAR====
 body{
 	margin: 0;

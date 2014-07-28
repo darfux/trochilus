@@ -1,3 +1,10 @@
+<%= content_for :nav_bar_function_area do %>
+  <% if current_user.user_type.downcase == :employee.to_s %>
+    <%= link_to '删除', '', method: :delete, method: :delete, data: { confirm: t('helpers.link.delete.link_man.confirm') } %> |
+    <%= link_to '返回', @customer %>
+  <% end %>
+<% end %>
+
 <%= content_for :nav_bar_title do %>
     联系人信息
 <% end %>

@@ -12,7 +12,7 @@
 <% @univ_unit_managers.each do |univ_unit_manager| %>
   <tr>
     <td><%= univ_unit_manager.name %></td>
-    <td><%= univ_unit_manager.univ_unit %></td>
+    <td><%= univ_unit_manager.univ_unit.name %></td>
     <td><%= link_to 'Show', univ_unit_manager %></td>
     <td><%= link_to 'Edit', edit_univ_unit_manager_path(univ_unit_manager) %></td>
     <td><%= link_to 'Destroy', univ_unit_manager, method: :delete, data: { confirm: 'Are you sure?' } %></td>

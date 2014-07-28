@@ -7,8 +7,8 @@
 <% end %>
 <h2>团体名称： <%= @self_customer.name! %></h2>
 
-
 <table>
+  <div><small>创建者： <span><%= link_to current_people.name, current_user %></span></small></div>
   <h4>团体成员</h4>
   <thead>
     <tr>
@@ -25,7 +25,7 @@
     <% @self_customer.customers.each do |customer| %>
       <tr>
         <td><%= link_to customer.name, customer %></td>
-        <td><%= link_to '删除', [@self_customer, customer], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to '删除', [@self_customer, customer], method: :delete, data: { confirm: t('helpers.link.delete.confirm') } %></td>
       </tr>
     <% end %>
   </tbody>

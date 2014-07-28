@@ -24,6 +24,9 @@ class CommonCustomersController < ApplicationController
 
   # GET /self_customers/1/edit
   def edit
+    if !user_can
+      render 'cant_edit'
+    end
   end
 
   # POST /self_customers
@@ -67,16 +70,24 @@ class CommonCustomersController < ApplicationController
   # DELETE /self_customers/1
   # DELETE /self_customers/1.json
   def destroy
-    @self_customer.destroy
     respond_to do |format|
-      format.html { redirect_to employee_manage_customers_path }
-      format.json { head :no_content }
+      if user_can
+        @self_customer.destroy
+        format.html { redirect_to employee_manage_customers_path }
+        format.json { head :no_content }
+      else
+        format.html { render 'cant_edit' }
+      end
     end
   end
 
   protected
     def set_back_path
       @back_path = flash[:from]
+    end
+
+    def user_can
+      @self_customer.creator! == current_user
     end
 
     def set_self_active_record

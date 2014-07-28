@@ -21,6 +21,9 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1/edit
   def edit
+    if !user_can
+      render 'cant_edit'
+    end
   end
 
   # POST /projects
@@ -58,10 +61,14 @@ class ProjectsController < ApplicationController
   # DELETE /projects/1
   # DELETE /projects/1.json
   def destroy
-    @project.destroy
     respond_to do |format|
-      format.html { redirect_to projects_url }
-      format.json { head :no_content }
+      if user_can
+        @project.destroy
+        format.html { redirect_to employee_manage_projects_path }
+        format.json { head :no_content }
+      else
+        format.html { render 'cant_edit' }
+      end
     end
   end
 
@@ -84,6 +91,10 @@ class ProjectsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_project
       @project = Project.find(params[:id])
+    end
+
+    def user_can
+      @project.creator == current_user
     end
 
     def set_attachments

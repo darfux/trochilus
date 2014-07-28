@@ -81,3 +81,5 @@
 <% else %>
   <%= render 'none_endowment_detail' %>
 <% end %>
+
+<%= link_to '删除项目', project_path(@project), method: :delete, data: { confirm: t('helpers.link.delete.confirm') } %>

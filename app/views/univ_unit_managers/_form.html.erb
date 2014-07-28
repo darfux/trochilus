@@ -1,3 +1,4 @@
+<div class="common-form">
 <%= form_for(@univ_unit_manager) do |f| %>
   <% if @univ_unit_manager.errors.any? %>
     <div id="error_explanation">
@@ -16,10 +17,31 @@
     <%= f.text_field :name %>
   </div>
   <div class="field">
+    <%= f.label :mobile %><br>
+    <%= f.text_field :mobile %>
+  </div>
+  <div class="field">
+    <%= f.label :tel %><br>
+    <%= f.text_field :tel %>
+  </div>
+  <div class="field">
+    <%= f.label :email %><br>
+    <%= f.text_field :email %>
+  </div>
+  <div class="field">
+    <%= f.label :fax %><br>
+    <%= f.text_field :fax %>
+  </div>
+  <div class="field">
+    <%= f.label :postcode %><br>
+    <%= f.text_field :postcode %>
+  </div>
+  <div class="field">
     <%= f.label :univ_unit %><br />
-    <%= f.select(:univ_unit_id, UnivUnit.all.collect {|u| [ u.name, u.id ] }, { include_blank: true }) %>
+    <%= f.select(:univ_unit_id, options_from_collection_for_select(UnivUnit.all_spy, "id", "name_with_py") )%>
   </div>
   <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
+</div>

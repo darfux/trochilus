@@ -43,8 +43,8 @@
     <%= f.select :create_unit_id, options_from_collection_for_select(UnivUnit.all_spy, "id", "name_with_py")%>
   </div>
   <div class="field">
-    <%= f.label "负责人" %><br>
-    <%= f.select :create_manager_id, options_from_collection_for_select(UnivUnitManager.all, "id", "name")%>
+    <%= f.label "负责人" %> <%= link_to '新建', new_univ_unit_manager_path, target: :_blank  %><br>
+    <%= f.select :create_manager_id, options_from_collection_for_select(UnivUnitManager.all_spy, "id", "name_with_unit")%>
   </div>
   <div class="field">
     <%= f.label "项目级别" %><br>

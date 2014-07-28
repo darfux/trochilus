@@ -1,5 +1,20 @@
-<%= render 'common_customers/info' %>
-
+<div class="info-show">
+  <div class="info-block">
+    <p>
+      <div><strong><%= @self_customer.class.human_attribute_name :name %>：</strong> <span><%= @self_customer.name! %></span></div>
+      <div><small>创建者： <span><%= link_to current_people.name, current_user %></span></small></div>
+    </p>
+    <p>
+      <div><strong>性别：</strong> <span><%= @self_customer.gender_t %></span></div>
+      <div><strong>生日：</strong> <span><%= @self_customer.birthday %></span></div>
+      <div><strong>民族：</strong> <span><%= @self_customer.nation %></span></div>
+      <div><strong>籍贯：</strong> <span><%= @self_customer.address! %></span></div>
+      <div><strong>公司（单位）：</strong> <span><%= link_to @self_customer.corporate.name!, @self_customer.corporate %></span></div>
+      <div><strong>职位（头衔）：</strong> <span><%= @self_customer.title %></span></div>
+    </p>
+  </div>
+</div>
+<%= link_to '查看更多信息', @self_customer %>
 
 
 
