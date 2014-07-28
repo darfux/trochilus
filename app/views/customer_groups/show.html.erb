@@ -1,4 +1,3 @@
-<p id="notice"><%= notice %></p>
 <%= content_for :nav_bar_function_area do %>
   <% if current_user.user_type.downcase == :employee.to_s %>
     <%= link_to '编辑', edit_customer_group_path(@self_customer) %> |

@@ -31,7 +31,7 @@ class DonationRecordsController < ApplicationController
 
     respond_to do |format|
       if @donation_record.save
-        format.html { redirect_to @project, notice: 'Donation record was successfully created.' }
+        format.html { redirect_to @project }
         format.json { render :show, status: :created, location: @donation_record }
       else
         format.html { render :new }
@@ -45,7 +45,7 @@ class DonationRecordsController < ApplicationController
   def update
     respond_to do |format|
       if @donation_record.update(donation_record_params)
-        format.html { redirect_to @project, notice: 'Donation record was successfully updated.' }
+        format.html { redirect_to @project }
         format.json { render :show, status: :ok, location: @donation_record }
       else
         format.html { render :edit }
@@ -59,7 +59,7 @@ class DonationRecordsController < ApplicationController
   def destroy
     @donation_record.destroy
     respond_to do |format|
-      format.html { redirect_to @project, notice: 'Donation record was successfully destroyed.' }
+      format.html { redirect_to @project }
       format.json { head :no_content }
     end
   end

@@ -32,7 +32,7 @@ class ProjectsController < ApplicationController
     end
     respond_to do |format|
       if @project.save
-        format.html { redirect_to @project, notice: '项目创建成功' }
+        format.html { redirect_to @project }
         format.json { render action: 'show', status: :created, location: @project }
       else
         format.html { render action: 'new' }
@@ -46,7 +46,7 @@ class ProjectsController < ApplicationController
   def update
     respond_to do |format|
       if @project.update(project_params)
-        format.html { redirect_to @project, notice: '项目更新成功' }
+        format.html { redirect_to @project }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }

@@ -35,7 +35,7 @@ class CommonCustomersController < ApplicationController
 
     respond_to do |format|
       if @self_customer.save
-        format.html { redirect_to @self_customer, notice: 'Individual customer was successfully created.' }
+        format.html { redirect_to @self_customer }
         format.json { render action: 'show', status: :created, location: @self_customer }
       else
         format.html { render action: 'new' }
@@ -54,7 +54,7 @@ class CommonCustomersController < ApplicationController
       #   @self_customer.update_attributes(self_customer_params)
       # end
       if @self_customer.update(self_params)
-        format.html { redirect_to @self_customer, notice: 'Individual customer was successfully updated.' }
+        format.html { redirect_to @self_customer }
         format.json { head :no_content }
       else
         raise 'wrong update'
