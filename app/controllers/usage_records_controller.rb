@@ -115,7 +115,7 @@ class UsageRecordsController < ApplicationController
         .tap{ |p|
         p[:creator_id] = current_user.id
         p[:project_id] = params[:project_id]
-        p[:interest_fund_attributes][:fund_attributes].merge! params[:fund_time]
+        p[:interest_fund_attributes] && p[:interest_fund_attributes][:fund_attributes].merge!(params[:fund_time])
         p[:principle_fund_attributes][:fund_attributes].merge! params[:fund_time]
       }
     end

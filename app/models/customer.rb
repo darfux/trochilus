@@ -2,7 +2,7 @@ class Customer < ActiveRecord::Base
   include PolymorphicExtension
   belongs_to :customer, polymorphic: true
   # has_and_belongs_to_many :customer_groups
-  belongs_to :creator, class_name: "Employee"
+  belongs_to :creator, class_name: :User
   has_many :donation_records
   has_many :contact_records
 
@@ -11,7 +11,7 @@ class Customer < ActiveRecord::Base
 
   validates_presence_of :name
   
-  set_accessable_attributes [:total_donation, :contact_records, :link_projects]
+  set_accessable_attributes [:total_donation, :contact_records, :link_projects, :creator]
 
   def customer_type
     super

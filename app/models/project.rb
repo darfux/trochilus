@@ -2,16 +2,16 @@ class Project < ActiveRecord::Base
   belongs_to :project_level
   belongs_to :project_state
   belongs_to :project_type
-  belongs_to :creator, class_name: :Employee, foreign_key: :creator_id
+  belongs_to :creator, class_name: :User, foreign_key: :creator_id
   belongs_to :create_unit, class_name: :UnivUnit, foreign_key: :create_unit_id
   belongs_to :create_manager, class_name:  :UnivUnitManager, foreign_key: :create_manager_id
 
-  has_many :project_link_men
+  has_many :project_link_men, dependent: :destroy
   has_many :link_men, class_name: :Customer, through: :project_link_men, source: :customer
-  has_many :donation_records
-  has_many :usage_records
+  has_many :donation_records, dependent: :destroy
+  has_many :usage_records, dependent: :destroy
 
-  has_many :attachments, as: :attachment_owner, validate: true
+  has_many :attachments, as: :attachment_owner, validate: true, dependent: :destroy
   
   validates_associated :link_men
   validates_associated :project_link_men

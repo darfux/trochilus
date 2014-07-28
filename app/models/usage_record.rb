@@ -13,7 +13,7 @@ class UsageRecord < ActiveRecord::Base
     class_name: :'UsageRecord::UsedFund', dependent: :destroy, validate: true
   has_one :principle_fund, ->{ where(fund_type_id: FundType.find_by(name: :principle).id) } , 
     class_name: :'UsageRecord::UsedFund', dependent: :destroy, validate: true
-  has_many :attachments, as: :attachment_owner, validate: true
+  has_many :attachments, as: :attachment_owner, validate: true, dependent: :destroy
 
 
   accepts_nested_attributes_for :interest_fund, update_only: true

@@ -9,8 +9,8 @@ class DonationRecord < ActiveRecord::Base
   belongs_to :creator, class_name: :User, foreign_key: :creator_id
   belongs_to :donation_type
 
-  has_many :actual_funds, class_name: :'DonationRecord::ActualFund'
-  has_many :attachments, as: :attachment_owner, validate: true
+  has_many :actual_funds, class_name: :'DonationRecord::ActualFund', dependent: :destroy
+  has_many :attachments, as: :attachment_owner, validate: true, dependent: :destroy
   
   validates :customer_id, presence: true
   # validates_associated :actual_funds
