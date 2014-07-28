@@ -99,8 +99,12 @@ zh-cn:
         name: 删除
         confirm: 确定删除？
         confirm_with_name: 确定删除 %{name}？
+        individual_customer:
+          confirm: 确定删除此客户？（将会删除其个人数据）
+        link_man:
+          confirm: 确定删除此联系人？（仅删除关系，不会删除其个人数据）
     label:
-      customer:
+      customer: &peopleinfo
         country: 国家或地区
         province: 省份
         city: 城市
@@ -139,6 +143,15 @@ zh-cn:
         teach_duration: 任教时间
         univ_unit: 单位
         teacher_title: 职位
+      univ_unit_manager:
+        name: 姓名
+        <<: *peopleinfo
+        mobile: 手机
+        univ_unit: 所在单位
+      user:
+        account: 账号
+        password: 密码
+        remember_me: 记住我
     file_field:
       attachment:
         file: 文件
@@ -155,3 +168,5 @@ zh-cn:
         create: 添加学习经历
       schoolfellow_teach_experience:
         create: 添加教学经历
+      user:
+        create: 登录

@@ -132,13 +132,14 @@ Rails.application.routes.draw do
 
   resources :employees
 
-  devise_for :users, controllers: { sessions: "users/sessions" }
+  devise_for :users, skip: [:registrations], controllers: { sessions: "users/sessions" } , path_names: { sign_in: 'login', sign_out: 'logout' }
 
   devise_scope :user do
-    get "sign_in", to: "devise/sessions#new", as: :login
-    delete "sign_out", to: "devise/sessions#destroy", as: :logout
+    get "login", to: "users/sessions#new", as: :login
+    delete "logout", to: "users/sessions#destroy", as: :logout
   end
-  resources :users, only: [:show] #don't set this before devise, which will be confused between /:id <=> /sign_up
+  
+  resources :users, only: [:show], :constraints => { :id => /[0-9]+(\%7C[0-9]+)*/ } #don't set this before devise, which will be confused between /:id <=> /sign_up
 
   root to: 'main#index'
   
