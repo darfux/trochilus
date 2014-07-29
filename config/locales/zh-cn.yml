@@ -63,7 +63,14 @@ zh-cn:
       customer: 客户
       usage_record: 使用记录
       usage_type: 资金用途
+      employee: 职员
     attributes:
+      employee:
+        name: 姓名
+      user:
+        account: 账号
+        password: 密码
+        password_confirmation: 确认密码
       project:
         name: 项目名称
         create_date: 创建时间
@@ -182,6 +189,20 @@ zh-cn:
           attributes:
             name:
               <<: *common_errors
+        employee:
+          attributes:
+            name:
+              <<: *common_errors
+        user:
+          attributes:
+              account:
+                <<: *common_errors
+              password:
+                <<: *common_errors
+                too_short: 太短
+              password_confirmation:
+                <<: *common_errors
+                confirmation: 输入不一致
 
   #SINGLE
   project:
@@ -267,6 +288,7 @@ zh-cn:
       user:
         account: 账号
         password: 密码
+        password_confirmation: 确认密码
         remember_me: 记住我
       usage_record:
         fund_time: 使用时间

@@ -23,6 +23,9 @@
       <th>是否留本</th>
       <th>总额</th>
       <th>到款</th>
+      <% if current_user.account == 'fkadmin' %>
+        <th>创建人</th>
+      <% end %>
     </tr>
     <% counter=0 %>
     <% @projects.each do |p| %>
@@ -36,6 +39,9 @@
       <td><%= p.endowment_t %></td>
       <td><%= p.total_amount %></td>
       <td><%= p.actual_amount %></td>
+      <% if current_user.account == 'fkadmin' %>
+        <td><%= p.creator.name %></td>
+      <% end %>
     </tr>
     <% end %>
   </tbody>

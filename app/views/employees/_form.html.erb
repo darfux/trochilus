@@ -1,13 +1,8 @@
+<div class="common-form">
 <%= form_for(@employee) do |f| %>
   <% if @employee.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@employee.errors.count, "error") %> prohibited this employee from being saved:</h2>
-
-      <ul>
-      <% @employee.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+      <%= error_messages_for @employee %>
     </div>
   <% end %>
 
@@ -22,12 +17,12 @@
       <%= u_f.text_field :account %>
     </div>
     <div class="field">
-      <%= u_f.label :password, 'Password:' %><br>
+      <%= u_f.label :password %><br>
       <%= u_f.password_field :password %>
     </div>
    
     <div class="field">
-      <%= u_f.label :password_confirmation, 'Confirm:' %><br>
+      <%= u_f.label :password_confirmation %><br>
       <%= u_f.password_field :password_confirmation %>
     </div>
   <% end %>
@@ -36,3 +31,4 @@
     <%= f.submit '提交'%>
   </div>
 <% end %>
+</div>

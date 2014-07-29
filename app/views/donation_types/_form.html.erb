@@ -3,13 +3,6 @@
   <% if @donation_type.errors.any? %>
     <div id="error_explanation">
       <%= error_messages_for @donation_type %>
-<!--       <h2><%= pluralize(@donation_type.errors.count, "error") %> prohibited this donation_type from being saved:</h2>
-
-      <ul>
-      <% @donation_type.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul> -->
     </div>
   <% end %>
 

@@ -14,6 +14,9 @@ class EmployeesController < ApplicationController
 
   # GET /employees/new
   def new
+    if current_user.account != 'fkadmin'
+      redirect_to root_url
+    end
     @employee = Employee.new
   end
 
@@ -29,7 +32,7 @@ class EmployeesController < ApplicationController
 
     respond_to do |format|
       if @employee.save
-        format.html { redirect_to @employee }
+        format.html { redirect_to @employee, notice: '账号创建成功' }
         format.json { render :show, status: :created, location: @employee }
       else
         format.html { render :new }
