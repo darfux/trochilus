@@ -1,9 +1,9 @@
-<h1>Listing univ_units</h1>
-
+<h1>学校单位列表</h1>
+<%= link_to '新建', new_univ_unit_path %>
+<div class="common-list">
 <table>
   <tr>
-    <th>Name</th>
-    <th></th>
+    <th>名称</th>
     <th></th>
     <th></th>
   </tr>
@@ -11,13 +11,11 @@
 <% @univ_units.each do |univ_unit| %>
   <tr>
     <td><%= univ_unit.name %></td>
-    <td><%= link_to 'Show', univ_unit %></td>
-    <td><%= link_to 'Edit', edit_univ_unit_path(univ_unit) %></td>
-    <td><%= link_to 'Destroy', univ_unit, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td class='list-function'><%= link_to '编辑', edit_univ_unit_path(univ_unit) %></td>
+    <td class='list-function'><%= link_to '删除', univ_unit, del_confirm %></td>
   </tr>
 <% end %>
 </table>
+</div>
 
-<br />
 
-<%= link_to 'New Univ unit', new_univ_unit_path %>

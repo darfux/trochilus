@@ -28,4 +28,8 @@ module ApplicationHelper
   def onp
     {target: :_blank}
   end
+
+  def del_confirm
+    {method: :delete, data: { confirm: t('helpers.link.delete.confirm') }}
+  end
 end

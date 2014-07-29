@@ -334,3 +334,13 @@ $elm_padding_top: 4px;
 		color: red;
 	}
 }
+
+.common-list{
+	text-align: left;
+	td, th{
+		padding-right: 25px;
+	}
+	.list-function{
+		padding-right: 2px;
+	}
+}

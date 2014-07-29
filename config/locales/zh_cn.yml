@@ -158,15 +158,14 @@ zh_cn:
               <<: *common_errors
         fund:
           attributes:
-              amount:
-                <<: *common_errors
+            amount:
+              <<: *common_errors
         donation_record:
           attributes:
             customer:
               <<: *common_errors
             donation_type:
               <<: *common_errors
-          attributes:
         usage_record:
           attributes:
             use_time:

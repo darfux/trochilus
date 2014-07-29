@@ -128,6 +128,7 @@ Rails.application.routes.draw do
     get 'manage/projects'
     get 'manage/customers'
     get 'manage/funds'
+    get 'manage/others'
   end
 
   resources :employees

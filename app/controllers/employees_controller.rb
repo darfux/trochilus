@@ -14,7 +14,7 @@ class EmployeesController < ApplicationController
 
   # GET /employees/new
   def new
-    if current_user.account != 'fkadmin'
+    if current_user && current_user.account != 'fkadmin'
       redirect_to root_url
     end
     @employee = Employee.new

@@ -13,7 +13,7 @@
 
   <%= fields_for :user, @employee.user do |u_f| %>
     <div class="field">
-      <%= u_f.label :account %><br />
+      <%= u_f.label :account %>  <small style="color: red">请仅使用字母、下划线及数字</small><br />
       <%= u_f.text_field :account %>
     </div>
     <div class="field">

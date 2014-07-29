@@ -1,9 +1,10 @@
-<h1>Listing univ_unit_managers</h1>
-
+<h1>学校人员列表</h1>
+<%= link_to '新建', new_univ_unit_manager_path %>
+<div class="common-list">
 <table>
   <tr>
-    <th>Name</th>
-    <th>Univ unit</th>
+    <th>姓名</th>
+    <th>单位</th>
     <th></th>
     <th></th>
     <th></th>
@@ -13,13 +14,12 @@
   <tr>
     <td><%= univ_unit_manager.name %></td>
     <td><%= univ_unit_manager.univ_unit.name %></td>
-    <td><%= link_to 'Show', univ_unit_manager %></td>
-    <td><%= link_to 'Edit', edit_univ_unit_manager_path(univ_unit_manager) %></td>
-    <td><%= link_to 'Destroy', univ_unit_manager, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td class='list-function'><%= link_to '显示', univ_unit_manager %></td>
+    <td class='list-function'><%= link_to '编辑', edit_univ_unit_manager_path(univ_unit_manager) %></td>
+    <td class='list-function'><%= link_to '删除', univ_unit_manager, del_confirm %></td>
   </tr>
 <% end %>
 </table>
+</div>
 
-<br />
 
-<%= link_to 'New Univ unit manager', new_univ_unit_manager_path %>

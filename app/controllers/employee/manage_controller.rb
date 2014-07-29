@@ -39,6 +39,8 @@ class Employee::ManageController < ApplicationController
     ) 
   end
 
+  def others
+  end
   private
     def get_actual_funds
       draf = Fund.joins("JOIN donation_record_actual_funds ON donation_record_actual_funds.id = funds.fund_instance_id 
