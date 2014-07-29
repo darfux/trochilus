@@ -1,24 +1,15 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Customer:</strong>
-  <%= @contact_record.customer %>
-</p>
-
-<p>
-  <strong>Employee:</strong>
-  <%= @contact_record.employee %>
-</p>
-
-<p>
-  <strong>Time:</strong>
-  <%= @contact_record.time %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @contact_record.description %>
-</p>
-
+<h1><%= @customer.name %>的来往记录</h1>
+<div>
+  <div>时间</div>
+  <%= l @contact_record.time %>
+  <div>负责人</div>
+  <%= @contact_record.creator!.name %> 
+  <div>地点</div>
+  <%= @contact_record.location %>
+  <div>内容</div>
+  <%= @contact_record.description %> 
+  <div>总结</div>
+  <%= @contact_record.conclusion %> 
+</div>
 <%= link_to 'Edit', edit_customer_contact_record_path(@customer, @contact_record) %> |
 <%= link_to 'Back', @customer %>

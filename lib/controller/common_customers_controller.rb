@@ -1,15 +1,10 @@
 class CommonCustomersController < ApplicationController
   before_action :set_self_active_record, except: [:employee_add_customer]
-  before_action :set_self_type, except: [:employee_add_customer]
+  before_action :set_self_type
   before_action :set_self_customer, only: [:show, :edit, :update, :destroy]
   before_action :set_back_path
-  before_action :set_customer_labels
   # GET /self_customers
   # GET /self_customers.json
-  @@Customer_labels = {
-    name:     :姓名,
-    employee: :专员
-  }
   def index
     @self_customers = @SelfActiveRecord.all
     # raise @self_customers.inspect
@@ -29,17 +24,21 @@ class CommonCustomersController < ApplicationController
 
   # GET /self_customers/1/edit
   def edit
+    if !user_can
+      render 'cant_edit'
+    end
   end
 
   # POST /self_customers
   # POST /self_customers.json
   def create
+    # raise self_params.inspect
     @self_customer = @SelfActiveRecord.new(self_params) #using :child:_attributes for nested
     # @self_customer.customer = @self_customer.build_customer(customer_params)
 
     respond_to do |format|
       if @self_customer.save
-        format.html { redirect_to @self_customer, notice: 'Individual customer was successfully created.' }
+        format.html { redirect_to @self_customer }
         format.json { render action: 'show', status: :created, location: @self_customer }
       else
         format.html { render action: 'new' }
@@ -57,11 +56,10 @@ class CommonCustomersController < ApplicationController
       #   @self_customer.customer.update_attributes(customer_params)
       #   @self_customer.update_attributes(self_customer_params)
       # end
-      if @self_customer.update_attributes(self_params)
-        format.html { redirect_to @self_customer, notice: 'Individual customer was successfully updated.' }
+      if @self_customer.update(self_params)
+        format.html { redirect_to @self_customer }
         format.json { head :no_content }
       else
-        raise 'wrong update'
         format.html { render action: 'edit' }
         format.json { render json: @self_customer.errors, status: :unprocessable_entity }
       end
@@ -71,16 +69,24 @@ class CommonCustomersController < ApplicationController
   # DELETE /self_customers/1
   # DELETE /self_customers/1.json
   def destroy
-    @self_customer.destroy
     respond_to do |format|
-      format.html { redirect_to self.send("#{}") }
-      format.json { head :no_content }
+      if user_can
+        @self_customer.destroy
+        format.html { redirect_to employee_manage_customers_path }
+        format.json { head :no_content }
+      else
+        format.html { render 'cant_edit' }
+      end
     end
   end
 
   protected
     def set_back_path
       @back_path = flash[:from]
+    end
+
+    def user_can
+      @self_customer.creator! == current_user
     end
 
     def set_self_active_record
@@ -95,13 +101,12 @@ class CommonCustomersController < ApplicationController
       @self_customer = @SelfActiveRecord.find(params[:id])
     end
 
-    def set_customer_labels
-      @customer_labels = @@Customer_labels
-    end
-
     # Never trust parameters from the scary internet, only allow the white list through.
     def self_params
-      params.require(@SelfActiveRecord.to_s.underscore.to_sym).
-        permit(customer_attributes:[:name]).tap{ |p| p[:customer_attributes][:creator_id] = current_user.id }
+      params.require(@SelfType).
+        permit(customer_attributes:[:name, :country, :province, :city, :address, :tel,
+          :email, :fax, :postcode]).tap{ |p| 
+          p[:customer_attributes][:creator_id] = current_user.id 
+      }
     end
 end

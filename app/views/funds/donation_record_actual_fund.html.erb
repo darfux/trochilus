@@ -1,0 +1,21 @@
+<p id="notice"><%= notice %></p>
+
+<h1>资金——捐赠记录（到款）</h1>
+<div class='fund-detail'>
+  <p>
+    <strong><%= Project.model_name.human %>:</strong>
+    <%= link_to @donation_record.project.name, @donation_record.project %>
+  </p>
+  <p>
+    <strong><%= Fund.human_attribute_name :amount %>:</strong>
+    <%= @fund.amount %>
+  </p>
+  <p>
+    <strong><%= DonationRecord.human_attribute_name :actual_fund_time %>:</strong>
+    <%= lt @fund.time, format: :long %>
+  </p>
+  <p>
+    <strong><%= DonationRecord.human_attribute_name :creator %>:</strong>
+    <%= link_to @donation_record.creator.name, @donation_record.creator %>
+  </p>
+</div>

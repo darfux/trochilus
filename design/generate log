@@ -11,7 +11,7 @@ rails g controller Cms index admin
 
 #===============================
 
-rails g scaffold Project name:string serialnum:string create_date:date creator:references brief:text endowment:boolean project_level:references project_state:references project_type:references
+rails g scaffold Project name:string serialnum:string create_date:date creator:references brief:text endowment:boolean project_level:references project_state:references project_type:references create_unit:references create_manager:references
 
 rails g scaffold ProjectLevel name:string
 
@@ -39,7 +39,7 @@ rails g scaffold ContactRecord customer:references employee:references time:date
 #2014-05-06 19:33:56
 rails g scaffold FundType name:string
 
-rails g scaffold Fund amount:decimal time:datetime fund_type:references comment:text currency:references origin_amount:decimal
+rails g scaffold Fund amount:decimal time:datetime fund_type:references comment:text currency:references origin_amount:decimal fund_instance:references{polymorphic}
 
 rails g scaffold DonationType name:string
 
@@ -47,15 +47,15 @@ rails g model ProjectLinkMan customer:references project:references
 
 rails g controller LinkMen show new create edit destroy search
 
-rails g scaffold DonationRecord customer:references project:references creator:references plan_fund:references donation_type:references
+rails g scaffold DonationRecord customer:references project:references creator:references  donation_type:references
 
 #2014-05-14 19:36:06
-rails g model DonationRecordActualFund donation_record:references fund:references
+rails g controller DonationRecord::ActualFund donation_record:references
 
 rails g model Currency name:string symbol:string
 
 #2014-06-09 11:02:16
-rails g scaffold UsageRecord fund:references employee:references project:references exec_unit:references exec_manager:references benefit_unit:references benefit_manager:references usage_type:references
+rails g scaffold UsageRecord employee:references project:references exec_unit:references exec_manager:references benefit_unit:references benefit_manager:references usage_type:references
 
 rails g scaffold UsageType name:string
 
@@ -65,4 +65,27 @@ rails g scaffold UnivUnit name:string
 
 rails g scaffold CustomerGroup
 
-#rails g model CustomerGroupsCustomers customer:references customer_group:references ##directly use migration
+rails g model CustomerGroupCustomer customer:references customer_group:references
+
+#2014-07-23 19:59:28
+rails g model Attachment attachment_owner:references{polymorphic}
+
+#2014-07-24 09:47:08
+rails g model CorporateLinkMan corporate_customer:references individual_customer:references comment:text
+
+#2014-07-24 18:13:01
+rails g model Schoolfellow individual_customer:references 
+
+rails g scaffold Schoolfellow::StudyExperience schoolfellow:references major:references degree:references attendance_date:date graduated_date:date student_number:string
+
+rails g scaffold Major name:string univ_unit:references
+
+rails g scaffold Degree name:string
+
+#2014-07-26 14:18:10
+rails g model UsageRecord::UsedFund usage_record:references fund_type:references
+
+#2014-07-27 21:10:25
+rails g scaffold TeacherTitle name:string
+
+rails g scaffold Schoolfellow::TeachExperience schoolfellow:references teacher_title:references univ_unit:references teach_start:date teach_end:date teacher_id:string

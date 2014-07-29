@@ -1,0 +1,47 @@
+<div class="common-form">
+  <%# raise @donation_record_actual_fund.inspect %>
+<%= form_for(@donation_record_actual_fund) do |f| %>
+  <% if @donation_record_actual_fund.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@donation_record_actual_fund.errors.count, "error") %> prohibited this fund from being saved:</h2>
+
+      <ul>
+      <% @donation_record_actual_fund.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.fields_for :fund do |f_f| %>
+    <div class="field">
+      <%= f_f.label '数额' %><br />
+      <%= f_f.text_field :amount %>
+    </div>
+    <div class="field">
+      <%= f_f.label '时间' %><br />
+      <%= f_f.datetime_select :time %>
+    </div>
+    <div class="field">
+      <%= f_f.label :备注 %><br />
+      <%= f_f.text_area :comment %>
+    </div>
+  <% end %>
+
+  <% if @project.endowment %>
+    <div class="field">
+      <%= f.radio_button :fund_type_id, FundType.where(name: :principle).take.id %> <%= label_tag :本金 %>
+      <%= f.radio_button :fund_type_id, FundType.where(name: :interest).take.id  %> <%= label_tag :利息 %>
+    </div>
+  <% else %>
+    <%= f.hidden_field  :fund_type_id %>
+  <% end %>
+
+
+
+  <div class="actions">
+    <%= f.submit '提交'%>
+  </div>
+  
+<% end %>
+</div>

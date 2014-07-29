@@ -9,8 +9,3 @@
 <% end %>
 
 <%= render 'form' %>
-
-<% if @current_user.nil? %>
-  <%= link_to 'Show', @individual_customer %> |
-  <%= link_to 'Back', individual_customers_path %>
-<% end %>

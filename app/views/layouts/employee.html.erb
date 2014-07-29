@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta http-equiv=Content-Type content="text/html;charset=utf-8">
   <title>Trochilus</title>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application" %>
@@ -24,7 +25,13 @@
     <% end %>    
     <%= link_to employee_manage_funds_path do %>
       <div class="elm">资金</div>
-    <% end %>
+    <% end %>    
+    <%= link_to employee_manage_others_path do %>
+      <div class="elm">其他</div>
+    <% end %>  
+<!--     <%# link_to customer_search_path do %>
+      <div class="elm">s</div>
+    <%# end %> -->
   </div>
   <% if content_for?(:nav_bar_function_area) %>
   <div id="employee-nav-bar-function-area"><div><%= yield :nav_bar_function_area %></div></div>

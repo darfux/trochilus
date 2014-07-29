@@ -1,9 +1,10 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Name:</strong>
+  <strong>姓名:</strong>
   <%= @employee.name %>
 </p>
-
-<%= link_to 'Edit', edit_employee_path(@employee) %> |
-<%= link_to 'Back', employees_path %>
+<p>
+  <strong>账号:</strong>
+  <%= @employee.account! %>
+</p>

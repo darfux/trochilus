@@ -28,7 +28,7 @@ class UsageTypesController < ApplicationController
 
     respond_to do |format|
       if @usage_type.save
-        format.html { redirect_to @usage_type, notice: 'Usage type was successfully created.' }
+        format.html { redirect_to @usage_type }
         format.json { render :show, status: :created, location: @usage_type }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class UsageTypesController < ApplicationController
   def update
     respond_to do |format|
       if @usage_type.update(usage_type_params)
-        format.html { redirect_to @usage_type, notice: 'Usage type was successfully updated.' }
+        format.html { redirect_to @usage_type }
         format.json { render :show, status: :ok, location: @usage_type }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class UsageTypesController < ApplicationController
   def destroy
     @usage_type.destroy
     respond_to do |format|
-      format.html { redirect_to usage_types_url, notice: 'Usage type was successfully destroyed.' }
+      format.html { redirect_to usage_types_url }
       format.json { head :no_content }
     end
   end

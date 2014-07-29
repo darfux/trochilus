@@ -1,15 +1,23 @@
 desc "Static data import"
 
-DATAS = [:project_types,  :project_levels,  :project_states, 
-          :currencies,
-          :fund_types,    :usage_types,     :donation_types,
-          :univ_units,    :univ_unit_managers
+datas = [ 
+          :project_types,   :project_levels,  :project_states, 
+          :fund_types,       :currencies,
+          :usage_types,     :donation_types,
+          :univ_units,      :univ_unit_managers, :majors, :degrees,
+          :teacher_titles
         ]
 
 namespace :db do
-task :import_data => :environment do
+task :import_data, [:args] => :environment do |t, args|
+  if args[:args]
+    datas &= args[:args].split('+').collect{ |e| e.to_sym }
+  end
   Rails.root.join
-  DATAS.each do |name|
+  if RUBY_VERSION < '2.1.0'
+    require './lib/patches/array#to_h.rb'
+  end
+  datas.each do |name|
     DatabaseCleaner.clean_with(:truncation, :only => [name])
     File.open("./lib/tasks/data/#{name}", 'r') do |f|
       klass = name.to_s.classify.constantize

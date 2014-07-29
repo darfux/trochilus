@@ -1,7 +1,8 @@
 class DonationRecordsController < ApplicationController
-  before_action :set_donation_record, only: [:show, :edit, :update, :destroy]
-  before_action :set_project, only: [:new, :create, :edit, :update, :destroy]
-
+  before_action :set_donation_record, only: [:show, :edit, :update, :destroy,
+    :new_attachment, :create_attachment, :destroy_attachment]
+  before_action :set_project, only: [:show, :new, :create, :edit, :update, :destroy]
+  before_action :set_attachments, only: [:show]
   # GET /donation_records
   # GET /donation_records.json
   def index
@@ -30,7 +31,7 @@ class DonationRecordsController < ApplicationController
 
     respond_to do |format|
       if @donation_record.save
-        format.html { redirect_to @project, notice: 'Donation record was successfully created.' }
+        format.html { redirect_to @project }
         format.json { render :show, status: :created, location: @donation_record }
       else
         format.html { render :new }
@@ -44,7 +45,7 @@ class DonationRecordsController < ApplicationController
   def update
     respond_to do |format|
       if @donation_record.update(donation_record_params)
-        format.html { redirect_to @project, notice: 'Donation record was successfully updated.' }
+        format.html { redirect_to @project }
         format.json { render :show, status: :ok, location: @donation_record }
       else
         format.html { render :edit }
@@ -58,15 +59,35 @@ class DonationRecordsController < ApplicationController
   def destroy
     @donation_record.destroy
     respond_to do |format|
-      format.html { redirect_to @project, notice: 'Donation record was successfully destroyed.' }
+      format.html { redirect_to @project }
       format.json { head :no_content }
     end
+  end
+
+  def new_attachment
+    @attachment = Attachment.new
+  end
+
+  def create_attachment
+    @attachment = Attachment.create(attachment_params)
+    redirect_to @donation_record
+  end
+
+  def destroy_attachment
+    @attachment = Attachment.find(params[:attachment_id])
+    raise 'unmatched donation record' if @donation_record != @attachment.owner
+    @attachment.destroy
+    redirect_to @donation_record
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_donation_record
       @donation_record = DonationRecord.find(params[:id])
+    end
+
+    def set_attachments
+      @attachments = @donation_record.attachments
     end
 
     def set_project
@@ -83,10 +104,13 @@ class DonationRecordsController < ApplicationController
     def donation_record_params
       params.require(:donation_record)
         .permit(  :customer_id, :project_id, :donation_type_id,
-                  plan_fund_attributes: [:amount, :time]
+                  fund_attributes: [:amount, :time]
                   )
         .tap{ |p| 
-          p[:creator_id] = current_people.id
+          p[:creator_id] = current_user.id
         }
+    end
+    def attachment_params
+      params.require(:attachment).permit(:file).tap{ |p| p[:attachment_owner]=@donation_record }
     end
 end

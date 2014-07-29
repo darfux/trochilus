@@ -1,22 +1,40 @@
+<%= content_for :nav_bar_function_area do %>
+  <% if current_user.user_type == :Employee.to_s %>
+    <%= link_to '返回项目', @project %>
+  <% end %>
+<% end %>
 <%= content_for :nav_bar_title do %>
     捐赠记录
 <% end %>
 <div>
-  
+  <div>  
+    <h4>文件</h4>
+    <% @attachments.each do |a| %>
+    <p><%= link_to a.filename, a.file.url %><span class='delete-attachment'><%= link_to t('helpers.link.delete.name'), attachment_donation_record_path(@donation_record, a), method: :delete, data: { confirm: t('helpers.link.delete.confirm') } %></span></p>
+    <% end %>
+    <div><%= link_to '新建', new_attachment_donation_record_path %></div>
+  </div>
+  <hr>
   <table>
     <thead>
       <tr>
         <th>金额</th>
         <th>时间</th>
+        <% if @project.endowment %>
+        <th>类型</th>
+        <% end %>
       </tr>
     </thead>
 
     <tbody>
       <% @donation_record.actual_funds.each do |actual_fund| %>
         <tr>
-          <td><%= actual_fund.amount %></td>
-          <td><%= actual_fund.time.localtime %></td>
-          <td><%= link_to '编辑', edit_actual_fund_path(actual_fund) %></td>
+          <td><%= actual_fund.amount! %></td>
+          <td><%= l actual_fund.time! %></td>
+          <% if @project.endowment %>
+          <td><%= t actual_fund.fund_type.name, scope: 'fund.type' %></td>
+          <% end %>
+          <td><%= link_to '编辑', edit_donation_record_actual_fund_path(actual_fund) %></td>
         </tr>
       <% end %>
     </tbody>

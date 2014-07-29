@@ -9,5 +9,24 @@
     客户信息
 <% end %>
 
-<!-- <div id="project-info-header"></div> -->
+<div class="info-show">
+  <div class="info-block">
+    <p>
+      <div><strong><%= @self_customer.class.human_attribute_name :name %>：</strong> <span><%= @self_customer.name! %></span></div>
+      <div><small>创建者： <span><%= link_to current_people.name, current_user %></span></small></div>
+    </p>
+  </div>
+</div>
 <%= render 'common_customers/info' %>
+
+<hr>
+<div>
+  <strong>联系人：</strong> 
+  <% @self_customer.link_men.each do |lm| %>
+    <span><%= link_to lm.name!, corporate_customer_link_man_path(@self_customer, lm.id) %></span>
+  <% end %>
+  <%= link_to new_corporate_customer_link_man_path(@self_customer) do %>
+    <%= button_tag '添加' %>
+  <% end %>
+</div>
+

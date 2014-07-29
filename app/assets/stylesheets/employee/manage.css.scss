@@ -3,6 +3,14 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 @import 'common_color';
 
+//====SIGN-IN====
+#sign-in{
+	width: 220px;
+	margin: 0 auto;
+	.alert{
+		color: red;
+	}
+}
 //====NAV-BAR====
 body{
 	margin: 0;
@@ -249,14 +257,11 @@ $elm_padding_top: 4px;
 	text-align: left;
 }
 //====PROJECT-SHOW(tmp)====
+#project-info{
+	margin-bottom: 15px;
+}
 #project-info hr{
 	width: 80%;
-}
-
-#project-info-header{
-	text-align: center;
-	height: 24px;
-	background-color: #45726B;
 }
 
 #project-info .info-block{
@@ -278,6 +283,64 @@ $elm_padding_top: 4px;
 }
 
 //====FUND LIST====
-#fund-list{
+#employee-fund-list{
 	color: black;
+	text-align: left;
+	width: 640px;
+	margin: 0 auto;
+	ul{
+		span{
+			float: right;
+			margin-right: 10px;
+		}
+	}
+}
+
+.fund-data-table{
+	text-align: left;
+	td, th{
+		padding-right: 25px;
+	}
+}
+
+.fund-detail{
+	text-align: left;
+	width: 360px;
+	margin: 0 auto;
+}
+
+.info-show{
+	position: relative;
+	left: 50%;
+	$width: 600px;
+	width: $width;
+	margin-left: -$width/2;
+	text-align: left;
+	div span{
+		color: green;
+	}
+	div{
+		display: inline;
+		margin-right: 15px;
+	}
+}
+
+.fund-amount-show{
+	text-align: right;
+	&.positive{
+		color: blue;
+	}
+	&.negative{
+		color: red;
+	}
+}
+
+.common-list{
+	text-align: left;
+	td, th{
+		padding-right: 25px;
+	}
+	.list-function{
+		padding-right: 2px;
+	}
 }

@@ -1,0 +1,21 @@
+<p id="notice"><%= notice %></p>
+
+<h1>资金——项目使用记录 </h1>
+<div class='fund-detail'>
+  <p>
+    <strong><%= Project.model_name.human %>:</strong>
+    <%= link_to @usage_record.project.name, @usage_record.project %>
+  </p>
+  <p>
+    <strong><%= Fund.human_attribute_name :amount %>:</strong>
+    <%= @fund.amount %>
+  </p>
+  <p>
+    <strong><%= UsageRecord.human_attribute_name :use_time %>:</strong>
+    <%= lt @fund.time, format: :long %>
+  </p>
+  <p>
+    <strong><%= UsageRecord.human_attribute_name :creator %>:</strong>
+    <%= link_to @usage_record.creator.name, @usage_record.creator %>
+  </p>
+</div>

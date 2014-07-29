@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Schoolfellow:</strong>
+  <%= @schoolfellow_teach_experience.schoolfellow %>
+</p>
+
+<p>
+  <strong>Teacher title:</strong>
+  <%= @schoolfellow_teach_experience.teacher_title %>
+</p>
+
+<p>
+  <strong>Teach start:</strong>
+  <%= @schoolfellow_teach_experience.teach_start %>
+</p>
+
+<p>
+  <strong>Teach end:</strong>
+  <%= @schoolfellow_teach_experience.teach_end %>
+</p>
+
+<p>
+  <strong>Teacher:</strong>
+  <%= @schoolfellow_teach_experience.teacher_id %>
+</p>
+
+<%= link_to 'Edit', edit_schoolfellow_teach_experience_path(@schoolfellow_teach_experience) %> |
+<%= link_to 'Back', schoolfellow_teach_experiences_path %>

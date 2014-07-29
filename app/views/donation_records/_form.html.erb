@@ -3,19 +3,13 @@
 <%= form_for([@donation_record.project, @donation_record]) do |f| %>
   <% if @donation_record.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@donation_record.errors.count, "error") %> prohibited this donation_record from being saved:</h2>
-
-      <ul>
-      <% @donation_record.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+      <%= error_messages_for @donation_record %>
     </div>
   <% end %>
 
-  <%= f.fields_for :plan_fund, @donation_record.plan_fund do |f_f| %>
+  <%= f.fields_for :fund do |f_f| %>
     <div class="field">
-      <%= f_f.label '数额' %><br />
+      <%= f_f.label :amount %><br />
       <%= f_f.text_field :amount %>
     </div>
     <div class="field">
@@ -25,12 +19,12 @@
   <% end %>
 
     <div class="field">
-      <%= f.label '客户' %><br />
+      <%= f.label :customer %><br />
       <%= f.select(:customer_id, Customer.all.collect {|e| [ e.name, e.id ] }, { include_blank: true }) %>
     </div>
 
     <div class="field">
-      <%= f.label '捐赠类型' %><br />
+      <%= f.label :donation_type %> <%= link_to '新建', new_donation_type_path, target: :_blank  %><br />
       <%= f.select(:donation_type_id, DonationType.all.collect {|e| [ e.name, e.id ] }, { include_blank: true }) %>
     </div>
 

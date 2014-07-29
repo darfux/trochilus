@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Schoolfellow:</strong>
+  <%= @schoolfellow_study_experience.schoolfellow %>
+</p>
+
+<p>
+  <strong>Major:</strong>
+  <%= @schoolfellow_study_experience.major %>
+</p>
+
+<p>
+  <strong>Degree:</strong>
+  <%= @schoolfellow_study_experience.degree %>
+</p>
+
+<p>
+  <strong>Attendance date:</strong>
+  <%= @schoolfellow_study_experience.attendance_date %>
+</p>
+
+<p>
+  <strong>Graduated date:</strong>
+  <%= @schoolfellow_study_experience.graduated_date %>
+</p>
+
+<p>
+  <strong>Student number:</strong>
+  <%= @schoolfellow_study_experience.student_number %>
+</p>
+
+<%= link_to 'Edit', edit_schoolfellow_study_experience_path(@schoolfellow_study_experience) %> |
+<%= link_to 'Back', schoolfellow_study_experiences_path %>

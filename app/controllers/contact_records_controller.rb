@@ -1,7 +1,6 @@
 class ContactRecordsController < ApplicationController
   before_action :set_contact_record, only: [:show, :edit, :update, :destroy]
   before_action :set_customer, only: [:new, :show, :edit, :update, :create, :destroy]
-
   # GET /contact_records
   # GET /contact_records.json
   def index
@@ -73,8 +72,8 @@ class ContactRecordsController < ApplicationController
     end
     # Never trust parameters from the scary internet, only allow the white list through.
     def contact_record_params
-      params.require(:contact_record).permit(:time, :description).tap{ |p|
-        p[:employee_id] = current_people.id
+      params.require(:contact_record).permit(:time, :location, :description, :conclusion).tap{ |p|
+        p[:creator_id] = current_user.id
         p[:customer_id] = params[:customer_id]
       }
     end

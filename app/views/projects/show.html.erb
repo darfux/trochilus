@@ -19,7 +19,7 @@
     </p>
     <p>
       <div><strong>基金级别：</strong> <span><%= @project.project_level.name %></span></div>
-      <div><strong>是否留本：</strong> <span><%= @project.endowment %></span></div>
+      <div><strong>是否留本：</strong> <span><%= @project.endowment_t %></span></div>
     </p>
     <p>
       <div><strong>创建日期：</strong> <span><%= @project.create_date %></span></div>
@@ -28,13 +28,14 @@
   <hr>
   <div class="info-block">
     <p>
-      <div><strong>创建单位：</strong> <span>数学研究所</span></div>
+      <div><strong>创建单位：</strong> <span><%= @project.create_unit.name %></span></div>
+      <div><strong>负责人：</strong> <span><%= link_to @project.create_manager.name, @project.create_manager %></span></div>
     </p>
     <p>
-      <div><strong>电话：</strong> <span>0991-2280233</span></div>
-      <div><strong>邮箱：</strong> <span>cheungmm@gmail.com</span></div>
-      <div><strong>传真：</strong> <span>0991-2280233-1</span></div>
-      <div><strong>邮编：</strong> <span>300071</span></div>
+      <div><strong>电话：</strong> <span><%= @project.create_manager.tel %></span></div>
+      <div><strong>邮箱：</strong> <span><%= @project.create_manager.email %></span></div>
+      <div><strong>传真：</strong> <span><%= @project.create_manager.fax %></span></div>
+      <div><strong>邮编：</strong> <span><%= @project.create_manager.postcode %></span></div>
     </p>
   </div>
   <hr>
@@ -53,9 +54,26 @@
   <hr>
   <div class="info-block">
     <p>
-      <div><strong>概要：</strong> <span><%= @project.brief %></span></div>
+      <div><strong>概要：</strong> <span><%= simple_format @project.brief %></span></div>
+    </p>
+    <p>
+      <div><strong>附件：</strong>
+        <% @attachments.each do |a| %>
+        <p><%= link_to a.filename, a.file.url %><span class='delete-attachment'><%= link_to t('helpers.link.delete.name'),attachment_project_path(@project, a), method: :delete, data: { confirm: t('helpers.link.delete.confirm') } %></span></p>
+        <% end %>
+        <div><%= link_to '新建', new_attachment_project_path %></div>
+      </div>
     </p>
   </div>
+  <% if @project.endowment %>
+  <hr>
+  <div class="info-block">
+    <strong>利率：</strong>
+    <div><%= @project.interest_rate %>%</div>
+  </div>
+  <% end %>
+
+
 </div>
 
 <% if @project.endowment %>
@@ -63,3 +81,5 @@
 <% else %>
   <%= render 'none_endowment_detail' %>
 <% end %>
+
+<%= link_to '删除项目', project_path(@project), method: :delete, data: { confirm: t('helpers.link.delete.confirm') } %>

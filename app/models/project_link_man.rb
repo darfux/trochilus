@@ -2,5 +2,5 @@ class ProjectLinkMan < ActiveRecord::Base
   belongs_to :customer
   belongs_to :project
 
-  validates_uniqueness_of :project_id,  scope: [:customer_id]
+  validates_uniqueness_of :customer_id,  scope: [:project_id]
 end

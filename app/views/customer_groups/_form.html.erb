@@ -1,0 +1,35 @@
+<div class="common-form">
+<%= form_for(@self_customer) do |f| %>
+  <% if @self_customer.errors.any? %>
+    <div id="error_explanation">
+      <%= error_messages_for @self_customer %>
+    </div>
+  <% end %>
+
+  <%= f.fields_for :customer do |c_f| %>
+    <div class="field">
+      <%= f.label :name %><br>
+      <%= c_f.text_field :name %>
+    </div>
+  <% end %>
+
+  <div>  
+    <button data-target="myModal" data-toggle="modal">选择客户</button>
+  </div>
+
+  <div id='group-customer-result'></div>
+  
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+</div>
+
+<div class="modal-dialog" id="myModal">
+  <span class='close' data-dismiss="modal">X</span>
+  <div id='customer-select-panel-content'>
+    <%= render 'customers/search' %>
+  </div>
+</div>
+
+<div id='controller-mark' name="<%=params[:controller]%>"></div>

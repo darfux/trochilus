@@ -1,34 +1,42 @@
 class DonationRecord < ActiveRecord::Base
+  include CommonFundInstance
+  acts_as_common_fund_instance
+
+  # alias_method :plan_fund, :fund 
+
   belongs_to :customer
   belongs_to :project
-  belongs_to :plan_fund, class_name: :Fund, foreign_key: :plan_fund_id, dependent: :destroy
-  belongs_to :creator, class_name: :Employee, foreign_key: :creator_id
+  belongs_to :creator, class_name: :User, foreign_key: :creator_id
   belongs_to :donation_type
 
-  has_many :donation_record_actual_funds
-  has_many :actual_funds, through: :donation_record_actual_funds, source: :fund, dependent: :destroy, validate: true
-
-  validates :customer_id, presence: true
-  validates_associated :plan_fund, :actual_funds
-
-  accepts_nested_attributes_for :plan_fund#, update_only: true
-  auto_build :plan_fund
+  has_many :actual_funds, class_name: :'DonationRecord::ActualFund', dependent: :destroy
+  has_many :attachments, as: :attachment_owner, validate: true, dependent: :destroy
+  
+  validates :customer, presence: true
+  validates :donation_type, presence: true
+  # validates_associated :actual_funds
   
   def actual_amount
     actual_amount = 0
-    principle = FundType.where(name: '本金').first
+    principle = FundType.where(name: :principle).take
     self.actual_funds.where(fund_type_id: principle.id).each do |a|
-      actual_amount+=a.amount
+      actual_amount+=a.amount!
     end
     actual_amount
   end
   
   def interest_amount
     interest_amount = 0
-    interest = FundType.where(name: '利息').first
+    interest = FundType.where(name: :interest).take
     self.actual_funds.where(fund_type_id: interest.id).each do |a|
-      interest_amount+=a.amount
+      interest_amount+=a.amount!
     end
     interest_amount
+  end
+  def plan_fund
+    fund
+  end  
+  def total_amount
+    fund.amount
   end
 end

@@ -1,0 +1,322 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# To learn more, please read the Rails Internationalization guide
+# available at http://guides.rubyonrails.org/i18n.html.
+
+zh_cn:
+  #DATE
+  date:
+    formats:
+      # Use the strftime parameters for formats.
+      # When no format has been given, it uses default.
+      # You can provide other formats here if you like!
+      default: "%Y-%m-%d"
+      short: "%b %d"
+      long: "%Y年 %b %d日"
+    # Don't forget the nil at the beginning; there's no such thing as a 0th month
+    month_names: [~, "一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"]
+    abbr_month_names: [~, "1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"]
+    # Used in date_select and datetime_select.
+    order:
+      - year
+      - month
+      - day
+
+  #TIME
+  time:
+    formats:
+      default: "%Y-%m-%d  %H:%M"
+      short: "%d %b %H:%M"
+      long: "%Y年 %b %d日  %H:%M"
+    am: "上午"
+    pm: "下午"
+  user:
+    role:
+      creator: &user_as_creator 创建人
+
+  #ACTIVERECORD
+  activerecord:
+    models:
+      project: 项目
+      individual_customer: 个人客户
+      corporate_customer: 公司客户
+      customer_group: 团体客户
+      donation_record: 捐赠记录
+      donation_type: 捐赠类型
+      univ_unit_manager: 学校人员
+      customer: 客户
+      usage_record: 使用记录
+      usage_type: 资金用途
+      employee: 职员
+    attributes:
+      employee:
+        name: 姓名
+      user:
+        account: 账号
+        password: 密码
+        password_confirmation: 确认密码
+      project:
+        name: 项目名称
+        create_date: 创建时间
+        project_level: 项目级别
+        project_state: 项目状态
+        project_type: 项目类型
+        create_unit: 创建单位
+        create_manager: 负责人
+      fund:
+        amount: 金额
+      donation_record:
+        creator: *user_as_creator
+        created_at: 创建时间
+        actual_fund_time: 到款时间
+        customer: 客户
+        donation_type: 捐赠类型
+      usage_record:
+        creator: *user_as_creator
+        exec_unit: 执行单位
+        exec_manager: 执行人
+        benefit_unit: 受益单位
+        benefit_manager: 受益单位负责人
+        usage_type: 用途
+        both_funds: 利息和本金
+      usage_record/principle_fund/fund: #see STO 7693040
+        amount: 使用金额
+      usage_record/interest_fund/fund:
+        amount: 使用金额
+      usage_type:
+        name: 名称
+      individual_customer:
+        name: 姓名
+      corporate_customer:
+        name: 公司名
+      customer_group:
+        name: 团体名称
+      donation_type:
+        name: 名称
+      univ_unit_manager:
+        name: 姓名
+        univ_unit: 所在单位
+      customer:
+        name: 姓名或名称
+    errors:
+      template:
+        header:
+          one:   "%{model}存在1项验证不通过"
+          other: "%{model}存在%{count}项验证不通过"
+        body:    "未通过的项："
+      messages:         
+      models: 
+        commoner: &common_errors
+          taken: 已存在
+          blank: 不能为空
+        donation_type:
+          attributes:
+            name:
+              <<: *common_errors
+        univ_unit_manager:
+          attributes:
+            name:
+              <<: *common_errors
+            univ_unit:
+              <<: *common_errors
+            attributes:
+        project:
+          attributes:
+            name: 
+              <<: *common_errors
+            create_date: 
+              <<: *common_errors
+            project_level: 
+              <<: *common_errors
+            project_state: 
+              <<: *common_errors
+            project_type: 
+              <<: *common_errors
+            create_unit: 
+              <<: *common_errors
+            create_manager: 
+              <<: *common_errors 
+        customer:
+          attributes:
+            name:
+              <<: *common_errors
+        fund:
+          attributes:
+            amount:
+              <<: *common_errors
+        donation_record:
+          attributes:
+            customer:
+              <<: *common_errors
+            donation_type:
+              <<: *common_errors
+        usage_record:
+          attributes:
+            use_time:
+              <<: *common_errors
+            creator:
+              <<: *common_errors
+            exec_unit:
+              <<: *common_errors
+            exec_manager:
+              <<: *common_errors
+            benefit_unit:
+              <<: *common_errors
+            benefit_manager:
+              <<: *common_errors
+            usage_type:
+              <<: *common_errors
+            both_funds:
+              blank: 至少选择一种 
+        usage_type:
+          attributes:
+            name:
+              <<: *common_errors
+        employee:
+          attributes:
+            name:
+              <<: *common_errors
+        user:
+          attributes:
+              account:
+                <<: *common_errors
+              password:
+                <<: *common_errors
+                too_short: 太短
+              password_confirmation:
+                <<: *common_errors
+                confirmation: 输入不一致
+
+  #SINGLE
+  project:
+    endowment:
+      eyes: 是
+      eno: 否
+  fund:
+    instance_type:
+      project:
+        UsageRecord: 项目资金使用记录
+        DonationRecord: 项目捐赠记录（新建）
+        DonationRecord::ActualFund: 项目捐赠记录（到款）
+    type:
+      principle: 本金
+      interest: 利息
+
+
+  #HELPERS
+  helpers:
+    link:
+      individual_customer:
+        new_study_experience: 添加学习经历
+        new_teach_experience: 添加教学经历
+      delete:
+        name: 删除
+        confirm: 确定删除？
+        confirm_with_name: 确定删除 %{name}？
+        individual_customer:
+          confirm: 确定删除此客户？（将会删除其个人数据）
+        link_man:
+          confirm: 确定删除此联系人？（仅删除关系，不会删除其个人数据）
+    label: 
+      customer: &peopleinfo
+        country: 国家或地区
+        province: 省份
+        city: 城市
+        tel: 电话
+        email: 电子邮件
+        fax: 传真
+        postcode: 邮编
+      individual_customer:
+        name: 姓名
+        address: 住址
+        gender: 性别
+        birthday: 生日
+        nation: 民族
+        native_place: 籍贯
+        corporate: 公司（单位）
+        title: 职位（头衔）
+      corporate_customer:
+        name: 公司名
+        address: 公司地址
+      customer_group:
+        name: 团体名称
+      contact_record: 
+        time: 联系时间
+        description: 联系内容
+        conclusion: 总结
+        location: 地点
+      schoolfellow_study_experience:
+        student_number: 学号
+        attendance_date: 入学时间
+        graduated_date: 毕业时间
+        degree: 学位
+        univ_unit: 学院
+        major: 专业
+      schoolfellow_teach_experience:
+        idnum: 职工号
+        teach_duration: 任教时间
+        univ_unit: 单位
+        teacher_title: 职位
+      univ_unit_manager:
+        name: 姓名
+        <<: *peopleinfo
+        mobile: 手机
+        tel: 座机
+        univ_unit: 所在单位
+      donation_type:
+        name: 名称
+      principle_fund:
+        fund:
+          amount: 金额
+      user:
+        account: 账号
+        password: 密码
+        password_confirmation: 确认密码
+        remember_me: 记住我
+      usage_record:
+        fund_time: 使用时间
+    file_field:
+      attachment:
+        file: 文件
+    submit:
+      contact_record:
+        create: 添加记录
+        update: 更新记录
+      customer_group:
+        create: 添加团体客户
+        update: 更新团体客户
+      attachment:
+        create: 上传
+      schoolfellow_study_experience:
+        create: 添加学习经历
+      schoolfellow_teach_experience:
+        create: 添加教学经历
+      user:
+        create: 登录
+      donation_type:
+        create: 添加
+      univ_unit_manager:
+        create: 添加
+        update: 更新
+      usage_record:
+        create: 新建
+        update: 更新
+      usage_type:
+        create: 新建
+        update: 更新

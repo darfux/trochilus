@@ -15,29 +15,33 @@
     </tr>
     <tr>
       <th>序号</th>
-      <th>编号</th>
+      <!-- <th>编号</th> -->
       <th>名称</th>
       <th>类型</th>
       <th>级别</th>
       <th>创建单位</th>
       <th>是否留本</th>
       <th>总额</th>
-      <th>余额</th>
-      <!-- <td>其他</td> -->
+      <th>到款</th>
+      <% if current_user.account == 'fkadmin' %>
+        <th>创建人</th>
+      <% end %>
     </tr>
     <% counter=0 %>
     <% @projects.each do |p| %>
     <tr>
       <td><%= (counter+=1).to_s.rjust(2, '0') %></td>
-      <td><%= p.serialnum %></td>
+      <!-- <td><%= p.serialnum %></td> -->
       <td><%= link_to p.name, p %></td>
       <td><%= p.project_type.name %></td>
       <td><%= p.project_level.name %></td>
       <td>南开大学</td>
-      <td><%= p.endowment %></td>
-      <td><%= -1 %></td>
-      <td><%= -1 %></td>
-      <!-- <td><%= link_to "详情", p %> 修改 删除</td> -->
+      <td><%= p.endowment_t %></td>
+      <td><%= p.total_amount %></td>
+      <td><%= p.actual_amount %></td>
+      <% if current_user.account == 'fkadmin' %>
+        <td><%= p.creator.name %></td>
+      <% end %>
     </tr>
     <% end %>
   </tbody>

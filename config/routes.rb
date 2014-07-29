@@ -1,18 +1,28 @@
 Rails.application.routes.draw do
-  get 'link_men/show'
 
-  get 'link_men/new'
+  namespace :schoolfellow do
+    resources :teach_experiences
+  end
 
-  get 'link_men/create'
+  resources :teacher_titles
 
-  get 'link_men/edit'
+  resources :majors
 
-  get 'link_men/destroy'
+  resources :degrees
 
-  get 'link_men/search'
+  get 'users/search'
+  post 'users/search', to:'users#do_search', as: 'user_search'
 
-  nested_actions = [:show, :new, :create]
-  origin_actions = [:edit, :update, :destroy]
+  # namespace :donation_record do
+  #   resources :actual_funds
+  # end
+
+  nested_actions = [:new, :create]
+  origin_actions = [:show, :edit, :update, :destroy]
+
+
+
+  resources :customer_groups
 
   resources :donation_types
 
@@ -25,17 +35,56 @@ Rails.application.routes.draw do
   resources :projects do
     resources :donation_records, only: nested_actions
     resources :usage_records, only: nested_actions
-    resources :link_men
+    resources :link_men, controller: 'projects/link_men'
+    member do
+      get 'new_attachment'
+      post 'attachments', to: 'projects#create_attachment', as: :attachments
+      delete 'attachments/:attachment_id', to: 'projects#destroy_attachment', as: :attachment
+    end
   end
-  post 'link_men/search' => 'link_men#search', as: 'link_man_search'
-  
-  resources :usage_records, only: origin_actions
-  resources :donation_records, only: origin_actions
 
-  resources :donation_records do
-    resources :actual_funds, only: nested_actions
+  get 'link_men/search'
+  post 'link_men/search', to: 'link_men#search', as: 'link_man_search'
+  
+  get 'customers/search', to: 'customers#search', as: 'customer_search'
+  post 'customers/search', to: 'customers#do_search'
+
+  resources :usage_records, only: origin_actions do
+    member do
+      get 'new_attachment'
+      post 'attachments', to: 'usage_records#create_attachment', as: :attachments
+      delete 'attachments/:attachment_id', to: 'usage_records#destroy_attachment', as: :attachment
+    end
   end
-  resources :actual_funds, only: origin_actions
+
+  resources :donation_records, only: origin_actions do
+    member do
+      get 'new_attachment'
+      post 'attachments', to: 'donation_records#create_attachment', as: :attachments
+      delete 'attachments/:attachment_id', to: 'donation_records#destroy_attachment', as: :attachment
+    end
+  end
+
+
+  ##Things below are workarounds for namespaced model to use a nested resource
+  namespace :donation_record do
+    resources :actual_funds, only: [:show, :update, :edit]
+  end
+  resources :donation_records do
+    resources :actual_funds, controller: 'donation_record/actual_funds', only: nested_actions
+  end
+
+  namespace :usage_record do
+    resources :funds, only: [:show, :update, :edit]
+  end
+  resources :usage_records do
+    resources :funds, controller: 'usage_record/funds', only: nested_actions
+  end
+  resources :individual_customers do
+    resources :study_experiences, controller: 'schoolfellow/study_experiences'
+    resources :teach_experiences, controller: 'schoolfellow/teach_experiences'
+  end
+  ##
 
   resources :fund_types
 
@@ -53,29 +102,45 @@ Rails.application.routes.draw do
     resources :contact_records
   end
 
+  resources :customer_groups do
+    delete "customers/:id", to: 'customer_groups#delete_customer', as: :customer
+    get "customers/:id", to: 'customer_groups#delete_customer'
+  end
   resources :online_customers
 
-  resources :corporate_customers
+  resources :corporate_customers do
+    resources :link_men, controller: 'corporate_customers/link_men'
+  end
 
-  resources :individual_customers
+  resources :individual_customers do
+    resources :univ_experiences, controller: :schoolfellows
+    # resources :schoolfellows
+    # post 'univ_experiences', to: 'schoolfellows#create', as: :univ_experiences
+    # get 'univ_experiences/:id/edit', to: 'schoolfellows#create', as: :univ_experiences_edit
+    # put 'univ_experiences/:id', to: 'schoolfellows#update'
+    # delete 'univ_experiences/:id', to: 'schoolfellows#destroy'
+  end
 
   resources :customers
 
   namespace :employee do
-    get 'manage' => 'manage#index'
+    get 'manage', to: 'manage#index'
     get 'manage/projects'
     get 'manage/customers'
     get 'manage/funds'
+    get 'manage/others'
   end
 
   resources :employees
 
-  devise_for :users, controllers: { sessions: "users/sessions" }
+  devise_for :users, skip: [:registrations], controllers: { sessions: "users/sessions" } , path_names: { sign_in: 'login', sign_out: 'logout' }
 
   devise_scope :user do
-    get "sign_in", to: "devise/sessions#new", as: :login
-    delete "sign_out", to: "devise/sessions#destroy", as: :logout
+    get "login", to: "users/sessions#new", as: :login
+    delete "logout", to: "users/sessions#destroy", as: :logout
   end
+  
+  resources :users, only: [:show], :constraints => { :id => /[0-9]+(\%7C[0-9]+)*/ } #don't set this before devise, which will be confused between /:id <=> /sign_up
 
   root to: 'main#index'
   

@@ -5,16 +5,3 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-
-
-User.create!(
-  account: 'test',
-  password: '123',
-  email: '',
-  password_confirmation: '123'
-) do |u|
-  Employee.create!(
-    name: "Testor",
-    user: u
-  )
-end

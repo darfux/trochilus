@@ -1,13 +1,8 @@
+<div class="common-form">
 <%= form_for(@usage_type) do |f| %>
   <% if @usage_type.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@usage_type.errors.count, "error") %> prohibited this usage_type from being saved:</h2>
-
-      <ul>
-      <% @usage_type.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+      <%= error_messages_for @usage_type %>
     </div>
   <% end %>
 
@@ -19,3 +14,4 @@
     <%= f.submit %>
   </div>
 <% end %>
+</div>

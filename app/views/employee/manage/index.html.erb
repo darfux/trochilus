@@ -1,2 +1,5 @@
-<h1>Employee::Manage#index</h1>
-<p>Find me in app/views/employee/manage/index.html.erb</p>
+<p class="notice"><%= notice %></p>
+<p class="alert"><%= alert %></p>
+<% if current_user.account == 'fkadmin' %>
+  <h3><%= link_to '添加职员账号', new_employee_path %></h3>
+<% end %>

@@ -1,7 +1,8 @@
 <%= content_for :nav_bar_function_area do %>
   <% if current_user.user_type.downcase == :employee.to_s %>
     <%= link_to '编辑', edit_individual_customer_path(@self_customer) %> |
-    <%= link_to '返回', employee_manage_customers_path %>
+    <%= link_to '返回', employee_manage_customers_path %> |
+    <%= link_to '删除', individual_customer_path(@self_customer), method: :delete, data: { confirm: t('helpers.link.delete.individual_customer.confirm') } %>
   <% end %>
 <% end %>
 
@@ -9,9 +10,52 @@
     客户信息
 <% end %>
 
+<div class="info-show">
+  <div class="info-block">
+    <p>
+      <div><strong><%= @self_customer.class.human_attribute_name :name %>：</strong> <span><%= @self_customer.name! %></span></div>
+      <div><small>创建者： <span><%= link_to current_people.name, current_user %></span></small></div>
+    </p>
+    <p>
+      <div><strong>性别：</strong> <span><%= @self_customer.gender_t %></span></div>
+      <div><strong>生日：</strong> <span><%= @self_customer.birthday %></span></div>
+      <div><strong>民族：</strong> <span><%= @self_customer.nation %></span></div>
+      <div><strong>籍贯：</strong> <span><%= @self_customer.address! %></span></div>
+      <div><strong>公司（单位）：</strong> <span><%= link_to(@self_customer.corporate.name!, @self_customer.corporate) if @self_customer.corporate %></span></div>
+      <div><strong>职位（头衔）：</strong> <span><%= @self_customer.title %></span></div>
+    </p>
+  </div>
+</div>
 <%= render 'common_customers/info' %>
-
-
+<div class="info-show">
+  <p>
+    <strong>校友信息：</strong><%= link_to lkt('new_study_experience'), new_individual_customer_study_experience_path(@self_customer) %>
+    |<%= link_to lkt('new_teach_experience'), new_individual_customer_teach_experience_path(@self_customer) %>
+    <div class="info-block">    
+    <% @study_experiences.each do |e| %>
+    <p>
+      <div><strong>学历：</strong> <span><%= e.degree.name %></span></div>
+      <div><strong>学号：</strong> <span><%= e.student_number %></span></div>
+      <div><strong>入学时间：</strong> <span><%= l e.attendance_date, format: :long %></span></div>
+      <div><strong>毕业时间：</strong> <span><%= l e.graduated_date, format: :long %></span></div>
+      <div><strong>学院：</strong> <span><%= e.college.name %></span></div>
+      <div><strong>专业：</strong> <span><%= e.major.name %></span></div>
+      <%= link_to '删除', individual_customer_study_experience_path(@self_customer, e), method: :delete, data: { confirm: t('helpers.link.delete.confirm') } %>
+    </p>
+    <% end %>
+    <% @teach_experiences.each do |e| %>
+    <p>
+      <div><strong>职工号：</strong> <span><%= e.idnum %></span></div>
+      <div><strong>任教时间：</strong> <span><%= l e.teach_start, format: :long %></span>—
+        <span><%= l e.teach_end, format: :long %></span></div>
+      <div><strong>学院：</strong> <span><%= e.college.name %></span></div>
+      <div><strong>职位：</strong> <span><%= e.title %></span></div>
+      <%= link_to '删除', individual_customer_teach_experience_path(@self_customer, e), method: :delete, data: { confirm: t('helpers.link.delete.confirm') } %>
+    </p>
+    <% end %>
+    </div>
+  </p>
+</div>
 
 
 <%# if @current_user.nil? %>
