@@ -12,7 +12,8 @@ class DonationRecord < ActiveRecord::Base
   has_many :actual_funds, class_name: :'DonationRecord::ActualFund', dependent: :destroy
   has_many :attachments, as: :attachment_owner, validate: true, dependent: :destroy
   
-  validates :customer_id, presence: true
+  validates :customer, presence: true
+  validates :donation_type, presence: true
   # validates_associated :actual_funds
   
   def actual_amount

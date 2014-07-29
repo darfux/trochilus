@@ -37,8 +37,6 @@ class UsageRecordsController < ApplicationController
         format.html { redirect_to @project }
         format.json { render :show, status: :created, location: @usage_record }
       else
-        @errors = @usage_record.errors
-        @usage_record = UsageRecord.new(usage_record_params)
         format.html { render :new }
         format.json { render json: @usage_record.errors, status: :unprocessable_entity }
       end

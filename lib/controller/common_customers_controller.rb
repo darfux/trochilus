@@ -60,7 +60,6 @@ class CommonCustomersController < ApplicationController
         format.html { redirect_to @self_customer }
         format.json { head :no_content }
       else
-        raise 'wrong update'
         format.html { render action: 'edit' }
         format.json { render json: @self_customer.errors, status: :unprocessable_entity }
       end

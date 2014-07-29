@@ -30,9 +30,12 @@ class UsageRecord < ActiveRecord::Base
     build_principle_fund unless self.principle_fund
   end
   
+  def both_funds
+    [self.interest_fund, self.principle_fund]
+  end
   def at_least_one_fund
     if [self.interest_fund, self.principle_fund].reject(&:nil?).size == 0
-      errors[:no_fund] << ("At least choose one type of usage")
+      errors.add(:both_funds, :blank)
     end
   end 
 

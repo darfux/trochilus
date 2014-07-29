@@ -24,4 +24,8 @@ module ApplicationHelper
     time.localtime.strftime("%Y-%m-%d")
   end
   alias_method :l_d, :localize_date
+
+  def onp
+    {target: :_blank}
+  end
 end

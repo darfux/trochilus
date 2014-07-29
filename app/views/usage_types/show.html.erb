@@ -1,10 +1,11 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <b>Name:</b>
-  <%= @usage_type.name %>
-</p>
-
-
-<%= link_to 'Edit', edit_usage_type_path(@usage_type) %> |
-<%= link_to 'Back', usage_types_path %>
+<%= content_for :nav_bar_function_area do %>
+  <% if current_user.user_type == :Employee.to_s %>
+    <%= link_to '编辑', edit_usage_type_path(@usage_type) %>
+  <% end %>
+<% end %>
+<div class="info-show">
+  <div class="info-block">
+    <p>
+      <div><strong>名称：</strong> <span><%= @usage_type.name %></span></div>
+  </div>
+</div>

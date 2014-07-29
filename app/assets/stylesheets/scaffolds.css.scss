@@ -40,11 +40,11 @@
 }
 
 .field_with_errors {
-  padding: 2px;
-  background-color: red;
-  display: table;
-  & .label{
-    display: inline;
+  display: inline;
+  color: red;
+  input{
+    padding: 2px;
+    border: solid 2px red;
   }
 }
 

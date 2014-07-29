@@ -57,8 +57,12 @@ zh-cn:
       individual_customer: 个人客户
       corporate_customer: 公司客户
       customer_group: 团体客户
+      donation_record: 捐赠记录
       donation_type: 捐赠类型
       univ_unit_manager: 学校人员
+      customer: 客户
+      usage_record: 使用记录
+      usage_type: 资金用途
     attributes:
       project:
         name: 项目名称
@@ -74,9 +78,22 @@ zh-cn:
         creator: *user_as_creator
         created_at: 创建时间
         actual_fund_time: 到款时间
+        customer: 客户
+        donation_type: 捐赠类型
       usage_record:
-        use_time: 使用时间
         creator: *user_as_creator
+        exec_unit: 执行单位
+        exec_manager: 执行人
+        benefit_unit: 受益单位
+        benefit_manager: 受益单位负责人
+        usage_type: 用途
+        both_funds: 利息和本金
+      usage_record/principle_fund/fund: #see STO 7693040
+        amount: 使用金额
+      usage_record/interest_fund/fund:
+        amount: 使用金额
+      usage_type:
+        name: 名称
       individual_customer:
         name: 姓名
       corporate_customer:
@@ -88,12 +105,15 @@ zh-cn:
       univ_unit_manager:
         name: 姓名
         univ_unit: 所在单位
+      customer:
+        name: 姓名或名称
     errors:
       template:
         header:
           one:   "%{model}存在1项验证不通过"
           other: "%{model}存在%{count}项验证不通过"
         body:    "未通过的项："
+      messages:         
       models: 
         commoner: &common_errors
           taken: 已存在
@@ -124,7 +144,45 @@ zh-cn:
             create_unit: 
               <<: *common_errors
             create_manager: 
-              <<: *common_errors  
+              <<: *common_errors 
+        customer:
+          attributes:
+            name:
+              <<: *common_errors
+        fund:
+          attributes:
+              amount:
+                <<: *common_errors
+        donation_record:
+          attributes:
+            customer:
+              <<: *common_errors
+            donation_type:
+              <<: *common_errors
+          attributes:
+        usage_record:
+          attributes:
+            use_time:
+              <<: *common_errors
+            creator:
+              <<: *common_errors
+            exec_unit:
+              <<: *common_errors
+            exec_manager:
+              <<: *common_errors
+            benefit_unit:
+              <<: *common_errors
+            benefit_manager:
+              <<: *common_errors
+            usage_type:
+              <<: *common_errors
+            both_funds:
+              blank: 至少选择一种 
+        usage_type:
+          attributes:
+            name:
+              <<: *common_errors
+
   #SINGLE
   project:
     endowment:
@@ -199,13 +257,19 @@ zh-cn:
         name: 姓名
         <<: *peopleinfo
         mobile: 手机
+        tel: 座机
         univ_unit: 所在单位
       donation_type:
         name: 名称
+      principle_fund:
+        fund:
+          amount: 金额
       user:
         account: 账号
         password: 密码
         remember_me: 记住我
+      usage_record:
+        fund_time: 使用时间
     file_field:
       attachment:
         file: 文件
@@ -226,3 +290,12 @@ zh-cn:
         create: 登录
       donation_type:
         create: 添加
+      univ_unit_manager:
+        create: 添加
+        update: 更新
+      usage_record:
+        create: 新建
+        update: 更新
+      usage_type:
+        create: 新建
+        update: 更新

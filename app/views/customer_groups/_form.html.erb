@@ -1,14 +1,8 @@
-
+<div class="common-form">
 <%= form_for(@self_customer) do |f| %>
   <% if @self_customer.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@self_customer.errors.count, "error") %> prohibited this customer_group from being saved:</h2>
-
-      <ul>
-      <% @self_customer.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+      <%= error_messages_for @self_customer %>
     </div>
   <% end %>
 
@@ -29,6 +23,7 @@
     <%= f.submit %>
   </div>
 <% end %>
+</div>
 
 <div class="modal-dialog" id="myModal">
   <span class='close' data-dismiss="modal">X</span>

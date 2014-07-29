@@ -29,13 +29,13 @@
   <div class="info-block">
     <p>
       <div><strong>创建单位：</strong> <span><%= @project.create_unit.name %></span></div>
-      <div><strong>负责人：</strong> <span><%= @project.create_manager.name %></span></div>
+      <div><strong>负责人：</strong> <span><%= link_to @project.create_manager.name, @project.create_manager %></span></div>
     </p>
     <p>
-      <div><strong>电话：</strong> <span>0991-2280233</span></div>
-      <div><strong>邮箱：</strong> <span>cheungmm@gmail.com</span></div>
-      <div><strong>传真：</strong> <span>0991-2280233-1</span></div>
-      <div><strong>邮编：</strong> <span>300071</span></div>
+      <div><strong>电话：</strong> <span><%= @project.create_manager.tel %></span></div>
+      <div><strong>邮箱：</strong> <span><%= @project.create_manager.email %></span></div>
+      <div><strong>传真：</strong> <span><%= @project.create_manager.fax %></span></div>
+      <div><strong>邮编：</strong> <span><%= @project.create_manager.postcode %></span></div>
     </p>
   </div>
   <hr>

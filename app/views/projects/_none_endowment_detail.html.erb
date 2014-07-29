@@ -3,7 +3,8 @@
     <tbody>
       <tr>
         <th>序号 </th>
-        <th>编号</th>
+        <!-- <th>编号</th> -->
+        <th>类型</th>
         <th>捐赠人</th>
         <th>币种</th>
         <th>日期</th>
@@ -12,10 +13,11 @@
         <th>其他</th>
       </tr>
 
-    <% @project.donation_records.each do |r| %>
+    <% @project.donation_records.each_with_index do |r, index| %>
               <tr>
-        <td></td>
-        <td></td>
+        <td><%= index+1 %></td>
+        <!-- <td></td> -->
+        <td><%= r.donation_type.name %></td>
         <td><%= r.customer.name %></td>
         <td><%= r.plan_fund.currency.name %></td>
         <td><%= localize_date r.plan_fund.time %></td>
@@ -47,9 +49,9 @@
         <th>文件</th>
         <th>其他</th>
       </tr>
-      <% @project.usage_records.each do |r| %>
+      <% @project.usage_records.each_with_index do |r, index| %>
       <tr>
-        <td>xx</td>
+        <td><%= index+1 %></td>
         <td><%= l_d r.time %></td>
         <td><%= r.exec_unit.name %></td>
         <td><%= link_to r.exec_manager.name, r.exec_manager%></td>        
