@@ -12,7 +12,7 @@
   </div>
   <div class="field">
     <%= f.label "创建日期" %><br>
-    <%= f.date_select :create_date %>
+    <%= f.date_select :create_date, start_year: default_start_year %>
   </div>
   <div class="field">
     <%= f.label "简介" %><br>
@@ -38,7 +38,7 @@
   </div>
   <div class="field">
     <%= f.label :create_manager %> <%= link_to '新建', new_univ_unit_manager_path, target: :_blank  %><br>
-    <%= f.select :create_manager_id, options_from_collection_for_select(UnivUnitManager.all_spy, "id", "name_with_unit")%>
+    <%= f.select :create_manager_id, options_from_collection_for_select(UnivUnitManager.all_spy, "id", "name_with_unit"), { include_blank: true }%>
   </div>
   <div class="field">
     <%= f.label :project_level %><br>

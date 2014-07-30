@@ -45,7 +45,7 @@
   <% end %>
   <div class="field">
     <%= f.label :fund_time %><br />
-    <%= datetime_select :fund_time, :time %>
+    <%= datetime_select :fund_time, :time, start_year: default_start_year, default: DateTime.now.beginning_of_day %>
   </div>
   <div class="field">
     <%= f.label :exec_unit %><br />
@@ -53,7 +53,7 @@
   </div>
   <div class="field">
     <%= f.label :exec_manager %> <%= link_to '新建', new_univ_unit_manager_path, target: :_blank  %><br />
-    <%= f.select(:exec_manager_id, options_from_collection_for_select(UnivUnitManager.all_spy, "id", "name_with_py"), { include_blank: true }) %>
+    <%= f.select(:exec_manager_id, options_from_collection_for_select(UnivUnitManager.all_spy, "id", "name_with_unit"), { include_blank: true }) %>
   </div>
 
   <div class="field">
@@ -62,7 +62,7 @@
   </div>
   <div class="field">
     <%= f.label :benefit_manager %> <%= link_to '新建', new_univ_unit_manager_path, target: :_blank  %><br />
-    <%= f.select(:benefit_manager_id, options_from_collection_for_select(UnivUnitManager.all_spy, "id", "name_with_py"), { include_blank: true }) %>
+    <%= f.select(:benefit_manager_id, options_from_collection_for_select(UnivUnitManager.all_spy, "id", "name_with_unit"), { include_blank: true }) %>
   </div>
 
   <div class="field">

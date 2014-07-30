@@ -18,7 +18,7 @@
               <tr>
         <td><%= index+1 %></td>
         <!-- <td></td> -->
-        <td><%= r.donation_type.name %></td>
+        <td><%= r.donation_type.name if r.donation_type %></td>
         <td><%= r.customer.name %></td>
         <td><%= r.plan_fund.currency.name %></td>
         <td><%= localize_date r.plan_fund.time %></td>

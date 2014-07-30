@@ -14,12 +14,12 @@
     </div>
     <div class="field">
       <%= f_f.label '时间' %><br />
-      <%= f_f.datetime_select :time %>
+      <%= f_f.datetime_select :time, start_year: default_start_year, default: DateTime.now.beginning_of_day  %>
     </div>
   <% end %>
 
     <div class="field">
-      <%= f.label :customer %><br />
+      <%= f.label :customer %> <%= link_to '新建', new_customer_path, target: :_blank  %><br />
       <%= f.select(:customer_id, Customer.all.collect {|e| [ e.name, e.id ] }, { include_blank: true }) %>
     </div>
 

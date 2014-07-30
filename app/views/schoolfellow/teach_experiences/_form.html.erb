@@ -18,9 +18,9 @@
   </div>
   <div class="field">
     <%= f.label :teach_duration %><br>
-    <%= f.date_select :teach_start %> 
+    <%= f.date_select :teach_start, start_year: Date.today.year - 80 %> 
     ——
-    <%= f.date_select :teach_end %>
+    <%= f.date_select :teach_end, start_year: Date.today.year - 80 %>
   </div>
   <div class="field">
     <%= f.label :univ_unit %><br />
