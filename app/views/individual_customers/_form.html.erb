@@ -27,7 +27,7 @@
   </div>
   <div class="field">
     <%= f.label :corporate %><%= link_to "添加公司", new_corporate_customer_path, target: :_blank %><br>
-    <%= f.select :corporate_customer_id, options_from_collection_for_select(CorporateCustomer.all, "id", "name!"), { include_blank: true }%>
+    <%= f.select :corporate_customer_id, CorporateCustomer.all.collect{ |e| [e.name!, e.id] }, { include_blank: true }%>
   </div>
   <div class="field">
     <%= f.label :title %><br>

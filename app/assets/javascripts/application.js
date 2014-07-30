@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.deserialize
 //= require turbolinks
 //= require simple_modal
 //= require_tree .

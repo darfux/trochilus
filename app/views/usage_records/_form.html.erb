@@ -49,20 +49,20 @@
   </div>
   <div class="field">
     <%= f.label :exec_unit %><br />
-    <%= f.select(:exec_unit_id, options_from_collection_for_select(UnivUnit.all_spy, "id", "name_with_py"), { include_blank: true }) %>
+    <%= f.select(:exec_unit_id, UnivUnit.all_spy.collect{ |e| [e.name_with_py, e.id] }, { include_blank: true }) %>
   </div>
   <div class="field">
     <%= f.label :exec_manager %> <%= link_to '新建', new_univ_unit_manager_path, target: :_blank  %><br />
-    <%= f.select(:exec_manager_id, options_from_collection_for_select(UnivUnitManager.all_spy, "id", "name_with_unit"), { include_blank: true }) %>
+    <%= f.select(:exec_manager_id, UnivUnitManager.all_spy.collect{ |e| [e.name_with_unit, e.id] }, { include_blank: true }) %>
   </div>
 
   <div class="field">
     <%= f.label :benefit_unit %><br />
-    <%= f.select(:benefit_unit_id, options_from_collection_for_select(UnivUnit.all_spy, "id", "name_with_py"), { include_blank: true }) %>
+    <%= f.select(:benefit_unit_id, UnivUnit.all_spy.collect{ |e| [e.name_with_py, e.id] }, { include_blank: true }) %>
   </div>
   <div class="field">
     <%= f.label :benefit_manager %> <%= link_to '新建', new_univ_unit_manager_path, target: :_blank  %><br />
-    <%= f.select(:benefit_manager_id, options_from_collection_for_select(UnivUnitManager.all_spy, "id", "name_with_unit"), { include_blank: true }) %>
+    <%= f.select(:benefit_manager_id, UnivUnitManager.all_spy.collect{ |e| [e.name_with_unit, e.id] }, { include_blank: true }) %>
   </div>
 
   <div class="field">
