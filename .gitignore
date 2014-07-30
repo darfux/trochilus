@@ -22,3 +22,7 @@
 
 # Ignore db dump yml
 /db/data.yml
+
+# Ignore precompiled assets
+/public/assets/application-*
+/public/assets/manifest-*

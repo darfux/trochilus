@@ -20,12 +20,12 @@
 
   <div class="field">
     <%= f.label :attendance_date %><br />
-    <%= f.date_select :attendance_date, start_year: Date.today.year - 70 %>
+    <%= f.date_select :attendance_date, start_year: Date.today.year - 80 %>
   </div>
 
   <div class="field">
     <%= f.label :graduated_date %><br />
-    <%= f.date_select :graduated_date %>
+    <%= f.date_select :graduated_date, start_year: Date.today.year - 80 %>
   </div>
 
   <div class="field">

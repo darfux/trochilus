@@ -12,7 +12,7 @@
   </div>
   <div class="field">
     <%= f.label "创建日期" %><br>
-    <%= f.date_select :create_date %>
+    <%= f.date_select :create_date, start_year: default_start_year %>
   </div>
   <div class="field">
     <%= f.label "简介" %><br>
@@ -34,23 +34,23 @@
   <% end %>
   <div class="field">
     <%= f.label :create_unit %><br>
-    <%= f.select :create_unit_id, options_from_collection_for_select(UnivUnit.all_spy, "id", "name_with_py")%>
+    <%= f.select :create_unit_id, UnivUnit.all_spy.collect{ |e| [e.name_with_py, e.id] }%>
   </div>
   <div class="field">
     <%= f.label :create_manager %> <%= link_to '新建', new_univ_unit_manager_path, target: :_blank  %><br>
-    <%= f.select :create_manager_id, options_from_collection_for_select(UnivUnitManager.all_spy, "id", "name_with_unit")%>
+    <%= f.select :create_manager_id, UnivUnitManager.all_spy.collect{ |e| [e.name_with_unit, e.id] }, { include_blank: true }%>
   </div>
   <div class="field">
     <%= f.label :project_level %><br>
-    <%= f.select :project_level_id, options_from_collection_for_select(ProjectLevel.all, "id", "name")%>
+    <%= f.select :project_level_id, ProjectLevel.all.collect{ |e| [e.name, e.id] }%>
   </div>
   <div class="field">
     <%= f.label :project_state %><br>
-    <%= f.select :project_state_id, options_from_collection_for_select(ProjectState.all, "id", "name")%>
+    <%= f.select :project_state_id, ProjectState.all.collect{ |e| [e.name, e.id] }%>
   </div>
   <div class="field">
     <%= f.label :project_type %><br>
-    <%= f.select :project_type_id, options_from_collection_for_select(ProjectType.all, "id", "name")%>
+    <%= f.select :project_type_id, ProjectType.all.collect{ |e| [e.name, e.id] }%>
   </div>
   <div class="actions">
     <%= f.submit "提交" %>

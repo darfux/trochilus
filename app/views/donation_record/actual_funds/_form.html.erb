@@ -20,7 +20,7 @@
     </div>
     <div class="field">
       <%= f_f.label '时间' %><br />
-      <%= f_f.datetime_select :time %>
+      <%= f_f.datetime_select :time, start_year: default_start_year, default: DateTime.now.beginning_of_day %>
     </div>
     <div class="field">
       <%= f_f.label :备注 %><br />
