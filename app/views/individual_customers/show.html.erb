@@ -14,7 +14,7 @@
   <div class="info-block">
     <p>
       <div><strong><%= @self_customer.class.human_attribute_name :name %>：</strong> <span><%= @self_customer.name! %></span></div>
-      <div><small>创建者： <span><%= link_to current_people.name, current_user %></span></small></div>
+      <div><small>创建者： <span><%= link_to @self_customer.creator!.name, @self_customer.creator! %></span></small></div>
     </p>
     <p>
       <div><strong>性别：</strong> <span><%= @self_customer.gender_t %></span></div>
