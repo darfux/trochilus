@@ -8,7 +8,7 @@
 <h2>团体名称： <%= @self_customer.name! %></h2>
 
 <table>
-  <div><small>创建者： <span><%= link_to current_people.name, current_user %></span></small></div>
+  <div><small>创建者： <span><%= link_to @self_customer.creator!.name, @self_customer.creator! %></span></small></div>
   <h4>团体成员</h4>
   <thead>
     <tr>

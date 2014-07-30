@@ -15,7 +15,7 @@ class Employee::ManageController < ApplicationController
   def customers
     @customers = (
       if current_user.account.to_s == 'fkadmin'
-        Customer.all
+        Customer.all.reverse
       else
         current_people.created_customers!.reverse
       end
