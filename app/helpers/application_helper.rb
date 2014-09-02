@@ -36,4 +36,8 @@ module ApplicationHelper
   def default_start_year
     2005
   end
+
+  def current_path(overwrite={})
+    url_for :only_path => true, :params => overwrite
+  end
 end

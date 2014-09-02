@@ -17,12 +17,24 @@
       <th>序号</th>
       <!-- <th>编号</th> -->
       <th>名称</th>
-      <th>类型</th>
-      <th>级别</th>
-      <th>创建单位</th>
-      <th>是否留本</th>
-      <th>总额</th>
-      <th>到款</th>
+      <th>
+        类型 
+        <span><%= select_tag :project_type_filter, select_existed(Project, :project_type), prompt: "全部" %></span>
+      </th>
+      <th>
+        级别
+        <span><%= select_tag :project_level_filter, select_existed(Project, :project_level), prompt: "全部" %></span>
+      </th>
+      <th>
+        创建单位
+        <span><%= select_tag :univ_unit_filter, select_existed(Project, :create_unit), prompt: "全部" %></span>
+      </th>
+      <th>
+        是否留本
+        <span><%= select_tag :endowment_filter, options_for_select({"是" => 1, "否" => 0}), prompt: "全部" %></span>
+      </th>
+      <th><%= gen_sort '总额', :total_amount %></th>
+      <th><%= gen_sort '到款', :actual_amount %></th>
       <% if current_user.account == 'fkadmin' %>
         <th>创建人</th>
       <% end %>
@@ -35,7 +47,7 @@
       <td><%= link_to p.name, p %></td>
       <td><%= p.project_type.name %></td>
       <td><%= p.project_level.name %></td>
-      <td>南开大学</td>
+      <td><%= p.create_unit.name %></td>
       <td><%= p.endowment_t %></td>
       <td><%= p.total_amount %></td>
       <td><%= p.actual_amount %></td>
@@ -46,3 +58,5 @@
     <% end %>
   </tbody>
 </table>
+
+

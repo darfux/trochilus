@@ -236,9 +236,20 @@ $elm_padding_top: 4px;
 	border-spacing:0; 
 	width: 80%;
 	th{
+		$color: white;
+		color: $color;
+		a{
+			text-decoration: none;
+			color: $color;
+			&:visited{
+				color: $color;
+			}
+		}
 		height: 32px;
 		background-color: #7C124F;
-		color: white;
+	}
+	.filters th{
+		background-color: white;
 	}
 	th,td{
 		 border: 1px solid black;
