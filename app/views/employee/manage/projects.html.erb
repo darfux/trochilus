@@ -19,19 +19,19 @@
       <th>名称</th>
       <th>
         类型 
-        <span><%= select_tag :project_type_filter, select_existed(Project, :project_type), prompt: "全部" %></span>
+        <span class='filter'><%= select_tag :project_type, select_existed(Project, :project_type), prompt: "全部" %></span>
       </th>
       <th>
         级别
-        <span><%= select_tag :project_level_filter, select_existed(Project, :project_level), prompt: "全部" %></span>
+        <span class='filter'><%= select_tag :project_level, select_existed(Project, :project_level), prompt: "全部" %></span>
       </th>
       <th>
         创建单位
-        <span><%= select_tag :univ_unit_filter, select_existed(Project, :create_unit), prompt: "全部" %></span>
+        <span class='filter'><%= select_tag :create_unit, select_existed(Project, :create_unit), prompt: "全部" %></span>
       </th>
       <th>
         是否留本
-        <span><%= select_tag :endowment_filter, options_for_select({"是" => 1, "否" => 0}), prompt: "全部" %></span>
+        <span class='filter'><%= select_tag :endowment, options_for_select({"是" => 1, "否" => 0}, default_filter_val(:endowment)), prompt: "全部" %></span>
       </th>
       <th><%= gen_sort '总额', :total_amount %></th>
       <th><%= gen_sort '到款', :actual_amount %></th>

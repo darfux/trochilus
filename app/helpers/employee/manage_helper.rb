@@ -13,7 +13,6 @@ module Employee::ManageHelper
     )
   end
   def gen_sort(text, col)
-    # raise [params, col].inspect
     if params[:col] == col.to_s
       opt = (
         case tmp=params[:sort]
@@ -47,7 +46,10 @@ module Employee::ManageHelper
     options_from_collection_for_select(
       host_klass.group("#{dest}_id")
       .joins(dest)
-      .select("'#{dest_table}'.'name', '#{dest_table}'.'id'"), :id, :name, 1
+      .select("'#{dest_table}'.'name', '#{dest_table}'.'id'"), :id, :name, default_filter_val(dest)
     )
+  end
+  def default_filter_val(filter)
+    (f = params[:filters]).nil? ? nil : f[filter]
   end
 end
