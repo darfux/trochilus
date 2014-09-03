@@ -3,14 +3,16 @@ class Employee::ManageController < ApplicationController
   end
 
   def projects
-    relation = (
+    tmp = (
       if current_user.account.to_s == 'fkadmin'
         Project.all
       else
         current_people.created_projects!
       end
     )
-    @projects = handle_sort(relation)
+    tmp = handle_filter(tmp)
+    tmp = handle_sort(tmp)
+    @projects = tmp
   end
 
   def customers
@@ -44,7 +46,6 @@ class Employee::ManageController < ApplicationController
   end
   private
     def handle_sort(relation)
-      relation
       unless col = params[:col]
         relation
       else
@@ -54,6 +55,15 @@ class Employee::ManageController < ApplicationController
         tmp = tmp.reverse if desc
         tmp
       end
+    end
+    def handle_filter(relation)
+      # binding.pry
+      f = params[:filters]
+      f && f.each_pair do |k,v| 
+        f[k] = true   if v=='true'
+        f[k] = false  if v=='false'
+      end
+      relation.where(f)
     end
     def get_actual_funds
       draf = Fund.joins("JOIN donation_record_actual_funds ON donation_record_actual_funds.id = funds.fund_instance_id 

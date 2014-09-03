@@ -31,7 +31,7 @@
       </th>
       <th>
         是否留本
-        <span class='filter'><%= select_tag :endowment, options_for_select({"是" => 1, "否" => 0}, default_filter_val(:endowment)), prompt: "全部" %></span>
+        <span class='filter'><%= select_tag :endowment, options_for_select({"是" => true, "否" => false}, default_filter_val(:endowment)), prompt: "全部" %></span>
       </th>
       <th><%= gen_sort '总额', :total_amount %></th>
       <th><%= gen_sort '到款', :actual_amount %></th>

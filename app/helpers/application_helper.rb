@@ -38,6 +38,6 @@ module ApplicationHelper
   end
 
   def current_path(overwrite={})
-    url_for :only_path => true, :params => overwrite
+    url_for :only_path => true, :params => params.tap{ |p| p.delete(:action);p.delete(:controller)}.merge(overwrite)
   end
 end
