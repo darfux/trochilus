@@ -73,6 +73,7 @@ new function(settings) {
       } else {
         self.parseNew.apply(self, arguments);
       }
+
       return self;
     };
     
@@ -221,8 +222,11 @@ new function(settings) {
         return queryString.join("");
       }
     };
-    //return new queryObject(location.search, location.hash);
-    return function(){return new queryObject(location.search, location.hash)}; // modify for rails turbolink - darfux
+    return new queryObject(location.search, location.hash);
   };
+
 }(jQuery.query || {}); // Pass in jQuery.query as settings object
 
+// autosupport for rails turbolink - darfux
+// use: https://github.com/alrusdi/jquery-plugin-query-object/pull/2
+jQuery(document).on( 'page:load', function(){jQuery.query.parseNew(location.search, location.hash);} );

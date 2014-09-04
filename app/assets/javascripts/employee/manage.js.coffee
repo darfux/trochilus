@@ -13,10 +13,10 @@ initTableFilters = ->
 					params ||= {}
 					params[filter] = val
 					# console.log params
-			params = $.query().set('filters', params)
+			params = $.query.set('filters', params)
 			# console.log $.query.parseNew(location.search, location.hash), location.search
 			# console.log window.location.pathname
-			if params 
+			if params.toString()
 				location.search = params
 			else
 				location.href = location.pathname
