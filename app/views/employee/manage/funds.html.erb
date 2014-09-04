@@ -5,16 +5,21 @@
 <table class="fund-data-table">
   <tbody>
     <tr>
-      <th>项目</th>
-      <th>金额</th>
-      <th>时间</th>
+      <th><%= gen_sort '项目', :project %></th>
+      <th>
+        <%= gen_sort '金额', :amount %>
+        <span class='filter'><%= select_tag :fund_direction, 
+          options_for_select({ "收入"=>:in, "支出"=>:out}, 
+          ((f=params[:filters]) ? f[:fund_direction] : nil)), prompt: "全部" %></span>
+      </th>
+      <th><%= gen_sort '时间', :time %></th>
     </tr>
 
   <% @actual_funds.each do |fund| %>
     <tr>
       <td><%= link_to fund.project.name, fund.project %></td>
       <%= decorate_amount fund.real_amount %>
-      <td><%= lt fund.updated_at %></td>
+      <td><%= l_d fund.time %></td>
     </tr>
   <% end %>
 
@@ -24,16 +29,16 @@
 <table class="fund-data-table">
   <tbody>
     <tr>
-      <th>项目</th>
-      <th>金额</th>
-      <th>时间</th>
+      <th><%= gen_sort '项目', :project %></th>
+      <th><%= gen_sort '金额', :amount %></th>
+      <th><%= gen_sort '时间', :time %></th>
     </tr>
 
   <% @plan_funds.each do |fund| %>
     <tr>
       <td><%= link_to fund.project.name, fund.project %></td>
       <td><%= fund.amount %></td>
-      <td><%= lt fund.updated_at %></td>
+      <td><%= l_d fund.time %></td>
     </tr>
   <% end %>
 

@@ -312,6 +312,17 @@ $elm_padding_top: 4px;
 	td, th{
 		padding-right: 25px;
 	}
+	th{
+		$color: black;
+		color: $color;
+		a{
+			text-decoration: none;
+			color: $color;
+			&:visited{
+				color: $color;
+			}
+		}
+	}
 }
 
 .fund-detail{
