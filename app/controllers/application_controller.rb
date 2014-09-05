@@ -20,4 +20,31 @@ class ApplicationController < ActionController::Base
       return current_people.user_type!.downcase.to_s if current_people
       "application"
     end
+
+    def handle_sort(relation)
+      unless col = params[:col]
+        relation
+      else
+        desc = params[:sort]=='1' ? true : false
+        # binding.pry
+        tmp = relation.sort_by{|p| p.send(col)}
+        tmp = tmp.reverse if desc
+        tmp
+      end
+    end
+    def handle_filter(relation)
+      return relation unless f = params[:filters]
+      f = f.dup
+      f && f.each_pair do |k,v| 
+        f[k] = true   if v=='true'
+        f[k] = false  if v=='false'
+        if v.is_a?(Hash) && (v['from'] || v['to'])
+          from = ((from=v['from']) ? from : Time.new(0))
+          to = ((to=v['to']) ? to : Time.new(9999))
+          f[k] = from..to
+        end
+      end
+      # binding.pry
+      relation.where(f)
+    end
 end

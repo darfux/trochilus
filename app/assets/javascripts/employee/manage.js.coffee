@@ -5,24 +5,36 @@
 initTableFilters = ->
 	$('.filter').children('select').each ->
 		$(this).change ->
-			params = {}
-			$('.filter').children('select').each ->
-				console.log $(this).val()
-				if val = $(this).val()
-					filter = $(this).attr('id')
-					params ||= {}
-					params[filter] = val
-					# console.log params
-			params = $.query.set('filters', params)
-			# console.log $.query.parseNew(location.search, location.hash), location.search
-			# console.log window.location.pathname
+			f = $.query.get('filters')
+			f ||= {}
+			filter = $(this).attr('id')
+			if $(this).val()
+				f[filter] = $(this).val()
+			else
+				delete f[filter]
+			params = $.query.set('filters', f)
+			# console.log $.query
 			if params.toString()
 				location.search = params
 			else
 				location.href = location.pathname
 
+	for elm in ['from', 'to']
+		((type)->
+			console.log type
+			$("#fund_time_#{type}").change ->
+				f = $.query.get('filters')
+				f ||= {}
+				f['time'] ||= {}
+				if $(this).val()
+					f['time'][type] = $(this).val()
+				else
+					delete f['time'][type]
+					if f['time'] == {}
+						delete f['time']
+				location.search = $.query.set('filters', f))(elm)
+			
 
-# puts = (args...) -> console.log(args)
 ready = ->
 	# puts $('#employee-nav-bar-function-area').html()
 	bar = $('#employee-nav-bar-function-area')

@@ -35,7 +35,9 @@ class Employee::ManageController < ApplicationController
         get_actual_funds(((f=params[:filters]) ? f[:fund_direction] : nil))
       end
     )
-    @actual_funds = handle_sort(tmp)
+    tmp = handle_filter(tmp)
+    tmp = handle_sort(tmp)
+    @actual_funds = tmp
     tmp = (
       if current_user.account.to_s == 'fkadmin'
         Fund.where('fund_instance_type == ?', 'DonationRecord').order('time DESC')
@@ -43,34 +45,17 @@ class Employee::ManageController < ApplicationController
         get_plan_funds.order('time DESC')
       end
     ) 
-    @plan_funds = handle_sort(tmp)
+    tmp = handle_filter(tmp)
+    tmp = handle_sort(tmp)
+    @plan_funds = tmp
   end
 
   def others
   end
   private
-    def handle_sort(relation)
-      unless col = params[:col]
-        relation
-      else
-        desc = params[:sort]=='1' ? true : false
-        # binding.pry
-        tmp = relation.sort_by{|p| p.send(col)}
-        tmp = tmp.reverse if desc
-        tmp
-      end
-    end
-    def handle_filter(relation)
-      # binding.pry
-      f = params[:filters]
-      f && f.each_pair do |k,v| 
-        f[k] = true   if v=='true'
-        f[k] = false  if v=='false'
-      end
-      relation.where(f)
-    end
+
     def get_actual_funds(direction='all')
-      af = []
+      af = ArrayRelation.new
       if direction!='out'
         draf = Fund.joins("JOIN donation_record_actual_funds ON donation_record_actual_funds.id = funds.fund_instance_id 
           AND funds.fund_instance_type = 'DonationRecord::ActualFund'").joins("JOIN donation_records ON 
@@ -84,6 +69,7 @@ class Employee::ManageController < ApplicationController
         af.concat uf
       end
       af.sort_by{ |e| e.time }.reverse!
+      af
     end
     def get_plan_funds
       Fund.joins("JOIN donation_records ON donation_records.id = funds.fund_instance_id 

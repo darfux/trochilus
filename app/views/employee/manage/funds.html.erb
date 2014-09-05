@@ -1,8 +1,9 @@
-<h1>资金页面</h1>
-<%= link_to '实际资金', url_for(:only_path => false, type: :actual) %>|
-<%= link_to '计划资金', url_for(:only_path => false, type: :plan) %>
+<%= render 'fund_header' %>
+ 
 <% if params[:type].nil? || params[:type]=='actual' %>
 <table class="fund-data-table">
+  <% time = params.direct_fetch([:filters, :time], {}) %>
+  <div class='time-filter'><%= date_field_tag :fund_time_from, time[:from] %>-<%= date_field_tag :fund_time_to, time[:to] %></div>
   <tbody>
     <tr>
       <th><%= gen_sort '项目', :project %></th>
@@ -12,9 +13,9 @@
           options_for_select({ "收入"=>:in, "支出"=>:out}, 
           ((f=params[:filters]) ? f[:fund_direction] : nil)), prompt: "全部" %></span>
       </th>
-      <th><%= gen_sort '时间', :time %></th>
+      <th><%= gen_sort '时间', :time %> </th>
     </tr>
-
+    
   <% @actual_funds.each do |fund| %>
     <tr>
       <td><%= link_to fund.project.name, fund.project %></td>
@@ -22,11 +23,12 @@
       <td><%= l_d fund.time %></td>
     </tr>
   <% end %>
-
   </tbody>
 </table>
 <% else %>
 <table class="fund-data-table">
+  <% time = params.direct_fetch([:filters, :time], {}) %>
+  <div class='time-filter'><%= date_field_tag :fund_time_from, time[:from] %>-<%= date_field_tag :fund_time_to, time[:to] %></div>
   <tbody>
     <tr>
       <th><%= gen_sort '项目', :project %></th>
