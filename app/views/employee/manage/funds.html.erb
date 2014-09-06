@@ -13,6 +13,7 @@
         <td><%= link_to fund.project.name, fund.project %></td>
         <%= decorate_amount fund.real_amount %>
         <td><%= l_d fund.time %></td>
+        <td><%= link_to fund.relate_unit.name, fund.relate_unit %></td>
         <% total_fund += fund.real_amount %>
       </tr>
       <% end %>
@@ -27,12 +28,12 @@
           ((f=params[:filters]) ? f[:fund_direction] : nil)), prompt: "全部" %></span>
       </th>
       <th><%= gen_sort '时间', :time %> </th>
+      <th>相关人</th>
     </tr>
     
     <tr>
       <th></th>
-      <th><%= total_fund %></span>
-      </th>
+      <th><%= total_fund %></th>
       <th></th>
       <th></th>
     </tr>
@@ -51,8 +52,8 @@
         <td><%= link_to fund.project.name, fund.project %></td>
         <td><%= fund.amount %></td>
         <td><%= l_d fund.time %></td>
-        <td><% total_fund += fund.amount %></td>
-        <td><%# total_fund += fund.relate_people %></td>
+        <td><%= link_to fund.relate_unit.name, fund.relate_unit %></td>
+        <% total_fund += fund.amount %>
       </tr>
     <% end %>
   <% end %>
@@ -63,11 +64,12 @@
       <th><%= gen_sort '项目', :project %></th>
       <th><%= gen_sort '金额', :amount %></th>
       <th><%= gen_sort '时间', :time %></th>
+      <th>相关人</th>
     </tr>
     <tr>
       <th></th>
-      <th><%= total_fund %></span>
-      </th>
+      <th><%= total_fund %></th>
+      <th></th>
       <th></th>
     </tr>
 
