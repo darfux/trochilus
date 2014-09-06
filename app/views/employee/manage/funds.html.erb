@@ -5,6 +5,19 @@
   <% time = params.direct_fetch([:filters, :time], {}) %>
   <div class='time-filter'><%= date_field_tag :fund_time_from, time[:from] %>-<%= date_field_tag :fund_time_to, time[:to] %></div>
   <tbody>
+
+    <% total_fund = 0 %>
+    <% fund_list = capture do %>
+      <% @actual_funds.each do |fund| %>
+      <tr>
+        <td><%= link_to fund.project.name, fund.project %></td>
+        <%= decorate_amount fund.real_amount %>
+        <td><%= l_d fund.time %></td>
+        <% total_fund += fund.real_amount %>
+      </tr>
+      <% end %>
+    <% end %>
+
     <tr>
       <th><%= gen_sort '项目', :project %></th>
       <th>
@@ -16,33 +29,49 @@
       <th><%= gen_sort '时间', :time %> </th>
     </tr>
     
-  <% @actual_funds.each do |fund| %>
     <tr>
-      <td><%= link_to fund.project.name, fund.project %></td>
-      <%= decorate_amount fund.real_amount %>
-      <td><%= l_d fund.time %></td>
+      <th></th>
+      <th><%= total_fund %></span>
+      </th>
+      <th></th>
+      <th></th>
     </tr>
-  <% end %>
+    <%= fund_list %>
   </tbody>
 </table>
 <% else %>
 <table class="fund-data-table">
   <% time = params.direct_fetch([:filters, :time], {}) %>
   <div class='time-filter'><%= date_field_tag :fund_time_from, time[:from] %>-<%= date_field_tag :fund_time_to, time[:to] %></div>
+
+  <% total_fund = 0 %>
+  <% fund_list = capture do %>
+    <% @plan_funds.each do |fund| %>
+      <tr>
+        <td><%= link_to fund.project.name, fund.project %></td>
+        <td><%= fund.amount %></td>
+        <td><%= l_d fund.time %></td>
+        <td><% total_fund += fund.amount %></td>
+        <td><%# total_fund += fund.relate_people %></td>
+      </tr>
+    <% end %>
+  <% end %>
+
+
   <tbody>
     <tr>
       <th><%= gen_sort '项目', :project %></th>
       <th><%= gen_sort '金额', :amount %></th>
       <th><%= gen_sort '时间', :time %></th>
     </tr>
-
-  <% @plan_funds.each do |fund| %>
     <tr>
-      <td><%= link_to fund.project.name, fund.project %></td>
-      <td><%= fund.amount %></td>
-      <td><%= l_d fund.time %></td>
+      <th></th>
+      <th><%= total_fund %></span>
+      </th>
+      <th></th>
     </tr>
-  <% end %>
+
+    <%= fund_list %>
 
   </tbody>
 </table>

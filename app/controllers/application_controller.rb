@@ -32,9 +32,9 @@ class ApplicationController < ActionController::Base
         tmp
       end
     end
-    def handle_filter(relation)
-      return relation unless f = params[:filters]
-      f = f.dup
+    def handle_filter(relation, filters=nil)
+      filters ||= params[:filters]
+      return relation unless f = filters
       f && f.each_pair do |k,v| 
         f[k] = true   if v=='true'
         f[k] = false  if v=='false'
@@ -44,7 +44,6 @@ class ApplicationController < ActionController::Base
           f[k] = from..to
         end
       end
-      # binding.pry
       relation.where(f)
     end
 end

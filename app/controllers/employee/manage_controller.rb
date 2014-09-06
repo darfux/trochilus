@@ -28,6 +28,7 @@ class Employee::ManageController < ApplicationController
   end
 
   def funds
+    filters = params.fetch(:filters, {}).dup.tap{ |f| f.delete(:fund_direction) }
     tmp = (
       if current_user.account.to_s == 'fkadmin'
         Fund.where('fund_instance_type != ?', 'DonationRecord').order('time DESC')
@@ -35,7 +36,7 @@ class Employee::ManageController < ApplicationController
         get_actual_funds(((f=params[:filters]) ? f[:fund_direction] : nil))
       end
     )
-    tmp = handle_filter(tmp)
+    tmp = handle_filter(tmp, filters)
     tmp = handle_sort(tmp)
     @actual_funds = tmp
     tmp = (
@@ -45,7 +46,7 @@ class Employee::ManageController < ApplicationController
         get_plan_funds.order('time DESC')
       end
     ) 
-    tmp = handle_filter(tmp)
+    tmp = handle_filter(tmp, filters)
     tmp = handle_sort(tmp)
     @plan_funds = tmp
   end
