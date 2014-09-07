@@ -28,6 +28,17 @@ class Fund < ActiveRecord::Base
     end
   end
 
+  def relate_unit
+    case fund_instance_type
+    when 'DonationRecord'
+      fund_instance.customer
+    when 'DonationRecord::ActualFund'
+      fund_instance.donation_record.customer
+    when 'UsageRecord::UsedFund'
+      fund_instance.usage_record.benefit_manager
+    end
+  end
+
   def real_amount
     case fund_instance_type
     when 'DonationRecord', 'DonationRecord::ActualFund'

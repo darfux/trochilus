@@ -125,10 +125,15 @@ Rails.application.routes.draw do
 
   namespace :employee do
     get 'manage', to: 'manage#index'
-    get 'manage/projects'
-    get 'manage/customers'
-    get 'manage/funds'
-    get 'manage/others'
+    namespace :manage do
+      get 'projects'
+      get 'customers'
+      get 'funds', as: :funds
+      namespace :fund do
+        get 'manage_unit', to: '', as: :manage_unit
+      end
+      get 'others'
+    end
   end
 
   resources :employees

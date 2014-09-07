@@ -1,41 +1,79 @@
-<h1>资金页面</h1>
-<%= link_to '实际资金', url_for(:only_path => false, type: :actual) %>|
-<%= link_to '计划资金', url_for(:only_path => false, type: :plan) %>
+<%= render 'fund_header' %>
+ 
 <% if params[:type].nil? || params[:type]=='actual' %>
 <table class="fund-data-table">
+  <% time = params.direct_fetch([:filters, :time], {}) %>
+  <div class='time-filter'><%= date_field_tag :fund_time_from, time[:from] %>-<%= date_field_tag :fund_time_to, time[:to] %></div>
   <tbody>
-    <tr>
-      <th>项目</th>
-      <th>金额</th>
-      <th>时间</th>
-    </tr>
 
-  <% @actual_funds.each do |fund| %>
-    <tr>
-      <td><%= link_to fund.project.name, fund.project %></td>
-      <%= decorate_amount fund.real_amount %>
-      <td><%= lt fund.updated_at %></td>
-    </tr>
-  <% end %>
+    <% total_fund = 0 %>
+    <% fund_list = capture do %>
+      <% @actual_funds.each do |fund| %>
+      <tr>
+        <td><%= link_to fund.project.name, fund.project %></td>
+        <%= decorate_amount fund.real_amount %>
+        <td><%= l_d fund.time %></td>
+        <td><%= link_to fund.relate_unit.name, fund.relate_unit %></td>
+        <% total_fund += fund.real_amount %>
+      </tr>
+      <% end %>
+    <% end %>
 
+    <tr>
+      <th><%= gen_sort '项目', :project %></th>
+      <th>
+        <%= gen_sort '金额', :amount %>
+        <span class='filter'><%= select_tag :fund_direction, 
+          options_for_select({ "收入"=>:in, "支出"=>:out}, 
+          ((f=params[:filters]) ? f[:fund_direction] : nil)), prompt: "全部" %></span>
+      </th>
+      <th><%= gen_sort '时间', :time %> </th>
+      <th>相关人</th>
+    </tr>
+    
+    <tr>
+      <th></th>
+      <th><%= total_fund %></th>
+      <th></th>
+      <th></th>
+    </tr>
+    <%= fund_list %>
   </tbody>
 </table>
 <% else %>
 <table class="fund-data-table">
+  <% time = params.direct_fetch([:filters, :time], {}) %>
+  <div class='time-filter'><%= date_field_tag :fund_time_from, time[:from] %>-<%= date_field_tag :fund_time_to, time[:to] %></div>
+
+  <% total_fund = 0 %>
+  <% fund_list = capture do %>
+    <% @plan_funds.each do |fund| %>
+      <tr>
+        <td><%= link_to fund.project.name, fund.project %></td>
+        <td><%= fund.amount %></td>
+        <td><%= l_d fund.time %></td>
+        <td><%= link_to fund.relate_unit.name, fund.relate_unit %></td>
+        <% total_fund += fund.amount %>
+      </tr>
+    <% end %>
+  <% end %>
+
+
   <tbody>
     <tr>
-      <th>项目</th>
-      <th>金额</th>
-      <th>时间</th>
+      <th><%= gen_sort '项目', :project %></th>
+      <th><%= gen_sort '金额', :amount %></th>
+      <th><%= gen_sort '时间', :time %></th>
+      <th>相关人</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th><%= total_fund %></th>
+      <th></th>
+      <th></th>
     </tr>
 
-  <% @plan_funds.each do |fund| %>
-    <tr>
-      <td><%= link_to fund.project.name, fund.project %></td>
-      <td><%= fund.amount %></td>
-      <td><%= lt fund.updated_at %></td>
-    </tr>
-  <% end %>
+    <%= fund_list %>
 
   </tbody>
 </table>

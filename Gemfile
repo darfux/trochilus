@@ -65,3 +65,5 @@ gem 'ruby-pinyin'
 gem 'dynamic_form'
 
 gem 'thin', group: :production
+
+gem 'pry'

@@ -9,9 +9,14 @@ class Customer < ActiveRecord::Base
   has_many :project_link_men
   has_many :link_projects, class_name: :Project, through: :project_link_men, source: :project
 
+  has_many :customer_group_customers
+  has_many :customer_groups, through: :customer_group_customers
+
   validates_presence_of :name
   
-  set_accessable_attributes [:total_donation, :contact_records, :link_projects, :creator]
+  set_accessable_attributes [
+    :total_donation, :contact_records, :donation_records, 
+    :link_projects, :creator, :customer_groups]
 
   def customer_type
     super

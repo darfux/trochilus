@@ -2,13 +2,45 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
+initTableFilters = ->
+	$('.filter').children('select').each ->
+		$(this).change ->
+			f = $.query.get('filters')
+			f ||= {}
+			filter = $(this).attr('id')
+			if $(this).val()
+				f[filter] = $(this).val()
+			else
+				delete f[filter]
+			params = $.query.set('filters', f)
+			# console.log $.query
+			if params.toString()
+				location.search = params
+			else
+				location.href = location.pathname
 
-# puts = (args...) -> console.log(args)
+	for elm in ['from', 'to']
+		((type)->
+			console.log type
+			$("#fund_time_#{type}").change ->
+				f = $.query.get('filters')
+				f ||= {}
+				f['time'] ||= {}
+				if $(this).val()
+					f['time'][type] = $(this).val()
+				else
+					delete f['time'][type]
+					if f['time'] == {}
+						delete f['time']
+				location.search = $.query.set('filters', f))(elm)
+			
+
 ready = ->
 	# puts $('#employee-nav-bar-function-area').html()
 	bar = $('#employee-nav-bar-function-area')
 	bardiv = $('#employee-nav-bar-function-area div')
 	bar.css("margin-left", -bar.outerWidth()/2)
+	initTableFilters()
 
 $(document).ready(ready)
 $(document).on('page:load', ready)

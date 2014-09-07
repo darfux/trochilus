@@ -10,7 +10,12 @@
       <th>序号</th>
       <!-- <th>编号</th> -->
       <th>姓名</th>
-      <th>类型</th>
+      <th>
+        类型
+        <span class='filter'><%= select_tag :customer_type, 
+          options_for_select({ "个人客户"=>:IndividualCustomer, "公司客户"=>:CorporateCustomer, "团体客户"=>:GroupCustomer}, 
+          ((f=params[:filters]) ? f[:customer_type] : nil)), prompt: "全部" %></span>
+      </th>
       <!-- <th>国籍</th> -->
       <th>联系电话</th>
       <!-- <th>总捐赠额</th> -->
