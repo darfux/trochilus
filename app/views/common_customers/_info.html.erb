@@ -42,7 +42,7 @@
         <th>金额</th>
         <th>日期</th>
       </tr>
-      <% @self_customer.corporate.donation_records!.each do |dr| %>
+      <% ( (c=@self_customer.corporate) ? c.donation_records! : [] ).each do |dr| %>
         <tr>
           <td><%= link_to dr.project.name, dr.project %></td>
           <td><%= dr.plan_fund.amount %></td>
