@@ -12,8 +12,11 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require foundation
 //= require jquery.deserialize
 //= require jquery.query-object
 //= require turbolinks
 //= require simple_modal
 //= require_tree .
+
+$(function(){ $(document).foundation(); });

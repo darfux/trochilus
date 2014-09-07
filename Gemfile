@@ -62,8 +62,11 @@ gem 'yaml_db', github: 'jetthoughts/yaml_db', ref: 'fb4b6bd7e12de3cffa93e0a298a1
 
 gem 'ruby-pinyin'
 
+# I18n form error message
 gem 'dynamic_form'
 
 gem 'thin', group: :production
 
-gem 'pry'
+gem 'pry', group: :development
+
+gem 'foundation-rails'
