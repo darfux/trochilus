@@ -1,24 +1,26 @@
 <div id="sign-in">
   <p class="notice"><%= notice %></p>
   <p class="alert"><%= alert %></p>
-   
-  <h2>登录</h2>
 
-  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <%# https://github.com/plataformatec/devise/wiki/How-To:-Display-a-custom-sign_in-form-anywhere-in-your-app %>
+  <fieldset>
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: {'data-abide' => true}) do |f| %>
+      <div>
+        <%= f.label :account %>
+        <%= f.text_field :account, required: true %> 
+        <small class="error"><%= t('activerecord.errors.models.user.attributes.account.blank') %></small>
+      </div> 
+      <div>
+        <%= f.label :password %>
+        <%= f.password_field :password, autocomplete: "off", required: true %>
+        <small class="error"><%= t('activerecord.errors.models.user.attributes.password.blank') %></small>
+      </div>
+      <% if devise_mapping.rememberable? -%>
+        <div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
+      <% end -%>
 
-    <div><%= f.label :account %><br />
-    <%= f.text_field :account, autofocus: true %></div>  
-
-    <div><%= f.label :password %><br />
-      <%= f.password_field :password, autocomplete: "off" %></div>
-
-    <% if devise_mapping.rememberable? -%>
-      <div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
-    <% end -%>
-
-    <div><%= f.submit(nil, role: :button, :class => :button) %></div>
+      <div><%= f.submit(nil, role: :button, :class => 'button right') %></div>
   <% end %>
+  </fieldset>
+
 </div>
-
-
-<%# render "devise/shared/links" %>

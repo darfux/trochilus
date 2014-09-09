@@ -20,6 +20,11 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 zh_cn:
+  #COMMON DICT
+  dicts:
+    login: 登录
+
+
   #DATE
   date:
     formats:

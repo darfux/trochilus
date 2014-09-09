@@ -12,7 +12,9 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require vendor/modernizr
 //= require foundation
+//= require foundation.abide-tmp-fix
 //= require jquery.deserialize
 //= require jquery.query-object
 //= require turbolinks

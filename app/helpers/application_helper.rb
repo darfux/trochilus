@@ -33,6 +33,10 @@ module ApplicationHelper
     {method: :delete, data: { confirm: t('helpers.link.delete.confirm') }}
   end
 
+  def tdict(*args)
+    t(*args, scope: 'dicts')
+  end
+  
   def default_start_year
     2005
   end
