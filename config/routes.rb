@@ -99,6 +99,8 @@ Rails.application.routes.draw do
   resources :projects
 
   resources :customers do
+    get 'edit_type', as: :edit_type
+    post 'type_change', as: :type_change
     resources :contact_records
   end
 

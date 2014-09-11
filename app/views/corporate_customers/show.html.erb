@@ -2,6 +2,9 @@
   <% if current_user.user_type.downcase == :employee.to_s %>
     <%= link_to '编辑', edit_corporate_customer_path(@self_customer) %> |
     <%= link_to '返回', employee_manage_customers_path %>
+    <% if current_user.account.to_s == 'fkadmin' %>
+    |<%= link_to '删除', corporate_customer_path(@self_customer), method: :delete, data: { confirm: t('helpers.link.delete.confirm') } %>
+    <% end %>
   <% end %>
 <% end %>
 

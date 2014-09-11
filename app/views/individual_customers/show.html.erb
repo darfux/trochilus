@@ -1,8 +1,10 @@
 <%= content_for :nav_bar_function_area do %>
   <% if current_user.user_type.downcase == :employee.to_s %>
     <%= link_to '编辑', edit_individual_customer_path(@self_customer) %> |
-    <%= link_to '返回', employee_manage_customers_path %> |
-    <%= link_to '删除', individual_customer_path(@self_customer), method: :delete, data: { confirm: t('helpers.link.delete.individual_customer.confirm') } %>
+    <%= link_to '返回', employee_manage_customers_path %> 
+    <% if current_user.account.to_s == 'fkadmin' %>
+      |<%= link_to '删除', individual_customer_path(@self_customer), method: :delete, data: { confirm: t('helpers.link.delete.individual_customer.confirm') } %>
+    <% end %>
   <% end %>
 <% end %>
 

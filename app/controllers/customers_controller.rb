@@ -1,5 +1,5 @@
 class CustomersController < ApplicationController
-  before_action :set_customer, only: [:show, :edit, :update, :destroy]
+  before_action :set_customer, only: [:show, :edit, :update, :destroy, :type_change, :edit_type]
 
   # GET /customers
   # GET /customers.json
@@ -81,10 +81,29 @@ class CustomersController < ApplicationController
       format.js
     end
   end
+
+  def edit_type
+  end
+  def type_change
+    new_type_class = params[:new_type].classify.constantize
+    unless new_type_class==@customer.customer.class
+      # raise params[:new_type]
+      instance = @customer.customer
+      instance.keep_core = true
+      instance.destroy
+      new_customer = new_type_class.new
+      new_customer.customer = @customer
+      @customer.customer = new_customer
+      new_customer.save!
+      @customer.save!
+    end
+    # binding.pry
+    redirect_to @customer.customer
+  end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_customer
-      @customer = Customer.find(params[:id])
+      @customer = Customer.find(params[:id]||params[:customer_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
