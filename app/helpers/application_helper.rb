@@ -34,7 +34,7 @@ module ApplicationHelper
   end
 
   def default_start_year
-    2005
+    1980
   end
 
   def current_path(overwrite={})
