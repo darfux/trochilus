@@ -86,7 +86,8 @@ class CommonCustomersController < ApplicationController
     end
 
     def user_can
-      (@self_customer.creator! == current_user) || (current_user.account.to_s == 'fkadmin')
+      # (@self_customer.creator! == current_user) || (current_user.account.to_s == 'fkadmin')
+      true
     end
 
     def set_self_active_record

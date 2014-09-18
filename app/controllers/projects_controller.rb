@@ -94,7 +94,8 @@ class ProjectsController < ApplicationController
     end
 
     def user_can
-      @project.creator == current_user
+      #@project.creator == current_user
+      true
     end
 
     def set_attachments

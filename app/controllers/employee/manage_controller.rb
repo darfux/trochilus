@@ -4,11 +4,7 @@ class Employee::ManageController < ApplicationController
 
   def projects
     tmp = (
-      if current_user.account.to_s == 'fkadmin'
-        Project.all
-      else
-        current_people.created_projects!
-      end
+      Project.all
     )
     tmp = handle_filter(tmp)
     tmp = handle_sort(tmp)
@@ -16,12 +12,8 @@ class Employee::ManageController < ApplicationController
   end
 
   def customers
-     tmp = (
-      if current_user.account.to_s == 'fkadmin'
-        Customer.all
-      else
-        current_people.created_customers!
-      end
+    tmp = (
+      Customer.all
     )
     tmp = handle_filter(tmp)
     @customers = tmp
@@ -30,7 +22,7 @@ class Employee::ManageController < ApplicationController
   def funds
     filters = params.fetch(:filters, {}).dup.tap{ |f| f.delete(:fund_direction) }
     tmp = (
-      if current_user.account.to_s == 'fkadmin'
+      if true||current_user.account.to_s == 'fkadmin'
         case params.direct_fetch([:filters, :fund_direction])
         when 'in'
           Fund.where('fund_instance_type == ?', 'DonationRecord::ActualFund').order('time DESC')
@@ -47,7 +39,7 @@ class Employee::ManageController < ApplicationController
     tmp = handle_sort(tmp)
     @actual_funds = tmp
     tmp = (
-      if current_user.account.to_s == 'fkadmin'
+      if true||current_user.account.to_s == 'fkadmin'
         Fund.where('fund_instance_type == ?', 'DonationRecord').order('time DESC')
       else
         get_plan_funds.order('time DESC')
