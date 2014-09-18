@@ -6,6 +6,8 @@
   <%= link_to '新项目', new_project_path %>   
 <% end %>
 
+<% on_admin = (current_user.account == 'fkadmin') %>
+
 <p></p>
 <% time = params.direct_fetch([:filters, :create_date], {}) %>
 <div class='time-filter'><%= date_field_tag :project_time_from, time[:from] %>-<%= date_field_tag :project_time_to, time[:to] %></div>
@@ -40,7 +42,7 @@
       <th>
         <%= gen_sort '创建日期', :create_date %>
       </th>
-      <% if current_user.account == 'fkadmin' %>
+      <% if on_admin %>
         <th>创建人</th>
       <% end %>
     </tr>
@@ -49,7 +51,7 @@
     <tr>
       <td><%= (counter+=1).to_s.rjust(2, '0') %></td>
       <!-- <td><%= p.serialnum %></td> -->
-      <td><%= link_to p.name, p %></td>
+      <td><a href="/projects/<%= p.id %>"><%= p.name %></a></td>
       <td><%= p.project_type.name %></td>
       <td><%= p.project_level.name %></td>
       <td><%= p.create_unit.name %></td>
@@ -57,7 +59,7 @@
       <td><%= p.total_amount %></td>
       <td><%= p.actual_amount %></td>
       <td><%= l p.create_date %></td>
-      <% if current_user.account == 'fkadmin' %>
+      <% if on_admin %>
         <td><%= p.creator.name %></td>
       <% end %>
     </tr>
