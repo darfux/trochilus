@@ -1,6 +1,6 @@
 <div class="common-form">
 
-<%= form_for([@donation_record.project, @donation_record]) do |f| %>
+<%= form_for(@form_param) do |f| %>
   <% if @donation_record.errors.any? %>
     <div id="error_explanation">
       <%= error_messages_for @donation_record %>
@@ -28,7 +28,20 @@
       <%= f.select(:donation_type_id, DonationType.all.collect {|e| [ e.name, e.id ] }, { include_blank: true }) %>
     </div>
 
-  <%= f.hidden_field(:project_id) %>
+    <%= f.fields_for :fund do |f_f| %>
+      <div class="field">
+        <%= f_f.label :comment %><br />
+        <%= f_f.text_area :comment %>
+      </div>
+    <% end %>
+
+    <% if @donation_record.persisted? %>
+      <%= f.label :project %><br />
+      <%= f.select(:project_id, Project.all_spy.collect {|e| [ e.name, e.id ] }) %>
+    <% else %>
+      <%= f.hidden_field(:project_id) %>
+    <% end %>
+
   
   <div class="actions">
     <%= f.submit '提交'%>

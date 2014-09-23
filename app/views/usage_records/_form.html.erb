@@ -70,7 +70,10 @@
     <%= f.select( :usage_type_id, UsageType.all.collect {|u| [ u.name, u.id ] }, { include_blank: true } ) %>
   </div>
 
-
+  <div class="field">
+    <%= f.label :comment %><br />
+    <%= f.text_area :comment %>
+  </div>
 
   <div class="actions">
     <%= f.submit %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140728053857) do
+ActiveRecord::Schema.define(version: 20140923143951) do
 
   create_table "attachments", force: true do |t|
     t.integer  "attachment_owner_id"
@@ -93,6 +93,7 @@ ActiveRecord::Schema.define(version: 20140728053857) do
     t.string   "email"
     t.string   "fax"
     t.string   "postcode"
+    t.text     "comment"
   end
 
   add_index "customers", ["creator_id"], name: "index_customers_on_creator_id"
@@ -229,12 +230,28 @@ ActiveRecord::Schema.define(version: 20140728053857) do
     t.decimal  "interest_rate"
     t.integer  "create_unit_id"
     t.integer  "create_manager_id"
+    t.text     "comment"
   end
 
   add_index "projects", ["creator_id"], name: "index_projects_on_creator_id"
   add_index "projects", ["project_level_id"], name: "index_projects_on_project_level_id"
   add_index "projects", ["project_state_id"], name: "index_projects_on_project_state_id"
   add_index "projects", ["project_type_id"], name: "index_projects_on_project_type_id"
+
+  create_table "school_fellow_study_experiences", force: true do |t|
+    t.integer  "schoolfellow_id"
+    t.integer  "major_id"
+    t.integer  "degree_id"
+    t.date     "attendance_date"
+    t.date     "graduated_date"
+    t.string   "student_number"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "school_fellow_study_experiences", ["degree_id"], name: "index_school_fellow_study_experiences_on_degree_id"
+  add_index "school_fellow_study_experiences", ["major_id"], name: "index_school_fellow_study_experiences_on_major_id"
+  add_index "school_fellow_study_experiences", ["schoolfellow_id"], name: "index_school_fellow_study_experiences_on_schoolfellow_id"
 
   create_table "schoolfellow_study_experiences", force: true do |t|
     t.integer  "schoolfellow_id"
@@ -320,6 +337,7 @@ ActiveRecord::Schema.define(version: 20140728053857) do
     t.integer  "usage_type_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "comment"
   end
 
   add_index "usage_records", ["benefit_manager_id"], name: "index_usage_records_on_benefit_manager_id"

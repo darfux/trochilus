@@ -15,6 +15,11 @@
     <div><%= link_to '新建', new_attachment_donation_record_path %></div>
   </div>
   <hr>
+  <div>
+    <h4>备注：</h4>
+    <%= @donation_record.comment! %>
+  </div>
+  <hr>
   <table>
     <thead>
       <tr>

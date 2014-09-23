@@ -8,9 +8,11 @@
   <% end %>
 <% end %>
 <h2>团体名称： <%= @self_customer.name! %></h2>
-
 <table>
   <div><small>创建者： <span><%= link_to @self_customer.creator!.name, @self_customer.creator! %></span></small></div>
+  <p>
+    <div><strong>备注：</strong> <span><%= simple_format @self_customer.comment! %></span></div>
+  </p>
   <h4>团体成员</h4>
   <thead>
     <tr>

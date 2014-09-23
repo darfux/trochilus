@@ -1,7 +1,7 @@
 class DonationRecordsController < ApplicationController
   before_action :set_donation_record, only: [:show, :edit, :update, :destroy,
     :new_attachment, :create_attachment, :destroy_attachment]
-  before_action :set_project, only: [:show, :new, :create, :edit, :update, :destroy]
+  before_action :set_project, only: [:show, :new, :create, :edit,  :destroy]
   before_action :set_attachments, only: [:show]
   # GET /donation_records
   # GET /donation_records.json
@@ -18,16 +18,19 @@ class DonationRecordsController < ApplicationController
   def new
     @donation_record = DonationRecord.new
     @donation_record.project = @project
+    @form_param = [@donation_record.project, @donation_record]
   end
 
   # GET /donation_records/1/edit
   def edit
+    @form_param = @donation_record
   end
 
   # POST /donation_records
   # POST /donation_records.json
   def create
     @donation_record = DonationRecord.new(donation_record_params)
+    @form_param = [@donation_record.project, @donation_record]
 
     respond_to do |format|
       if @donation_record.save
@@ -45,7 +48,7 @@ class DonationRecordsController < ApplicationController
   def update
     respond_to do |format|
       if @donation_record.update(donation_record_params)
-        format.html { redirect_to @project }
+        format.html { redirect_to @donation_record.project }
         format.json { render :show, status: :ok, location: @donation_record }
       else
         format.html { render :edit }
@@ -104,7 +107,7 @@ class DonationRecordsController < ApplicationController
     def donation_record_params
       params.require(:donation_record)
         .permit(  :customer_id, :project_id, :donation_type_id,
-                  fund_attributes: [:amount, :time]
+                  fund_attributes: [:amount, :time, :comment]
                   )
         .tap{ |p| 
           p[:creator_id] = current_user.id
