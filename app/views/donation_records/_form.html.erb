@@ -20,7 +20,7 @@
 
     <div class="field">
       <%= f.label :customer %> <%= link_to '新建', new_customer_path, target: :_blank  %><br />
-      <%= f.select(:customer_id, Customer.all.collect {|e| [ e.name, e.id ] }, { include_blank: true }) %>
+      <%= f.select(:customer_id, Customer.all_spy.collect {|e| [ e.name_with_py, e.id ] }, { include_blank: true }) %>
     </div>
 
     <div class="field">
@@ -37,7 +37,7 @@
 
     <% if @donation_record.persisted? %>
       <%= f.label :project %><br />
-      <%= f.select(:project_id, Project.all_spy.collect {|e| [ e.name, e.id ] }) %>
+      <%= f.select(:project_id, Project.all_spy.collect {|e| [ e.name_with_py, e.id ] }) %>
     <% else %>
       <%= f.hidden_field(:project_id) %>
     <% end %>

@@ -23,7 +23,7 @@ class Project < ActiveRecord::Base
     e = endowment ? :eyes : :eno
     I18n.translate(e, scope: 'project.endowment')
   end
-
+  
   def self.all_spy
     all.sort_by{ |e| e.name_with_py }
   end

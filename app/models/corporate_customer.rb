@@ -4,4 +4,8 @@ class CorporateCustomer < ActiveRecord::Base
 
   has_many :corporate_link_men, dependent: :destroy
   has_many :link_men, class_name: :IndividualCustomer, through: :corporate_link_men, source: :individual_customer
+  
+  def self.all_spy
+    all.sort_by{ |e| e.name_with_py! }
+  end
 end
