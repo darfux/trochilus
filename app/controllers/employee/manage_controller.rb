@@ -7,6 +7,7 @@ class Employee::ManageController < ApplicationController
       Project.all
     )
     tmp = handle_filter(tmp)
+    tmp = tmp.sort_by{ |e| e.name_with_py }
     tmp = handle_sort(tmp)
     @projects = tmp
   end
@@ -16,6 +17,7 @@ class Employee::ManageController < ApplicationController
       Customer.all
     )
     tmp = handle_filter(tmp)
+    tmp = tmp.sort_by{ |e| e.name_with_py }
     @customers = tmp
   end
 

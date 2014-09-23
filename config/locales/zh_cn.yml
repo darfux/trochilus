@@ -64,6 +64,7 @@ zh_cn:
       usage_record: 使用记录
       usage_type: 资金用途
       employee: 职员
+      project_type: 项目类型
     attributes:
       employee:
         name: 姓名
@@ -114,6 +115,8 @@ zh_cn:
         univ_unit: 所在单位
       customer:
         name: 姓名或名称
+      project_type:
+        name: 名称
     errors:
       template:
         header:
@@ -202,6 +205,10 @@ zh_cn:
               password_confirmation:
                 <<: *common_errors
                 confirmation: 输入不一致
+        project_type:
+          attributes:
+            name:
+              <<: *common_errors
 
   #SINGLE
   project:
@@ -291,6 +298,8 @@ zh_cn:
         remember_me: 记住我
       usage_record:
         fund_time: 使用时间
+      project_type:
+        name: 名称
     file_field:
       attachment:
         file: 文件
@@ -320,3 +329,5 @@ zh_cn:
       usage_type:
         create: 新建
         update: 更新
+      project_type:
+        create: 创建

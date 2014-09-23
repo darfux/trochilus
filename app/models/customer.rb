@@ -18,9 +18,14 @@ class Customer < ActiveRecord::Base
     :total_donation, :contact_records, :donation_records, 
     :link_projects, :creator, :customer_groups]
 
+  def name_with_py
+    PinYin.abbr(name)[0].upcase+'-'+name
+  end
+  
   def customer_type
     super
   end
+
   def total_donation
     amount = 0
     self.donation_records.each do |r|
@@ -28,6 +33,7 @@ class Customer < ActiveRecord::Base
     end
     amount
   end
+
   def to_s
     name
   end
