@@ -34,7 +34,7 @@ class ApplicationController < ActionController::Base
     end
     def handle_filter(relation, filters=nil)
       filters ||= params.fetch(:filters, {}).dup
-      return relation unless f = filters
+      return relation if (f = filters).empty?
       f && f.each_pair do |k,v| 
         f[k] = true   if v=='true'
         f[k] = false  if v=='false'
