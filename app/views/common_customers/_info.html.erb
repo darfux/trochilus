@@ -12,6 +12,9 @@
       <div><strong>传真：</strong> <span><%= @self_customer.fax! %></span></div>
       <div><strong>邮编：</strong> <span><%= @self_customer.postcode! %></span></div>
     </p>
+    <p>
+      <div><strong>备注：</strong> <span><%= simple_format @self_customer.comment! %></span></div>
+    </p>
   </div>
   <hr>
   <div class="info-block">

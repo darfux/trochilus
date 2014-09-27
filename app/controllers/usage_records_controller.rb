@@ -106,7 +106,7 @@ class UsageRecordsController < ApplicationController
     def usage_record_params
       params.require(:usage_record)
       .permit(:customer_id, :project_id, :exec_unit_id, :exec_manager_id, 
-              :benefit_unit_id, :benefit_manager_id,:usage_type_id,
+              :benefit_unit_id, :benefit_manager_id,:usage_type_id, :comment,
               interest_fund_attributes: [fund_attributes: [:amount]],
               principle_fund_attributes: [fund_attributes: [:amount]]
               )

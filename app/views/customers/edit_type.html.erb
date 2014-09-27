@@ -1,0 +1,16 @@
+<div class="common-form">
+<p>
+  <h3>注意</h3>
+  <small>变更用户类型将保留用户的关联记录（捐赠记录,来往记录），但将导致原始客户类型独有的相关信息丢失（如团体客户的成员组成， 公司客户的联系人， 个人客户的校友信息）</small>
+</p>
+<%= form_tag(customer_type_change_path) do %>
+  <div class="field">
+    <%= label_tag '新类型' %><br>
+    <%= select_tag :new_type, options_for_select([['个人客户', :individual_customer], ['团体客户', :customer_group], ['企业客户', :corporate_customer]])%>
+  </div>
+  <div class="actions">
+    <%= submit_tag %>
+  </div>
+
+<% end %>
+</div>

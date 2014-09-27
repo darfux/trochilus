@@ -64,6 +64,7 @@ zh_cn:
       usage_record: 使用记录
       usage_type: 资金用途
       employee: 职员
+      project_type: 项目类型
     attributes:
       employee:
         name: 姓名
@@ -79,6 +80,7 @@ zh_cn:
         project_type: 项目类型
         create_unit: 创建单位
         create_manager: 负责人
+        comment: 备注
       fund:
         amount: 金额
       donation_record:
@@ -87,6 +89,7 @@ zh_cn:
         actual_fund_time: 到款时间
         customer: 客户
         donation_type: 捐赠类型
+        project: 所属项目
       usage_record:
         creator: *user_as_creator
         exec_unit: 执行单位
@@ -114,6 +117,9 @@ zh_cn:
         univ_unit: 所在单位
       customer:
         name: 姓名或名称
+        comment: 备注
+      project_type:
+        name: 名称
     errors:
       template:
         header:
@@ -202,6 +208,10 @@ zh_cn:
               password_confirmation:
                 <<: *common_errors
                 confirmation: 输入不一致
+        project_type:
+          attributes:
+            name:
+              <<: *common_errors
 
   #SINGLE
   project:
@@ -281,6 +291,8 @@ zh_cn:
         univ_unit: 所在单位
       donation_type:
         name: 名称
+      fund:
+        comment: 备注
       principle_fund:
         fund:
           amount: 金额
@@ -291,6 +303,9 @@ zh_cn:
         remember_me: 记住我
       usage_record:
         fund_time: 使用时间
+        comment: 备注
+      project_type:
+        name: 名称
     file_field:
       attachment:
         file: 文件
@@ -320,3 +335,5 @@ zh_cn:
       usage_type:
         create: 新建
         update: 更新
+      project_type:
+        create: 创建

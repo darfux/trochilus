@@ -94,7 +94,8 @@ class ProjectsController < ApplicationController
     end
 
     def user_can
-      @project.creator == current_user
+      #@project.creator == current_user
+      true
     end
 
     def set_attachments
@@ -116,7 +117,7 @@ class ProjectsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
       params.require(:project).permit(:name, :serialnum, :create_date, :funder, :brief, :interest_rate,
-        :gross, :balance, :endowment, :project_level_id, :project_state_id, :project_type_id, 
+        :gross, :balance, :endowment, :project_level_id, :project_state_id, :project_type_id, :comment,
         :create_unit_id, :create_manager_id).tap{|p|
         p[:creator_id] = current_people.id
       }

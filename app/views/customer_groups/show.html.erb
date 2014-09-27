@@ -1,14 +1,18 @@
 <%= content_for :nav_bar_function_area do %>
   <% if current_user.user_type.downcase == :employee.to_s %>
     <%= link_to '编辑', edit_customer_group_path(@self_customer) %> |
-    <%= link_to '返回', employee_manage_customers_path %> |
-    <%= link_to '删除', customer_group_path(@self_customer), method: :delete, data: { confirm: t('helpers.link.delete.confirm') } %>
+    <%= link_to '返回', employee_manage_customers_path %>
+    <% if current_user.account.to_s == 'fkadmin' %>
+    |<%= link_to '删除', customer_group_path(@self_customer), method: :delete, data: { confirm: t('helpers.link.delete.confirm') } %>
+    <% end %>
   <% end %>
 <% end %>
 <h2>团体名称： <%= @self_customer.name! %></h2>
-
 <table>
   <div><small>创建者： <span><%= link_to @self_customer.creator!.name, @self_customer.creator! %></span></small></div>
+  <p>
+    <div><strong>备注：</strong> <span><%= simple_format @self_customer.comment! %></span></div>
+  </p>
   <h4>团体成员</h4>
   <thead>
     <tr>

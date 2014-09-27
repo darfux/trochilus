@@ -17,8 +17,8 @@ Rails.application.routes.draw do
   #   resources :actual_funds
   # end
 
-  nested_actions = [:new, :create]
-  origin_actions = [:show, :edit, :update, :destroy]
+  nested_actions = [:new, :create, :update]
+  origin_actions = [:show, :edit, :destroy]
 
 
 
@@ -99,6 +99,8 @@ Rails.application.routes.draw do
   resources :projects
 
   resources :customers do
+    get 'edit_type', as: :edit_type
+    post 'type_change', as: :type_change
     resources :contact_records
   end
 

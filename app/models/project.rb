@@ -17,13 +17,20 @@ class Project < ActiveRecord::Base
   validates_associated :project_link_men
 
   validates_presence_of :project_level
-  validates_presence_of_all except: [:interest_rate, :endowment, :brief, :serialnum, :create_manager]
+  validates_presence_of_all except: [:interest_rate, :endowment, :brief, :serialnum, :create_manager, :comment]
   
   def endowment_t
     e = endowment ? :eyes : :eno
     I18n.translate(e, scope: 'project.endowment')
   end
-
+  
+  def self.all_spy
+    all.sort_by{ |e| e.name_with_py }
+  end
+  
+  def name_with_py
+    PinYin.abbr(name)[0].upcase+'-'+name
+  end
   # def #{pre}_amount
   #   amount = 0
   #   donation_records.each do |d|

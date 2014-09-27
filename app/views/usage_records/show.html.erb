@@ -3,6 +3,11 @@
     <%= link_to '返回项目', @project %>
   <% end %>
 <% end %>
+<div>
+  <h4>备注</h4>
+  <%= @usage_record.comment %>
+</div>
+<hr>
 <div>  
   <h4>文件</h4>
   <% @attachments.each do |a| %>

@@ -13,7 +13,6 @@ initTableFilters = ->
 			else
 				delete f[filter]
 			params = $.query.set('filters', f)
-			# console.log $.query
 			if params.toString()
 				location.search = params
 			else
@@ -21,17 +20,31 @@ initTableFilters = ->
 
 	for elm in ['from', 'to']
 		((type)->
-			console.log type
 			$("#fund_time_#{type}").change ->
 				f = $.query.get('filters')
 				f ||= {}
-				f['time'] ||= {}
+				time_key = 'time'
+				f[time_key] ||= {}
 				if $(this).val()
-					f['time'][type] = $(this).val()
+					f[time_key][type] = $(this).val()
 				else
-					delete f['time'][type]
-					if f['time'] == {}
-						delete f['time']
+					delete f[time_key][type]
+					if f[time_key] == {}
+						delete f[time_key]
+				location.search = $.query.set('filters', f))(elm)
+
+		((type)->
+			$("#project_time_#{type}").change ->
+				f = $.query.get('filters')
+				f ||= {}
+				time_key = 'create_date'
+				f[time_key] ||= {}
+				if $(this).val()
+					f[time_key][type] = $(this).val()
+				else
+					delete f[time_key][type]
+					if f[time_key] == {}
+						delete f[time_key]
 				location.search = $.query.set('filters', f))(elm)
 			
 

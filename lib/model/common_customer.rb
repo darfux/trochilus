@@ -3,7 +3,8 @@ module CommonCustomer
 		def acts_as_common_customer
 			#Set update_only to avoid the child being deleted
 			#and cause the parent also being deleted through dependent: :destroy
-	 		has_one :customer, as: :customer, dependent: :destroy, validate: true
+	 		has_one :customer, as: :customer, validate: true
+	 		before_destroy :destroy_core
 			accepts_nested_attributes_for :customer, update_only: true	
 			after_initialize :set_default_customer
 			Customer.accessable_attributes.each do |name|
@@ -17,9 +18,16 @@ module CommonCustomer
 	end
 	
 	module InstanceMethods
-
+		attr_accessor :keep_core
 	  def set_default_customer
 	  	build_customer unless self.customer #check customer.extists? to avoid loop when show .all
+	  end
+
+	  def destroy_core
+	  	unless keep_core
+	  		customer.destroy
+	  	end
+	  	true
 	  end
 	end
 	

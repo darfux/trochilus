@@ -16,11 +16,20 @@ class Customer < ActiveRecord::Base
   
   set_accessable_attributes [
     :total_donation, :contact_records, :donation_records, 
-    :link_projects, :creator, :customer_groups]
+    :link_projects, :creator, :customer_groups, :name_with_py]
+  
+  def self.all_spy
+    all.sort_by{ |e| e.name_with_py }
+  end
 
+  def name_with_py
+    PinYin.abbr(name)[0].upcase+'-'+name
+  end
+  
   def customer_type
     super
   end
+
   def total_donation
     amount = 0
     self.donation_records.each do |r|
@@ -28,6 +37,7 @@ class Customer < ActiveRecord::Base
     end
     amount
   end
+
   def to_s
     name
   end

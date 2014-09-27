@@ -49,8 +49,13 @@
     <%= f.select :project_state_id, ProjectState.all.collect{ |e| [e.name, e.id] }%>
   </div>
   <div class="field">
-    <%= f.label :project_type %><br>
+    <%= f.label :project_type %> <%= link_to '新建', new_project_type_path, target: :_blank  %><br>
     <%= f.select :project_type_id, ProjectType.all.collect{ |e| [e.name, e.id] }%>
+  </div>
+
+  <div class="field">
+    <%= f.label :comment %><br />
+    <%= f.text_area :comment %>
   </div>
   <div class="actions">
     <%= f.submit "提交" %>

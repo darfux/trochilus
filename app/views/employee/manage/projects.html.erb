@@ -6,7 +6,11 @@
   <%= link_to '新项目', new_project_path %>   
 <% end %>
 
+<% on_admin = (current_user.account == 'fkadmin') %>
+
 <p></p>
+<% time = params.direct_fetch([:filters, :create_date], {}) %>
+<div class='time-filter'><%= date_field_tag :project_time_from, time[:from] %>-<%= date_field_tag :project_time_to, time[:to] %></div>
 <table class="employee-data-table">
   <tbody>
     <tr>
@@ -28,14 +32,17 @@
       <th>
         创建单位
         <span class='filter'><%= select_tag :create_unit, select_existed(Project, :create_unit), prompt: "全部" %></span>
-      </th>
+      </th>      
       <th>
         是否留本
         <span class='filter'><%= select_tag :endowment, options_for_select({"是" => true, "否" => false}, default_filter_val(:endowment)), prompt: "全部" %></span>
       </th>
       <th><%= gen_sort '总额', :total_amount %></th>
       <th><%= gen_sort '到款', :actual_amount %></th>
-      <% if current_user.account == 'fkadmin' %>
+      <th>
+        <%= gen_sort '创建日期', :create_date %>
+      </th>
+      <% if on_admin %>
         <th>创建人</th>
       <% end %>
     </tr>
@@ -44,14 +51,15 @@
     <tr>
       <td><%= (counter+=1).to_s.rjust(2, '0') %></td>
       <!-- <td><%= p.serialnum %></td> -->
-      <td><%= link_to p.name, p %></td>
+      <td><a href="/projects/<%= p.id %>"><%= p.name %></a></td>
       <td><%= p.project_type.name %></td>
       <td><%= p.project_level.name %></td>
       <td><%= p.create_unit.name %></td>
       <td><%= p.endowment_t %></td>
       <td><%= p.total_amount %></td>
       <td><%= p.actual_amount %></td>
-      <% if current_user.account == 'fkadmin' %>
+      <td><%= l p.create_date %></td>
+      <% if on_admin %>
         <td><%= p.creator.name %></td>
       <% end %>
     </tr>

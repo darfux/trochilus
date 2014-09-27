@@ -23,7 +23,7 @@
         <td><%= localize_date r.plan_fund.time %></td>
         <td><%= r.plan_fund.amount %></td>
         <td><%= r.actual_amount %></td>
-        <td><%= link_to "详情", r %>|<%= link_to '删除', r, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to "详情", r %>|<%= link_to "编辑", edit_donation_record_path(r) %>|<%= link_to '删除', r, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
 
     <% end %>
@@ -46,7 +46,7 @@
         <th>负责人</th>
         <th>使用金额</th>
         <th>用途</th>
-        <th>文件</th>
+        <th>详情</th>
         <th>其他</th>
       </tr>
       <% @project.usage_records.each_with_index do |r, index| %>

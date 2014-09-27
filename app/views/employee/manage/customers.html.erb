@@ -13,7 +13,7 @@
       <th>
         类型
         <span class='filter'><%= select_tag :customer_type, 
-          options_for_select({ "个人客户"=>:IndividualCustomer, "公司客户"=>:CorporateCustomer, "团体客户"=>:GroupCustomer}, 
+          options_for_select({ "个人客户"=>:IndividualCustomer, "公司客户"=>:CorporateCustomer, "团体客户"=>:CustomerGroup}, 
           ((f=params[:filters]) ? f[:customer_type] : nil)), prompt: "全部" %></span>
       </th>
       <!-- <th>国籍</th> -->
