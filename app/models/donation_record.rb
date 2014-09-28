@@ -16,16 +16,24 @@ class DonationRecord < ActiveRecord::Base
   # validates :donation_type, presence: true
   # validates_associated :actual_funds
   
-  def actual_amount
+  def actual_amount(opts={})
+    opts.dup.each_pair do |k, v|
+      if Fund.method_defined? k
+        opts.delete k
+        opts["#{Fund.table_name}.#{k}"] = v
+      end
+    end
     actual_amount = 0
     principle = FundType.where(name: :principle).take
-    self.actual_funds.where(fund_type_id: principle.id).each do |a|
+    self.actual_funds
+    .joins("JOIN funds ON funds.fund_instance_id = donation_record_actual_funds.id AND funds.fund_instance_type = 'DonationRecord::ActualFund'")
+    .where({fund_type_id: principle.id}.merge(opts)).each do |a|
       actual_amount+=a.amount!
     end
     actual_amount
   end
   
-  def interest_amount
+  def interest_amount(opts=nil)
     interest_amount = 0
     interest = FundType.where(name: :interest).take
     self.actual_funds.where(fund_type_id: interest.id).each do |a|
@@ -36,7 +44,7 @@ class DonationRecord < ActiveRecord::Base
   def plan_fund
     fund
   end  
-  def total_amount
+  def total_amount(opts=nil)
     fund.amount
   end
 end

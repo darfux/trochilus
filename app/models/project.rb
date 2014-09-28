@@ -39,13 +39,15 @@ class Project < ActiveRecord::Base
   #   amount
   # end
   [:total_amount, :actual_amount, :interest_amount].each do |method_name|      
-    define_method(method_name) do             
-      amount = 0                                
-      donation_records.each do |r|                
-        amount+=r.send(method_name)               
+    define_method(method_name, 
+      ->(opts = {}, *splat, &block) do
+        amount = 0
+        donation_records.each do |r|
+          amount+=r.send(method_name, opts)
+        end
+        amount
       end
-      amount
-    end
+    )
   end
 
   [:principle_used, :interest_used].each do |method_name|

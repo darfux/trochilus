@@ -16,14 +16,21 @@ class UnivUnit < ActiveRecord::Base
     principle_used + interest_used
   end
 
+  def set_filter(filters)
+    @filter = filters
+  end
+
   [:total_amount, :actual_amount, :interest_amount].each do |method_name|      
-    define_method(method_name) do             
-      amount = 0                                
-      projects.each do |p|                
-        amount+=p.send(method_name)               
+    define_method(method_name, 
+      ->(opts = {}, *splat, &block) do
+        amount = 0
+        opts.merge! @filter if @filter
+        projects.each do |p|
+          amount+=p.send(method_name, opts)
+        end
+        amount
       end
-      amount
-    end
+    )
   end
 
   [:principle_used, :interest_used].each do |method_name|
