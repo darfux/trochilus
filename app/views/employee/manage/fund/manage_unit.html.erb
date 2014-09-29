@@ -12,11 +12,6 @@
     </tr>
 
   <% @manage_units.each do |u| %>
-  <%  
-      if @filter
-        u.set_filter(@filter)
-      end
-  %>
     <tr>
       <td><%= link_to u.name, u %></td>
       <td><%= u.total_amount %></td>

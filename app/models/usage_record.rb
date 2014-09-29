@@ -33,19 +33,40 @@ class UsageRecord < ActiveRecord::Base
   def both_funds
     [self.interest_fund, self.principle_fund]
   end
+
   def at_least_one_fund
     if [self.interest_fund, self.principle_fund].reject(&:nil?).size == 0
       errors.add(:both_funds, :blank)
     end
   end 
 
-  def principle_amount
-    (f = principle_fund).nil? ? 0 : f.fund.amount
+  ['principle', 'interest'].each do |type|
+    method_name = "#{type}_amount".to_sym
+    define_method(method_name,
+      ->(opts = {}, *splat, &block) do
+        if (f = self.send("#{type}_fund")).nil?
+          0
+        else
+          if opts.empty?
+            f.amount!
+          else
+            (tmp = Fund.where(opts.merge(id: f.id!))).empty? ? 0 : f.amount!
+          end
+        end
+      end
+    )
+    alias_method "#{type}_used".to_sym, method_name
   end
 
-  def interest_amount
-    (f = interest_fund).nil? ? 0 : f.fund.amount
-  end
+
+  # alias_method :principle_used
+  # def principle_amount
+  #   (f = principle_fund).nil? ? 0 : f.fund.amount
+  # end
+
+  # def interest_amount
+  #   (f = interest_fund).nil? ? 0 : f.fund.amount
+  # end
 
   def time
     f = principle_fund || interest_fund

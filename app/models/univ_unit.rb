@@ -36,13 +36,16 @@ class UnivUnit < ActiveRecord::Base
   [:principle_used, :interest_used].each do |method_name|
     type = method_name.to_s.split('_')[0]
     type_id = FundType.where(name: type).take
-    define_method(method_name) do             
-      amount = 0                                
-      projects.each do |p|
-        amount += p.send("#{type}_used")
+    define_method(method_name,
+      ->(opts = {}, *splat, &block) do         
+        amount = 0
+        opts.merge! @filter if @filter                      
+        projects.each do |p|
+          amount += p.send(method_name, opts)
+        end
+        amount
       end
-      amount
-    end
+    )
   end
 
 end

@@ -53,13 +53,15 @@ class Project < ActiveRecord::Base
   [:principle_used, :interest_used].each do |method_name|
     type = method_name.to_s.split('_')[0]
     type_id = FundType.where(name: type).take
-    define_method(method_name) do             
-      amount = 0                                
-      usage_records.each do |r|
-        amount += r.send("#{type}_amount")
+    define_method(method_name,
+     ->(opts = {}, *splat, &block) do                
+        amount = 0                                
+        usage_records.each do |r|
+          amount += r.send(method_name, opts)
+        end
+        amount
       end
-      amount
-    end
+    )
   end
 
 end
