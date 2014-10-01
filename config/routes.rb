@@ -17,10 +17,8 @@ Rails.application.routes.draw do
   #   resources :actual_funds
   # end
 
-  nested_actions = [:new, :create, :update]
-  origin_actions = [:show, :edit, :destroy]
-
-
+  nested_actions = [:new, :create]
+  origin_actions = [:show, :edit, :update, :destroy]
 
   resources :customer_groups
 
@@ -32,15 +30,23 @@ Rails.application.routes.draw do
 
   resources :usage_types
 
+
   resources :projects do
     resources :donation_records, only: nested_actions
     resources :usage_records, only: nested_actions
-    resources :link_men, controller: 'projects/link_men'
+    scope module: :project do
+      resources :link_men
+      resources :news, only: nested_actions
+    end
     member do
       get 'new_attachment'
       post 'attachments', to: 'projects#create_attachment', as: :attachments
       delete 'attachments/:attachment_id', to: 'projects#destroy_attachment', as: :attachment
     end
+  end
+
+  namespace :project do
+    resources :news, only: origin_actions
   end
 
   get 'link_men/search'

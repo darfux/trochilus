@@ -40,4 +40,10 @@ module ApplicationHelper
   def current_path(overwrite={})
     url_for :only_path => true, :params => params.tap{ |p| p.delete(:action);p.delete(:controller)}.merge(overwrite)
   end
+
+  def common_form
+    content_tag :div, class: "common-form" do
+      yield
+    end
+  end
 end

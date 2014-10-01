@@ -65,6 +65,7 @@ zh_cn:
       usage_type: 资金用途
       employee: 职员
       project_type: 项目类型
+      project/news: 项目新闻报道
     attributes:
       employee:
         name: 姓名
@@ -80,6 +81,10 @@ zh_cn:
         project_type: 项目类型
         create_unit: 创建单位
         create_manager: 负责人
+        comment: 备注
+      project/news:
+        title: 标题
+        link: 新闻链接
         comment: 备注
       fund:
         amount: 金额
@@ -337,3 +342,6 @@ zh_cn:
         update: 更新
       project_type:
         create: 创建
+      project_news:
+        create: 添加
+        update: 更新

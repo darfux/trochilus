@@ -10,6 +10,7 @@ class Project < ActiveRecord::Base
   has_many :link_men, class_name: :Customer, through: :project_link_men, source: :customer
   has_many :donation_records, dependent: :destroy
   has_many :usage_records, dependent: :destroy
+  has_many :news
 
   has_many :attachments, as: :attachment_owner, validate: true, dependent: :destroy
   

@@ -89,3 +89,6 @@ rails g model UsageRecord::UsedFund usage_record:references fund_type:references
 rails g scaffold TeacherTitle name:string
 
 rails g scaffold Schoolfellow::TeachExperience schoolfellow:references teacher_title:references univ_unit:references teach_start:date teach_end:date teacher_id:string
+
+#2014-10-01 11:30:53
+rails g scaffold Project::News title:string link:text comment:string project:references

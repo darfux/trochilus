@@ -76,10 +76,21 @@
     <div><%= @project.interest_rate %>%</div>
   </div>
   <% end %>
+  <hr>
+  <div id='project-news' class="info-block">
+    <strong>新闻报道</strong>
+    <div id='project-news-list'>
+      <% @project.news.each_with_index do |n, i| %>
+        <p><%= "#{i+1}." %><span><span class="title"><%= link_to n.title, n.link, onp %></span><span class='function-link'><%= ' '*16 %><%= link_to '编辑', edit_project_news_path(n) %>|<%= link_to '删除', n, del_confirm %></span></span> </p>
+      <% end %>
+    </div>
+    <br>
+    <%= link_to '添加', new_project_news_path(@project) %>
+  </div>
 
 
+  <hr>
 </div>
-
 <% if @project.endowment %>
   <%= render 'endowment_detail' %>
 <% else %>

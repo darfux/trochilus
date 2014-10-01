@@ -1,0 +1,31 @@
+<h1>Listing project_news</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Link</th>
+      <th>Comment</th>
+      <th>Project</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @project_news.each do |project_news| %>
+      <tr>
+        <td><%= project_news.title %></td>
+        <td><%= project_news.link %></td>
+        <td><%= project_news.comment %></td>
+        <td><%= project_news.project %></td>
+        <td><%= link_to 'Show', project_news %></td>
+        <td><%= link_to 'Edit', edit_project_news_path(project_news) %></td>
+        <td><%= link_to 'Destroy', project_news, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New News', new_project_news_path %>

@@ -293,6 +293,19 @@ $elm_padding_top: 4px;
 	color: green;
 }
 
+#project-news-list{
+	.title{
+		a{
+			text-decoration: none;
+			color: inherit;
+			margin-left: 2px;
+		}
+	}
+	.function-link{
+		margin-left: 10px;
+	}
+}
+
 //====FUND LIST====
 #employee-fund-list{
 	color: black;
