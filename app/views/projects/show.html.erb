@@ -16,6 +16,9 @@
       <div><strong>名称：</strong> <span><%= @project.name %></span></div>
       <div><strong>编号：</strong> <span><%= @project.serialnum %></span></div>
       <div><strong>基金类型：</strong> <span><%= @project.project_type.name %></span></div>
+      <% if on_admin %>
+        <div><strong>录入人：</strong> <span><%= @project.creator.name %></span></div>
+      <% end %>
     </p>
     <p>
       <div><strong>基金级别：</strong> <span><%= @project.project_level.name %></span></div>
@@ -28,7 +31,7 @@
   <hr>
   <div class="info-block">
     <p>
-      <div><strong>创建单位：</strong> <span><%= @project.create_unit.name %></span></div>
+      <div><strong>创建单位：</strong> <span><%= link_to_with @project.create_unit, :name %></span></div>
       <div><strong>负责人：</strong> <span><%= show_manager %></span></div>
     </p>
     <p>

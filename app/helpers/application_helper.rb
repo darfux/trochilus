@@ -50,4 +50,8 @@ module ApplicationHelper
   def link_to_with(relation, scope, opts={})
     link_to relation.send(scope), relation, onp.merge(opts)
   end
+
+  def on_admin
+    current_user.account == 'fkadmin'
+  end
 end

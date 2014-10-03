@@ -6,11 +6,11 @@
   <%= link_to '新项目', new_project_path %>   
 <% end %>
 
-<% on_admin = (current_user.account == 'fkadmin') %>
-
 <p></p>
 <% time = params.direct_fetch([:filters, :create_date], {}) %>
 <div class='time-filter'><%= date_field_tag :project_time_from, time[:from] %>-<%= date_field_tag :project_time_to, time[:to] %></div>
+<span><strong>总金额</strong> <%= @total_amount %></span> | 
+<span><strong>总余额</strong> <%= @rest_amount %></span>
 <table class="employee-data-table">
   <tbody>
     <tr>
@@ -38,13 +38,10 @@
         <span class='filter'><%= select_tag :endowment, options_for_select({"是" => true, "否" => false}, default_filter_val(:endowment)), prompt: "全部" %></span>
       </th>
       <th><%= gen_sort '总额', :total_amount %></th>
-      <th><%= gen_sort '到款', :actual_amount %></th>
+      <th><%= gen_sort '余额', :principle_rest %></th>
       <th>
         <%= gen_sort '创建日期', :create_date %>
       </th>
-      <% if on_admin %>
-        <th>创建人</th>
-      <% end %>
     </tr>
     <% counter=0 %>
     <% @projects.each do |p| %>
@@ -57,11 +54,8 @@
       <td><%= p.create_unit.name %></td>
       <td><%= p.endowment_t %></td>
       <td><%= p.total_amount %></td>
-      <td><%= p.actual_amount %></td>
+      <td><%= p.principle_rest %></td>
       <td><%= l p.create_date %></td>
-      <% if on_admin %>
-        <td><%= p.creator.name %></td>
-      <% end %>
     </tr>
     <% end %>
   </tbody>

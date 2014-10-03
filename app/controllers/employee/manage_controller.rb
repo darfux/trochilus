@@ -10,6 +10,8 @@ class Employee::ManageController < ApplicationController
     tmp = tmp.sort_by{ |e| e.name_with_py }
     tmp = handle_sort(tmp)
     @projects = tmp
+    @total_amount = @rest_amount = 0
+    @projects.each { |p| @total_amount+=p.total_amount; @rest_amount+=p.principle_rest }
   end
 
   def customers

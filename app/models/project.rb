@@ -50,6 +50,8 @@ class Project < ActiveRecord::Base
       end
     )
   end
+  alias_method :principle_amount, :total_amount
+
 
   [:principle_used, :interest_used].each do |method_name|
     type = method_name.to_s.split('_')[0]
@@ -61,6 +63,15 @@ class Project < ActiveRecord::Base
           amount += r.send(method_name, opts)
         end
         amount
+      end
+    )
+  end
+
+  [:principle_rest, :interest_rest].each do |method_name|
+    type = method_name.to_s.split('_')[0]
+    define_method(method_name,
+     ->(opts = {}, *splat, &block) do                
+        self.send("#{type}_amount") - self.send("#{type}_used")
       end
     )
   end
