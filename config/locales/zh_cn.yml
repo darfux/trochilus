@@ -104,6 +104,7 @@ zh_cn:
         benefit_unit: 受益单位
         benefit_manager: 受益单位负责人
         usage_type: 用途
+        usage_comment: 使用说明
         both_funds: 利息和本金
       usage_record/principle_fund/fund: #see STO 7693040
         amount: 使用金额

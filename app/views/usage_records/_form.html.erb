@@ -1,6 +1,6 @@
 <div class="common-form">
 
-<%= form_for([current_project, @usage_record]) do |f| %>
+<%= form_for(@form_parm) do |f| %>
   <% if @usage_record.errors.any? %>
     <div id="error_explanation">
       <%= error_messages_for @usage_record %>
@@ -71,8 +71,17 @@
   </div>
 
   <div class="field">
+    <%= f.label :usage_comment %><br />
+    <%= f.text_area :usage_comment %>
+  </div>
+
+  <div class="field">
     <%= f.label :comment %><br />
     <%= f.text_area :comment %>
+  </div>
+
+  <div class="field">
+    <%= f.hidden_field(:project_id) %>
   </div>
 
   <div class="actions">

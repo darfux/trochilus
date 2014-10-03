@@ -157,7 +157,6 @@
         <th>使用利息</th>
         <% end %>
         <th>用途</th>
-        <th>详情</th>
         <th>其他</th>
       </tr>
       <% @project.usage_records.each_with_index do |r, index| %>
@@ -172,9 +171,8 @@
         <% if endowment %>
         <td><%= r.interest_amount%></td>
         <% end %>
-        <td><%= r.usage_type.name%></td>
-        <td><%= link_to '查看', r %></td>
-        <td><%= link_to '删除', r, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= (rt = r.usage_type).nil? ? @project.project_type.name : rt.name%></td>
+        <td><%= link_to '查看', r %>|<%= link_to '编辑', edit_usage_record_path(r) %><%= link_to '删除', r, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
       <% end %>
     </tbody>

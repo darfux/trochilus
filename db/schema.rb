@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141001033709) do
+ActiveRecord::Schema.define(version: 20141003135533) do
 
   create_table "attachments", force: true do |t|
     t.integer  "attachment_owner_id"
@@ -349,6 +349,7 @@ ActiveRecord::Schema.define(version: 20141001033709) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "comment"
+    t.text     "usage_comment"
   end
 
   add_index "usage_records", ["benefit_manager_id"], name: "index_usage_records_on_benefit_manager_id"
