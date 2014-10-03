@@ -186,4 +186,6 @@
   <div>总支出：<%= @principle_used_amount %> 总余额：<%= @all_principle_rest %> 账面余额：<%= @actual_principle_rest %></div>
   <% end %>
 
-<%= link_to '删除项目', project_path(@project), method: :delete, data: { confirm: t('helpers.link.delete.confirm') } %>
+<% if on_admin %>
+  <%= link_to '删除项目', project_path(@project), method: :delete, data: { confirm: t('helpers.link.delete.confirm') } %>
+<% end %>
