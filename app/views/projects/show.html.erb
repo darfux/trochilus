@@ -91,10 +91,98 @@
 
   <hr>
 </div>
-<% if @project.endowment %>
-  <%= render 'endowment_detail' %>
-<% else %>
-  <%= render 'none_endowment_detail' %>
-<% end %>
+
+<% endowment = @project.endowment %>
+
+<div><b>捐赠记录</b> <%= link_to '添加', new_project_donation_record_path(@project) %></div>
+  <table class="employee-data-table">
+    <tbody>
+      <tr>
+        <th>序号 </th>
+        <!-- <th>编号</th> -->
+        <th>类型</th>
+        <th>捐赠人</th>
+        <th>币种</th>
+        <th>日期</th>
+        <th>计划到账</th>
+        <th>实际到账</th>
+        <% if endowment %>
+        <th>利息收入</th>
+        <% end %>
+        <th>其他</th>
+      </tr>
+
+    <% @project.donation_records.each_with_index do |r, index| %>
+              <tr>
+        <td><%= index+1 %></td>
+        <!-- <td></td> -->
+        <td><%= r.donation_type.name if r.donation_type %></td>
+        <td><%= link_to_with r.customer, :name %></td>
+        <td><%= r.plan_fund.currency.name %></td>
+        <td><%= localize_date r.plan_fund.time %></td>
+        <td><%= r.plan_fund.amount %></td>
+        <td><%= r.actual_amount %></td>
+        <% if endowment %>
+        <td><%= r.interest_amount %></td>
+        <% end %>
+        <td><%= link_to "详情", r %>|<%= link_to "编辑", edit_donation_record_path(r) %>|<%= link_to '删除', r, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+
+    <% end %>
+
+    </tbody>
+  </table>
+  <div colspan="11">
+    计划到账： <%= @all_plan_amount %>
+    已到账总额：<%= @all_actual_amount %>
+    <% if endowment %>
+    利息：<%= @all_interest_amount %>
+    <% end %>
+  </div>
+
+  <p></p>
+
+<div><b>使用记录</b> <%= link_to '添加', new_project_usage_record_path(@project) %></div>
+  <table class="employee-data-table">
+    <tbody>
+      <tr>
+        <th>序号 </th>
+        <th>日期</th>
+        <th>执行单位</th>
+        <th>执行人</th>        
+        <th>受益单位</th>
+        <th>负责人</th>
+        <th>使用本金</th>
+        <% if endowment %>
+        <th>使用利息</th>
+        <% end %>
+        <th>用途</th>
+        <th>详情</th>
+        <th>其他</th>
+      </tr>
+      <% @project.usage_records.each_with_index do |r, index| %>
+      <tr>
+        <td><%= index+1 %></td>
+        <td><%= l_d r.time %></td>
+        <td><%= link_to_with r.exec_unit, :name %></td>
+        <td><%= link_to_with r.exec_manager, :name %></td>        
+        <td><%= link_to_with r.benefit_unit, :name %></td>
+        <td><%= link_to_with r.benefit_manager, :name %></td>
+        <td><%= r.principle_amount%></td>
+        <% if endowment %>
+        <td><%= r.interest_amount%></td>
+        <% end %>
+        <td><%= r.usage_type.name%></td>
+        <td><%= link_to '查看', r %></td>
+        <td><%= link_to '删除', r, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <% if endowment %>
+  <div>本金支出：<%= @principle_used_amount %> | 利息支出 <%= @interest_used_amount %> | 本金【总余额：<%= @all_principle_rest %> 账面： <%= @actual_principle_rest %>】 | 利息余额： <%= @intereset_rest %>  </div>
+  <% else %>
+  <div>总支出：<%= @principle_used_amount %> 总余额：<%= @all_principle_rest %> 账面余额：<%= @actual_principle_rest %></div>
+  <% end %>
 
 <%= link_to '删除项目', project_path(@project), method: :delete, data: { confirm: t('helpers.link.delete.confirm') } %>

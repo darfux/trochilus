@@ -46,4 +46,8 @@ module ApplicationHelper
       yield
     end
   end
+
+  def link_to_with(relation, scope, opts={})
+    link_to relation.send(scope), relation, onp.merge(opts)
+  end
 end

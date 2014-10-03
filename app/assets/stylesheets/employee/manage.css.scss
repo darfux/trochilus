@@ -235,15 +235,17 @@ $elm_padding_top: 4px;
 	border-collapse:collapse;  
 	border-spacing:0; 
 	width: 80%;
+	a{
+		$color: darken(blue, 30%);
+		text-decoration: none;
+		color: $color;
+	}
 	th{
 		$color: white;
 		color: $color;
 		a{
 			text-decoration: none;
 			color: $color;
-			&:visited{
-				color: $color;
-			}
 		}
 		height: 32px;
 		background-color: #7C124F;
