@@ -11,10 +11,19 @@ class Fund < ActiveRecord::Base
 
   validates :amount, presence: true
   validates :time, presence: true
-
+  validate :check_origin_amount
   after_initialize :defaults
   def defaults
-    self.currency = Currency.where(symbol: :RMB).first
+    self.currency ||= Currency.CNY
+  end
+
+
+  def check_origin_amount
+    if self.currency != Currency.CNY 
+      errors.add_on_blank(:origin_amount) if self.origin_amount.nil?
+    else
+      self.origin_amount = nil
+    end
   end
 
   def project
