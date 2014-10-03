@@ -88,6 +88,8 @@ zh_cn:
         comment: 备注
       fund:
         amount: 金额
+        origin_amount: 原始金额
+        currency: 币种
       donation_record:
         creator: *user_as_creator
         created_at: 创建时间
@@ -170,6 +172,8 @@ zh_cn:
         fund:
           attributes:
             amount:
+              <<: *common_errors
+            origin_amount:
               <<: *common_errors
         donation_record:
           attributes:

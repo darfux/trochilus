@@ -33,6 +33,14 @@
         <%= f_f.label :comment %><br />
         <%= f_f.text_area :comment %>
       </div>
+      <div class="field">
+        <%= f_f.label :currency %><br />
+        <%= f_f.select(:currency_id, Currency.all_ssym.collect {|e| [ e.name+'-'+e.symbol, e.id ] }) %>
+      </div>
+      <div class="field">
+        <%= f_f.label :origin_amount %><br />
+        <%= f_f.text_field :origin_amount %>
+      </div>
     <% end %>
 
     <% if @donation_record.persisted? %>

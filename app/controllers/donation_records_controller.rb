@@ -46,6 +46,7 @@ class DonationRecordsController < ApplicationController
   # PATCH/PUT /donation_records/1
   # PATCH/PUT /donation_records/1.json
   def update
+    @form_param = @donation_record
     respond_to do |format|
       if @donation_record.update(donation_record_params)
         format.html { redirect_to @donation_record.project }
@@ -107,7 +108,7 @@ class DonationRecordsController < ApplicationController
     def donation_record_params
       params.require(:donation_record)
         .permit(  :customer_id, :project_id, :donation_type_id,
-                  fund_attributes: [:amount, :time, :comment]
+                  fund_attributes: [:amount, :time, :comment, :currency_id, :origin_amount]
                   )
         .tap{ |p| 
           p[:creator_id] = current_user.id

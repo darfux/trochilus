@@ -11,16 +11,20 @@ datas = [
 namespace :db do
 task :import_data, [:args] => :environment do |t, args|
   if args[:args]
-    datas &= args[:args].split('+').collect{ |e| e.to_sym }
+    datas &= args[:args].split('+').collect{ |e| e.pluralize.to_sym }
   end
   Rails.root.join
   if RUBY_VERSION < '2.1.0'
     require './lib/patches/array#to_h.rb'
   end
   datas.each do |name|
-    DatabaseCleaner.clean_with(:truncation, :only => [name])
+    klass = name.to_s.classify.constantize
+    if klass.all.count != 0
+      puts "===#{klass.to_s} already has data, skipped==="
+      next
+    end
+    DatabaseCleaner.clean_with(:truncation, :only => [name])#reset the id
     File.open("./lib/tasks/data/#{name}", 'r') do |f|
-      klass = name.to_s.classify.constantize
       e = f.each_line
       attr_names = e.next.chomp.split
       klass.transaction do
@@ -49,6 +53,10 @@ task :import_data, [:args] => :environment do |t, args|
       puts "===#{klass.to_s} import complete==="
     end
   end
-  puts "====All data import complete===="
+  if datas.empty?
+    puts "Nothing to do.Wrong arguments?"
+  else
+    puts "====All data import complete===="
+  end
 end
 end
