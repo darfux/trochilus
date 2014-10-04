@@ -249,21 +249,6 @@ ActiveRecord::Schema.define(version: 20141003135533) do
   add_index "projects", ["project_state_id"], name: "index_projects_on_project_state_id"
   add_index "projects", ["project_type_id"], name: "index_projects_on_project_type_id"
 
-  create_table "school_fellow_study_experiences", force: true do |t|
-    t.integer  "schoolfellow_id"
-    t.integer  "major_id"
-    t.integer  "degree_id"
-    t.date     "attendance_date"
-    t.date     "graduated_date"
-    t.string   "student_number"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "school_fellow_study_experiences", ["degree_id"], name: "index_school_fellow_study_experiences_on_degree_id"
-  add_index "school_fellow_study_experiences", ["major_id"], name: "index_school_fellow_study_experiences_on_major_id"
-  add_index "school_fellow_study_experiences", ["schoolfellow_id"], name: "index_school_fellow_study_experiences_on_schoolfellow_id"
-
   create_table "schoolfellow_study_experiences", force: true do |t|
     t.integer  "schoolfellow_id"
     t.integer  "major_id"
