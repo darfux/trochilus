@@ -1,4 +1,5 @@
 class Project < ActiveRecord::Base
+  has_pin_yin_name
   belongs_to :project_level
   belongs_to :project_state
   belongs_to :project_type
@@ -25,13 +26,6 @@ class Project < ActiveRecord::Base
     I18n.translate(e, scope: 'project.endowment')
   end
   
-  def self.all_spy
-    all.sort_by{ |e| e.name_with_py }
-  end
-  
-  def name_with_py
-    PinYin.abbr(name)[0].upcase+'-'+name
-  end
   # def #{pre}_amount
   #   amount = 0
   #   donation_records.each do |d|

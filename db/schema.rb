@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141003135533) do
+ActiveRecord::Schema.define(version: 20141005033743) do
 
   create_table "attachments", force: true do |t|
     t.integer  "attachment_owner_id"
@@ -61,7 +61,10 @@ ActiveRecord::Schema.define(version: 20141003135533) do
     t.string   "symbol"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "name_abbrpy"
   end
+
+  add_index "currencies", ["name_abbrpy"], name: "index_currencies_on_name_abbrpy"
 
   create_table "customer_group_customers", force: true do |t|
     t.integer  "customer_id"
@@ -94,16 +97,21 @@ ActiveRecord::Schema.define(version: 20141003135533) do
     t.string   "fax"
     t.string   "postcode"
     t.text     "comment"
+    t.text     "name_abbrpy"
   end
 
   add_index "customers", ["creator_id"], name: "index_customers_on_creator_id"
   add_index "customers", ["customer_id"], name: "index_customers_on_customer_id"
+  add_index "customers", ["name_abbrpy"], name: "index_customers_on_name_abbrpy"
 
   create_table "degrees", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "name_abbrpy"
   end
+
+  add_index "degrees", ["name_abbrpy"], name: "index_degrees_on_name_abbrpy"
 
   create_table "donation_record_actual_funds", force: true do |t|
     t.integer  "donation_record_id"
@@ -132,19 +140,28 @@ ActiveRecord::Schema.define(version: 20141003135533) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "name_abbrpy"
   end
+
+  add_index "donation_types", ["name_abbrpy"], name: "index_donation_types_on_name_abbrpy"
 
   create_table "employees", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "name_abbrpy"
   end
+
+  add_index "employees", ["name_abbrpy"], name: "index_employees_on_name_abbrpy"
 
   create_table "fund_types", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "name_abbrpy"
   end
+
+  add_index "fund_types", ["name_abbrpy"], name: "index_fund_types_on_name_abbrpy"
 
   create_table "funds", force: true do |t|
     t.decimal  "amount"
@@ -178,8 +195,10 @@ ActiveRecord::Schema.define(version: 20141003135533) do
     t.integer  "univ_unit_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "name_abbrpy"
   end
 
+  add_index "majors", ["name_abbrpy"], name: "index_majors_on_name_abbrpy"
   add_index "majors", ["univ_unit_id"], name: "index_majors_on_univ_unit_id"
 
   create_table "online_customers", force: true do |t|
@@ -191,7 +210,10 @@ ActiveRecord::Schema.define(version: 20141003135533) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "name_abbrpy"
   end
+
+  add_index "project_levels", ["name_abbrpy"], name: "index_project_levels_on_name_abbrpy"
 
   create_table "project_link_men", force: true do |t|
     t.integer  "customer_id"
@@ -218,13 +240,19 @@ ActiveRecord::Schema.define(version: 20141003135533) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "name_abbrpy"
   end
+
+  add_index "project_states", ["name_abbrpy"], name: "index_project_states_on_name_abbrpy"
 
   create_table "project_types", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "name_abbrpy"
   end
+
+  add_index "project_types", ["name_abbrpy"], name: "index_project_types_on_name_abbrpy"
 
   create_table "projects", force: true do |t|
     t.string   "name"
@@ -242,9 +270,11 @@ ActiveRecord::Schema.define(version: 20141003135533) do
     t.integer  "create_unit_id"
     t.integer  "create_manager_id"
     t.text     "comment"
+    t.text     "name_abbrpy"
   end
 
   add_index "projects", ["creator_id"], name: "index_projects_on_creator_id"
+  add_index "projects", ["name_abbrpy"], name: "index_projects_on_name_abbrpy"
   add_index "projects", ["project_level_id"], name: "index_projects_on_project_level_id"
   add_index "projects", ["project_state_id"], name: "index_projects_on_project_state_id"
   add_index "projects", ["project_type_id"], name: "index_projects_on_project_type_id"
@@ -291,7 +321,10 @@ ActiveRecord::Schema.define(version: 20141003135533) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "name_abbrpy"
   end
+
+  add_index "teacher_titles", ["name_abbrpy"], name: "index_teacher_titles_on_name_abbrpy"
 
   create_table "univ_unit_managers", force: true do |t|
     t.string   "name"
@@ -303,15 +336,20 @@ ActiveRecord::Schema.define(version: 20141003135533) do
     t.string   "email"
     t.string   "fax"
     t.string   "postcode"
+    t.text     "name_abbrpy"
   end
 
+  add_index "univ_unit_managers", ["name_abbrpy"], name: "index_univ_unit_managers_on_name_abbrpy"
   add_index "univ_unit_managers", ["univ_unit_id"], name: "index_univ_unit_managers_on_univ_unit_id"
 
   create_table "univ_units", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "name_abbrpy"
   end
+
+  add_index "univ_units", ["name_abbrpy"], name: "index_univ_units_on_name_abbrpy"
 
   create_table "usage_record_used_funds", force: true do |t|
     t.integer  "usage_record_id"
@@ -349,7 +387,10 @@ ActiveRecord::Schema.define(version: 20141003135533) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "name_abbrpy"
   end
+
+  add_index "usage_types", ["name_abbrpy"], name: "index_usage_types_on_name_abbrpy"
 
   create_table "users", force: true do |t|
     t.string   "account",                             null: false

@@ -1,3 +1,4 @@
+require_dependency 'has_pin_yin_name'
 
 module ActiveRecordExtension
 
