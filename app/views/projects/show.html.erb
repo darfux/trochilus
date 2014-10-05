@@ -31,7 +31,7 @@
   <hr>
   <div class="info-block">
     <p>
-      <div><strong>创建单位：</strong> <span><%= link_to_with @project.create_unit, :name %></span></div>
+      <div><strong>管理单位：</strong> <span><%= link_to_with @project.create_unit, :name %></span></div>
       <div><strong>负责人：</strong> <span><%= show_manager %></span></div>
     </p>
     <p>
@@ -152,9 +152,9 @@
         <th>序号 </th>
         <th>日期</th>
         <th>执行单位</th>
-        <th>执行人</th>        
+        <th>批准人</th>        
         <th>受益单位</th>
-        <th>负责人</th>
+        <th>经办人</th>
         <th>使用本金</th>
         <% if endowment %>
         <th>使用利息</th>

@@ -1,4 +1,13 @@
 module PolymorphicExtension
+	module ClassMethods
+		# def all_instance_of(klass)
+		# 	where()
+		# end
+	end
+	
+	module InstanceMethods
+	end
+
 	def self.included(receiver)
 		receiver.class_eval %q{
 			def self.set_accessable_attributes(attributes)
@@ -15,5 +24,7 @@ module PolymorphicExtension
 				@@accessable_attributes += attributes.collect{|a| a.to_s}
 			end
 		}
+		receiver.extend         ClassMethods
+		receiver.send :include, InstanceMethods
 	end
 end

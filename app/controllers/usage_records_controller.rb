@@ -18,6 +18,7 @@ class UsageRecordsController < ApplicationController
   def new
     @usage_record = UsageRecord.new
     @usage_record.project = Project.find(params[:project_id])
+    @usage_record.exec_unit = @usage_record.project.create_unit
     @form_parm = [@usage_record.project, @usage_record]
   end
 

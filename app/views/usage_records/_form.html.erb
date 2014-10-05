@@ -9,7 +9,7 @@
 
   <% if current_project.endowment %>
   <fieldset>
-      <legend>利息</legend>
+      <legend><%= f.label :interest_fund %></legend>
       <%= f.fields_for :interest_fund, @usage_record.interest_fund || UsageRecord::UsedFund.new do |i_f| %>
         <%= i_f.fields_for :fund do |f_f| %>
         <div class="field">
@@ -21,7 +21,7 @@
       <% end %>
   </fieldset>
   <fieldset>
-    <legend>本金</legend>
+    <legend><%= f.label :principle_fund %></legend>
      <%= f.fields_for :principle_fund, @usage_record.interest_fund || UsageRecord::UsedFund.new do |p_f| %>
         <%= p_f.fields_for :fund do |f_f| %>
         <div class="field">
@@ -47,15 +47,18 @@
     <%= f.label :fund_time %><br />
     <%= datetime_select :fund_time, :time, start_year: default_start_year, default: DateTime.now.beginning_of_day %>
   </div>
+
   <div class="field">
+    <%= f.hidden_field :exec_unit_id %>
     <%= f.label :exec_unit %><br />
-    <%= f.select(:exec_unit_id, UnivUnit.all_spy.collect{ |e| [e.name_with_py, e.id] }, { include_blank: true }) %>
-  </div>
-  <div class="field">
-    <%= f.label :exec_manager %> <%= link_to '新建', new_univ_unit_manager_path, target: :_blank  %><br />
-    <%= f.select(:exec_manager_id, UnivUnitManager.all_spy.collect{ |e| [e.name_with_unit, e.id] }, { include_blank: true }) %>
+    <%= text_field_tag nil, @usage_record.exec_unit.name, disabled: true %>
   </div>
 
+  <div class="field">
+    <%= f.label :exec_manager %> <%= link_to '新建', new_univ_unit_manager_path, target: :_blank  %><br />
+    <%= f.select(:exec_manager_id, UnivUnitManager.where(univ_unit: @usage_record.exec_unit_id).order(:name_abbrpy).collect{ |e| [e.name_with_py, e.id] }, { include_blank: true }) %>
+  </div>
+  
   <div class="field">
     <%= f.label :benefit_unit %><br />
     <%= f.select(:benefit_unit_id, UnivUnit.all_spy.collect{ |e| [e.name_with_py, e.id] }, { include_blank: true }) %>

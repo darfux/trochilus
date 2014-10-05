@@ -79,7 +79,7 @@ zh_cn:
         project_level: 项目级别
         project_state: 项目状态
         project_type: 项目类型
-        create_unit: 创建单位
+        create_unit: 管理单位
         create_manager: 负责人
         comment: 备注
       project/news:
@@ -99,10 +99,12 @@ zh_cn:
         project: 所属项目
       usage_record:
         creator: *user_as_creator
+        principle_fund: 本金
+        interest_fund: 利息
         exec_unit: 执行单位
-        exec_manager: 执行人
+        exec_manager: 批准人
         benefit_unit: 受益单位
-        benefit_manager: 受益单位负责人
+        benefit_manager: 经办人
         usage_type: 用途
         usage_comment: 使用说明
         both_funds: 利息和本金
@@ -312,13 +314,13 @@ zh_cn:
         password_confirmation: 确认密码
         remember_me: 记住我
       usage_record:
-        fund_time: 使用时间
+        fund_time: 支出时间
         comment: 备注
       project_type:
         name: 名称
     file_field:
       attachment:
-        file: 文件
+        file: 附件
     submit:
       contact_record:
         create: 添加记录
