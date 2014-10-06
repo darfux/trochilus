@@ -1,0 +1,33 @@
+<h1>Listing donation_record_interest_periods</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Rate</th>
+      <th>Start</th>
+      <th>End</th>
+      <th>Comment</th>
+      <th>Donation record</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @donation_record_interest_periods.each do |donation_record_interest_period| %>
+      <tr>
+        <td><%= donation_record_interest_period.rate %></td>
+        <td><%= donation_record_interest_period.start %></td>
+        <td><%= donation_record_interest_period.end %></td>
+        <td><%= donation_record_interest_period.comment %></td>
+        <td><%= donation_record_interest_period.donation_record %></td>
+        <td><%= link_to 'Show', donation_record_interest_period %></td>
+        <td><%= link_to 'Edit', edit_donation_record_interest_period_path(donation_record_interest_period) %></td>
+        <td><%= link_to 'Destroy', donation_record_interest_period, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Interest period', new_donation_record_interest_period_path %>

@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  rate: 9.99
+  start: 2014-10-05
+  end: 2014-10-05
+  comment: MyText
+  donation_record_id: 
+
+two:
+  rate: 9.99
+  start: 2014-10-05
+  end: 2014-10-05
+  comment: MyText
+  donation_record_id: 

@@ -11,6 +11,7 @@ class DonationRecord < ActiveRecord::Base
 
   has_many :actual_funds, class_name: :'DonationRecord::ActualFund', dependent: :destroy
   has_many :attachments, as: :attachment_owner, validate: true, dependent: :destroy
+  has_many :interest_periods, ->{ order(:start) }, class_name: :'DonationRecord::InterestPeriod'
   
   validates :customer, presence: true
   # validates :donation_type, presence: true
@@ -46,6 +47,9 @@ class DonationRecord < ActiveRecord::Base
     .joins(DonationRecord::ActualFund.join_fund_arg)
     .where({fund_type_id: interest.id}.merge(opts)).each do |a|
       interest_amount+=a.amount!
+    end
+    self.interest_periods.each do |ip|
+      interest_amount+=ip.amount
     end
     interest_amount
   end

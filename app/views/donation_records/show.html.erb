@@ -20,6 +20,33 @@
     <%= @donation_record.comment! %>
   </div>
   <hr>
+<% if @donation_record.project.endowment %>
+  <table>
+    <thead>
+      <tr>
+        <th>利率%</th>
+        <th>开始</th>
+        <th>结束</th>
+        <th>计息月数</th>
+        <th>产生利息</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @donation_record.interest_periods.each do |ip| %>
+      <tr>
+        <td><%= ip.rate %></td>
+        <td><%= l ip.start %></td>
+        <td><%= l ip.end %></td>
+        <td><%= ip.months %></td>
+        <td><%= ip.amount %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+<%= link_to "添加计息周期", new_donation_record_interest_period_path(@donation_record) %><br>
+<hr>
+<% end %>
   <table>
     <thead>
       <tr>
@@ -46,4 +73,5 @@
   </table>
 
 </div>
+
 <%= link_to "添加到款", new_donation_record_actual_fund_path(@donation_record) %>

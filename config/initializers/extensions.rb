@@ -1,3 +1,4 @@
 require_dependency "active_record_extension"
+require_dependency "date_extension"
 require_dependency "array_relation"
 require_dependency "hash_direct_fetch_extension"

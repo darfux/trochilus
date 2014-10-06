@@ -71,6 +71,9 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :donation_record, shallow: true do
+    resources :interest_periods, controller: 'donation_record/interest_periods'
+  end
 
   ##Things below are workarounds for namespaced model to use a nested resource
   namespace :donation_record do

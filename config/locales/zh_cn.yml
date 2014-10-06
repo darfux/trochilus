@@ -58,6 +58,7 @@ zh_cn:
       corporate_customer: 公司客户
       customer_group: 团体客户
       donation_record: 捐赠记录
+      donation_record/interest_period: 利息周期
       donation_type: 捐赠类型
       univ_unit_manager: 学校人员
       customer: 客户
@@ -97,6 +98,11 @@ zh_cn:
         customer: 客户
         donation_type: 捐赠类型
         project: 所属项目
+      donation_record/interest_period:
+        rate: 利率
+        start: 开始时间
+        end: 结束时间
+        comment: 备注
       usage_record:
         creator: *user_as_creator
         principle_fund: 本金
@@ -344,6 +350,9 @@ zh_cn:
       usage_record:
         create: 新建
         update: 更新
+      donation_record_interest_period:
+        create: "新建%{model}"
+        update: "修改%{model}"
       usage_type:
         create: 新建
         update: 更新

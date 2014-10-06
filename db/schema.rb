@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141005033743) do
+ActiveRecord::Schema.define(version: 20141005132215) do
 
   create_table "attachments", force: true do |t|
     t.integer  "attachment_owner_id"
@@ -121,6 +121,18 @@ ActiveRecord::Schema.define(version: 20141005033743) do
   end
 
   add_index "donation_record_actual_funds", ["donation_record_id"], name: "index_donation_record_actual_funds_on_donation_record_id"
+
+  create_table "donation_record_interest_periods", force: true do |t|
+    t.decimal  "rate"
+    t.date     "start"
+    t.date     "end"
+    t.text     "comment"
+    t.integer  "donation_record_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "donation_record_interest_periods", ["donation_record_id"], name: "index_donation_record_interest_periods_on_donation_record_id"
 
   create_table "donation_records", force: true do |t|
     t.integer  "customer_id"
