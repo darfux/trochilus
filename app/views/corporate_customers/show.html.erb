@@ -24,11 +24,20 @@
 
 <hr>
 <div>
-  <strong>联系人：</strong> 
-  <% @self_customer.link_men.each do |lm| %>
-    <span><%= link_to lm.name!, corporate_customer_link_man_path(@self_customer, lm.id) %></span>
+  <strong>负责人：</strong> 
+  <% @self_customer.manager_link_men.each do |lm| %>
+    <span><%= link_to lm.instance.name!, corporate_customer_link_man_path(@self_customer, lm.id) %></span>
   <% end %>
-  <%= link_to new_corporate_customer_link_man_path(@self_customer) do %>
+  <%= link_to new_corporate_customer_link_man_path(@self_customer, type: CorporateCustomer::LinkMan::LinkType.manager_id) do %>
+    <%= button_tag '添加' %>
+  <% end %>
+</div>
+<div>
+  <strong>联系人：</strong> 
+  <% @self_customer.ordinary_link_men.each do |lm| %>
+    <span><%= link_to lm.instance.name!, corporate_customer_link_man_path(@self_customer, lm.id) %></span>
+  <% end %>
+  <%= link_to new_corporate_customer_link_man_path(@self_customer, type: CorporateCustomer::LinkMan::LinkType.ordinary_id) do %>
     <%= button_tag '添加' %>
   <% end %>
 </div>

@@ -95,3 +95,6 @@ rails g scaffold Project::News title:string link:text comment:string project:ref
 
 #2014-10-05 21:07:35
 rails g scaffold DonationRecord::InterestPeriod rate:decimal start:date end:date comment:text donation_record:references
+
+#2014-10-06 16:04:21
+rails g model CorporateCustomer::LinkMan::LinkType name:string

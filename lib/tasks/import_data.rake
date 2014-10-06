@@ -5,7 +5,8 @@ datas = [
           :fund_types,       :currencies,
           :usage_types,     :donation_types,
           :univ_units,      :univ_unit_managers, :majors, :degrees,
-          :teacher_titles
+          :teacher_titles,
+          :corporate_customer_link_man_link_types
         ]
 
 namespace :db do
@@ -18,7 +19,14 @@ task :import_data, [:args] => :environment do |t, args|
     require './lib/patches/array#to_h.rb'
   end
   datas.each do |name|
-    klass = name.to_s.classify.constantize
+    klass = nil
+    ActiveRecord::Base.descendants.each do |k|
+      if k.table_name == name.to_s
+        klass = k
+        break
+      end
+    end
+    raise "No class match table #{name}" unless klass
     if klass.all.count != 0
       puts "===#{klass.to_s} already has data, skipped==="
       next

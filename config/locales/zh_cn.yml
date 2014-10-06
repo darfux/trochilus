@@ -81,7 +81,7 @@ zh_cn:
         project_state: 项目状态
         project_type: 项目类型
         create_unit: 管理单位
-        create_manager: 负责人
+        create_manager: 筹款专员
         comment: 备注
       project/news:
         title: 标题
