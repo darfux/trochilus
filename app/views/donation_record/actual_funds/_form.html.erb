@@ -15,32 +15,37 @@
 
   <%= f.fields_for :fund do |f_f| %>
     <div class="field">
-      <%= f_f.label '数额' %><br />
+      <%= f_f.label :amount %><br />
       <%= f_f.text_field :amount %>
     </div>
     <div class="field">
-      <%= f_f.label '时间' %><br />
+      <%= f_f.label :time %><br />
       <%= f_f.datetime_select :time, start_year: default_start_year, default: DateTime.now.beginning_of_day %>
     </div>
     <div class="field">
-      <%= f_f.label :备注 %><br />
+      <%= f_f.label :comment %><br />
       <%= f_f.text_area :comment %>
     </div>
   <% end %>
 
   <% if @project.endowment %>
     <div class="field">
-      <%= f.radio_button :fund_type_id, FundType.where(name: :principle).take.id %> <%= label_tag :本金 %>
-      <%= f.radio_button :fund_type_id, FundType.where(name: :interest).take.id  %> <%= label_tag :利息 %>
+      <%= f.radio_button :fund_type_id, FundType.where(name: :principle).take.id, checked: true %> <%= label_tag :本金 %>
+      <%= f.radio_button :fund_type_id, FundType.where(name: :interest).take.id %> <%= label_tag :利息 %>
     </div>
   <% else %>
     <%= f.hidden_field  :fund_type_id %>
   <% end %>
 
-
+  <%= f.fields_for :proof do |f_f| %>
+    <div class="field">
+      <%= f.label :proof %>
+      <%= f_f.file_field :file%>
+    </div>
+  <% end %>
 
   <div class="actions">
-    <%= f.submit '提交'%>
+    <%= f.submit %>
   </div>
   
 <% end %>

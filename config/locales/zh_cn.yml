@@ -58,6 +58,7 @@ zh_cn:
       corporate_customer: 公司客户
       customer_group: 团体客户
       donation_record: 捐赠记录
+      donation_record/actual_fund: 到款
       donation_record/interest_period: 利息周期
       donation_type: 捐赠类型
       univ_unit_manager: 学校人员
@@ -90,6 +91,7 @@ zh_cn:
       fund:
         amount: 金额
         origin_amount: 原始金额
+        time: 时间
         currency: 币种
       donation_record:
         creator: *user_as_creator
@@ -98,6 +100,10 @@ zh_cn:
         customer: 客户
         donation_type: 捐赠类型
         project: 所属项目
+      donation_record/actual_fund:
+        proof: 进账凭证
+      donation_record/actual_fund/proof:
+        file: 进账凭证
       donation_record/interest_period:
         rate: 利率
         start: 开始时间
@@ -189,6 +195,14 @@ zh_cn:
             customer:
               <<: *common_errors
             donation_type:
+              <<: *common_errors
+        donation_record/interest_period:
+          attributes:
+            rate:
+              <<: *common_errors
+        attachment:
+          attributes:
+            file:
               <<: *common_errors
         usage_record:
           attributes:
@@ -352,6 +366,9 @@ zh_cn:
         update: 更新
       donation_record_interest_period:
         create: "新建%{model}"
+        update: "修改%{model}"
+      donation_record_actual_fund:
+        create: "添加%{model}"
         update: "修改%{model}"
       usage_type:
         create: 新建

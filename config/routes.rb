@@ -71,16 +71,12 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :donation_record, shallow: true do
-    resources :interest_periods, controller: 'donation_record/interest_periods'
-  end
-
   ##Things below are workarounds for namespaced model to use a nested resource
-  namespace :donation_record do
-    resources :actual_funds, only: [:show, :update, :edit]
-  end
-  resources :donation_records do
-    resources :actual_funds, controller: 'donation_record/actual_funds', only: nested_actions
+  scope shallow_prefix: :donation_record do
+    resources :donation_record do
+      resources :actual_funds, controller: 'donation_record/actual_funds', shallow: true
+      resources :interest_periods, controller: 'donation_record/interest_periods', shallow: true
+    end
   end
 
   namespace :usage_record do

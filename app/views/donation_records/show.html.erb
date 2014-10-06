@@ -40,6 +40,7 @@
         <td><%= l ip.end %></td>
         <td><%= ip.months %></td>
         <td><%= ip.amount %></td>
+        <td><%= link_to "删除", donation_record_interest_period_path(ip), del_confirm %><br></td>
       </tr>
       <% end %>
     </tbody>
@@ -55,6 +56,7 @@
         <% if @project.endowment %>
         <th>类型</th>
         <% end %>
+        <th>进账凭证</th>
       </tr>
     </thead>
 
@@ -66,7 +68,9 @@
           <% if @project.endowment %>
           <td><%= t actual_fund.fund_type.name, scope: 'fund.type' %></td>
           <% end %>
+          <td><%= link_to actual_fund.proof.filename, actual_fund.proof.file.url %></td>
           <td><%= link_to '编辑', edit_donation_record_actual_fund_path(actual_fund) %></td>
+          <td><%= link_to '删除', donation_record_actual_fund_path(actual_fund), del_confirm %></td>
         </tr>
       <% end %>
     </tbody>

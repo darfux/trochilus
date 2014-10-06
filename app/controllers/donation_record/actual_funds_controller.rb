@@ -33,7 +33,6 @@ class DonationRecord::ActualFundsController < ApplicationController
     # raise donation_record_actual_fund_params.inspect
     @donation_record_actual_fund = DonationRecord::ActualFund.new(donation_record_actual_fund_params)
     @donation_record_actual_fund.donation_record = @donation_record
-
     respond_to do |format|
       if @donation_record_actual_fund.save
         format.html { redirect_to @donation_record, notice: 'Actual fund was successfully created.' }
@@ -92,6 +91,6 @@ class DonationRecord::ActualFundsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def donation_record_actual_fund_params
       params.require(:donation_record_actual_fund)
-        .permit( :fund_type_id, fund_attributes: [:amount, :time, :comment] )
+        .permit( :fund_type_id, fund_attributes: [:amount, :time, :comment], proof_attributes: [:file] )
     end
 end
