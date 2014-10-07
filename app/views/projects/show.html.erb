@@ -129,10 +129,10 @@
         <td><%= link_to_with r.customer, :name %></td>
         <td><%= r.plan_fund.currency.name %></td>
         <td><%= localize_date r.plan_fund.time %></td>
-        <td><%= r.plan_fund.amount %></td>
-        <td><%= r.actual_amount %></td>
+        <td class="currency-show"><%= money_show r.plan_fund.amount %></td>
+        <td class="currency-show"><%= money_show r.actual_amount %></td>
         <% if endowment %>
-        <td><%= r.interest_amount %></td>
+        <td class="currency-show"><%= money_show r.interest_amount %></td>
         <% end %>
         <td><%= link_to "详情", r %>|<%= link_to "编辑", edit_donation_record_path(r) %>|<%= link_to '删除', r, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
@@ -142,10 +142,10 @@
     </tbody>
   </table>
   <div colspan="11">
-    计划到账： <%= @all_plan_amount %>
-    已到账总额：<%= @all_actual_amount %>
+    计划到账： <%= money_show @all_plan_amount %>
+    已到账总额：<%= money_show @all_actual_amount %>
     <% if endowment %>
-    利息：<%= @all_interest_amount %>
+    利息：<%= money_show @all_interest_amount %>
     <% end %>
   </div>
 
@@ -176,9 +176,9 @@
         <td><%= link_to_with r.exec_manager, :name %></td>        
         <td><%= link_to_with r.benefit_unit, :name %></td>
         <td><%= link_to_with r.benefit_manager, :name %></td>
-        <td><%= r.principle_amount%></td>
+        <td class="currency-show"><%= money_show r.principle_amount%></td>
         <% if endowment %>
-        <td><%= r.interest_amount%></td>
+        <td class="currency-show"><%= money_show r.interest_amount%></td>
         <% end %>
         <td><%= (rt = r.usage_type).nil? ? @project.project_type.name : rt.name%></td>
         <td><%= link_to '查看', r %>|<%= link_to '编辑', edit_usage_record_path(r) %><%= link_to '删除', r, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -187,9 +187,9 @@
     </tbody>
   </table>
   <% if endowment %>
-  <div>本金支出：<%= @principle_used_amount %> | 利息支出 <%= @interest_used_amount %> | 本金【总余额：<%= @all_principle_rest %> 账面： <%= @actual_principle_rest %>】 | 利息余额： <%= @intereset_rest %>  </div>
+  <div>本金支出：<%= money_show @principle_used_amount %> | 利息支出 <%= money_show @interest_used_amount %> | 本金【总余额：<%= money_show @all_principle_rest %> 账面： <%= money_show @actual_principle_rest %>】 | 利息余额： <%= money_show @intereset_rest %>  </div>
   <% else %>
-  <div>总支出：<%= @principle_used_amount %> 总余额：<%= @all_principle_rest %> 账面余额：<%= @actual_principle_rest %></div>
+  <div>总支出：<%= money_show @principle_used_amount %> 总余额：<%= money_show @all_principle_rest %> 账面余额：<%= money_show @actual_principle_rest %></div>
   <% end %>
 
 <% if on_admin %>

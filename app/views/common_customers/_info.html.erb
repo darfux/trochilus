@@ -29,7 +29,7 @@
     <% @self_customer.donation_records!.each do |dr| %>
       <tr>
         <td><%= link_to dr.project.name, dr.project %></td>
-        <td><%= dr.plan_fund.amount %></td>
+        <td class="currency-show"><%= money_show dr.plan_fund.amount %></td>
         <td><%= l_d dr.plan_fund.time %></td>
       </tr>
       <% end %>
@@ -48,7 +48,7 @@
       <% ( (c=@self_customer.corporate) ? c.donation_records! : [] ).each do |dr| %>
         <tr>
           <td><%= link_to dr.project.name, dr.project %></td>
-          <td><%= dr.plan_fund.amount %></td>
+          <td class="currency-show"><%= money_show dr.plan_fund.amount %></td>
           <td><%= l_d dr.plan_fund.time %></td>
         </tr>
         <% end %>
@@ -70,7 +70,7 @@
           <% g.donation_records!.each do |dr| %>
             <tr>
               <td><%= link_to dr.project.name, dr.project %></td>
-              <td><%= dr.plan_fund.amount %></td>
+              <td class="currency-show"><%= money_show dr.plan_fund.amount %></td>
               <td><%= l_d dr.plan_fund.time %></td>
             </tr>
           <% end %>

@@ -54,4 +54,8 @@ module ApplicationHelper
   def on_admin
     current_user.account == 'fkadmin'
   end
+
+  def money_show(amount)
+    number_to_currency(amount, unit: '', raise: true)  
+  end
 end

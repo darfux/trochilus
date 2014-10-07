@@ -33,7 +33,7 @@
     
     <tr>
       <th></th>
-      <th><%= total_fund %></th>
+      <th><%= money_show total_fund %></th>
       <th></th>
       <th></th>
     </tr>
@@ -50,7 +50,7 @@
     <% @plan_funds.each do |fund| %>
       <tr>
         <td><%= link_to fund.project.name, fund.project %></td>
-        <td><%= fund.amount %></td>
+        <td class="currency-show"><%= money_show fund.amount %></td>
         <td><%= l_d fund.time %></td>
         <% begin %>
         <td><%= link_to fund.relate_unit.name, fund.relate_unit %></td>
@@ -72,7 +72,7 @@
     </tr>
     <tr>
       <th></th>
-      <th><%= total_fund %></th>
+      <th><%= money_show total_fund %></th>
       <th></th>
       <th></th>
     </tr>

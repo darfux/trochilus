@@ -39,7 +39,7 @@
         <td><%= l ip.start %></td>
         <td><%= l ip.end %></td>
         <td><%= ip.months %></td>
-        <td><%= ip.amount %></td>
+        <td class="currency-show"><%= money_show ip.amount %></td>
         <td><%= link_to "删除", donation_record_interest_period_path(ip), del_confirm %><br></td>
       </tr>
       <% end %>
@@ -63,7 +63,7 @@
     <tbody>
       <% @donation_record.actual_funds.each do |actual_fund| %>
         <tr>
-          <td><%= actual_fund.amount! %></td>
+          <td class="currency-show"><%= money_show actual_fund.amount! %></td>
           <td><%= l_d actual_fund.time! %></td>
           <% if @project.endowment %>
           <td><%= t actual_fund.fund_type.name, scope: 'fund.type' %></td>
