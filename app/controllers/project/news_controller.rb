@@ -28,7 +28,7 @@ class Project::NewsController < ApplicationController
 
     respond_to do |format|
       if @project_news.save
-        format.html { redirect_to @project, notice: 'News was successfully created.' }
+        format.html { redirect_to @project }
         format.json { render :show, status: :created, location: @project_news }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class Project::NewsController < ApplicationController
   def update
     respond_to do |format|
       if @project_news.update(project_news_params)
-        format.html { redirect_to @project_news.project, notice: 'News was successfully updated.' }
+        format.html { redirect_to @project_news.project }
         format.json { render :show, status: :ok, location: @project_news }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class Project::NewsController < ApplicationController
   def destroy
     @project_news.destroy
     respond_to do |format|
-      format.html { redirect_to @project, notice: 'News was successfully destroyed.' }
+      format.html { redirect_to @project }
       format.json { head :no_content }
     end
   end

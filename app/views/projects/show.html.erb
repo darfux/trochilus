@@ -11,6 +11,29 @@
 
 <!-- <div id="project-info-header"></div> -->
 <div id="project-info">
+  <table class="project-table">
+    <tbody>
+      <tr>
+        <th>名称</th>
+        <th>类型</th>
+        <th>基金级别</th>
+        <th>管理单位</th>
+        <th>是否留本</th>
+        <th>总额</th>
+        <th>余额</th>
+      </tr>
+      <tr>
+        <td><%= @project.name %></td>
+        <td><%= @project.project_type.name %></td>
+        <td><%= @project.project_level.name %></td>
+        <td><%= @project.create_unit.name %></td>
+        <td><%= @project.endowment_t %><%= "(#{@project.interest_rate}%)" if @project.endowment %></td>
+        <td class="currency-show"><%= money_show @project.total_amount %></td>
+        <td class="currency-show"><%= money_show @project.principle_rest %></td>
+      </tr>
+    </tbody>
+  </table>
+  <div id="project-info-header">项目信息</div>
   <div class="info-block">
     <p>
       <div><strong>名称：</strong> <span><%= @project.name %></span></div>
@@ -28,6 +51,12 @@
       <div><strong>创建日期：</strong> <span><%= @project.create_date %></span></div>
     </p>
   </div>
+  <% if @project.endowment %>
+  <div class="info-block">
+    <strong>利率：</strong>
+    <div><%= @project.interest_rate %>%</div>
+  </div>
+  <% end %>
   <hr>
   <div class="info-block">
     <p>
@@ -76,13 +105,6 @@
       </div>
     </p>
   </div>
-  <% if @project.endowment %>
-  <hr>
-  <div class="info-block">
-    <strong>利率：</strong>
-    <div><%= @project.interest_rate %>%</div>
-  </div>
-  <% end %>
   <hr>
   <div id='project-news' class="info-block">
     <strong>新闻报道</strong>
@@ -104,7 +126,14 @@
 <% endowment = @project.endowment %>
 
 <div><b>捐赠记录</b> <%= link_to '添加', new_project_donation_record_path(@project) %></div>
-  <table class="employee-data-table">
+  <div class="project-table-header">
+    <span>计划到账： <%= money_show @all_plan_amount %></span>
+    <span>已到账总额：<%= money_show @all_actual_amount %></span>
+    <% if endowment %>
+    <span>利息：<%= money_show @all_interest_amount %></span>
+    <% end %>
+  </div>
+  <table class="project-table">
     <tbody>
       <tr>
         <th>序号 </th>
@@ -141,18 +170,21 @@
 
     </tbody>
   </table>
-  <div colspan="11">
-    计划到账： <%= money_show @all_plan_amount %>
-    已到账总额：<%= money_show @all_actual_amount %>
-    <% if endowment %>
-    利息：<%= money_show @all_interest_amount %>
-    <% end %>
-  </div>
 
   <p></p>
 
 <div><b>使用记录</b> <%= link_to '添加', new_project_usage_record_path(@project) %></div>
-  <table class="employee-data-table">
+  <div class="project-table-header">
+  <% if endowment %>
+    <span>本金支出：<%= money_show @principle_used_amount %></span>
+    <span>利息支出 <%= money_show @interest_used_amount %></span>
+    <span>本金 [总余额：<%= money_show @all_principle_rest %> 账面： <%= money_show @actual_principle_rest %>]</span>
+    <span>利息余额： <%= money_show @intereset_rest %></span>
+  <% else %>
+  总支出：<%= money_show @principle_used_amount %> 总余额：<%= money_show @all_principle_rest %> 账面余额：<%= money_show @actual_principle_rest %>
+  <% end %>
+  </div>
+  <table class="project-table">
     <tbody>
       <tr>
         <th>序号 </th>
@@ -186,11 +218,6 @@
       <% end %>
     </tbody>
   </table>
-  <% if endowment %>
-  <div>本金支出：<%= money_show @principle_used_amount %> | 利息支出 <%= money_show @interest_used_amount %> | 本金【总余额：<%= money_show @all_principle_rest %> 账面： <%= money_show @actual_principle_rest %>】 | 利息余额： <%= money_show @intereset_rest %>  </div>
-  <% else %>
-  <div>总支出：<%= money_show @principle_used_amount %> 总余额：<%= money_show @all_principle_rest %> 账面余额：<%= money_show @actual_principle_rest %></div>
-  <% end %>
 
 <% if on_admin %>
   <%= link_to '删除项目', project_path(@project), method: :delete, data: { confirm: t('helpers.link.delete.confirm') } %>
