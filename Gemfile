@@ -67,3 +67,5 @@ gem 'dynamic_form'
 gem 'thin', group: :production
 
 gem 'pry'
+
+gem 'nokogiri'

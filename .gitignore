@@ -27,3 +27,6 @@
 # Ignore precompiled assets
 /public/assets/application-*
 /public/assets/manifest-*
+
+# Ignore external data
+/lib/tasks/data/LocList.xml

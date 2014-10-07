@@ -98,3 +98,8 @@ rails g scaffold DonationRecord::InterestPeriod rate:decimal start:date end:date
 
 #2014-10-06 16:04:21
 rails g model CorporateCustomer::LinkMan::LinkType name:string
+
+#2014-10-07 14:47:57
+rails g model Region::Country name:string code:string
+rails g model Region::State name:string code:string region_country:references
+rails g model Region::City name:string code:string region_state:references

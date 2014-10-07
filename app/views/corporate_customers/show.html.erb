@@ -11,34 +11,37 @@
 <%= content_for :nav_bar_title do %>
     客户信息
 <% end %>
-
 <div class="info-show">
   <div class="info-block">
     <p>
       <div><strong><%= @self_customer.class.human_attribute_name :name %>：</strong> <span><%= @self_customer.name! %></span></div>
-      <div><small>创建者： <span><%= link_to @self_customer.creator!.name, @self_customer.creator! %></span></small></div>
+      <div><small>录入人： <span><%= link_to @self_customer.creator!.name, @self_customer.creator! %></span></small></div>
     </p>
   </div>
 </div>
-<%= render 'common_customers/info' %>
+<div id="project-info">
+  <%= render 'common_customers/info' %>
 
-<hr>
-<div>
-  <strong>负责人：</strong> 
-  <% @self_customer.manager_link_men.each do |lm| %>
-    <span><%= link_to lm.instance.name!, corporate_customer_link_man_path(@self_customer, lm.id) %></span>
-  <% end %>
-  <%= link_to new_corporate_customer_link_man_path(@self_customer, type: CorporateCustomer::LinkMan::LinkType.manager_id) do %>
-    <%= button_tag '添加' %>
-  <% end %>
-</div>
-<div>
-  <strong>联系人：</strong> 
-  <% @self_customer.ordinary_link_men.each do |lm| %>
-    <span><%= link_to lm.instance.name!, corporate_customer_link_man_path(@self_customer, lm.id) %></span>
-  <% end %>
-  <%= link_to new_corporate_customer_link_man_path(@self_customer, type: CorporateCustomer::LinkMan::LinkType.ordinary_id) do %>
-    <%= button_tag '添加' %>
-  <% end %>
+  <div class="info-block">
+    <strong>负责人：</strong> 
+    <% @self_customer.manager_link_men.each do |lm| %>
+      <span><%= link_to lm.instance.name!, corporate_customer_link_man_path(@self_customer, lm.id) %></span>
+    <% end %>
+    <%= link_to new_corporate_customer_link_man_path(@self_customer, type: CorporateCustomer::LinkMan::LinkType.manager_id) do %>
+      <%= button_tag '添加' %>
+    <% end %>
+  </div>
+  <div class="info-block">
+    <strong>联系人：</strong> 
+    <% @self_customer.ordinary_link_men.each do |lm| %>
+      <span><%= link_to lm.instance.name!, corporate_customer_link_man_path(@self_customer, lm.id) %></span>
+    <% end %>
+    <%= link_to new_corporate_customer_link_man_path(@self_customer, type: CorporateCustomer::LinkMan::LinkType.ordinary_id) do %>
+      <%= button_tag '添加' %>
+    <% end %>
+  </div>
+  <hr>
+
+  <%= render 'common_customers/record' %>
 </div>
 

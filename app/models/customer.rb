@@ -4,6 +4,18 @@ class Customer < ActiveRecord::Base
   belongs_to :customer, polymorphic: true
   # has_and_belongs_to_many :customer_groups
   belongs_to :creator, class_name: :User
+
+  belongs_to :region_country, class_name: 'Region::Country'
+  belongs_to :region_state, class_name: 'Region::State'
+  belongs_to :region_city, class_name: 'Region::City'
+  
+  alias_attribute :country, :region_country
+  alias_attribute :state, :region_state
+  alias_attribute :city, :region_city  
+  alias_attribute :country_id, :region_country_id
+  alias_attribute :state_id, :region_state_id
+  alias_attribute :city_id, :region_city_id
+
   has_many :donation_records
   has_many :contact_records
 

@@ -4,15 +4,15 @@
 </div>
 <div class="field">
   <%= f.label :country %><br>
-  <%= f.text_field :country %>
+  <%= f.select :country_id, Region::Country.all.collect{ |e| [e.name, e.id] }  %>
 </div>
 <div class="field">
-  <%= f.label :province %><br>
-  <%= f.text_field :province %>
+  <%= f.label :state %><br>
+  <%= f.select :state_id, Region::State.all.collect{ |e| [e.name, e.id] }  %>
 </div>
 <div class="field">
   <%= f.label :city %><br>
-  <%= f.text_field :city %>
+  <%= f.select :city_id, Region::City.all.collect{ |e| [e.name, e.id] } %>
 </div>
 <div class="field">
   <%= of.label :address %><br>

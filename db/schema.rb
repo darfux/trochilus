@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141006083729) do
+ActiveRecord::Schema.define(version: 20141007123546) do
 
   create_table "attachments", force: true do |t|
     t.integer  "attachment_owner_id"
@@ -95,9 +95,6 @@ ActiveRecord::Schema.define(version: 20141006083729) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "creator_id"
-    t.string   "country"
-    t.string   "province"
-    t.string   "city"
     t.string   "address"
     t.string   "tel"
     t.string   "email"
@@ -105,6 +102,9 @@ ActiveRecord::Schema.define(version: 20141006083729) do
     t.string   "postcode"
     t.text     "comment"
     t.text     "name_abbrpy"
+    t.integer  "region_country_id"
+    t.integer  "region_state_id"
+    t.integer  "region_city_id"
   end
 
   add_index "customers", ["creator_id"], name: "index_customers_on_creator_id"
@@ -297,6 +297,33 @@ ActiveRecord::Schema.define(version: 20141006083729) do
   add_index "projects", ["project_level_id"], name: "index_projects_on_project_level_id"
   add_index "projects", ["project_state_id"], name: "index_projects_on_project_state_id"
   add_index "projects", ["project_type_id"], name: "index_projects_on_project_type_id"
+
+  create_table "region_cities", force: true do |t|
+    t.string   "name"
+    t.string   "code"
+    t.integer  "region_state_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "region_cities", ["region_state_id"], name: "index_region_cities_on_region_state_id"
+
+  create_table "region_countries", force: true do |t|
+    t.string   "name"
+    t.string   "code"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "region_states", force: true do |t|
+    t.string   "name"
+    t.string   "code"
+    t.integer  "region_country_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "region_states", ["region_country_id"], name: "index_region_states_on_region_country_id"
 
   create_table "schoolfellow_study_experiences", force: true do |t|
     t.integer  "schoolfellow_id"

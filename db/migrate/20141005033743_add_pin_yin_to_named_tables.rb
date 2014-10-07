@@ -5,26 +5,31 @@ class AddPinYinToNamedTables < ActiveRecord::Migration
     db_bak_path = db_path+".bak_#{migrate_id}"
     FileUtils.cp(db_path, db_bak_path)
     begin
-      Rails.application.eager_load!
-      ActiveRecord::Base.descendants.each do |klass|  
-        klass.columns.each do |c| 
-          if c.name=="name"
-            t = klass.table_name.to_sym
-            nc = :name_abbrpy
-            add_column t, nc, :text
-            add_index t, nc
-            klass.reset_column_information # http://guides.rubyonrails.org/migrations.html#using-models-in-your-migrations
-            klass.all.each do |r|
-              r.send("#{nc}=", PinYin.abbr(r.name))
-              r.save!
-            end
-            break
+      klasses = [
+        "Employee", "Project", "FundType", "Customer", "Currency", 
+        "Degree", "DonationType", "Major", "ProjectLevel", "ProjectState", 
+        "ProjectType", "TeacherTitle", "UnivUnit", "UnivUnitManager", "UsageType"
+      ].map{ |name| name.constantize}
+      nc = :name_abbrpy
+      klasses.each do |klass|
+        t = klass.table_name.to_sym
+        add_column t, nc, :text
+        add_index t, nc
+      end
+      klasses.each do |klass|
+        klass.reset_column_information # http://guides.rubyonrails.org/migrations.html#using-models-in-your-migrations
+        puts "==Coverting name to pinyin for #{klass}"
+        klass.transaction do
+          klass.all.each do |r|
+            r.send("#{nc}=", PinYin.abbr(r.name))
+            r.save!
           end
         end
       end
     rescue Exception => e  
       FileUtils.mv(db_bak_path, db_path)
-      puts e.message  
+      puts e.message
+      puts e.backtrace
       raise "Migration failed"
     end
     bak_directory = "#{Rails.root}/db/migrate_db_bak/"

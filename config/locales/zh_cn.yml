@@ -284,7 +284,7 @@ zh_cn:
     label: 
       customer: &peopleinfo
         country: 国家或地区
-        province: 省份
+        state: 省/直辖市/特别行政区/州
         city: 城市
         tel: 电话
         email: 电子邮件

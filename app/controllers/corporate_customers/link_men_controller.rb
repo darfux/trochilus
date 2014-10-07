@@ -15,7 +15,7 @@ class CorporateCustomers::LinkMenController < ApplicationController
       begin
         @customer.link_men<< CorporateCustomer::LinkMan.new( 
           individual_customer_id: l_id, corporate_customer_id: params[:corporate_customer_id], 
-          corporate_customer_link_man_type_id: params[:type])
+          corporate_customer_link_man_link_type_id: params[:type])
       rescue
         raise '123'
       end
