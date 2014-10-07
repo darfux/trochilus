@@ -2,16 +2,9 @@
 <%= form_for(@project_news) do |f| %>
   <% if @project_news.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@project_news.errors.count, "error") %> prohibited this project_news from being saved:</h2>
-
-      <ul>
-      <% @project_news.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+      <%= error_messages_for @project_news %>
     </div>
   <% end %>
-
   <div class="field">
     <%= f.label :title %><br>
     <%= f.text_field :title %>

@@ -45,7 +45,7 @@
   <% end %>
   <div class="field">
     <%= f.label :fund_time %><br />
-    <%= datetime_select :fund_time, :time, start_year: default_start_year, default: DateTime.now.beginning_of_day %>
+    <%= date_select :fund_time, :time, start_year: default_start_year, default: DateTime.now.beginning_of_day %>
   </div>
 
   <div class="field">

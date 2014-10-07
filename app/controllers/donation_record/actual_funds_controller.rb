@@ -1,7 +1,8 @@
 class DonationRecord::ActualFundsController < ApplicationController
-  before_action :set_donation_record_actual_fund, only: [:show, :edit, :update, :destroy]
+  before_action :set_donation_record_actual_fund, only: [:new, :show, :edit, :update, :destroy]
   before_action :set_donation_record, only: [:new, :create, :edit, :update, :destroy]
   before_action :set_project, only: [:new, :create, :edit, :update]
+  before_action :init_proof, only: [:new, :edit]
   # GET /donation_record/actual_funds
   # GET /donation_record/actual_funds.json
   def index
@@ -15,11 +16,7 @@ class DonationRecord::ActualFundsController < ApplicationController
 
   # GET /donation_record/actual_funds/new
   def new
-    @donation_record_actual_fund = DonationRecord::ActualFund.new
-    unless @donation_record.project.endowment
-      @donation_record_actual_fund.fund_type = FundType.where(name: :principle).first
-    end
-    # raise params.inspect
+    @donation_record_actual_fund.fund_type = FundType.where(name: :principle).first #default fund type
   end
 
   # GET /donation_record/actual_funds/1/edit
@@ -71,13 +68,13 @@ class DonationRecord::ActualFundsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_donation_record_actual_fund
-      @donation_record_actual_fund = DonationRecord::ActualFund.find(params[:id])
+      @donation_record_actual_fund = (id=params[:id]) ? DonationRecord::ActualFund.find(id) : DonationRecord::ActualFund.new
     end
 
     def set_donation_record
       @donation_record =  (
-        if @donation_record_actual_fund && @donation_record_actual_fund.donation_record
-          @donation_record_actual_fund.donation_record
+        if (f=@donation_record_actual_fund) && f.donation_record
+          f.donation_record
         else
           DonationRecord.find(params[:donation_record_id])
         end
@@ -86,6 +83,10 @@ class DonationRecord::ActualFundsController < ApplicationController
 
     def set_project
       @project = @donation_record.project
+    end
+
+    def init_proof
+      @donation_record_actual_fund.build_proof
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

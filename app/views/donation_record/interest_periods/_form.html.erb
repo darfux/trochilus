@@ -2,16 +2,10 @@
 <%= form_for(@donation_record_interest_period) do |f| %>
   <% if @donation_record_interest_period.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@donation_record_interest_period.errors.count, "error") %> prohibited this donation_record_interest_period from being saved:</h2>
-
-      <ul>
-      <% @donation_record_interest_period.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+      <%= error_messages_for @donation_record_interest_period %>
     </div>
   <% end %>
-
+  
   <div class="field">
     <%= f.label :rate %><br>
     <%= f.text_field :rate %>%

@@ -179,7 +179,13 @@ zh_cn:
             create_unit: 
               <<: *common_errors
             create_manager: 
-              <<: *common_errors 
+              <<: *common_errors
+        project/news:
+          attributes:
+            title:
+              <<: *common_errors
+            link:
+              <<: *common_errors
         customer:
           attributes:
             name:

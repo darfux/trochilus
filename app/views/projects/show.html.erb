@@ -68,7 +68,11 @@
         <% @attachments.each do |a| %>
         <p><%= link_to a.filename, a.file.url %><span class='delete-attachment'><%= link_to t('helpers.link.delete.name'),attachment_project_path(@project, a), method: :delete, data: { confirm: t('helpers.link.delete.confirm') } %></span></p>
         <% end %>
-        <div><%= link_to '新建', new_attachment_project_path %></div>
+        <div>
+          <%= link_to new_attachment_project_path, onp do %>
+            <%= button_tag '添加' %>
+          <% end %>
+        </div>
       </div>
     </p>
   </div>
@@ -88,7 +92,9 @@
       <% end %>
     </div>
     <br>
-    <%= link_to '添加', new_project_news_path(@project) %>
+    <%= link_to new_project_news_path(@project) do %>
+      <%= button_tag '添加' %>
+    <% end %>
   </div>
 
 

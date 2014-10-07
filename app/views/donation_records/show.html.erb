@@ -64,11 +64,11 @@
       <% @donation_record.actual_funds.each do |actual_fund| %>
         <tr>
           <td><%= actual_fund.amount! %></td>
-          <td><%= l actual_fund.time! %></td>
+          <td><%= l_d actual_fund.time! %></td>
           <% if @project.endowment %>
           <td><%= t actual_fund.fund_type.name, scope: 'fund.type' %></td>
           <% end %>
-          <td><%= link_to actual_fund.proof.filename, actual_fund.proof.file.url %></td>
+          <td><%= (p=actual_fund.proof) ? link_to(p.filename, p.file.url) : '无'%></td>
           <td><%= link_to '编辑', edit_donation_record_actual_fund_path(actual_fund) %></td>
           <td><%= link_to '删除', donation_record_actual_fund_path(actual_fund), del_confirm %></td>
         </tr>
