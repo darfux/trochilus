@@ -1,5 +1,12 @@
 Rails.application.routes.draw do
 
+
+  namespace :region do
+    get 'country', as: :country
+    get 'state', as: :state
+    get 'city', as: :city
+  end
+
   namespace :schoolfellow do
     resources :teach_experiences
   end

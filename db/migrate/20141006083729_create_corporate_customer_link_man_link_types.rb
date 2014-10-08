@@ -5,7 +5,9 @@ class CreateCorporateCustomerLinkManLinkTypes < ActiveRecord::Migration
 
       t.timestamps
     end
-    # CorporateCustomer::LinkMan::LinkType.reset_column_information
+    #http://stackoverflow.com/questions/577944/how-to-run-rake-tasks-from-within-rake-tasks
+    #This first resets the task's already_invoked state, allowing the task to then be executed again, dependencies and all
+    Rake.application["db:import_data"].reenable
     Rake.application["db:import_data"].invoke('corporate_customer_link_man_link_types')
     change_table :corporate_customer_link_men do |t|
       t.references :corporate_customer_link_man_link_type

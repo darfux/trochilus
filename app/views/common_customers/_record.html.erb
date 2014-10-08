@@ -32,7 +32,7 @@
           <td><%= link_to dr.project.name, dr.project %></td>
           <td class="currency-show"><%= money_show dr.plan_fund.amount %></td>
           <td><%= l_d dr.plan_fund.time %></td>
-          <td><%= c.link_men.where(individual_customer_id: @self_customer.id).first.type.name_t %></td>
+          <td><%= (lm=c.link_men.where(individual_customer_id: @self_customer.id).first) ? lm.type.name_t : '无' %></td>
         </tr>
         <% end %>
       </tbody>

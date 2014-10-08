@@ -1,15 +1,53 @@
 desc "Static data import"
 
-datas = [ 
-          :project_types,   :project_levels,  :project_states, 
-          :fund_types,       :currencies,
-          :usage_types,     :donation_types,
-          :univ_units,      :univ_unit_managers, :majors, :degrees,
-          :teacher_titles,
-          :corporate_customer_link_man_link_types,
-          :loc_infos
-        ]
 
+namespace :db do
+task :import_data, [:args] => :environment do |t, args|
+  datas = [ 
+            :project_types,   :project_levels,  :project_states, 
+            :fund_types,       :currencies,
+            :usage_types,     :donation_types,
+            :univ_units,      :univ_unit_managers, :majors, :degrees,
+            :teacher_titles,
+            :corporate_customer_link_man_link_types,
+            :loc_infos
+          ]
+  if args[:args]
+    subjects = datas & args[:args].split('+').collect{ |e| e.pluralize.to_sym }
+  end
+  Rails.root.join
+  if RUBY_VERSION < '2.1.0'
+    require './lib/patches/array#to_h.rb'
+  end
+  subjects.each do |name|
+    if name != :loc_infos
+      klass = nil
+      Rails.application.eager_load!
+      ActiveRecord::Base.descendants.each do |k|
+        if k.table_name == name.to_s
+          klass = k
+          break
+        end
+      end
+      raise "No class match table #{name}" unless klass
+      if klass.all.count != 0
+        puts "===#{klass.to_s}\talready has data, skipped==="
+        next
+      end
+      DatabaseCleaner.clean_with(:truncation, :only => [name])#reset the id
+      import_plain_data(name, klass)
+      puts "===#{klass.to_s} import complete==="
+    else
+      klass = "Region"
+      import_loc_info
+    end
+  end
+  if subjects.empty?
+    puts "Nothing to do.Wrong arguments? #{args[:args]}"
+  else
+    puts "====All data import complete[#{Rails.env}]===="
+  end
+end
 def import_plain_data(name, klass)
   File.open("./lib/tasks/data/#{name}", 'r') do |f|
     e = f.each_line
@@ -47,7 +85,7 @@ def import_loc_info
     return
   end
   get_info = proc { |obj| 
-    {name: obj.attr('Name')||:Default, code: obj.attr('Code')} 
+    {name: obj.attr('Name')||'默认', code: obj.attr('Code')} 
   }
   doc = Nokogiri::XML(File.open("./lib/tasks/data/LocList.xml", 'r'))
   DatabaseCleaner.clean_with(:truncation, :only => [:region_countries, :region_states, :region_cities])
@@ -76,44 +114,5 @@ def import_loc_info
     puts get_info.call(country), get_info.call(state), get_info.call(city)
   end
   puts "===Region\timport complete==="
-end
-
-namespace :db do
-task :import_data, [:args] => :environment do |t, args|
-  if args[:args]
-    datas &= args[:args].split('+').collect{ |e| e.pluralize.to_sym }
-  end
-  Rails.root.join
-  if RUBY_VERSION < '2.1.0'
-    require './lib/patches/array#to_h.rb'
-  end
-  datas.each do |name|
-    if name != :loc_infos
-      klass = nil
-      Rails.application.eager_load!
-      ActiveRecord::Base.descendants.each do |k|
-        if k.table_name == name.to_s
-          klass = k
-          break
-        end
-      end
-      raise "No class match table #{name}" unless klass
-      if klass.all.count != 0
-        puts "===#{klass.to_s}\talready has data, skipped==="
-        next
-      end
-      DatabaseCleaner.clean_with(:truncation, :only => [name])#reset the id
-      import_plain_data(name, klass)
-      puts "===#{klass.to_s} import complete==="
-    else
-      klass = "Region"
-      import_loc_info
-    end
-  end
-  if datas.empty?
-    puts "Nothing to do.Wrong arguments?"
-  else
-    puts "====All data import complete[#{Rails.env}]===="
-  end
 end
 end

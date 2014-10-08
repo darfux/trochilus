@@ -52,7 +52,7 @@ ActiveRecord::Schema.define(version: 20141007123546) do
     t.text     "comment"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "corporate_customer_link_man_type_id"
+    t.integer  "corporate_customer_link_man_link_type_id"
   end
 
   add_index "corporate_customer_link_men", ["corporate_customer_id"], name: "index_corporate_customer_link_men_on_corporate_customer_id"

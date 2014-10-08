@@ -1,5 +1,6 @@
 class ChangeCustomerRegionInfoFromStringToForeignKey < ActiveRecord::Migration
   def up
+    Rake.application["db:import_data"].reenable
     Rake.application["db:import_data"].invoke('loc_info')
     change_table :customers do |t|
       t.references :region_country

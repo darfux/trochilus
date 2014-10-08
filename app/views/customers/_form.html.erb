@@ -4,15 +4,15 @@
 </div>
 <div class="field">
   <%= f.label :country %><br>
-  <%= f.select :country_id, Region::Country.all.collect{ |e| [e.name, e.id] }  %>
+  <%= f.select :country_id, Region::Country.all.collect{ |e| [e.name, e.id] }, { include_blank: true }, id: :region_country_select   %>
 </div>
 <div class="field">
   <%= f.label :state %><br>
-  <%= f.select :state_id, Region::State.all.collect{ |e| [e.name, e.id] }  %>
+  <%= f.select :state_id, (c=@self_customer.country!) ? c.states.collect{ |e| [e.name, e.id] } : [], { include_blank: true }, id: :region_state_select   %>
 </div>
 <div class="field">
   <%= f.label :city %><br>
-  <%= f.select :city_id, Region::City.all.collect{ |e| [e.name, e.id] } %>
+  <%= f.select :city_id, (s=@self_customer.state!) ? s.cities.collect{ |e| [e.name, e.id] } : [], { include_blank: true }, id: :region_city_select  %>
 </div>
 <div class="field">
   <%= of.label :address %><br>

@@ -9,7 +9,7 @@ class CorporateCustomer::LinkMan::LinkType < ActiveRecord::Base
   end
 
   def name_t
-    return '普通' if name=='ordinary'
+    return '联系人' if name=='ordinary'
     return '负责人' if name=='manager'
   end
 end
