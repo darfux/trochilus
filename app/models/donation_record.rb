@@ -17,6 +17,10 @@ class DonationRecord < ActiveRecord::Base
   # validates :donation_type, presence: true
   # validates_associated :actual_funds
   
+  def record
+    self
+  end
+  
   def actual_amount(opts={})
     opts.dup.each_pair do |k, v|
       if Fund.method_defined? k

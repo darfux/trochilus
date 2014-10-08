@@ -64,6 +64,7 @@ zh_cn:
       univ_unit_manager: 学校人员
       customer: 客户
       usage_record: 使用记录
+      usage_record/used_fund: 已用款项
       usage_type: 资金用途
       employee: 职员
       project_type: 项目类型
@@ -102,6 +103,7 @@ zh_cn:
         project: 所属项目
       donation_record/actual_fund:
         proof: 进账凭证
+        serialnum: 凭单号
       donation_record/actual_fund/proof:
         file: 进账凭证
       donation_record/interest_period:

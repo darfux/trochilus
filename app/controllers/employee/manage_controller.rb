@@ -56,6 +56,24 @@ class Employee::ManageController < ApplicationController
 
   def others
   end
+
+  def search
+    @search = SearchObject.new
+    @search.type = DonationRecord::ActualFund.search_type(:serialnum)
+  end
+
+  def result
+    @search = SearchObject.new
+    @search.attributes = search_params
+    case @search.type
+    when DonationRecord::ActualFund.search_type(:serialnum)
+      @results = DonationRecord::ActualFund.where(serialnum: @search.query)
+      render 'donation_record_actual_fund_serialnum_result'
+    when Fund.search_type(:amount)
+      @results = Fund.where(amount: @search.query)
+      render 'fund_amount_result'
+    end
+  end
   private
 
     def get_actual_funds(direction='all')

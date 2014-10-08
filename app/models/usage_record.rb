@@ -24,6 +24,10 @@ class UsageRecord < ActiveRecord::Base
   validates_presence_of_all except: [:interest_fund, :principle_fund, :usage_type, :usage_comment, :comment]
   validate :at_least_one_fund
 
+  def record
+    self
+  end
+  
   def set_default_fund
     return if UsageRecord.exists? self
     build_interest_fund unless self.interest_fund

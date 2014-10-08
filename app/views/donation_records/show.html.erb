@@ -57,6 +57,7 @@
         <th>类型</th>
         <% end %>
         <th>进账凭证</th>
+        <th>凭单号</th>
       </tr>
     </thead>
 
@@ -69,6 +70,7 @@
           <td><%= t actual_fund.fund_type.name, scope: 'fund.type' %></td>
           <% end %>
           <td><%= (p=actual_fund.proof) ? link_to(p.filename, p.file.url) : '无'%></td>
+          <td><%= actual_fund.serialnum %></td>
           <td><%= link_to '编辑', edit_donation_record_actual_fund_path(actual_fund) %></td>
           <td><%= link_to '删除', donation_record_actual_fund_path(actual_fund), del_confirm %></td>
         </tr>

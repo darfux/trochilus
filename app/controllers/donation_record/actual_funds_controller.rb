@@ -32,7 +32,7 @@ class DonationRecord::ActualFundsController < ApplicationController
     @donation_record_actual_fund.donation_record = @donation_record
     respond_to do |format|
       if @donation_record_actual_fund.save
-        format.html { redirect_to @donation_record, notice: 'Actual fund was successfully created.' }
+        format.html { redirect_to @donation_record }
         format.json { render :show, status: :created, location: @donation_record_actual_fund }
       else
         format.html { render :new }
@@ -46,7 +46,7 @@ class DonationRecord::ActualFundsController < ApplicationController
   def update
     respond_to do |format|
       if @donation_record_actual_fund.update(donation_record_actual_fund_params)
-        format.html { redirect_to @donation_record, notice: 'Actual fund was successfully updated.' }
+        format.html { redirect_to @donation_record }
         format.json { render :show, status: :ok, location: @donation_record_actual_fund }
       else
         format.html { render :edit }
@@ -60,7 +60,7 @@ class DonationRecord::ActualFundsController < ApplicationController
   def destroy
     @donation_record_actual_fund.destroy
     respond_to do |format|
-      format.html { redirect_to @donation_record, notice: 'Actual fund was successfully destroyed.' }
+      format.html { redirect_to @donation_record}
       format.json { head :no_content }
     end
   end
@@ -92,6 +92,6 @@ class DonationRecord::ActualFundsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def donation_record_actual_fund_params
       params.require(:donation_record_actual_fund)
-        .permit( :fund_type_id, fund_attributes: [:amount, :time, :comment], proof_attributes: [:file] )
+        .permit( :fund_type_id, :serialnum, fund_attributes: [:amount, :time, :comment], proof_attributes: [:file] )
     end
 end

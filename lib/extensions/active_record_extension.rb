@@ -22,6 +22,9 @@ module ActiveRecordExtension
       validates_presence_of all
       all
     end
+    def search_type(attribute)
+      "#{self.to_s.underscore}##{attribute}"
+    end
   end
 end
 

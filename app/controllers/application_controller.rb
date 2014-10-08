@@ -54,4 +54,9 @@ class ApplicationController < ActionController::Base
         raise "wrong param"
       end
     end
+
+    
+    def search_params
+      params.require(:search_object).permit(:type, :query)
+    end
 end

@@ -69,3 +69,7 @@ gem 'thin', group: :production
 gem 'pry'
 
 gem 'nokogiri'
+
+gem "auto_strip_attributes", "~> 2.0"
+
+gem "activerecord-tableless", "~> 1.0"

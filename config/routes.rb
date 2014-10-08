@@ -139,6 +139,8 @@ Rails.application.routes.draw do
 
   namespace :employee do
     get 'manage', to: 'manage#index'
+    get 'search', as: :search, to: 'manage#search'
+    post 'search', as: :get_search, to: 'manage#result'
     namespace :manage do
       get 'projects'
       get 'customers'
