@@ -1,4 +1,7 @@
 class ChangeCustomerRegionInfoFromStringToForeignKey < ActiveRecord::Migration
+  # Using a clean Customer class to avoid refusing with backward code
+  class Customer < ActiveRecord::Base
+  end
   def up
     Rake.application["db:import_data"].reenable
     Rake.application["db:import_data"].invoke('loc_info')
