@@ -30,8 +30,8 @@ class DonationRecordsController < ApplicationController
   # POST /donation_records.json
   def create
     @donation_record = DonationRecord.new(donation_record_params)
+    @donation_record.creator = current_user
     @form_param = [@donation_record.project, @donation_record]
-
     respond_to do |format|
       if @donation_record.save
         format.html { redirect_to @project }
@@ -110,9 +110,6 @@ class DonationRecordsController < ApplicationController
         .permit(  :customer_id, :project_id, :donation_type_id,
                   fund_attributes: [:amount, :time, :comment, :currency_id, :origin_amount]
                   )
-        .tap{ |p| 
-          p[:creator_id] = current_user.id
-        }
     end
     def attachment_params
       params.require(:attachment).permit(:file).tap{ |p| p[:attachment_owner]=@donation_record }

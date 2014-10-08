@@ -25,7 +25,7 @@ class ContactRecordsController < ApplicationController
   # POST /contact_records.json
   def create
     @contact_record = ContactRecord.new(contact_record_params)
-
+    @contact_record.creator = current_user
     respond_to do |format|
       if @contact_record.save
         format.html { redirect_to @customer, notice: 'Contact record was successfully created.' }
@@ -73,7 +73,6 @@ class ContactRecordsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def contact_record_params
       params.require(:contact_record).permit(:time, :location, :description, :conclusion).tap{ |p|
-        p[:creator_id] = current_user.id
         p[:customer_id] = params[:customer_id]
       }
     end

@@ -18,6 +18,7 @@ class UsageRecordsController < ApplicationController
   def new
     @usage_record = UsageRecord.new
     @usage_record.project = Project.find(params[:project_id])
+    @usage_record.creator = current_user
     @usage_record.exec_unit = @usage_record.project.create_unit
     @form_parm = [@usage_record.project, @usage_record]
   end
@@ -116,7 +117,6 @@ class UsageRecordsController < ApplicationController
               principle_fund_attributes: [fund_attributes: [:amount]]
               )
         .tap{ |p|
-        p[:creator_id] = current_user.id
         p[:interest_fund_attributes] && p[:interest_fund_attributes][:fund_attributes].merge!(params[:fund_time])
         p[:principle_fund_attributes][:fund_attributes].merge! params[:fund_time]
       }
