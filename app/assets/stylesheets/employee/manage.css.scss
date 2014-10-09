@@ -338,6 +338,9 @@ $elm_padding_top: 4px;
 	padding: 5px 0;
 	width: 80%;
 	margin: 0 auto;
+	a{
+		color: gray;
+	}
 }
 #project-news-list{
 	.title{
@@ -428,4 +431,32 @@ $elm_padding_top: 4px;
 
 .currency-show{
 	text-align: right;
+}
+
+.autidts-history-table{
+	text-align: left;
+	td, th{
+		padding-right: 25px;
+		margin-right: 10px;
+		border-bottom: solid 1px gray
+	}
+	th{
+		$color: black;
+		color: $color;
+		a{
+			text-decoration: none;
+			color: $color;
+			&:visited{
+				color: $color;
+			}
+		}
+	}
+}
+
+.autidts-history-old-value{
+	color: gray;
+}
+
+.autidts-history-new-value{
+	color: blue;
 }

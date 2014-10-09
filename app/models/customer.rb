@@ -10,7 +10,7 @@ class Customer < ActiveRecord::Base
   belongs_to :region_city, class_name: 'Region::City'
   alias_attribute :country, :region_country
   alias_attribute :state, :region_state
-  alias_attribute :city, :region_city  
+  alias_attribute :city, :region_city
   alias_attribute :country_id, :region_country_id
   alias_attribute :state_id, :region_state_id
   alias_attribute :city_id, :region_city_id

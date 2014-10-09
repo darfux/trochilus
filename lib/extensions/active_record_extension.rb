@@ -25,6 +25,20 @@ module ActiveRecordExtension
     def search_type(attribute)
       "#{self.to_s.underscore}##{attribute}"
     end
+    def foreign_keys
+      return @__foreign_keys if @__foreign_keys
+      fks = {}
+      (
+        proc do
+          reflect_on_all_associations(:belongs_to).each do |a| 
+            name = a.name
+            fk = ( (tmp=a.options[:foreign_key]) ? tmp : ("#{name}_id") )
+            fks[fk.to_sym] = name
+          end
+        end
+      ).call()
+      @__foreign_keys = fks
+    end
   end
 end
 

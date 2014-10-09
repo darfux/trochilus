@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy, 
-    :new_attachment, :create_attachment, :destroy_attachment]
+    :new_attachment, :create_attachment, :destroy_attachment, :history]
   before_action :set_attachments, only: [:show]
   before_action :set_statistics_info, only: [:show]
   # GET /projects
@@ -84,6 +84,9 @@ class ProjectsController < ApplicationController
     raise 'unmatched project' if @project != @attachment.owner
     @attachment.destroy
     redirect_to @project
+  end
+
+  def history
   end
   private
     # Use callbacks to share common setup or constraints between actions.

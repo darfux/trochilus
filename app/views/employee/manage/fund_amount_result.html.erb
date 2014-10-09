@@ -10,7 +10,6 @@
     <% @results.each do |f| %>
     <tr>
       <td><%= link_to_with f.fund_instance.project, :name %></td>
-      <td><%= link_to_with f.fund_instance.project, :name %></td>
       <td><%= l_d f.time %></td>
       <td><%= f.fund_instance.class.model_name.human %></td>
       <td><%= link_to '查看', f.fund_instance.record %></td>

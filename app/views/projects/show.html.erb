@@ -33,7 +33,7 @@
       </tr>
     </tbody>
   </table>
-  <div id="project-info-header">项目信息</div>
+  <div id="project-info-header">项目信息  <span><small><%= link_to '操作历史', history_project_path(@project), onp %></small></span></div>
   <div class="info-block">
     <p>
       <div><strong>名称：</strong> <span><%= @project.name %></span></div>

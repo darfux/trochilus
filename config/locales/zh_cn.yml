@@ -78,7 +78,13 @@ zh_cn:
         password_confirmation: 确认密码
       project:
         name: 项目名称
+        serialnum: 序列号
+        creator: 创建人
+        brief: 简介
+        endowment: 留本
+        interest_rate: 利率
         create_date: 创建时间
+        project_level: 项目级别
         project_level: 项目级别
         project_state: 项目状态
         project_type: 项目类型
@@ -267,7 +273,9 @@ zh_cn:
     type:
       principle: 本金
       interest: 利息
-
+  audit:
+    create: 创建
+    update: 更新
 
   #HELPERS
   helpers:

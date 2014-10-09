@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141008132317) do
+ActiveRecord::Schema.define(version: 20141009032611) do
 
   create_table "attachments", force: true do |t|
     t.integer  "attachment_owner_id"
@@ -25,6 +25,29 @@ ActiveRecord::Schema.define(version: 20141008132317) do
   end
 
   add_index "attachments", ["attachment_owner_id", "attachment_owner_type"], name: "index_attachments_on_its_owner_id_and_owner_type"
+
+  create_table "audits", force: true do |t|
+    t.integer  "auditable_id"
+    t.string   "auditable_type"
+    t.integer  "associated_id"
+    t.string   "associated_type"
+    t.integer  "user_id"
+    t.string   "user_type"
+    t.string   "username"
+    t.string   "action"
+    t.text     "audited_changes"
+    t.integer  "version",         default: 0
+    t.string   "comment"
+    t.string   "remote_address"
+    t.string   "request_uuid"
+    t.datetime "created_at"
+  end
+
+  add_index "audits", ["associated_id", "associated_type"], name: "associated_index"
+  add_index "audits", ["auditable_id", "auditable_type"], name: "auditable_index"
+  add_index "audits", ["created_at"], name: "index_audits_on_created_at"
+  add_index "audits", ["request_uuid"], name: "index_audits_on_request_uuid"
+  add_index "audits", ["user_id", "user_type"], name: "user_index"
 
   create_table "contact_records", force: true do |t|
     t.integer  "customer_id"

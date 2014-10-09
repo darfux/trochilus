@@ -1,4 +1,5 @@
 class Project < ActiveRecord::Base
+  audited except: [:name_abbrpy, :creator_id]
   has_pin_yin_name
   belongs_to :project_level
   belongs_to :project_state
@@ -11,7 +12,7 @@ class Project < ActiveRecord::Base
   has_many :link_men, class_name: :Customer, through: :project_link_men, source: :customer
   has_many :donation_records, dependent: :destroy
   has_many :usage_records, dependent: :destroy
-  has_many :news
+  has_many :news, dependent: :destroy
 
   has_many :attachments, as: :attachment_owner, validate: true, dependent: :destroy
   
@@ -26,13 +27,12 @@ class Project < ActiveRecord::Base
     I18n.translate(e, scope: 'project.endowment')
   end
   
-  # def #{pre}_amount
-  #   amount = 0
-  #   donation_records.each do |d|
-  #     amount+=d.#{pre}_amount
-  #   end
-  #   amount
-  # end
+  def self.attribute_show(key, value)
+    attribute = foreign_keys[key.to_sym]
+    return value unless attribute
+    Project.new(key => value).send(attribute).name
+  end
+
   [:total_amount, :actual_amount, :interest_amount].each do |method_name|      
     define_method(method_name, 
       ->(opts = {}, *splat, &block) do

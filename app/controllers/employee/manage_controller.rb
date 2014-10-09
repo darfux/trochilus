@@ -70,7 +70,7 @@ class Employee::ManageController < ApplicationController
       @results = DonationRecord::ActualFund.where(serialnum: @search.query)
       render 'donation_record_actual_fund_serialnum_result'
     when Fund.search_type(:amount)
-      @results = Fund.where(amount: @search.query)
+      @results = Fund.where(amount: @search.query).order('time DESC')
       render 'fund_amount_result'
     end
   end
