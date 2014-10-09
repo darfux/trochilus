@@ -6,6 +6,6 @@ class Currency < ActiveRecord::Base
   end
 
   def self.CNY
-    find_by_symbol(:CNY)
+    @CNY ||= find_by!(symbol: :CNY)
   end
 end

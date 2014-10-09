@@ -9,9 +9,11 @@ class UsageRecord < ActiveRecord::Base
   belongs_to :usage_type
   belongs_to :fund_type
   
-  has_one :interest_fund, ->{ where(fund_type_id: FundType.find_by(name: :interest).id) } , 
+
+
+  has_one :interest_fund, ->{ where(fund_type_id: FundType.interest_id) } , 
     class_name: :'UsageRecord::UsedFund', dependent: :destroy, validate: true
-  has_one :principle_fund, ->{ where(fund_type_id: FundType.find_by(name: :principle).id) } , 
+  has_one :principle_fund, ->{ where(fund_type_id: FundType.principle_id) } , 
     class_name: :'UsageRecord::UsedFund', dependent: :destroy, validate: true
   has_many :attachments, as: :attachment_owner, validate: true, dependent: :destroy
 
