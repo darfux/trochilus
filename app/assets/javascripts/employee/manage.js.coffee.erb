@@ -5,14 +5,14 @@
 initTableFilters = ->
 	$('.filter').children('select').each ->
 		$(this).change ->
-			f = $.query.get('filters')
+			f = $.query.get('filters[scope]')
 			f ||= {}
 			filter = $(this).attr('id')
 			if $(this).val()
 				f[filter] = $(this).val()
 			else
 				delete f[filter]
-			params = $.query.set('filters', f)
+			params = $.query.set('filters[scope]', f)
 			if params.toString()
 				location.search = params
 			else

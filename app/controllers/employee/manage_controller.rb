@@ -1,17 +1,15 @@
 class Employee::ManageController < ApplicationController
-  def index
+  def indexp
   end
 
   def projects
-    tmp = (
-      Project.all
-    )
-    tmp = handle_filter(tmp)
-    tmp = tmp.sort_by{ |e| e.name_with_py }
-    tmp = handle_sort(tmp)
-    @projects = tmp
+    tmp = Project.all.order(:name_abbrpy)
+    tmp = Project.handle_filter(Trochilus::ModelFilter.new(params), tmp)
+    # tmp = handle_sort(tmp)
     @total_amount = @rest_amount = 0
-    @projects.each { |p| @total_amount+=p.total_amount; @rest_amount+=p.principle_rest }
+    tmp.each { |p| @total_amount+=p.total_amount; @rest_amount+=p.principle_rest }
+    @projects = Kaminari.paginate_array(tmp).page(params[:page]).per(15)
+    # @projects = tmp
   end
 
   def customers

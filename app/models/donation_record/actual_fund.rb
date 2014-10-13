@@ -16,4 +16,8 @@ class DonationRecord::ActualFund < ActiveRecord::Base
   def record
     donation_record
   end
+
+  def self.join_funds(opts={})
+    joins(join_fund_arg).select('* ,funds.*')
+  end 
 end

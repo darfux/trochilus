@@ -12,14 +12,14 @@ module Employee::ManageHelper
       end
     )
   end
-  def gen_sort(text, col)
-    if params[:col] == col.to_s
+  def gen_sort(text, attribute)
+    if params.direct_fetch([:filters, :sort, :attribute]) == attribute.to_s
       opt = (
-        case tmp=params[:sort]
+        case tmp=params[:filters][:sort][:order]
         when '1'
           -1
         when '-1'
-          col = nil
+          attribute = nil
           nil
         end
       )
@@ -35,9 +35,17 @@ module Employee::ManageHelper
       opt = 1
       decor = ''
     end
-    sort_params = {col: col, sort: opt}
+    sort_params = (
+      if opt
+        { filters: { sort: {attribute: attribute, order: opt} } }
+      else
+        tmp = params[:filters].tap{ |p| p.delete(:sort) if p }
+        tmp.empty? ? params.delete(:filters) : tmp
+      end
+    )
     link_to text+decor, current_path(sort_params)
   end
+
   def select_existed(host_klass, dest)
     host_table = host_klass.table_name
     dest_klass = 
@@ -49,7 +57,8 @@ module Employee::ManageHelper
       .select("'#{dest_table}'.'name', '#{dest_table}'.'id'"), :id, :name, default_filter_val(dest)
     )
   end
+  
   def default_filter_val(filter)
-    (f = params[:filters]).nil? ? nil : f[filter]
+    (f = params.direct_fetch([:filters, :scope])).nil? ? nil : f[filter]
   end
 end

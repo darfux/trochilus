@@ -75,3 +75,5 @@ gem "auto_strip_attributes", "~> 2.0"
 gem "activerecord-tableless", "~> 1.0"
 
 gem "audited-activerecord", "~> 4.0"
+
+gem 'kaminari'
