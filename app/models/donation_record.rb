@@ -32,11 +32,11 @@ class DonationRecord < ActiveRecord::Base
   # end
 
   def self.actual_funds(opts={})
-    joins(:actual_funds).merge(DonationRecord::ActualFund.join_funds)
+    joins('LEFT OUTER JOIN "donation_records_actual_funds" ON "donation_records_actual_funds"."donation_record_id" = "donation_records"."id" ').merge(DonationRecord::ActualFund.join_funds)
   end
 
   def self.funds(opts={})
-    joins(join_fund_arg).select('* ,funds.* as donation_record_funds.*')
+    joins(outer_join_fund_arg).select('* ,funds.* as donation_record_funds.*')
   end
 
   def actual_amount(opts={})

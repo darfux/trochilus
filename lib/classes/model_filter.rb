@@ -1,16 +1,13 @@
 class Trochilus::ModelFilter
   class Sort
+    attr_reader :attribute, :desc
     def initialize(h)
       @h = h || {}
-    end
-    def desc
-      @desc ||= (@h[:order]=='1' ? true : false)
+      @attribute = (tmp=@h[:attribute]).nil? ? nil : tmp.to_sym
+      @desc = (@h[:order]=='1' ? true : false)
     end
     def desc_sql
       desc ? " DESC" : ""
-    end
-    def attribute
-      @h[:attribute]
     end
   end
   

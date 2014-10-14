@@ -22,8 +22,10 @@ class Project < ActiveRecord::Base
   validates_presence_of :project_level
   validates_presence_of_all except: [:interest_rate, :endowment, :brief, :serialnum, :create_manager, :comment]
 
-  scope :with_total_amount, ->{ joins(:donation_records).merge(DonationRecord.funds)
-      .except(:select).select('projects.*', "sum(amount) as total_amount").group('projects.id') }
+  scope :with_total_amount, ->{ joins('LEFT OUTER JOIN "donation_records" ON "donation_records"."project_id" = "projects"."id" ').merge(DonationRecord.funds)
+      .except(:select).select('projects.*', "sum(ifnull(amount, 0)) as total_amount").group('projects.id') }
+
+  scope :order_by_total_amount, -> desc { with_total_amount.reorder("total_amount#{desc ? ' DESC' : ''}") }
 
 
   def endowment_t
@@ -51,10 +53,10 @@ class Project < ActiveRecord::Base
     donation_records.merge(DonationRecord.funds).sum(:amount)
   end
   
-  def self.with_total_amount(relation=nil)
-    (relation||Project).joins(:donation_records).merge(DonationRecord.funds)
-      .except(:select).select('projects.*', "sum(amount) as total_amount").group('projects.id')
-  end
+  # def self.with_total_amount(relation=nil)
+  #   (relation||Project).joins(:donation_records).merge(DonationRecord.funds)
+  #     .except(:select).select('projects.*', "sum(amount) as total_amount").group('projects.id')
+  # end
 
   def actual_amount(opts={})
     actual_funds.sum(:amount)
@@ -106,18 +108,19 @@ class Project < ActiveRecord::Base
     desc = sort.desc
     desc_sql = sort.desc_sql
 
-    @scoped_orders = [:with_total_amount, :create_date]
+    @scoped_orders = [:order_by_total_amount, :create_date]
     @method_orders = [:principle_rest]
     sa=sort.attribute
     if @scoped_orders.include? sa
-      relation = relation.order("#{sa}#{desc_sql}")
+      relation = relation.send(sa, desc)
+      # binding.pry
     end
     if @method_orders.include? sa
       tmp = relation.sort_by{|p| p.principle_rest}
       tmp.reverse! if desc
       relation = tmp
     end
-    relation
+    relation.to_a
   end
 
 end
