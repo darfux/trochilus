@@ -22,10 +22,10 @@ class Project < ActiveRecord::Base
   validates_presence_of :project_level
   validates_presence_of_all except: [:interest_rate, :endowment, :brief, :serialnum, :create_manager, :comment]
 
-  scope :with_total_amount, ->{ joins('LEFT OUTER JOIN "donation_records" ON "donation_records"."project_id" = "projects"."id" ').merge(DonationRecord.funds)
+  scope :with_total_amount, ->{ joins(outerjoin_arg(:donation_records)).merge(DonationRecord.funds)
       .except(:select).select('projects.*', "sum(ifnull(amount, 0)) as total_amount").group('projects.id') }
 
-  scope :order_by_total_amount, -> desc { with_total_amount.reorder("total_amount#{desc ? ' DESC' : ''}") }
+  scope :order_by_total_amount, ->(desc=false) { with_total_amount.reorder("total_amount#{desc ? ' DESC' : ''}") }
 
 
   def endowment_t

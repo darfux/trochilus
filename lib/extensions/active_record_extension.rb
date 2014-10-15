@@ -39,6 +39,11 @@ module ActiveRecordExtension
       ).call()
       @__foreign_keys = fks
     end
+
+    def outerjoin_arg(target)
+      %Q{LEFT OUTER JOIN "#{target}" ON "#{target}"."#{table_name.singularize}_id" = "#{table_name}"."id"}
+    end
+
   end
 end
 
