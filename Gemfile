@@ -77,3 +77,5 @@ gem "activerecord-tableless", "~> 1.0"
 gem "audited-activerecord", "~> 4.0"
 
 gem 'kaminari'
+
+gem 'awesome_print', group: :development

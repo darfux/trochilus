@@ -46,6 +46,7 @@ GEM
       rails (> 3.1.0)
     auto_strip_attributes (2.0.6)
       activerecord (>= 3.0)
+    awesome_print (1.2.0)
     bcrypt (3.1.7)
     bcrypt (3.1.7-x86-mingw32)
     builder (3.2.2)
@@ -202,6 +203,7 @@ DEPENDENCIES
   audited-activerecord (~> 4.0)
   auto_build
   auto_strip_attributes (~> 2.0)
+  awesome_print
   cancancan (~> 1.8)
   coffee-rails (~> 4.0.0)
   database_cleaner

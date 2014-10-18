@@ -12,8 +12,12 @@ class DonationRecord < ActiveRecord::Base
   has_many :actual_funds, ->{ merge(DonationRecord::ActualFund.join_funds) }, class_name: :'DonationRecord::ActualFund', dependent: :destroy
   has_many :attachments, as: :attachment_owner, validate: true, dependent: :destroy
   has_many :interest_periods, ->{ order(:start) }, class_name: :'DonationRecord::InterestPeriod'
-  
+
   validates :customer, presence: true
+
+  scope :with_actual_funds, ->{
+    eager_load(:actual_funds).joins(actual_funds: :fund)
+  }
   # validates :donation_type, presence: true
   # validates_associated :actual_funds
   
@@ -31,12 +35,12 @@ class DonationRecord < ActiveRecord::Base
   #   self.actual_funds.merge(DonationRecord::ActualFund.join_funds)
   # end
 
-  def self.actual_funds(opts={})
-    joins('LEFT OUTER JOIN "donation_records_actual_funds" ON "donation_records_actual_funds"."donation_record_id" = "donation_records"."id" ').merge(DonationRecord::ActualFund.join_funds)
-  end
+  # def self.actual_funds(opts={})
+  #   joins('LEFT OUTER JOIN "donation_record_actual_funds" ON "donation_record_actual_funds"."donation_record_id" = "donation_records"."id" ').merge(DonationRecord::ActualFund.join_funds)
+  # end
 
   def self.funds(opts={})
-    joins(outer_join_fund_arg).select('* ,funds.* as donation_record_funds.*')
+    joins(outerjoin_arg(:fund)).select('* ,funds.* as donation_record_funds.*')
   end
 
   def actual_amount(opts={})

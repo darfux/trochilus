@@ -15,11 +15,7 @@ module CommonFundInstance
 		  end
 		end
 	  def join_fund_arg
-			"JOIN funds ON funds.fund_instance_id = #{self.table_name}.id AND 
-	  			funds.fund_instance_type = '#{self.to_s}'"
-	  end
-	  def outer_join_fund_arg
-			"LEFT OUTER JOIN funds ON funds.fund_instance_id = #{self.table_name}.id AND 
+			"JOIN funds ON funds.fund_instance_id = #{self.table_name}.id AND \
 	  			funds.fund_instance_type = '#{self.to_s}'"
 	  end
 	end
