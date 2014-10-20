@@ -9,6 +9,8 @@ class DonationRecord::ActualFund < ActiveRecord::Base
   # validates_presence_of :proof
   accepts_nested_attributes_for :proof, update_only: true
 
+  scope :with_fund, ->{ joins(:fund).select('* ,funds.*') }
+
   def project
     donation_record.project
   end
@@ -17,7 +19,4 @@ class DonationRecord::ActualFund < ActiveRecord::Base
     donation_record
   end
 
-  def self.join_funds(opts={})
-    joins(:fund).select('* ,funds.*')
-  end 
 end

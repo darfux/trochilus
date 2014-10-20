@@ -9,14 +9,18 @@ class DonationRecord < ActiveRecord::Base
   belongs_to :creator, class_name: :User, foreign_key: :creator_id
   belongs_to :donation_type
 
-  has_many :actual_funds, ->{ merge(DonationRecord::ActualFund.join_funds) }, class_name: :'DonationRecord::ActualFund', dependent: :destroy
+  has_many :actual_funds, ->{ merge(DonationRecord::ActualFund.with_fund) }, class_name: :'DonationRecord::ActualFund', dependent: :destroy
   has_many :attachments, as: :attachment_owner, validate: true, dependent: :destroy
   has_many :interest_periods, ->{ order(:start) }, class_name: :'DonationRecord::InterestPeriod'
 
   validates :customer, presence: true
 
-  scope :with_actual_funds, ->{
-    eager_load(:actual_funds).joins(actual_funds: :fund)
+  scope :with_actual_amount, ->{
+    joins(outerjoin_arg(:actual_funds, :donation_record)).merge(DonationRecord::ActualFund.with_fund)
+      .except(:select).select(%Q{#{table_name}.*, "sum(amount) as actual_amount"}).group("#{table_name}.id")
+  }
+  scope :with_fund, ->{
+    joins(outerjoin_arg(:fund, :fund_instance)).select('* ,funds.*')
   }
   # validates :donation_type, presence: true
   # validates_associated :actual_funds
@@ -39,9 +43,9 @@ class DonationRecord < ActiveRecord::Base
   #   joins('LEFT OUTER JOIN "donation_record_actual_funds" ON "donation_record_actual_funds"."donation_record_id" = "donation_records"."id" ').merge(DonationRecord::ActualFund.join_funds)
   # end
 
-  def self.funds(opts={})
-    joins(outerjoin_arg(:fund)).select('* ,funds.* as donation_record_funds.*')
-  end
+  # def self.funds(opts={})
+  #   joins(outerjoin_arg(:fund, :fund_instance)).select('* ,funds.*')
+  # end
 
   def actual_amount(opts={})
     actual_funds.where({fund_type_id: FundType.principle_id}).sum(:amount)

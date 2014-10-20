@@ -22,11 +22,14 @@ class Project < ActiveRecord::Base
   validates_presence_of :project_level
   validates_presence_of_all except: [:interest_rate, :endowment, :brief, :serialnum, :create_manager, :comment]
 
-  scope :with_total_amount, ->{ joins(outerjoin_arg(:donation_records)).merge(DonationRecord.funds)
+  scope :with_total_amount, ->{ joins(outerjoin_arg(:donation_records, :project)).merge(DonationRecord.with_fund)
       .except(:select).select('projects.*', "sum(ifnull(amount, 0)) as total_amount").group('projects.id') }
 
+  #http://archive.railsforum.com/viewtopic.php?id=6097#p25502
+  #use entry[column.name] instead of entry.column to avoid local method
   scope :order_by_total_amount, ->(desc=false) { with_total_amount.reorder("total_amount#{desc ? ' DESC' : ''}") }
 
+  scope :total_amount, ->{ donation_records.merge(DonationRecord.with_fund).sum(:amount) }
 
   def endowment_t
     e = endowment ? :eyes : :eno
@@ -40,7 +43,7 @@ class Project < ActiveRecord::Base
   end
 
   def actual_funds
-    donation_records.merge(DonationRecord.actual_funds)
+    donation_records.merge(DonationRecord.with_actual_amount.except(:group))
   end
   
   def self.with_actual_amount
@@ -50,7 +53,7 @@ class Project < ActiveRecord::Base
   end
 
   def total_amount(opts={})
-    donation_records.merge(DonationRecord.funds).sum(:amount)
+    donation_records.merge(DonationRecord.with_fund).sum(:amount)
   end
   
   # def self.with_total_amount(relation=nil)
@@ -96,9 +99,6 @@ class Project < ActiveRecord::Base
     )
   end
 
-  module Filter
-    
-  end
   def self.handle_filter(filters, relation=nil)
     @where_keys ||= [:project_type, :project_level, :create_unit, :endowment]
     scopes  = filters.scopes

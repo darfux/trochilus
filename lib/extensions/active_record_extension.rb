@@ -1,4 +1,5 @@
 require_dependency 'has_pin_yin_name'
+require_dependency 'simple_reflector'
 
 module ActiveRecordExtension
 
@@ -47,13 +48,24 @@ module ActiveRecordExtension
       @__foreign_keys = fks
     end
 
-    def outerjoin_arg(klass)
+    def join_arg(name, selfas, type=:inner)
+      klass = reflections[name.to_sym].klass
+      target_reflector = tf = klass.simple_reflect(selfas)
       target_table_name = klass.table_name
-      target_reflector = tf = klass.reflect_by_class(self)
       fk = tf.foreign_key
       pk = tf.primary_key
+      join = (
+        case type
+        when :inner
+          'INNER'
+        when :outer
+          'LEFT OUTER'
+        else
+          raise 'wrong join type'
+        end
+      )
       sql = (
-        tmp = %Q{ LEFT OUTER JOIN "#{target_table_name}" ON "#{target_table_name}"."#{fk}" = "#{self.table_name}"."#{pk}" }
+        tmp = %Q{ #{join} JOIN "#{target_table_name}" ON "#{target_table_name}"."#{fk}" = "#{self.table_name}"."#{pk}" }
         if target_reflector.polymorphic
           ft = target_reflector.foreign_type
           tmp << %Q{ AND "#{target_table_name}"."#{ft}" = "#{self}" }
@@ -62,6 +74,9 @@ module ActiveRecordExtension
       )
     end
 
+    def outerjoin_arg(name, selfas)
+      join_arg(name, selfas, :outer)
+    end
   end
 end
 
