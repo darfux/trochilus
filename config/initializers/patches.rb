@@ -1,0 +1,1 @@
+require_dependency "active_record-relation-merger#merge_joins"
