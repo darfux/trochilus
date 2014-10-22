@@ -40,4 +40,22 @@ module ApplicationHelper
   def current_path(overwrite={})
     url_for :only_path => true, :params => params.tap{ |p| p.delete(:action);p.delete(:controller)}.merge(overwrite)
   end
+
+  def common_form
+    content_tag :div, class: "common-form" do
+      yield
+    end
+  end
+
+  def link_to_with(relation, scope, opts={})
+    link_to relation.send(scope), relation, onp.merge(opts)
+  end
+
+  def on_admin
+    current_user.account == 'fkadmin'
+  end
+
+  def money_show(amount)
+    number_to_currency(amount, unit: '', raise: true)  
+  end
 end

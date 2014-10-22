@@ -39,11 +39,24 @@ class ApplicationController < ActionController::Base
         f[k] = true   if v=='true'
         f[k] = false  if v=='false'
         if v.is_a?(Hash) && (v['from'] || v['to'])
-          from = ((from=v['from']) ? from : Time.new(0))
-          to = ((to=v['to']) ? to : Time.new(9999))
-          f[k] = from..to
+          f[k] = gen_time_range(v)
         end
       end
       relation.where(f)
+    end
+    def gen_time_range(param)
+      v = param
+      if v.is_a?(Hash) && (v['from'] || v['to'])
+        from = ((from=v['from']) ? Time.utc(*from.split('-')).yesterday.end_of_day : Time.new(0))
+        to = ((to=v['to']) ? Time.utc(*to.split('-')).end_of_day : Time.new(9999))
+        from..to
+      else
+        raise "wrong param"
+      end
+    end
+
+    
+    def search_params
+      params.require(:search_object).permit(:type, :query)
     end
 end

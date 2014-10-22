@@ -5,7 +5,15 @@ class DonationRecord::ActualFund < ActiveRecord::Base
   belongs_to :donation_record
   belongs_to :fund_type
 
-  #If using with the :through option, the association on the join model must be a belongs_to, 
-  #and the records which get deleted are the join records, rather than the associated records.
-  # has_one :fund, as: :fund_instance, dependent: :destroy, validate: true
+  has_one :proof, class_name: :Attachment, as: :attachment_owner, validate: true, dependent: :destroy
+  # validates_presence_of :proof
+  accepts_nested_attributes_for :proof, update_only: true
+
+  def project
+    donation_record.project
+  end
+
+  def record
+    donation_record
+  end
 end

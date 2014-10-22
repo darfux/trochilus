@@ -1,4 +1,6 @@
 class Project < ActiveRecord::Base
+  audited except: [:name_abbrpy, :creator_id]
+  has_pin_yin_name
   belongs_to :project_level
   belongs_to :project_state
   belongs_to :project_type
@@ -10,6 +12,7 @@ class Project < ActiveRecord::Base
   has_many :link_men, class_name: :Customer, through: :project_link_men, source: :customer
   has_many :donation_records, dependent: :destroy
   has_many :usage_records, dependent: :destroy
+  has_many :news, dependent: :destroy
 
   has_many :attachments, as: :attachment_owner, validate: true, dependent: :destroy
   
@@ -24,40 +27,47 @@ class Project < ActiveRecord::Base
     I18n.translate(e, scope: 'project.endowment')
   end
   
-  def self.all_spy
-    all.sort_by{ |e| e.name_with_py }
+  def self.attribute_show(key, value)
+    attribute = foreign_keys[key.to_sym]
+    return value unless attribute
+    Project.new(key => value).send(attribute).name
   end
-  
-  def name_with_py
-    PinYin.abbr(name)[0].upcase+'-'+name
-  end
-  # def #{pre}_amount
-  #   amount = 0
-  #   donation_records.each do |d|
-  #     amount+=d.#{pre}_amount
-  #   end
-  #   amount
-  # end
+
   [:total_amount, :actual_amount, :interest_amount].each do |method_name|      
-    define_method(method_name) do             
-      amount = 0                                
-      donation_records.each do |r|                
-        amount+=r.send(method_name)               
+    define_method(method_name, 
+      ->(opts = {}, *splat, &block) do
+        amount = 0
+        donation_records.each do |r|
+          amount+=r.send(method_name, opts)
+        end
+        amount
       end
-      amount
-    end
+    )
   end
+  alias_method :principle_amount, :total_amount
+
 
   [:principle_used, :interest_used].each do |method_name|
     type = method_name.to_s.split('_')[0]
     type_id = FundType.where(name: type).take
-    define_method(method_name) do             
-      amount = 0                                
-      usage_records.each do |r|
-        amount += r.send("#{type}_amount")
+    define_method(method_name,
+     ->(opts = {}, *splat, &block) do                
+        amount = 0                                
+        usage_records.each do |r|
+          amount += r.send(method_name, opts)
+        end
+        amount
       end
-      amount
-    end
+    )
+  end
+
+  [:principle_rest, :interest_rest].each do |method_name|
+    type = method_name.to_s.split('_')[0]
+    define_method(method_name,
+     ->(opts = {}, *splat, &block) do                
+        self.send("#{type}_amount") - self.send("#{type}_used")
+      end
+    )
   end
 
 end

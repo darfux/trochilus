@@ -1,0 +1,7 @@
+<%= form_for @search, url: employee_get_search_path do |f|%>
+    <span><%= f.radio_button :type, DonationRecord::ActualFund.search_type(:serialnum) %>进账凭单号</span>
+    <span><%= f.radio_button :type, Fund.search_type(:amount) %>资金金额</span><br>
+    <%= f.text_field :query, placeholder: "输入检索内容" %>
+    <%= submit_tag "搜索", :id => "submit", :disabled => false, :disable_with => "请等待" %>
+<% end %>
+  

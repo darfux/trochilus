@@ -4,4 +4,11 @@ class UsageRecord::UsedFund < ActiveRecord::Base
   
   belongs_to :usage_record
   belongs_to :fund_type
+
+  def project
+    usage_record.project
+  end
+  def record
+    usage_record
+  end
 end

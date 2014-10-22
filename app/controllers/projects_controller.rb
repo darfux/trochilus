@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy, 
-    :new_attachment, :create_attachment, :destroy_attachment]
+    :new_attachment, :create_attachment, :destroy_attachment, :history]
   before_action :set_attachments, only: [:show]
   before_action :set_statistics_info, only: [:show]
   # GET /projects
@@ -30,9 +30,7 @@ class ProjectsController < ApplicationController
   # POST /projects.json
   def create
     @project = Project.new(project_params)
-    if session[:user_type] == :employee
-      @project.employee = @current_user
-    end
+    @project.creator = current_user
     respond_to do |format|
       if @project.save
         format.html { redirect_to @project }
@@ -87,6 +85,9 @@ class ProjectsController < ApplicationController
     @attachment.destroy
     redirect_to @project
   end
+
+  def history
+  end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_project
@@ -118,9 +119,7 @@ class ProjectsController < ApplicationController
     def project_params
       params.require(:project).permit(:name, :serialnum, :create_date, :funder, :brief, :interest_rate,
         :gross, :balance, :endowment, :project_level_id, :project_state_id, :project_type_id, :comment,
-        :create_unit_id, :create_manager_id).tap{|p|
-        p[:creator_id] = current_people.id
-      }
+        :create_unit_id, :create_manager_id)
     end
     def attachment_params
       params.require(:attachment).permit(:file).tap{ |p| p[:attachment_owner]=@project }

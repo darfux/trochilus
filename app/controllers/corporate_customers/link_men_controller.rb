@@ -10,14 +10,14 @@ class CorporateCustomers::LinkMenController < ApplicationController
   end
 
   def create
-    # raise params.inspect
     linkmen = params[:customer] || []
     linkmen.each do |l_id|
-      customer = IndividualCustomer.find(l_id)
       begin
-        @customer.link_men<<customer
+        @customer.link_men<< CorporateCustomer::LinkMan.new( 
+          individual_customer_id: l_id, corporate_customer_id: params[:corporate_customer_id], 
+          corporate_customer_link_man_link_type_id: params[:type])
       rescue
-        next
+        raise '123'
       end
     end
     redirect_to @customer
@@ -52,6 +52,6 @@ class CorporateCustomers::LinkMenController < ApplicationController
     end
     
     def set_link_man
-      @link_man  = IndividualCustomer.find(params[:id])
+      @link_man  = CorporateCustomer::LinkMan.find(params[:id])
     end
 end

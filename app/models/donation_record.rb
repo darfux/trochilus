@@ -11,32 +11,59 @@ class DonationRecord < ActiveRecord::Base
 
   has_many :actual_funds, class_name: :'DonationRecord::ActualFund', dependent: :destroy
   has_many :attachments, as: :attachment_owner, validate: true, dependent: :destroy
+  has_many :interest_periods, ->{ order(:start) }, class_name: :'DonationRecord::InterestPeriod'
   
   validates :customer, presence: true
   # validates :donation_type, presence: true
   # validates_associated :actual_funds
   
-  def actual_amount
+  def record
+    self
+  end
+  
+  def actual_amount(opts={})
+    opts.dup.each_pair do |k, v|
+      if Fund.method_defined? k
+        opts.delete k
+        opts["#{Fund.table_name}.#{k}"] = v
+      end
+    end
     actual_amount = 0
     principle = FundType.where(name: :principle).take
-    self.actual_funds.where(fund_type_id: principle.id).each do |a|
+    self.actual_funds
+    .joins(DonationRecord::ActualFund.join_fund_arg)
+    .where({fund_type_id: principle.id}.merge(opts)).each do |a|
       actual_amount+=a.amount!
     end
     actual_amount
   end
   
-  def interest_amount
+  def interest_amount(opts={})
+    opts.dup.each_pair do |k, v|
+      if Fund.method_defined? k
+        opts.delete k
+        opts["#{Fund.table_name}.#{k}"] = v
+      end
+    end
     interest_amount = 0
     interest = FundType.where(name: :interest).take
-    self.actual_funds.where(fund_type_id: interest.id).each do |a|
+    self.actual_funds
+    .joins(DonationRecord::ActualFund.join_fund_arg)
+    .where({fund_type_id: interest.id}.merge(opts)).each do |a|
       interest_amount+=a.amount!
+    end
+    self.interest_periods.each do |ip|
+      interest_amount+=ip.amount
     end
     interest_amount
   end
+
   def plan_fund
     fund
   end  
-  def total_amount
-    fund.amount
+
+  def total_amount(opts={})
+    return fund.amount if opts.empty?
+    (f = Fund.where(opts.merge(id: fund.id))).empty? ? 0 : fund.amount
   end
 end

@@ -1,0 +1,18 @@
+<%= render 'search_form' %>
+
+<table>
+  <tbody>
+    <tr>
+      <th>所属项目</th>
+      <th>所属捐赠记录</th>
+      <th>金额</th>
+    </tr>
+    <% @results.each do |af| %>
+    <tr>
+      <td><%= link_to_with af.donation_record.project, :name %></td>
+      <td><%= link_to '查看', af.donation_record, onp %></td>
+      <td><%= af.serialnum %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

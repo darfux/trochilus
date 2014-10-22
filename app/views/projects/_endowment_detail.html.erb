@@ -56,9 +56,9 @@
       <tr>
         <td><%= index+1 %></td>
         <td><%= l_d r.time %></td>
-        <td><%= r.exec_unit.name %></td>
+        <td><%= link_to r.exec_unit.name, r.exec_unit, onp %></td>
         <td><%= link_to r.exec_manager.name, r.exec_manager, onp%></td>        
-        <td><%= r.benefit_unit.name %></td>
+        <td><%= link_to r.benefit_unit.name, r.benefit_unit, onp  %></td>
         <td><%= link_to r.benefit_manager.name, r.benefit_manager, onp%></td>
         <td><%= r.principle_amount%></td>
         <td><%= r.interest_amount%></td>

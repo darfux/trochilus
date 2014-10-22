@@ -14,7 +14,7 @@
     </div>
     <div class="field">
       <%= f_f.label '时间' %><br />
-      <%= f_f.datetime_select :time, start_year: default_start_year, default: DateTime.now.beginning_of_day  %>
+      <%= f_f.date_select :time, start_year: default_start_year, default: DateTime.now.beginning_of_day  %>
     </div>
   <% end %>
 
@@ -32,6 +32,14 @@
       <div class="field">
         <%= f_f.label :comment %><br />
         <%= f_f.text_area :comment %>
+      </div>
+      <div class="field">
+        <%= f_f.label :currency %><br />
+        <%= f_f.select(:currency_id, Currency.all_ssym.collect {|e| [ e.name+'-'+e.symbol, e.id ] }) %>
+      </div>
+      <div class="field">
+        <%= f_f.label :origin_amount %><br />
+        <%= f_f.text_field :origin_amount %>
       </div>
     <% end %>
 

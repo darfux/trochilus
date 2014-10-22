@@ -19,6 +19,7 @@ class CommonCustomersController < ApplicationController
   def new
     # raise flash.inspect
     @self_customer = @SelfActiveRecord.new
+    # @self_customer.customer.country = Region::Country.find_by(name: '中国')
     render 'common_customers/new'
   end
 
@@ -105,7 +106,7 @@ class CommonCustomersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def self_params
       params.require(@SelfType).
-        permit(customer_attributes:[:name, :country, :province, :city, :address, :tel,
+        permit(customer_attributes:[:name, :country_id, :state_id, :city_id, :address, :tel,
           :email, :fax, :postcode, :comment]).tap{ |p| 
           p[:customer_attributes][:creator_id] = current_user.id 
       }

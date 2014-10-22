@@ -235,15 +235,17 @@ $elm_padding_top: 4px;
 	border-collapse:collapse;  
 	border-spacing:0; 
 	width: 80%;
+	a{
+		$color: darken(blue, 30%);
+		text-decoration: none;
+		color: $color;
+	}
 	th{
 		$color: white;
 		color: $color;
 		a{
 			text-decoration: none;
 			color: $color;
-			&:visited{
-				color: $color;
-			}
 		}
 		height: 32px;
 		background-color: #7C124F;
@@ -270,27 +272,87 @@ $elm_padding_top: 4px;
 //====PROJECT-SHOW(tmp)====
 #project-info{
 	margin-bottom: 15px;
+	hr{
+		width: 80%;
+	}
+ .info-block{
+		position: relative;
+		left: 50%;
+		$width: 600px;
+		width: $width;
+		margin-left: -$width/2;
+		text-align: left;
+		a{
+			text-decoration: none;
+			color: inherit;
+		}
+		div{
+			display: inline;
+			margin-right: 15px;
+		}
+	}
+ 	div span{
+		color: green;
+	}
 }
-#project-info hr{
-	width: 80%;
-}
-
-#project-info .info-block{
-	position: relative;
-	left: 50%;
-	$width: 600px;
-	width: $width;
-	margin-left: -$width/2;
+.project-table{
 	text-align: left;
+	border-collapse:collapse;  
+	border-spacing:0; 
+	width: 80%;	
+	th{
+			$color: white;
+			color: $color;
+			a{
+				text-decoration: none;
+				color: $color;
+			}
+			height: 32px;
+			color: #7C124F;
+	}
+	th,td{
+		 border: 1px solid black;
+		 padding: 3px;
+		 text-align: center;
+	}
+	td{
+		padding-left: 5px;
+	}
 }
-
-#project-info .info-block div{
-	display: inline;
-	margin-right: 15px;
+.project-table-header{
+	width: 80%;
+	background-color: #7C124F;
+	color: white;
+	margin: 0 auto;
+	padding: 10px 0px;
+	font-weight: 700;
+	span{
+		margin-right: 15px;
+	}
 }
-
-#project-info div span{
-	color: green;
+#project-info-header{
+	background-color: darken(green, 10%);
+	color: white;
+	font-weight: 800;
+	font-size: 18px;
+	padding: 5px 0;
+	width: 80%;
+	margin: 0 auto;
+	a{
+		color: gray;
+	}
+}
+#project-news-list{
+	.title{
+		a{
+			text-decoration: none;
+			color: inherit;
+			margin-left: 2px;
+		}
+	}
+	.function-link{
+		margin-left: 10px;
+	}
 }
 
 //====FUND LIST====
@@ -365,4 +427,36 @@ $elm_padding_top: 4px;
 	.list-function{
 		padding-right: 2px;
 	}
+}
+
+.currency-show{
+	text-align: right;
+}
+
+.autidts-history-table{
+	text-align: left;
+	td, th{
+		padding-right: 25px;
+		margin-right: 10px;
+		border-bottom: solid 1px gray
+	}
+	th{
+		$color: black;
+		color: $color;
+		a{
+			text-decoration: none;
+			color: $color;
+			&:visited{
+				color: $color;
+			}
+		}
+	}
+}
+
+.autidts-history-old-value{
+	color: gray;
+}
+
+.autidts-history-new-value{
+	color: blue;
 }

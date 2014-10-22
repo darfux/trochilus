@@ -89,3 +89,17 @@ rails g model UsageRecord::UsedFund usage_record:references fund_type:references
 rails g scaffold TeacherTitle name:string
 
 rails g scaffold Schoolfellow::TeachExperience schoolfellow:references teacher_title:references univ_unit:references teach_start:date teach_end:date teacher_id:string
+
+#2014-10-01 11:30:53
+rails g scaffold Project::News title:string link:text comment:string project:references
+
+#2014-10-05 21:07:35
+rails g scaffold DonationRecord::InterestPeriod rate:decimal start:date end:date comment:text donation_record:references
+
+#2014-10-06 16:04:21
+rails g model CorporateCustomer::LinkMan::LinkType name:string
+
+#2014-10-07 14:47:57
+rails g model Region::Country name:string code:string
+rails g model Region::State name:string code:string region_country:references
+rails g model Region::City name:string code:string region_state:references

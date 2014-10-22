@@ -18,16 +18,21 @@ class UsageRecordsController < ApplicationController
   def new
     @usage_record = UsageRecord.new
     @usage_record.project = Project.find(params[:project_id])
+    @usage_record.creator = current_user
+    @usage_record.exec_unit = @usage_record.project.create_unit
+    @form_parm = [@usage_record.project, @usage_record]
   end
 
   # GET /usage_records/1/edit
   def edit
+    @form_parm = @usage_record
   end
 
   # POST /usage_records
   # POST /usage_records.json
   def create
     @usage_record = UsageRecord.new(usage_record_params)
+    @form_parm = [@usage_record.project, @usage_record]
     @usage_record.tap{ |u| 
       u.principle_fund = nil unless params[:use] && params[:use][:principle]
       u.interest_fund = nil unless params[:use] && params[:use][:interest]
@@ -46,6 +51,7 @@ class UsageRecordsController < ApplicationController
   # PATCH/PUT /usage_records/1
   # PATCH/PUT /usage_records/1.json
   def update
+    @form_parm = @usage_record
     respond_to do |format|
       if @usage_record.update(usage_record_params)
         format.html { redirect_to @project }
@@ -106,13 +112,11 @@ class UsageRecordsController < ApplicationController
     def usage_record_params
       params.require(:usage_record)
       .permit(:customer_id, :project_id, :exec_unit_id, :exec_manager_id, 
-              :benefit_unit_id, :benefit_manager_id,:usage_type_id, :comment,
+              :benefit_unit_id, :benefit_manager_id,:usage_type_id, :usage_comment, :comment,
               interest_fund_attributes: [fund_attributes: [:amount]],
               principle_fund_attributes: [fund_attributes: [:amount]]
               )
         .tap{ |p|
-        p[:creator_id] = current_user.id
-        p[:project_id] = params[:project_id]
         p[:interest_fund_attributes] && p[:interest_fund_attributes][:fund_attributes].merge!(params[:fund_time])
         p[:principle_fund_attributes][:fund_attributes].merge! params[:fund_time]
       }

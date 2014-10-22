@@ -4,12 +4,14 @@
   <% end %>
 <% end %>
 <div>
+  <h4>使用说明</h4>
+  <%= simple_format @usage_record.usage_comment %>
   <h4>备注</h4>
   <%= @usage_record.comment %>
 </div>
 <hr>
 <div>  
-  <h4>文件</h4>
+  <h4>附件</h4>
   <% @attachments.each do |a| %>
   <p><%= link_to a.filename, a.file.url %><span class='delete-attachment'><%= link_to t('helpers.link.delete.name'), attachment_usage_record_path(@usage_record, a), method: :delete, data: { confirm: t('helpers.link.delete.confirm') } %></span></p>
   <% end %>

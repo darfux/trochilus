@@ -1,6 +1,6 @@
 <%= content_for :nav_bar_function_area do %>
   <% if current_user.user_type.downcase == :employee.to_s %>
-    <%= link_to '返回', @project %>
+    <%= link_to '返回', @customer %>
   <% end %>
 <% end %>
 
@@ -8,6 +8,6 @@
     添加联系人
 <% end %>
 
-<%= render 'customers/search', current_form: corporate_customer_link_men_path(@customer) %>
+<%= render 'customers/search', current_form: corporate_customer_link_men_path(@customer, type: params[:type]) %>
 
 <div id='controller-mark' name="<%=params[:controller]%>"></div>

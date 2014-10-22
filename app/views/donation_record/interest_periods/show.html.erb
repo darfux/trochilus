@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Rate:</strong>
+  <%= @donation_record_interest_period.rate %>
+</p>
+
+<p>
+  <strong>Start:</strong>
+  <%= @donation_record_interest_period.start %>
+</p>
+
+<p>
+  <strong>End:</strong>
+  <%= @donation_record_interest_period.end %>
+</p>
+
+<p>
+  <strong>Comment:</strong>
+  <%= @donation_record_interest_period.comment %>
+</p>
+
+<p>
+  <strong>Donation record:</strong>
+  <%= @donation_record_interest_period.donation_record %>
+</p>
+
+<%= link_to 'Edit', edit_donation_record_interest_period_path(@donation_record_interest_period) %> |
+<%= link_to 'Back', donation_record_interest_periods_path %>

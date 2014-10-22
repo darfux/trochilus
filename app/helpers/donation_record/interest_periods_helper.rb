@@ -1,0 +1,2 @@
+module DonationRecord::InterestPeriodsHelper
+end

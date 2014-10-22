@@ -10,6 +10,8 @@ class Employee::ManageController < ApplicationController
     tmp = tmp.sort_by{ |e| e.name_with_py }
     tmp = handle_sort(tmp)
     @projects = tmp
+    @total_amount = @rest_amount = 0
+    @projects.each { |p| @total_amount+=p.total_amount; @rest_amount+=p.principle_rest }
   end
 
   def customers
@@ -53,6 +55,24 @@ class Employee::ManageController < ApplicationController
   end
 
   def others
+  end
+
+  def search
+    @search = SearchObject.new
+    @search.type = DonationRecord::ActualFund.search_type(:serialnum)
+  end
+
+  def result
+    @search = SearchObject.new
+    @search.attributes = search_params
+    case @search.type
+    when DonationRecord::ActualFund.search_type(:serialnum)
+      @results = DonationRecord::ActualFund.where(serialnum: @search.query)
+      render 'donation_record_actual_fund_serialnum_result'
+    when Fund.search_type(:amount)
+      @results = Fund.where(amount: @search.query).order('time DESC')
+      render 'fund_amount_result'
+    end
   end
   private
 

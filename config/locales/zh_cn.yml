@@ -58,13 +58,17 @@ zh_cn:
       corporate_customer: 公司客户
       customer_group: 团体客户
       donation_record: 捐赠记录
+      donation_record/actual_fund: 到款
+      donation_record/interest_period: 利息周期
       donation_type: 捐赠类型
       univ_unit_manager: 学校人员
       customer: 客户
       usage_record: 使用记录
+      usage_record/used_fund: 已用款项
       usage_type: 资金用途
       employee: 职员
       project_type: 项目类型
+      project/news: 项目新闻报道
     attributes:
       employee:
         name: 姓名
@@ -74,15 +78,28 @@ zh_cn:
         password_confirmation: 确认密码
       project:
         name: 项目名称
+        serialnum: 序列号
+        creator: 创建人
+        brief: 简介
+        endowment: 留本
+        interest_rate: 利率
         create_date: 创建时间
+        project_level: 项目级别
         project_level: 项目级别
         project_state: 项目状态
         project_type: 项目类型
-        create_unit: 创建单位
-        create_manager: 负责人
+        create_unit: 管理单位
+        create_manager: 筹款专员
+        comment: 备注
+      project/news:
+        title: 标题
+        link: 新闻链接
         comment: 备注
       fund:
         amount: 金额
+        origin_amount: 原始金额
+        time: 时间
+        currency: 币种
       donation_record:
         creator: *user_as_creator
         created_at: 创建时间
@@ -90,13 +107,26 @@ zh_cn:
         customer: 客户
         donation_type: 捐赠类型
         project: 所属项目
+      donation_record/actual_fund:
+        proof: 进账凭证
+        serialnum: 凭单号
+      donation_record/actual_fund/proof:
+        file: 进账凭证
+      donation_record/interest_period:
+        rate: 利率
+        start: 开始时间
+        end: 结束时间
+        comment: 备注
       usage_record:
         creator: *user_as_creator
+        principle_fund: 本金
+        interest_fund: 利息
         exec_unit: 执行单位
-        exec_manager: 执行人
+        exec_manager: 批准人
         benefit_unit: 受益单位
-        benefit_manager: 受益单位负责人
+        benefit_manager: 经办人
         usage_type: 用途
+        usage_comment: 使用说明
         both_funds: 利息和本金
       usage_record/principle_fund/fund: #see STO 7693040
         amount: 使用金额
@@ -157,7 +187,13 @@ zh_cn:
             create_unit: 
               <<: *common_errors
             create_manager: 
-              <<: *common_errors 
+              <<: *common_errors
+        project/news:
+          attributes:
+            title:
+              <<: *common_errors
+            link:
+              <<: *common_errors
         customer:
           attributes:
             name:
@@ -166,11 +202,21 @@ zh_cn:
           attributes:
             amount:
               <<: *common_errors
+            origin_amount:
+              <<: *common_errors
         donation_record:
           attributes:
             customer:
               <<: *common_errors
             donation_type:
+              <<: *common_errors
+        donation_record/interest_period:
+          attributes:
+            rate:
+              <<: *common_errors
+        attachment:
+          attributes:
+            file:
               <<: *common_errors
         usage_record:
           attributes:
@@ -227,7 +273,9 @@ zh_cn:
     type:
       principle: 本金
       interest: 利息
-
+  audit:
+    create: 创建
+    update: 更新
 
   #HELPERS
   helpers:
@@ -246,7 +294,7 @@ zh_cn:
     label: 
       customer: &peopleinfo
         country: 国家或地区
-        province: 省份
+        state: 省/直辖市/特别行政区/州
         city: 城市
         tel: 电话
         email: 电子邮件
@@ -302,13 +350,13 @@ zh_cn:
         password_confirmation: 确认密码
         remember_me: 记住我
       usage_record:
-        fund_time: 使用时间
+        fund_time: 支出时间
         comment: 备注
       project_type:
         name: 名称
     file_field:
       attachment:
-        file: 文件
+        file: 附件
     submit:
       contact_record:
         create: 添加记录
@@ -332,8 +380,17 @@ zh_cn:
       usage_record:
         create: 新建
         update: 更新
+      donation_record_interest_period:
+        create: "新建%{model}"
+        update: "修改%{model}"
+      donation_record_actual_fund:
+        create: "添加%{model}"
+        update: "修改%{model}"
       usage_type:
         create: 新建
         update: 更新
       project_type:
         create: 创建
+      project_news:
+        create: 添加
+        update: 更新

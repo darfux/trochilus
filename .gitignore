@@ -22,7 +22,11 @@
 
 # Ignore db dump yml
 /db/data.yml
+/db/migrate_db_bak/*
 
 # Ignore precompiled assets
 /public/assets/application-*
 /public/assets/manifest-*
+
+# Ignore external data
+/lib/tasks/data/LocList.xml

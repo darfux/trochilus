@@ -9,7 +9,7 @@
 <% end %>
 <h2>团体名称： <%= @self_customer.name! %></h2>
 <table>
-  <div><small>创建者： <span><%= link_to @self_customer.creator!.name, @self_customer.creator! %></span></small></div>
+  <div><small>录入人： <span><%= link_to @self_customer.creator!.name, @self_customer.creator! %></span></small></div>
   <p>
     <div><strong>备注：</strong> <span><%= simple_format @self_customer.comment! %></span></div>
   </p>
@@ -45,7 +45,7 @@
     <% @self_customer.donation_records!.each do |dr| %>
       <tr>
         <td><%= link_to dr.project.name, dr.project %></td>
-        <td><%= dr.plan_fund.amount %></td>
+        <td class="currency-show"><%= money_show dr.plan_fund.amount %></td>
         <td><%= l_d dr.plan_fund.time %></td>
       </tr>
       <% end %>

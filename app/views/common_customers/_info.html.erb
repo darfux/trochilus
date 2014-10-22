@@ -1,9 +1,9 @@
-<div id="project-info">
+
   <div class="info-block">
     <p>
-      <div><strong>国家：</strong> <span><%= @self_customer.country! %></span></div>
-      <div><strong>省份：</strong> <span><%= @self_customer.province! %></span></div>
-      <div><strong>城市：</strong> <span><%= @self_customer.city! %></span></div>
+      <div><strong>国家：</strong> <span><%= if (c=@self_customer.country!) then c.name end%></span></div>
+      <div><strong>省份：</strong> <span><%= if (s=@self_customer.state!) then s.name end%></span></div>
+      <div><strong>城市：</strong> <span><%= if (c=@self_customer.city!) then c.name end%></span></div>
       <div><strong>地址：</strong> <span><%= @self_customer.address! %></span></div>
     </p>
     <p>
@@ -16,81 +16,3 @@
       <div><strong>备注：</strong> <span><%= simple_format @self_customer.comment! %></span></div>
     </p>
   </div>
-  <hr>
-  <div class="info-block">
-  <table class="employee-data-table">
-  <strong>捐贈记录：</strong>
-  <tbody>
-    <tr>
-      <th>项目</th>
-      <th>金额</th>
-      <th>日期</th>
-    </tr>
-    <% @self_customer.donation_records!.each do |dr| %>
-      <tr>
-        <td><%= link_to dr.project.name, dr.project %></td>
-        <td><%= dr.plan_fund.amount %></td>
-        <td><%= l_d dr.plan_fund.time %></td>
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
-  <p></p>
-  <% if @self_customer.is_a?(IndividualCustomer) %>
-    <table class="employee-data-table">
-    <strong>单位捐贈记录：</strong>
-    <tbody>
-      <tr>
-        <th>项目</th>
-        <th>金额</th>
-        <th>日期</th>
-      </tr>
-      <% ( (c=@self_customer.corporate) ? c.donation_records! : [] ).each do |dr| %>
-        <tr>
-          <td><%= link_to dr.project.name, dr.project %></td>
-          <td><%= dr.plan_fund.amount %></td>
-          <td><%= l_d dr.plan_fund.time %></td>
-        </tr>
-        <% end %>
-      </tbody>
-    </table>
-    <p></p>
-    <div><strong>团体捐贈记录：</strong></div>
-    <div>
-      <p></p>
-      <% @self_customer.customer_groups!.each do |g| %>
-        <%= g.name! %>
-        <table class="employee-data-table">
-        <tbody>
-          <tr>
-            <th>项目</th>
-            <th>金额</th>
-            <th>日期</th>
-          </tr>
-          <% g.donation_records!.each do |dr| %>
-            <tr>
-              <td><%= link_to dr.project.name, dr.project %></td>
-              <td><%= dr.plan_fund.amount %></td>
-              <td><%= l_d dr.plan_fund.time %></td>
-            </tr>
-          <% end %>
-          </tbody>
-        </table>
-      <% end %>
-    </div>
-  <% end %>
-
-
-  </div>
-  <hr>
-  <div class="info-block">
-    <p>
-      <div><strong>来往记录：</strong>
-        <% @self_customer.contact_records!.each do |cr| %>
-          <li><%= link_to l(cr.time), [@self_customer.customer, cr] %></li>
-        <% end %>
-      </div>
-      <%= button_to '添加', new_customer_contact_record_path(@self_customer.customer), method: :get %>
-    </p>
-  </div>
-</div>

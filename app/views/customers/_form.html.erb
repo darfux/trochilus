@@ -2,17 +2,19 @@
   <%= of.label :name %><br>
   <%= f.text_field :name %>
 </div>
-<div class="field">
-  <%= f.label :country %><br>
-  <%= f.text_field :country %>
-</div>
-<div class="field">
-  <%= f.label :province %><br>
-  <%= f.text_field :province %>
-</div>
-<div class="field">
-  <%= f.label :city %><br>
-  <%= f.text_field :city %>
+<div class="static-form-field">
+  <div class="field">
+    <%= f.label :country %><br>
+    <%= f.select :country_id, Region::Country.all.collect{ |e| [e.name, e.id] }, { include_blank: true }, id: :region_country_select   %>
+  </div>
+  <div class="field">
+    <%= f.label :state %><br>
+    <%= f.select :state_id, (c=@self_customer.country!) ? c.states.collect{ |e| [e.name, e.id] } : [], { include_blank: true }, id: :region_state_select   %>
+  </div>
+  <div class="field">
+    <%= f.label :city %><br>
+    <%= f.select :city_id, (s=@self_customer.state!) ? s.cities.collect{ |e| [e.name, e.id] } : [], { include_blank: true }, id: :region_city_select  %>
+  </div>
 </div>
 <div class="field">
   <%= of.label :address %><br>

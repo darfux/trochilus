@@ -1,0 +1,53 @@
+<table class='autidts-history-table'>
+  <tbody>
+    <tr>
+      <th>操作类型</th>
+      <th>操作内容</th>
+      <th>旧值</th>
+      <th>新值</th>
+      <th>操作人</th>
+      <th>操作时间</th>
+    </tr>
+    <% @project.audits.reorder('version DESC').each do |a| %>
+    <tr>
+      <td><%= t("audit.#{a.action}") %></td>
+      <% 
+        content = []
+        ov = []
+        nv = []
+        a.audited_changes.each_pair do |k, v|
+          content << Project.human_attribute_name( Project.foreign_keys.fetch(k.to_sym, k) )
+          if a.action=='update'
+            if v[0]!=nil && !v[1].to_s.empty?
+              ov << Project.attribute_show(k, v[0])
+              nv << Project.attribute_show(k, v[1])
+            else
+              content.pop
+            end
+          end
+          if a.action=='create'
+            nv << Project.attribute_show(k, v)
+          end
+        end
+      %>
+      <td>
+        <% content.each do |v| %>
+          <%= v %><br>
+        <% end %>
+      </td>
+      <td class='autidts-history-old-value'>
+        <% ov.each do |v| %>
+          <%= v %><br>
+        <% end %>
+      </td>
+      <td class='autidts-history-new-value'>
+        <% nv.each do |v| %>
+          <%= v %><br>
+        <% end %>
+      </td>
+      <td><%= link_to_with User.find(a.user_id).user, :name %></td>
+      <td><%= lt a.created_at %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
