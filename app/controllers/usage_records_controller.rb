@@ -37,6 +37,7 @@ class UsageRecordsController < ApplicationController
       u.principle_fund = nil unless params[:use] && params[:use][:principle]
       u.interest_fund = nil unless params[:use] && params[:use][:interest]
     }
+    @usage_record.creator = current_user
     respond_to do |format|
       if @usage_record.save
         format.html { redirect_to @project }
