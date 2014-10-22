@@ -23,11 +23,16 @@ class Project < ActiveRecord::Base
   validates_presence_of_all except: [:interest_rate, :endowment, :brief, :serialnum, :create_manager, :comment]
 
   scope :with_total_amount, ->{ joins(outerjoin_arg(:donation_records, :project)).merge(DonationRecord.with_fund)
-      .except(:select).select('projects.*', "sum(ifnull(amount, 0)) as total_amount").group('projects.id') }
+      .except(:select).select('projects.*', "sum(ifnull(amount, 0)) as total_amount").group('projects.id') }  
+
+  scope :with_actual_amount, ->{ joins(outerjoin_arg(:donation_records, :project)).merge(DonationRecord.with_actual_funds)
+      .except(:select).select('projects.*', "sum(amount) as actual_amount").group('projects.id') }
 
   #http://archive.railsforum.com/viewtopic.php?id=6097#p25502
   #use entry[column.name] instead of entry.column to avoid local method
   scope :order_by_total_amount, ->(desc=false) { with_total_amount.reorder("total_amount#{desc ? ' DESC' : ''}") }
+  
+  # scope :order_by_actual_amount, ->(desc=false) { with_total_amount.reorder("actual_amount#{desc ? ' DESC' : ''}") }
 
   scope :total_amount, ->{ donation_records.merge(DonationRecord.with_fund).sum(:amount) }
 
@@ -46,20 +51,9 @@ class Project < ActiveRecord::Base
     donation_records.merge(DonationRecord.with_actual_amount.except(:group))
   end
   
-  def self.with_actual_amount
-    Project.joins(:donation_records).merge(DonationRecord.joins(:actual_funds)).merge(DonationRecord::ActualFund.join_funds)
-      .except(:select).select('projects.*', "sum(amount) as actual_amount").group('projects.id')
-    # DonationRecord.actual_funds.joins(:project).select('projects.id as id', 'sum(amount) as actual_amount').group('projects.id')
-  end
-
   def total_amount(opts={})
     donation_records.merge(DonationRecord.with_fund).sum(:amount)
   end
-  
-  # def self.with_total_amount(relation=nil)
-  #   (relation||Project).joins(:donation_records).merge(DonationRecord.funds)
-  #     .except(:select).select('projects.*', "sum(amount) as total_amount").group('projects.id')
-  # end
 
   def actual_amount(opts={})
     actual_funds.sum(:amount)
@@ -108,7 +102,7 @@ class Project < ActiveRecord::Base
     desc = sort.desc
     desc_sql = sort.desc_sql
 
-    @scoped_orders = [:order_by_total_amount, :create_date]
+    @scoped_orders = [:order_by_total_amount, :order_by_actual_amount, :create_date]
     @method_orders = [:principle_rest]
     sa=sort.attribute
     if @scoped_orders.include? sa
