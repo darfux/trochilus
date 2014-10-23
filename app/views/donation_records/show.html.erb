@@ -33,7 +33,7 @@
     </thead>
 
     <tbody>
-      <% @donation_record.interest_periods.each do |ip| %>
+      <% @donation_record.interest_periods.order(:start).each do |ip| %>
       <tr>
         <td><%= ip.rate %></td>
         <td><%= l ip.start %></td>

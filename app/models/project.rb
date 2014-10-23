@@ -22,14 +22,15 @@ class Project < ActiveRecord::Base
   validates_presence_of :project_level
   validates_presence_of_all except: [:interest_rate, :endowment, :brief, :serialnum, :create_manager, :comment]
 
+  #http://archive.railsforum.com/viewtopic.php?id=6097#p25502
+  #use entry[column.name] instead of entry.column to avoid local method
   scope :with_total_amount, ->{ joins(outerjoin_arg(:donation_records, :project)).merge(DonationRecord.with_fund)
       .except(:select).select('projects.*', "sum(ifnull(amount, 0)) as total_amount").group('projects.id') }  
 
   scope :with_actual_amount, ->{ joins(outerjoin_arg(:donation_records, :project)).merge(DonationRecord.with_actual_funds)
       .except(:select).select('projects.*', "sum(amount) as actual_amount").group('projects.id') }
 
-  #http://archive.railsforum.com/viewtopic.php?id=6097#p25502
-  #use entry[column.name] instead of entry.column to avoid local method
+
   scope :order_by_total_amount, ->(desc=false) { with_total_amount.reorder("total_amount#{desc ? ' DESC' : ''}") }
   
   # scope :order_by_actual_amount, ->(desc=false) { with_total_amount.reorder("actual_amount#{desc ? ' DESC' : ''}") }
@@ -62,26 +63,16 @@ class Project < ActiveRecord::Base
 
   alias_method :principle_amount, :total_amount
 
-  def interest_amount(opts={})
-    amount = 0
-    donation_records.each do |r|
-      amount+=r.interest_amount
-    end
-    amount
+  def interest_amount
+    donation_records.merge(DonationRecord.with_interest_amount).sum(:interest_amount)
   end
 
-  [:principle_used, :interest_used].each do |method_name|
-    type = method_name.to_s.split('_')[0]
-    type_id = FundType.where(name: type).take
-    define_method(method_name,
-     ->(opts = {}, *splat, &block) do                
-        amount = 0                                
-        usage_records.each do |r|
-          amount += r.send(method_name, opts)
-        end
-        amount
-      end
-    )
+  def principle_used
+    UsageRecord.with_amount.merge(usage_records).sum('principle_funds.amount')
+  end
+
+  def interest_used
+    UsageRecord.with_amount.merge(usage_records).sum('interest_funds.amount')
   end
 
   [:principle_rest, :interest_rest].each do |method_name|
@@ -106,11 +97,15 @@ class Project < ActiveRecord::Base
     @method_orders = [:principle_rest]
     sa=sort.attribute
     if @scoped_orders.include? sa
-      relation = relation.send(sa, desc)
+      if column_names.include? sa.to_s
+        relation = relation.order("#{sa}#{desc_sql}")
+      else
+        relation = relation.send(sa, desc)
+      end
       # binding.pry
     end
     if @method_orders.include? sa
-      tmp = relation.sort_by{|p| p.principle_rest}
+      tmp = relation.sort_by{|p| p.send(sa)}
       tmp.reverse! if desc
       relation = tmp
     end

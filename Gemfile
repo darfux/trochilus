@@ -79,3 +79,5 @@ gem "audited-activerecord", "~> 4.0"
 gem 'kaminari'
 
 gem 'awesome_print', group: :development
+
+gem 'active_record_union'

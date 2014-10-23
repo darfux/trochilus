@@ -8,7 +8,7 @@ class Employee::ManageController < ApplicationController
     # tmp = handle_sort(tmp)
     @total_amount = @rest_amount = 0
     tmp.each { |p| @total_amount+=p.total_amount; @rest_amount+=p.principle_rest }
-    @projects = Kaminari.paginate_array(tmp).page(params[:page]).per(10)
+    @projects = Kaminari.paginate_array(tmp).page(params[:page]).per(25)
     # @projects = tmp
   end
 

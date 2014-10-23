@@ -17,6 +17,21 @@ class UsageRecord < ActiveRecord::Base
     class_name: :'UsageRecord::UsedFund', dependent: :destroy, validate: true
   has_many :attachments, as: :attachment_owner, validate: true, dependent: :destroy
 
+  scope :with_amount, ->{
+    joins(%Q{LEFT OUTER JOIN "usage_record_used_funds" as "interest" ON "interest"."usage_record_id" = "usage_records"."id"
+AND "interest"."fund_type_id" = 2})
+    .joins(%Q{LEFT OUTER JOIN "usage_record_used_funds" as "principle" ON  "principle"."usage_record_id" = "usage_records"."id"
+AND  "principle"."fund_type_id" = 1})
+    .joins(%Q{LEFT OUTER JOIN "funds" as "interest_funds"
+ON "interest_funds"."fund_instance_id" = "interest"."id" 
+AND "interest_funds"."fund_instance_type" = 'UsageRecord::UsedFund'})
+    .joins(%Q{LEFT OUTER JOIN "funds" as "principle_funds"
+ON "principle_funds"."fund_instance_id" = "principle"."id" 
+AND "principle_funds"."fund_instance_type" = 'UsageRecord::UsedFund'})
+    .select(%Q{"usage_records".*,  
+      ifnull("interest_funds".amount, 0) as "interest_amount",ifnull( "principle_funds".amount,0) as "principle_amount"})
+  }
+
 
   accepts_nested_attributes_for :interest_fund, update_only: true
   accepts_nested_attributes_for :principle_fund, update_only: true
@@ -46,33 +61,33 @@ class UsageRecord < ActiveRecord::Base
     end
   end 
 
-  ['principle', 'interest'].each do |type|
-    method_name = "#{type}_amount".to_sym
-    define_method(method_name,
-      ->(opts = {}, *splat, &block) do
-        if (f = self.send("#{type}_fund")).nil?
-          0
-        else
-          if opts.empty?
-            f.amount!
-          else
-            (tmp = Fund.where(opts.merge(id: f.id!))).empty? ? 0 : f.amount!
-          end
-        end
-      end
-    )
-    alias_method "#{type}_used".to_sym, method_name
+  # ['principle', 'interest'].each do |type|
+  #   method_name = "#{type}_amount".to_sym
+  #   define_method(method_name,
+  #     ->(opts = {}, *splat, &block) do
+  #       if (f = self.send("#{type}_fund")).nil?
+  #         0
+  #       else
+  #         if opts.empty?
+  #           f.amount!
+  #         else
+  #           (tmp = Fund.where(opts.merge(id: f.id!))).empty? ? 0 : f.amount!
+  #         end
+  #       end
+  #     end
+  #   )
+  #   alias_method "#{type}_used".to_sym, method_name
+  # end
+
+
+  # alias_method :principle_used, :principle_amount
+  def principle_amount
+    (f = principle_fund).nil? ? 0 : f.fund.amount
   end
 
-
-  # alias_method :principle_used
-  # def principle_amount
-  #   (f = principle_fund).nil? ? 0 : f.fund.amount
-  # end
-
-  # def interest_amount
-  #   (f = interest_fund).nil? ? 0 : f.fund.amount
-  # end
+  def interest_amount(opts={})
+    (f = interest_fund).nil? ? 0 : f.fund.amount
+  end
 
   def time
     f = principle_fund || interest_fund

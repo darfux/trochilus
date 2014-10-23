@@ -9,76 +9,49 @@ class DonationRecord < ActiveRecord::Base
   belongs_to :creator, class_name: :User, foreign_key: :creator_id
   belongs_to :donation_type
 
-  has_many :actual_funds, ->{ merge(DonationRecord::ActualFund.with_fund) }, class_name: :'DonationRecord::ActualFund', dependent: :destroy
-  has_many :funds, through: :actual_funds
+  has_many :actual_funds, class_name: :'DonationRecord::ActualFund', dependent: :destroy
   has_many :attachments, as: :attachment_owner, validate: true, dependent: :destroy
-  has_many :interest_periods, ->{ order(:start) }, class_name: :'DonationRecord::InterestPeriod'
+  has_many :interest_periods, class_name: :'DonationRecord::InterestPeriod', dependent: :destroy
 
   validates :customer, presence: true
+
+  scope :with_fund, ->{
+    joins(outerjoin_arg(:fund, :fund_instance)).select('* ,funds.*')
+  }
 
   scope :with_actual_amount, ->{
     joins(outerjoin_arg(:actual_funds, :donation_record)).merge(DonationRecord::ActualFund.with_fund)
       .except(:select).select(%Q{#{table_name}.*, "sum(amount) as actual_amount"}).group("#{table_name}.id")
   }
-  scope :with_fund, ->{
-    joins(outerjoin_arg(:fund, :fund_instance)).select('* ,funds.*')
+
+  scope :with_interest_amount, ->{
+    joins(outerjoin_arg(:actual_funds, :donation_record))
+    .merge(DonationRecord::ActualFund.with_fund).where({"donation_record_actual_funds.fund_type_id" => FundType.interest_id})
+    .except(:select).select('amount as interest_amount, donation_records.*')
+    .union(
+      joins(:interest_periods).merge(DonationRecord::InterestPeriod.with_amount).select('donation_records.*')
+      )
   }
 
   scope :with_actual_funds, ->{
     joins(outerjoin_arg(:actual_funds, :donation_record)).merge(DonationRecord::ActualFund.with_fund)
   }
-  # validates :donation_type, presence: true
-  # validates_associated :actual_funds
   
   def record
     self
   end
-  
-  # def actual_funds(opts={})
-  #   opts.dup.each_pair do |k, v|
-  #     if Fund.method_defined? k
-  #       opts.delete k
-  #       opts["#{Fund.table_name}.#{k}"] = v
-  #     end
-  #   end
-  #   self.actual_funds.merge(DonationRecord::ActualFund.join_funds)
-  # end
-
-  # def self.funds(opts={})
-  #   joins(outerjoin_arg(:fund, :fund_instance)).select('* ,funds.*')
-  # end
 
   def actual_amount(opts={})
-    actual_funds.where({fund_type_id: FundType.principle_id}).sum(:amount)
+    actual_funds.with_fund.where({fund_type_id: FundType.principle_id}).sum(:amount)
   end
 
   def interest_amount
-    interest_amount = 0
-    interest_amount += actual_funds.where({fund_type_id: FundType.interest_id}).sum(:amount)
-    self.interest_periods.each do |ip|
-      interest_amount+=ip.amount
-    end
-    interest_amount
+    actual_funds.with_fund.where({fund_type_id: FundType.interest_id}).except(:select).select('amount as interest_amount')
+    .union(
+      self.interest_periods.with_amount
+      )
+    .sum(:interest_amount)
   end
-
-  # def interest_amount(opts={})
-  #   opts.dup.each_pair do |k, v|
-  #     if Fund.method_defined? k
-  #       opts.delete k
-  #       opts["#{Fund.table_name}.#{k}"] = v
-  #     end
-  #   end
-  #   interest_amount = 0
-  #   self.actual_funds
-  #   .joins(DonationRecord::ActualFund.join_fund_arg)
-  #   .where({fund_type_id: FundType.interest_id}.merge(opts)).each do |a|
-  #     interest_amount+=a.amount!
-  #   end
-  #   self.interest_periods.each do |ip|
-  #     interest_amount+=ip.amount
-  #   end
-  #   interest_amount
-  # end
 
   def plan_fund
     fund
