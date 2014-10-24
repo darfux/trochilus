@@ -34,7 +34,9 @@ class CommonCustomersController < ApplicationController
   # POST /self_customers.json
   def create
     # raise self_params.inspect
-    @self_customer = @SelfActiveRecord.new(self_params) #using :child:_attributes for nested
+    @self_customer = @SelfActiveRecord.new(self_params) 
+    @self_customer.customer.creator = current_user
+    #using :child:_attributes for nested
     # @self_customer.customer = @self_customer.build_customer(customer_params)
 
     respond_to do |format|
@@ -107,8 +109,6 @@ class CommonCustomersController < ApplicationController
     def self_params
       params.require(@SelfType).
         permit(customer_attributes:[:name, :country_id, :state_id, :city_id, :address, :tel,
-          :email, :fax, :postcode, :comment]).tap{ |p| 
-          p[:customer_attributes][:creator_id] = current_user.id 
-      }
+          :email, :fax, :postcode, :comment])
     end
 end

@@ -3,6 +3,7 @@ class CustomerGroupsController < CommonCustomersController
   before_action :set_delete_customer, only: [:delete_customer]
   def create
     @self_customer = @SelfActiveRecord.new(self_params)
+    @self_customer.customer.creator = current_user
     customers = params[:customer] || []
     customers.each do |c_id|
       customer = IndividualCustomer.find(c_id).customer
