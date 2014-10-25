@@ -37,6 +37,10 @@ module ApplicationHelper
     1980
   end
 
+  def default_end_year
+    Time.now.year+5
+  end
+
   def current_path(overwrite={})
     url_for :only_path => true, :params => params.tap{ |p| p.delete(:action);p.delete(:controller)}.merge(overwrite)
   end

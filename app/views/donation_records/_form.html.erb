@@ -35,7 +35,7 @@
       </div>
       <div class="field">
         <%= f_f.label :currency %><br />
-        <%= f_f.select(:currency_id, Currency.all_ssym.collect {|e| [ e.name+'-'+e.symbol, e.id ] }) %>
+        <%= f_f.select(:currency_id, Currency.all_ssym.collect {|e| [ e.symbol+'-'+e.name, e.id ] }) %>
       </div>
       <div class="field">
         <%= f_f.label :origin_amount %><br />
