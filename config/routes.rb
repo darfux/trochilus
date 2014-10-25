@@ -117,6 +117,8 @@ Rails.application.routes.draw do
     resources :contact_records
   end
 
+  get 'common_customer/check_input', as: :common_customer_check_input, to: 'common_customers#check_input'
+
   resources :customer_groups do
     delete "customers/:id", to: 'customer_groups#delete_customer', as: :customer
     get "customers/:id", to: 'customer_groups#delete_customer'

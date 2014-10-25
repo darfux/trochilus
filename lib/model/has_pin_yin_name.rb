@@ -4,7 +4,11 @@ module HasPinYinName
       before_validation :set_abbrpy
     end
     def all_spy
-      all.order(:name_abbrpy)
+      if column_names.include? 'name_abbrpy'
+        all.order(:name_abbrpy)
+      else
+        all.sort_by{ |e| e.name_with_py }
+      end
     end
   end
   

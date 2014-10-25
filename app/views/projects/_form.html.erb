@@ -12,7 +12,7 @@
   </div>
   <div class="field">
     <%= f.label "创建日期" %><br>
-    <%= f.date_select :create_date, start_year: default_start_year %>
+    <%= f.date_select :create_date, {start_year: default_start_year, end_year: default_end_year} %>
   </div>
   <div class="field">
     <%= f.label "简介" %><br>
