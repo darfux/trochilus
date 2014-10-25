@@ -22,6 +22,8 @@ class Project < ActiveRecord::Base
   validates_presence_of :project_level
   validates_presence_of_all except: [:interest_rate, :endowment, :brief, :serialnum, :create_manager, :comment]
 
+  validates_uniqueness_of :name
+  
   #http://archive.railsforum.com/viewtopic.php?id=6097#p25502
   #use entry[column.name] instead of entry.column to avoid local method
   scope :with_total_amount, ->{ joins(outerjoin_arg(:donation_records, :project)).merge(DonationRecord.with_fund)
@@ -32,6 +34,7 @@ class Project < ActiveRecord::Base
 
 
   scope :order_by_total_amount, ->(desc=false) { with_total_amount.reorder("total_amount#{desc ? ' DESC' : ''}") }
+  
   
   # scope :order_by_actual_amount, ->(desc=false) { with_total_amount.reorder("actual_amount#{desc ? ' DESC' : ''}") }
 

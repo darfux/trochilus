@@ -69,6 +69,19 @@ class CommonCustomersController < ApplicationController
     end
   end
 
+  def check_input
+    field = params[:field].to_sym
+    val = params[:val]
+    id = params[:current_id]
+    respond_to do |format|
+      case field
+      when :name
+        @cs = Customer.where(name: val).where.not(id: id)
+        format.json
+      end
+    end
+  end
+
   # DELETE /self_customers/1
   # DELETE /self_customers/1.json
   def destroy
