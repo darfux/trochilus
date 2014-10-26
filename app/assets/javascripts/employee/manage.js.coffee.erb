@@ -21,7 +21,7 @@ initTableFilters = ->
 	for elm in ['from', 'to']
 		((type)->
 			$("#fund_time_#{type}").change ->
-				f = $.query.get('filters')
+				f = $.query.get('filters[scope]')
 				f ||= {}
 				time_key = 'time'
 				f[time_key] ||= {}
@@ -31,11 +31,11 @@ initTableFilters = ->
 					delete f[time_key][type]
 					if f[time_key] == {}
 						delete f[time_key]
-				location.search = $.query.set('filters', f))(elm)
+				location.search = $.query.set('filters[scope]', f))(elm)
 
 		((type)->
 			$("#project_time_#{type}").change ->
-				f = $.query.get('filters')
+				f = $.query.get('filters[scope]')
 				f ||= {}
 				time_key = 'create_date'
 				f[time_key] ||= {}
@@ -45,7 +45,7 @@ initTableFilters = ->
 					delete f[time_key][type]
 					if f[time_key] == {}
 						delete f[time_key]
-				location.search = $.query.set('filters', f))(elm)
+				location.search = $.query.set('filters[scope]', f))(elm)
 			
 
 

@@ -88,7 +88,7 @@ class Project < ActiveRecord::Base
   end
 
   def self.handle_filter(filters, relation=nil)
-    @where_keys ||= [:project_type, :project_level, :create_unit, :endowment]
+    @where_keys ||= [:project_type, :project_level, :create_unit, :endowment, {create_date: {type: :time}}]
     scopes  = filters.scopes
     sort    = filters.sort
     where_conditions = filters.get_where_conditions(@where_keys)

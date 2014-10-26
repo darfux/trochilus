@@ -1,3 +1,8 @@
+# filters
+#   scope
+#   sort
+#     attribute
+#     order
 class Trochilus::ModelFilter
   class Sort
     attr_reader :attribute, :desc
@@ -19,8 +24,28 @@ class Trochilus::ModelFilter
   end
   def get_where_conditions(ar)
     conditions = {}
-    ar.each do |k|
-      next if (v=@scopes[k]).nil?
+    ar.each do |scope|
+      if scope.is_a? Hash
+        k = scope.keys[0]
+        v = @scopes[k]
+        next if (v=@scopes[k]).nil?
+        case scope[k][:type]
+        when :time
+          from = ((from=v['from']) ? Time.utc(*from.split('-')).yesterday.end_of_day : Time.new(0))
+          to = ((to=v['to']) ? Time.utc(*to.split('-')).end_of_day : Time.new(9999))
+          v = from..to
+        end
+      else
+        k = scope
+        next if (v=@scopes[k]).nil?
+        v = (
+          case v
+          when 'true' then true
+          when 'false' then false
+          else v
+          end
+        )
+      end
       conditions[k] = v
     end
     conditions

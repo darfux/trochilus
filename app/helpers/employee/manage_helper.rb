@@ -40,9 +40,12 @@ module Employee::ManageHelper
         { filters: { sort: {attribute: attribute, order: opt} } }
       else
         tmp = params[:filters].tap{ |p| p.delete(:sort) if p }
+        # tmp = params[:filters].dup.tap{ |p| p.delete(:sort) if p }
         tmp.empty? ? params.delete(:filters) : tmp
+        {}
       end
     )
+    # binding.pry
     link_to text+decor, current_path(sort_params)
   end
 

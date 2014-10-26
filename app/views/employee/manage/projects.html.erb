@@ -7,7 +7,7 @@
 <% end %>
 
 <p></p>
-<% time = params.direct_fetch([:filters, :create_date], {}) %>
+<% time = params.direct_fetch([:filters, :scope, :create_date], {}) %>
 <div class='time-filter'><%= date_field_tag :project_time_from, time[:from] %>-<%= date_field_tag :project_time_to, time[:to] %></div>
 <span><strong>总金额</strong> <%= money_show @total_amount %></span> | 
 <span><strong>总余额</strong> <%= money_show @rest_amount %></span>
