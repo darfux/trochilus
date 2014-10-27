@@ -59,7 +59,7 @@ class ApplicationController < ActionController::Base
       end
     end
 
-    
+
     def search_params
       params.require(:search_object).permit(:type, :query)
     end

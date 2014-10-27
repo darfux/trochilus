@@ -37,5 +37,5 @@ Rails.application.configure do
 
   config.action_mailer.default_url_options = { host: 'localhost:3000' }
 
-  ActiveSupport::Dependencies.explicitly_unloadable_constants << 'ActiveRecordExtension'
+  ActiveSupport::Dependencies.mark_for_unload(ActiveRecordExtension)
 end

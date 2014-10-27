@@ -29,7 +29,13 @@ class Customer < ActiveRecord::Base
   
   set_accessable_attributes [
     :total_donation, :contact_records, :donation_records, 
-    :link_projects, :creator, :customer_groups, :name_with_py, :country, :state, :city]
+    :link_projects, :creator, :customer_groups, :name_with_py, :country, :state, :city
+  ]
+
+  filter_where_keys [:customer_type]
+
+
+
   
   def customer_type
     super

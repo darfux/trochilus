@@ -3,7 +3,7 @@
 #   sort
 #     attribute
 #     order
-class Trochilus::ModelFilter
+class ModelFilter
   class Sort
     attr_reader :attribute, :desc
     def initialize(h)

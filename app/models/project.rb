@@ -32,13 +32,17 @@ class Project < ActiveRecord::Base
   scope :with_actual_amount, ->{ joins(outerjoin_arg(:donation_records, :project)).merge(DonationRecord.with_actual_funds)
       .except(:select).select('projects.*', "sum(amount) as actual_amount").group('projects.id') }
 
-
   scope :order_by_total_amount, ->(desc=false) { with_total_amount.reorder("total_amount#{desc ? ' DESC' : ''}") }
-  
   
   # scope :order_by_actual_amount, ->(desc=false) { with_total_amount.reorder("actual_amount#{desc ? ' DESC' : ''}") }
 
   scope :total_amount, ->{ donation_records.merge(DonationRecord.with_fund).sum(:amount) }
+
+
+  filter_where_keys [:project_type, :project_level, :create_unit, :endowment, {create_date: {type: :time}}]
+  filter_scoped_orders [:order_by_total_amount, :order_by_actual_amount, :create_date]
+  filter_method_orders [:principle_rest]
+
 
   def endowment_t
     e = endowment ? :eyes : :eno
@@ -85,34 +89,6 @@ class Project < ActiveRecord::Base
         self.send("#{type}_amount") - self.send("#{type}_used")
       end
     )
-  end
-
-  def self.handle_filter(filters, relation=nil)
-    @where_keys ||= [:project_type, :project_level, :create_unit, :endowment, {create_date: {type: :time}}]
-    scopes  = filters.scopes
-    sort    = filters.sort
-    where_conditions = filters.get_where_conditions(@where_keys)
-    relation = (relation||self).where(where_conditions)
-    desc = sort.desc
-    desc_sql = sort.desc_sql
-
-    @scoped_orders = [:order_by_total_amount, :order_by_actual_amount, :create_date]
-    @method_orders = [:principle_rest]
-    sa=sort.attribute
-    if @scoped_orders.include? sa
-      if column_names.include? sa.to_s
-        relation = relation.order("#{sa}#{desc_sql}")
-      else
-        relation = relation.send(sa, desc)
-      end
-      # binding.pry
-    end
-    if @method_orders.include? sa
-      tmp = relation.sort_by{|p| p.send(sa)}
-      tmp.reverse! if desc
-      relation = tmp
-    end
-    relation.to_a
   end
 
 end

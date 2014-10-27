@@ -1,10 +1,10 @@
 class Employee::ManageController < ApplicationController
-  def indexp
+  include ModelFilterControllerExtension
+  def index
   end
 
   def projects
-    tmp = Project.all.order(:name_abbrpy)
-    tmp = Project.handle_filter(Trochilus::ModelFilter.new(params), tmp)
+    tmp = Project.all.order(:name_abbrpy).handle_filter(current_filter)
     # tmp = handle_sort(tmp)
     @total_amount = @rest_amount = 0
     tmp.each { |p| @total_amount+=p.total_amount; @rest_amount+=p.principle_rest }
@@ -13,12 +13,7 @@ class Employee::ManageController < ApplicationController
   end
 
   def customers
-    tmp = (
-      Customer.all
-    )
-    tmp = handle_filter(tmp)
-    tmp = tmp.sort_by{ |e| e.name_with_py }
-    @customers = tmp
+    @customers = Customer.all.order(:name_abbrpy).handle_filter(current_filter)
   end
 
   def funds

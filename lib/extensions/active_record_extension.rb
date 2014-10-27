@@ -4,9 +4,8 @@ require_dependency 'simple_reflector'
 module ActiveRecordExtension
 
   extend ActiveSupport::Concern
-
   # add your instance methods here
-
+  
   # add your static(class) methods here
   module ClassMethods
     def validates_presence_of_all(*args, except: [])

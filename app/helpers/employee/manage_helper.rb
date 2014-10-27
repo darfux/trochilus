@@ -12,6 +12,8 @@ module Employee::ManageHelper
       end
     )
   end
+
+  #NTBI
   def gen_sort(text, attribute)
     if params.direct_fetch([:filters, :sort, :attribute]) == attribute.to_s
       opt = (
