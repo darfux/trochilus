@@ -1,9 +1,10 @@
 class Employee::ManageController < ApplicationController
-  include ModelFilterControllerExtension
   def index
+    
   end
 
   def projects
+
     tmp = Project.all.order(:name_abbrpy).handle_filter(current_filter)
     # tmp = handle_sort(tmp)
     @total_amount = @rest_amount = 0

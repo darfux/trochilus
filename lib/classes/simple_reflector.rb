@@ -22,21 +22,3 @@ class SimpleReflector
     end
   end
 end
-
-module SimpleReflectorExtension
-
-  extend ActiveSupport::Concern
-
-  # add your instance methods here
-
-  # add your static(class) methods here
-  module ClassMethods
-    def simple_reflect(name)
-      r = reflections[name.to_sym]
-      SimpleReflector.new(r)
-    end
-  end
-end
-
-# include the extension 
-ActiveRecord::Base.send(:include, SimpleReflectorExtension)
