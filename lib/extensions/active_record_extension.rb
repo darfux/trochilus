@@ -5,7 +5,7 @@ module ActiveRecordExtension
     
     # add your static(class) methods here
     # include IncludeForAllSubclass
-    include HasPinYinName, SimpleReflectorExtension, ModelFilterActiveRecordExtension
+    include HasPinYinName, ModelFilterActiveRecordExtension
     module ClassMethods
       def validates_presence_of_all(*args, except: [])
         all = (
