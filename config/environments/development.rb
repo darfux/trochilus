@@ -37,9 +37,5 @@ Rails.application.configure do
 
   config.action_mailer.default_url_options = { host: 'localhost:3000' }
 
-  # ActiveSupport::Dependencies.mark_for_unload(ActiveRecordExtension)
-  # ActiveSupport::Dependencies.mark_for_unload(TestAutoLoad)
-
-  # ActiveSupport::Dependencies.autoloaded_constants << "ModelFilterControllerExtension"
 
 end

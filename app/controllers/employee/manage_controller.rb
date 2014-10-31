@@ -6,6 +6,7 @@ class Employee::ManageController < ApplicationController
   def projects
 
     tmp = Project.all.order(:name_abbrpy).handle_filter(current_filter)
+    @tmp = current_filter
     # tmp = handle_sort(tmp)
     @total_amount = @rest_amount = 0
     tmp.each { |p| @total_amount+=p.total_amount; @rest_amount+=p.principle_rest }
