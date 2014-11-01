@@ -34,8 +34,8 @@ class Employee::ManageController < ApplicationController
         get_actual_funds(params.direct_fetch([:filters, :fund_direction]))
       end
     )
-    tmp = handle_filter(tmp, filters)
-    tmp = handle_sort(tmp)
+    # tmp = handle_filter(tmp, filters)
+    # tmp = handle_sort(tmp)
     @actual_funds = tmp
     tmp = (
       if true||current_user.account.to_s == 'fkadmin'

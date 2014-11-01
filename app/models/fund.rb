@@ -12,6 +12,18 @@ class Fund < ActiveRecord::Base
   validates :amount, presence: true
   validates :time, presence: true
   validate :check_origin_amount
+
+  scope :select_by_type, ->(type=nil){
+    case type
+    when 'in'
+      where('fund_instance_type == ?', 'DonationRecord::ActualFund')#.order('time DESC')
+    when 'out'
+      where('fund_instance_type == ?', 'UsageRecord::UsedFund')#.order('time DESC')
+    else
+      where('fund_instance_type != ?', 'DonationRecord')#.order('time DESC')
+    end
+  }
+
   after_initialize :defaults
   def defaults
     self.currency ||= Currency.CNY

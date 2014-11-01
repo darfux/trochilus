@@ -1,5 +1,6 @@
 # filters
 #   scope
+#   where
 #   sort
 #     attribute
 #     order
@@ -21,6 +22,7 @@ module ModelFilter
     def initialize(params, filter_key=:filters)
       @h = params[filter_key] || {}
       @scopes = @h[:scope] || {}
+      @where_keys = @h[:wk] || {}
       @sort = Sort.new(@h[:sort])
     end
     def get_where_conditions(ar)
