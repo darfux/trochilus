@@ -3,25 +3,29 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 initTableFilters = ->
-	$('.filter').children('select').each ->
-		$(this).change ->
-			f = $.query.get('filters[scope]')
-			f ||= {}
-			filter = $(this).attr('id')
-			if $(this).val()
-				f[filter] = $(this).val()
-			else
-				delete f[filter]
-			params = $.query.set('filters[scope]', f)
-			if params.toString()
-				location.search = params
-			else
-				location.href = location.pathname
+	$('.filter').each ->
+		filter_type = $(this).attr('filter-type')
+		$(this).children('select').each ->
+			$(this).change ->
+				param_field = "filters[#{filter_type}]"
+				f = $.query.get(param_field)
+				f ||= {}
+				filter = $(this).attr('id')
+				if $(this).val()
+					f[filter] = $(this).val()
+				else
+					delete f[filter]
+				params = $.query.set(param_field, f)
+				if params.toString()
+					location.search = params
+				else
+					location.href = location.pathname
 
 	for elm in ['from', 'to']
+		param_field = "filters[wk]"
 		((type)->
 			$("#fund_time_#{type}").change ->
-				f = $.query.get('filters[scope]')
+				f = $.query.get(param_field)
 				f ||= {}
 				time_key = 'time'
 				f[time_key] ||= {}
@@ -31,11 +35,11 @@ initTableFilters = ->
 					delete f[time_key][type]
 					if f[time_key] == {}
 						delete f[time_key]
-				location.search = $.query.set('filters[scope]', f))(elm)
+				location.search = $.query.set(param_field, f))(elm)
 
 		((type)->
 			$("#project_time_#{type}").change ->
-				f = $.query.get('filters[scope]')
+				f = $.query.get(param_field)
 				f ||= {}
 				time_key = 'create_date'
 				f[time_key] ||= {}
@@ -45,7 +49,7 @@ initTableFilters = ->
 					delete f[time_key][type]
 					if f[time_key] == {}
 						delete f[time_key]
-				location.search = $.query.set('filters[scope]', f))(elm)
+				location.search = $.query.set(param_field, f))(elm)
 			
 
 

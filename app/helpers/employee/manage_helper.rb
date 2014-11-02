@@ -15,9 +15,9 @@ module Employee::ManageHelper
 
   #NTBI
   def gen_sort(text, attribute)
-    if params.direct_fetch([:filters, :sort, :attribute]) == attribute.to_s
+    if params.direct_fetch([:filters, :st, :attr]) == attribute.to_s
       opt = (
-        case tmp=params[:filters][:sort][:order]
+        case tmp=params[:filters][:st][:order]
         when '1'
           -1
         when '-1'
@@ -39,9 +39,9 @@ module Employee::ManageHelper
     end
     sort_params = (
       if opt
-        { filters: { sort: {attribute: attribute, order: opt} } }
+        { filters: { st: {attr: attribute, order: opt} } }
       else
-        tmp = params[:filters].tap{ |p| p.delete(:sort) if p }
+        tmp = params[:filters].tap{ |p| p.delete(:st) if p }
         # tmp = params[:filters].dup.tap{ |p| p.delete(:sort) if p }
         tmp.empty? ? params.delete(:filters) : tmp
         {}
@@ -49,21 +49,5 @@ module Employee::ManageHelper
     )
     # binding.pry
     link_to text+decor, current_path(sort_params)
-  end
-
-  def select_existed(host_klass, dest)
-    host_table = host_klass.table_name
-    dest_klass = 
-      (klass = host_klass.reflect_on_association(dest).options[:class_name]).nil? ? dest.to_s.classify.constantize : klass.to_s.constantize
-    dest_table = dest_klass.table_name
-    options_from_collection_for_select(
-      host_klass.group("#{dest}_id")
-      .joins(dest)
-      .select("'#{dest_table}'.'name', '#{dest_table}'.'id'"), :id, :name, default_filter_val(dest)
-    )
-  end
-  
-  def default_filter_val(filter)
-    (f = params.direct_fetch([:filters, :scope])).nil? ? nil : f[filter]
   end
 end
