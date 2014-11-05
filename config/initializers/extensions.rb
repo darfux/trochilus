@@ -5,6 +5,7 @@ require "form_builder_extension"
 
 
 ActiveRecord::Base.send(:include, ActiveRecordExtension)
+PackageManager.use('ModelFilter')
 
 # PackageManager.use(:simple_reflector)
 

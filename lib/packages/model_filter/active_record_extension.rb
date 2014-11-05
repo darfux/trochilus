@@ -37,12 +37,16 @@ module ModelFilter
           scoped_orders = _filter_config.scoped_orders
           method_orders = _filter_config.method_orders
 
-          scopes  = filters.scopes
           sort    = filters.sort
           where_conditions = filters.get_where_conditions(where_keys)
           relation = current_scope.where(where_conditions)
           desc = sort.desc
           desc_sql = sort.desc_sql
+
+          scopes  = filters.scopes
+          scopes.each do |scope|
+            relation.send(scope.name, *scope.param)
+          end
 
           sa=sort.attribute
           if scoped_orders.include? sa

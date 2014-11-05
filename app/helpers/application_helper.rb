@@ -1,4 +1,6 @@
 module ApplicationHelper
+  # include PackageManager::Helpers
+  
   def resource_name
     :user
   end

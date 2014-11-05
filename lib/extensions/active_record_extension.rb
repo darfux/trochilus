@@ -1,5 +1,4 @@
 module ActiveRecordExtension
-  PackageManager.use('ModelFilter')
   module Inner
     extend ActiveSupport::Concern
     # add your instance methods here
