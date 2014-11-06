@@ -39,7 +39,7 @@ module ModelFilter
 
           sort    = filters.sort
           where_conditions = filters.get_where_conditions(where_keys)
-          relation = current_scope.where(where_conditions)
+          relation = (current_scope||all).where(where_conditions)
           desc = sort.desc
           desc_sql = sort.desc_sql
 
