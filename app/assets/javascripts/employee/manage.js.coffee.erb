@@ -1,6 +1,8 @@
 # Place all the behaviors and hooks related to the matching controller here.
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
+<% environment.context_class.instance_eval { include Rails.application.routes.url_helpers } %>
+<% environment.context_class.instance_eval { include ModelFilter::ViewHelpers } %>
 
 initTableFilters = ->
 	$('.filter').each ->
@@ -22,7 +24,7 @@ initTableFilters = ->
 					location.href = location.pathname
 
 	for elm in ['from', 'to']
-		param_field = "filters[wk]"
+		param_field = "filters[<%= filter_type.where %>]"
 		((type)->
 			$("#fund_time_#{type}").change ->
 				f = $.query.get(param_field)

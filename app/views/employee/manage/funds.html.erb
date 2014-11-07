@@ -2,7 +2,7 @@
  
 <% if params[:type].nil? || params[:type]=='actual' %>
 <table class="fund-data-table">
-  <% time = params.direct_fetch([:filters, :time], {}) %>
+  <% time = params.direct_fetch([:filters, filter_type.where, :time], {}) %>
   <div class='time-filter'><%= date_field_tag :fund_time_from, time[:from] %>-<%= date_field_tag :fund_time_to, time[:to] %></div>
   <tbody>
 
@@ -20,12 +20,13 @@
     <% end %>
 
     <tr>
-      <th><%= gen_sort '项目', :project %></th>
+      <th><%= gen_sort '项目', :project_py %></th>
       <th>
         <%= gen_sort '金额', :amount %>
-        <span class='filter'><%= select_tag :fund_direction, 
-          options_for_select({ "收入"=>:in, "支出"=>:out}, 
-          ((f=params[:filters]) ? f[:fund_direction] : nil)), prompt: "全部" %></span>
+        <span class='filter' filter-type='<%= filter_type.scope %>'><%= select_tag :select_by_type, 
+          options_for_select(
+            (pt=Fund.poly_types; { "收入"=>pt.actual_in, "支出"=>pt.actual_out}), 
+          params.direct_fetch([:filters, filter_type.scope, :select_by_type])), prompt: "全部" %></span>
       </th>
       <th><%= gen_sort '时间', :time %> </th>
       <th>相关人</th>

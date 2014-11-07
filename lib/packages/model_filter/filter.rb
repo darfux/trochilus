@@ -23,13 +23,28 @@ module ModelFilter
         desc ? " DESC" : ""
       end
     end
-    
+    class Scope
+      attr_accessor :name, :params
+      def initialize(n, p)
+        @name = n
+        @params = p
+      end
+    end
     attr_reader :scopes, :sort, :where_keys
     def initialize(params, filter_key=:filters)
       @h = params[filter_key] || {}
       @scopes = @h[KEY.scope] || {}
       @where_keys = @h[KEY.where] || {}
       @sort = Sort.new(@h[KEY.sort])
+    end
+    def get_scopes(ar)
+      scopes = []
+      ar.each do |sc|
+        if v=@scopes[sc]
+          scopes << Scope.new(sc, v)
+        end
+      end
+      scopes
     end
     def get_where_conditions(ar)
       conditions = {}

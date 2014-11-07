@@ -19,34 +19,8 @@ class Employee::ManageController < ApplicationController
   end
 
   def funds
-    filters = params.fetch(:filters, {}).dup.tap{ |f| f.delete(:fund_direction) }
-    tmp = (
-      if true||current_user.account.to_s == 'fkadmin'
-        case params.direct_fetch([:filters, :fund_direction])
-        when 'in'
-          Fund.where('fund_instance_type == ?', 'DonationRecord::ActualFund').order('time DESC')
-        when 'out'
-          Fund.where('fund_instance_type == ?', 'UsageRecord::UsedFund').order('time DESC')
-        else
-          Fund.where('fund_instance_type != ?', 'DonationRecord').order('time DESC')
-        end
-      else
-        get_actual_funds(params.direct_fetch([:filters, :fund_direction]))
-      end
-    )
-    # tmp = handle_filter(tmp, filters)
-    # tmp = handle_sort(tmp)
-    @actual_funds = tmp
-    tmp = (
-      if true||current_user.account.to_s == 'fkadmin'
-        Fund.where('fund_instance_type == ?', 'DonationRecord').order('time DESC')
-      else
-        get_plan_funds.order('time DESC')
-      end
-    ) 
-    tmp = handle_filter(tmp, filters)
-    tmp = handle_sort(tmp)
-    @plan_funds = tmp
+    @actual_funds = Fund.select_by_type(Fund.poly_types.actual_all).order('time DESC').handle_filter(current_filter)
+    @plan_funds = Fund.select_by_type(Fund.poly_types.plan).order('time DESC').handle_filter(current_filter)
   end
 
   def others

@@ -13,16 +13,38 @@ class Fund < ActiveRecord::Base
   validates :time, presence: true
   validate :check_origin_amount
 
+  POLY_TYPE = OpenStruct.new.tap do |t|
+    t.plan  = :plan
+    t.actual_in   = :in
+    t.actual_out  = :out
+    t.actual_all  = :all
+  end
+
+  def self.poly_types
+    POLY_TYPE
+  end
+
   scope :select_by_type, ->(type=nil){
-    case type
-    when 'in'
-      where('fund_instance_type == ?', 'DonationRecord::ActualFund')#.order('time DESC')
-    when 'out'
-      where('fund_instance_type == ?', 'UsageRecord::UsedFund')#.order('time DESC')
-    else
-      where('fund_instance_type != ?', 'DonationRecord')#.order('time DESC')
-    end
+    unscope(where: :fund_instance_type)
+    .where *(
+      case type.to_sym
+      when POLY_TYPE.actual_in
+        ['fund_instance_type == ?', 'DonationRecord::ActualFund']
+      when POLY_TYPE.actual_out
+        ['fund_instance_type == ?', 'UsageRecord::UsedFund']
+      when POLY_TYPE.actual_all
+        ['fund_instance_type != ?', 'DonationRecord']
+      when POLY_TYPE.plan
+        ['fund_instance_type == ?', 'DonationRecord']
+      else
+        raise 'wrong type'
+      end
+    )
   }
+
+  filter_scopes [:select_by_type]
+  filter_scoped_orders [:time, :amount]
+  filter_method_orders [:project_py]
 
   after_initialize :defaults
   def defaults
@@ -47,6 +69,10 @@ class Fund < ActiveRecord::Base
     when 'UsageRecord::UsedFund'
       fund_instance.usage_record.project
     end
+  end
+
+  def project_py
+    project.name_with_py
   end
 
   def relate_unit

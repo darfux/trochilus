@@ -1,11 +1,13 @@
 module ModelFilter
   module ActiveRecordExtension
     module Inner
-
+      FUNCS = [:where_keys, :scoped_orders, :method_orders, :scopes]
       class FilterConfig
-        attr_accessor :where_keys, :scoped_orders, :method_orders
+        attr_accessor *FUNCS
         def initialize
-          @where_keys = @scoped_orders = @method_orders = []
+          FUNCS.each do |f|
+            instance_variable_set("@#{f}", [])
+          end
         end
       end
 
@@ -18,7 +20,7 @@ module ModelFilter
         cattr_accessor :_filter_config
         self._filter_config = FilterConfig.new
         class << self
-          [:where_keys, :scoped_orders, :method_orders].each do |name|
+          FUNCS.each do |name|
             define_method("filter_#{name}") do |ar|
               _filter_config.send("#{name}=", ar)
             end
@@ -33,6 +35,7 @@ module ModelFilter
         #   FilterConfig
         # end
         def handle_filter(filters)
+          scopes        = _filter_config.scopes
           where_keys    = _filter_config.where_keys
           scoped_orders = _filter_config.scoped_orders
           method_orders = _filter_config.method_orders
@@ -43,9 +46,9 @@ module ModelFilter
           desc = sort.desc
           desc_sql = sort.desc_sql
 
-          scopes  = filters.scopes
+          scopes  = filters.get_scopes(scopes)
           scopes.each do |scope|
-            relation.send(scope.name, *scope.param)
+            relation = relation.send(scope.name, *scope.params)
           end
 
           sa=sort.attribute
