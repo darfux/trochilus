@@ -26,14 +26,19 @@ class Project < ActiveRecord::Base
   
   #http://archive.railsforum.com/viewtopic.php?id=6097#p25502
   #use entry[column.name] instead of entry.column to avoid local method
-  scope :with_total_amount, ->{ joins(outerjoin_arg(:donation_records, :project)).merge(DonationRecord.with_fund)
+  scope :with_total_amount, ->(*opts){ joins(outerjoin_arg(:donation_records, :project)).merge(DonationRecord.with_fund(*opts))
       .except(:select).select('projects.*', "COALESCE(sum(amount), 0) as total_amount").group('projects.id') }  
 
-  scope :with_actual_amount, ->{ joins(outerjoin_arg(:donation_records, :project)).merge(DonationRecord.with_actual_funds)
+  scope :with_actual_amount, ->(*opts){ joins(outerjoin_arg(:donation_records, :project)).merge(DonationRecord.with_actual_funds(*opts))
       .except(:select).select('projects.*', "sum(amount) as actual_amount").group('projects.id') }
 
-  scope :with_interest_amount, ->{ joins(%Q|LEFT OUTER JOIN #{DonationRecord.with_interest_amount.send(:build_from).to_sql} ON "donation_records"."project_id" = "projects"."id"|)
+  scope :with_interest_amount, ->(*opts){ joins(%Q|LEFT OUTER JOIN #{DonationRecord.with_interest_amount(*opts).send(:build_from).to_sql} ON "donation_records"."project_id" = "projects"."id"|)
     .select('projects.*', "COALESCE(sum(interest_amount), 0) as actual_amount").group('projects.id') 
+  }
+
+  scope :with_used, ->(*opts){
+    joins(outerjoin_arg(:usage_records, :project)).merge(UsageRecord.with_amount)
+    .except(:select).select('projects.*', "sum('interest_funds'.'amount') as interest_used", "sum('principle_funds'.'amount') as principle_used").group('projects.id') 
   }
 
   scope :order_by_total_amount, ->(desc=false) { with_total_amount.reorder("total_amount#{desc ? ' DESC' : ''}") }
@@ -58,13 +63,13 @@ class Project < ActiveRecord::Base
     return value unless attribute
     Project.new(key => value).send(attribute).name
   end
-
-  def actual_funds
-    donation_records.merge(DonationRecord.with_actual_amount.except(:group))
-  end
   
   def total_amount(opts={})
     donation_records.merge(DonationRecord.with_fund).sum(:amount)
+  end
+
+  def actual_funds
+    donation_records.merge(DonationRecord.with_actual_amount.except(:group))
   end
 
   def actual_amount(opts={})

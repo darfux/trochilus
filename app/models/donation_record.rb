@@ -15,26 +15,30 @@ class DonationRecord < ActiveRecord::Base
 
   validates :customer, presence: true
 
-  scope :with_fund, ->{
-    joins(outerjoin_arg(:fund, :fund_instance)).select('* ,funds.*')
+  scope :with_fund, ->(opts={}){
+    condition = {}
+    if t=opts[:time]
+      condition = {funds: {time: t}}
+    end
+    joins(outerjoin_arg(:fund, :fund_instance, condition)).select('* ,funds.*')
   }
 
-  scope :with_actual_amount, ->{
-    joins(outerjoin_arg(:actual_funds, :donation_record)).merge(DonationRecord::ActualFund.with_fund)
+  scope :with_actual_amount, ->(*opts){
+    joins(outerjoin_arg(:actual_funds, :donation_record)).merge(DonationRecord::ActualFund.with_fund(*opts))
       .except(:select).select(%Q{#{table_name}.*, "sum(amount) as actual_amount"}).group("#{table_name}.id")
   }
 
-  scope :with_interest_amount, ->{
+  scope :with_interest_amount, ->(*opts){
     joins(outerjoin_arg(:actual_funds, :donation_record))
-    .merge(DonationRecord::ActualFund.with_fund).where({"donation_record_actual_funds.fund_type_id" => FundType.interest_id})
+    .merge(DonationRecord::ActualFund.with_fund(*opts)).where({"donation_record_actual_funds.fund_type_id" => FundType.interest_id})
     .except(:select).select('amount as interest_amount, donation_records.*')
     .union(
-      joins(:interest_periods).merge(DonationRecord::InterestPeriod.with_amount).select('donation_records.*')
+      joins(:interest_periods).merge(DonationRecord::InterestPeriod.with_amount(*opts)).select('donation_records.*')
       )
   }
 
-  scope :with_actual_funds, ->{
-    joins(outerjoin_arg(:actual_funds, :donation_record)).merge(DonationRecord::ActualFund.with_fund)
+  scope :with_actual_funds, ->(*opts){
+    joins(outerjoin_arg(:actual_funds, :donation_record)).merge(DonationRecord::ActualFund.with_fund(*opts))
   }
   
   def record

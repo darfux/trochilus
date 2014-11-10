@@ -2,7 +2,7 @@ module JoinArgable
   PackageManager.use('SimpleReflector')
   extend ActiveSupport::Concern
   module ClassMethods
-    def join_arg(name, selfas, type=:inner)
+    def join_arg(name, selfas, conditions = {}, type=:inner)
       klass = reflections[name.to_sym].klass
       target_reflector = tf = klass.simple_reflect(selfas)
       target_table_name = klass.table_name
@@ -24,12 +24,26 @@ module JoinArgable
           ft = target_reflector.foreign_type
           tmp << %Q{ AND "#{target_table_name}"."#{ft}" = "#{self}" }
         end
+        if conditions
+          conditions.each_pair do |table, values|
+            values.each_pair do |col, v|
+              tmp << %Q{ AND ("#{table}"."#{col}" } + (
+                case v
+                when Range
+                  " BETWEEN '#{v.begin}' AND '#{v.end}'"
+                else
+                  " == '#{v}'"
+                end
+              ) + ')'
+            end
+          end
+        end
         tmp
       )
     end
 
-    def outerjoin_arg(name, selfas)
-      join_arg(name, selfas, :outer)
+    def outerjoin_arg(name, selfas, conditions = {})
+      join_arg(name, selfas, conditions, :outer)
     end
   end
 end

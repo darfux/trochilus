@@ -47,13 +47,12 @@
     <% @projects.each do |p| %>
     <tr>
       <td><%= (counter+=1).to_s.rjust(2, '0') %></td>
-      <!-- <td><%= p.serialnum %></td> -->
       <td><a href="/projects/<%= p.id %>"><%= p.name %></a></td>
       <td><%= p.project_type.name %></td>
       <td><%= p.project_level.name %></td>
       <td><%= p.create_unit.name %></td>
       <td><%= p.endowment_t %></td>
-      <td class="currency-show"><%= money_show p.total_amount %></td>
+      <td class="currency-show"><%= money_show p[:total_amount] %></td>
       <td class="currency-show"><%= money_show p.principle_rest %></td>
       <td><%= l p.create_date %></td>
     </tr>

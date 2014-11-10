@@ -1,7 +1,7 @@
 module ModelFilter
   module ActiveRecordExtension
     module Inner
-      FUNCS = [:where_keys, :scoped_orders, :method_orders, :scopes]
+      FUNCS = [:where_keys, :scoped_orders, :method_orders, :scopes, :virtual_columns]
       class FilterConfig
         attr_accessor *FUNCS
         def initialize
@@ -39,6 +39,7 @@ module ModelFilter
           where_keys    = _filter_config.where_keys
           scoped_orders = _filter_config.scoped_orders
           method_orders = _filter_config.method_orders
+          virtual_columns = _filter_config.virtual_columns
 
           sort    = filters.sort
           where_conditions = filters.get_where_conditions(where_keys)
@@ -50,10 +51,10 @@ module ModelFilter
           scopes.each do |scope|
             relation = relation.send(scope.name, *scope.params)
           end
-
+          
           sa=sort.attribute
           if scoped_orders.include? sa
-            if column_names.include? sa.to_s
+            if column_names.include? sa.to_s or virtual_columns.include? sa.to_sym
               relation = relation.reorder("#{sa}#{desc_sql}")
             else
               relation = relation.send(sa, desc)

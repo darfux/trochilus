@@ -1,6 +1,6 @@
 <%= render 'employee/manage/fund_header' %>
 <table class="fund-data-table">
-  <% time = params.direct_fetch([:filters, :time], {}) %>
+  <% time = params.direct_fetch([:filters, filter_type.where, :time], {}) %>
   <div class='time-filter'><%= date_field_tag :fund_time_from, time[:from] %>-<%= date_field_tag :fund_time_to, time[:to] %></div>
   <tbody>
     <tr>
@@ -20,6 +20,5 @@
       <td class="currency-show"><%= money_show u.total_used_amount %></td>
     </tr>
   <% end %>
-
   </tbody>
 </table>

@@ -55,9 +55,7 @@ module ModelFilter
           next if (v=@where_keys[k]).nil?
           case wk[k][:type]
           when :time
-            from = ((from=v['from']) ? Time.utc(*from.split('-')).yesterday.end_of_day : Time.new(0))
-            to = ((to=v['to']) ? Time.utc(*to.split('-')).end_of_day : Time.new(9999))
-            v = from..to
+            v = v.to_time_range
           end
         else
           k = wk
