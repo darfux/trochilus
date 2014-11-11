@@ -18,8 +18,7 @@ class UsageRecord < ActiveRecord::Base
   has_many :attachments, as: :attachment_owner, validate: true, dependent: :destroy
 
   scope :with_amount, ->{
-    joins(%Q{LEFT OUTER JOIN "usage_record_used_funds" as "interest" ON "interest"."usage_record_id" = "usage_records"."id"
-AND "interest"."fund_type_id" = 2})
+    joins( outerjoin_arg({interest_fund: {as: :interest}}, :usage_record, {interest: {fund_type_id: FundType.interest_id}}) )
     .joins(%Q{LEFT OUTER JOIN "usage_record_used_funds" as "principle" ON  "principle"."usage_record_id" = "usage_records"."id"
 AND  "principle"."fund_type_id" = 1})
     .joins(%Q{LEFT OUTER JOIN "funds" as "interest_funds"
