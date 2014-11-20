@@ -19,14 +19,9 @@ class UsageRecord < ActiveRecord::Base
 
   scope :with_amount, ->{
     joins( outerjoin_arg({interest_fund: {as: :interest}}, :usage_record, {interest: {fund_type_id: FundType.interest_id}}) )
-    .joins(%Q{LEFT OUTER JOIN "usage_record_used_funds" as "principle" ON  "principle"."usage_record_id" = "usage_records"."id"
-AND  "principle"."fund_type_id" = 1})
-    .joins(%Q{LEFT OUTER JOIN "funds" as "interest_funds"
-ON "interest_funds"."fund_instance_id" = "interest"."id" 
-AND "interest_funds"."fund_instance_type" = 'UsageRecord::UsedFund'})
-    .joins(%Q{LEFT OUTER JOIN "funds" as "principle_funds"
-ON "principle_funds"."fund_instance_id" = "principle"."id" 
-AND "principle_funds"."fund_instance_type" = 'UsageRecord::UsedFund'})
+    .joins( outerjoin_arg({principle_fund: {as: :principle}}, :usage_record, {principle: {fund_type_id: FundType.principle_id}}) )
+    .joins( UsageRecord::UsedFund.outerjoin_arg({fund: {as: :interest_funds}}, {fund_instance: {as: :interest}}) )
+    .joins( UsageRecord::UsedFund.outerjoin_arg({fund: {as: :principle_funds}}, {fund_instance: {as: :principle}}) )
     .select(%Q{"usage_records".*,  
       ifnull("interest_funds".amount, 0) as "interest_amount",ifnull( "principle_funds".amount,0) as "principle_amount"})
   }
