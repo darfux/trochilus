@@ -37,8 +37,8 @@
         是否留本
         <span class='filter' filter-type="<%= filter_type.where %>"><%= select_tag :endowment, options_for_select({"是" => true, "否" => false}, default_filter_val(:endowment, filter_type.where)), prompt: "全部" %></span>
       </th>
-      <th><%= gen_sort '总额', :order_by_total_amount %></th>
-      <th><%= gen_sort '余额', :principle_rest %></th>
+      <th><%= gen_sort '总额', :total_amount %></th>
+      <th><%= gen_sort '余额', :rest_amount %></th>
       <th>
         <%= gen_sort '创建日期', :create_date %>
       </th>
@@ -48,12 +48,12 @@
     <tr>
       <td><%= (counter+=1).to_s.rjust(2, '0') %></td>
       <td><a href="/projects/<%= p.id %>"><%= p.name %></a></td>
-      <td><%= p.project_type.name %></td>
-      <td><%= p.project_level.name %></td>
-      <td><%= p.create_unit.name %></td>
+      <td><%= p[:type] %></td>
+      <td><%= p[:level] %></td>
+      <td><%= p[:unit] %></td>
       <td><%= p.endowment_t %></td>
       <td class="currency-show"><%= money_show p[:total_amount] %></td>
-      <td class="currency-show"><%= money_show p.principle_rest %></td>
+      <td class="currency-show"><%= money_show p[:rest_amount] %></td>
       <td><%= l p.create_date %></td>
     </tr>
     <% end %>

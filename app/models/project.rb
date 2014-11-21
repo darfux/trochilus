@@ -1,4 +1,5 @@
 class Project < ActiveRecord::Base
+  include ProjectConcern::QueryMethods
   audited except: [:name_abbrpy, :creator_id]
   has_pin_yin_name
   belongs_to :project_level
@@ -23,34 +24,11 @@ class Project < ActiveRecord::Base
   validates_presence_of_all except: [:interest_rate, :endowment, :brief, :serialnum, :create_manager, :comment]
 
   validates_uniqueness_of :name
-  
-  #http://archive.railsforum.com/viewtopic.php?id=6097#p25502
-  #use entry[column.name] instead of entry.column to avoid local method
-  scope :with_total_amount, ->(*opts){ joins(outerjoin_arg(:donation_records, :project)).merge(DonationRecord.with_fund(*opts))
-      .except(:select).select('projects.*', "COALESCE(sum(amount), 0) as total_amount").group('projects.id') }  
-
-  scope :with_actual_amount, ->(*opts){ joins(outerjoin_arg(:donation_records, :project)).merge(DonationRecord.with_actual_funds(*opts))
-      .except(:select).select('projects.*', "sum(amount) as actual_amount").group('projects.id') }
-
-  scope :with_interest_amount, ->(*opts){ joins(%Q|LEFT OUTER JOIN #{DonationRecord.with_interest_amount(*opts).send(:build_from).to_sql} ON "donation_records"."project_id" = "projects"."id"|)
-    .select('projects.*', "COALESCE(sum(interest_amount), 0) as actual_amount").group('projects.id') 
-  }
-
-  scope :with_used, ->(*opts){
-    joins(outerjoin_arg(:usage_records, :project)).merge(UsageRecord.with_amount)
-    .except(:select).select('projects.*', "sum('interest_funds'.'amount') as interest_used", "sum('principle_funds'.'amount') as principle_used").group('projects.id') 
-  }
-
-  scope :order_by_total_amount, ->(desc=false) { with_total_amount.reorder("total_amount#{desc ? ' DESC' : ''}") }
-  
-  # scope :order_by_actual_amount, ->(desc=false) { with_total_amount.reorder("actual_amount#{desc ? ' DESC' : ''}") }
-
-  scope :total_amount, ->{ donation_records.merge(DonationRecord.with_fund).sum(:amount) }
-
 
   filter_where_keys [:project_type, :project_level, :create_unit, :endowment, {create_date: {type: :time}}]
-  filter_scoped_orders [:order_by_total_amount, :order_by_actual_amount, :create_date]
-  filter_method_orders [:principle_rest]
+  filter_scoped_orders [:total_amount, :order_by_actual_amount, :create_date, :rest_amount]
+  filter_virtual_columns [:total_amount, :rest_amount]
+  # filter_method_orders [:principle_rest]
 
 
   def endowment_t

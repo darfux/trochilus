@@ -5,11 +5,11 @@ class Employee::ManageController < ApplicationController
 
   def projects
 
-    tmp = Project.all.order(:name_abbrpy).with_total_amount.handle_filter(current_filter)
+    tmp = Project.all.order(:name_abbrpy).manage_view.handle_filter(current_filter)
     @tmp = current_filter
     # tmp = handle_sort(tmp)
     @total_amount = @rest_amount = 0
-    tmp.each { |p| @total_amount+=p.total_amount; @rest_amount+=p.principle_rest }
+    tmp.each { |p| @total_amount+=p[:total_amount]; @rest_amount+=p[:rest_amount] }
     @projects = Kaminari.paginate_array(tmp).page(params[:page]).per(25)
     # @projects = tmp
   end
