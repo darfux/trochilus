@@ -17,11 +17,16 @@ class UsageRecord < ActiveRecord::Base
     class_name: :'UsageRecord::UsedFund', dependent: :destroy, validate: true
   has_many :attachments, as: :attachment_owner, validate: true, dependent: :destroy
 
-  scope :with_amount, ->{
+  scope :with_amount, ->(opts={}){
+    condition = {}
+    if t=opts[:time]
+      interest_condition = {interest_funds: {time: t}}
+      principle_condition = {principle_funds: {time: t}}
+    end
     joins( outerjoin_arg({interest_fund: {as: :interest}}, :usage_record, {interest: {fund_type_id: FundType.interest_id}}) )
     .joins( outerjoin_arg({principle_fund: {as: :principle}}, :usage_record, {principle: {fund_type_id: FundType.principle_id}}) )
-    .joins( UsageRecord::UsedFund.outerjoin_arg({fund: {as: :interest_funds}}, {fund_instance: {as: :interest}}) )
-    .joins( UsageRecord::UsedFund.outerjoin_arg({fund: {as: :principle_funds}}, {fund_instance: {as: :principle}}) )
+    .joins( UsageRecord::UsedFund.outerjoin_arg({fund: {as: :interest_funds}}, {fund_instance: {as: :interest}}, interest_condition) )
+    .joins( UsageRecord::UsedFund.outerjoin_arg({fund: {as: :principle_funds}}, {fund_instance: {as: :principle}}, principle_condition) )
     .select(%Q{"usage_records".*,  
       ifnull("interest_funds".amount, 0) as "interest_amount",ifnull( "principle_funds".amount,0) as "principle_amount"})
   }

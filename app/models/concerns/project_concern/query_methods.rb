@@ -16,7 +16,7 @@ module ProjectConcern
       }
 
       scope :with_used, ->(*opts){
-        joins(outerjoin_arg(:usage_records, :project)).merge(UsageRecord.with_amount)
+        joins(outerjoin_arg(:usage_records, :project)).merge(UsageRecord.with_amount(*opts))
         .except(:select).select('projects.*', "COALESCE(sum('interest_funds'.'amount'),0) as interest_used", "COALESCE(sum('principle_funds'.'amount'),0) as principle_used").group('projects.id') 
       }
 
