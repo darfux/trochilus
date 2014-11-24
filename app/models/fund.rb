@@ -42,13 +42,20 @@ class Fund < ActiveRecord::Base
     )
   }
 
+  scope :manage_view, ->{
+    joins(oja({fund_instance: DonationRecord}))
+    .joins(oja({fund_instance: DonationRecord::ActualFund}))
+    .joins(oja({fund_instance: UsageRecord::UsedFund}))
+  }
+
   filter_scopes [:select_by_type]
   filter_scoped_orders [:time, :amount]
   filter_method_orders [:project_py]
+  filter_where_keys [{time: {type: :time}}]
 
   after_initialize :defaults
   def defaults
-    self.currency ||= Currency.CNY
+    self.currency_id ||= Currency.CNY.id
   end
 
 

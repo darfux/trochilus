@@ -23,7 +23,7 @@ module CommonFundInstance
 	module InstanceMethods
 
 	  def set_default_fund
-	  	build_fund unless self.fund #check fund.extists? to avoid loop when show .all
+	  	build_fund unless self.persisted? || self.fund #check fund.extists? to avoid loop when show .all
 	  end
 
 	end

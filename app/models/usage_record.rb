@@ -45,7 +45,7 @@ class UsageRecord < ActiveRecord::Base
   end
   
   def set_default_fund
-    return if UsageRecord.exists? self
+    return if self.persisted?
     build_interest_fund unless self.interest_fund
     build_principle_fund unless self.principle_fund
   end
