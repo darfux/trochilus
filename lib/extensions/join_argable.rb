@@ -118,8 +118,8 @@ module JoinArgable
     protected
       def find_relation(klass, role)
         rs = klass.reflections
-        r = rs[self.table_name.to_sym] || rs[self.table_name.singularize.to_sym]
-        return r if r
+        # r = rs[self.table_name.to_sym] || rs[self.table_name.singularize.to_sym]
+        # return r if r
         for k,r in rs
           break if r.options[:as] == role && r.klass == self
         end

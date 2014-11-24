@@ -1,8 +1,9 @@
 module Employee::ManageHelper
-  def judge_sf(c)
-    return false unless c.customer.class == IndividualCustomer
-    c.customer.schoolfellow ? true : false
+  def judge_sf(c, with_attr=true)
+    return false unless c.customer_type == 'IndividualCustomer'
+    c[:schoolfellow] || (!with_attr&&c.customer.schoolfellow) ? true : false
   end
+
   def decorate_amount(amount)
     html = (
       if amount>=0

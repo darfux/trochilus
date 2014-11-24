@@ -1,5 +1,6 @@
 class Customer < ActiveRecord::Base
   include PolymorphicExtension
+  include CustomerConcern::QueryMethods
   has_pin_yin_name
   belongs_to :customer, polymorphic: true
   # has_and_belongs_to_many :customer_groups
@@ -34,9 +35,6 @@ class Customer < ActiveRecord::Base
 
   filter_where_keys [:customer_type]
 
-
-
-  
   def customer_type
     super
   end

@@ -17,7 +17,7 @@ class Employee::ManageController < ApplicationController
   end
 
   def customers
-    @customers = Customer.all.order(:name_abbrpy).handle_filter(current_filter)
+    @customers = Customer.manage_view.order(:name_abbrpy).handle_filter(current_filter).page(params[:page]).per(30)
   end
 
   def funds

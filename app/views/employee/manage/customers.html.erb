@@ -30,8 +30,8 @@
     <tr>
       <td><%= (counter+=1).to_s.rjust(2, '0') %></td>
       <!-- <td>X1234</td> -->
-      <td><%= link_to c.name, c.customer %></td>
-      <td><%= c.customer.class.model_name.human %> <%= judge_sf(c) ? '（校友）' : '' %></td>
+      <td><%= link_to c.name, self.send("#{c.customer_type.underscore}_path", c[:instance_id]) %></td>
+      <td><%= c.customer_type.constantize.model_name.human %> <%= judge_sf(c) ? '（校友）' : '' %></td>
       <!-- <td>中国大陆</td> -->
       <td><%= c.tel %></td>
       <!-- <td><%# c.total_donation %></td> -->
@@ -43,3 +43,5 @@
     <% end %>
   </tbody>
 </table>
+
+<%= paginate @customers %>
