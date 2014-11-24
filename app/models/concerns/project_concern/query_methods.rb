@@ -6,7 +6,7 @@ module ProjectConcern
       #http://archive.railsforum.com/viewtopic.php?id=6097#p25502
       #use entry[column.name] instead of entry.column to avoid local method
       scope :with_total_amount, ->(*opts){ joins(outerjoin_arg(:donation_records, :project)).merge(DonationRecord.with_fund(*opts))
-          .except(:select).select('projects.*', "COALESCE(sum(amount), 0) as total_amount").group('projects.id') }  
+          .except(:select).select("projects.*", "COALESCE(sum(amount), 0) as total_amount").group('projects.id') }  
 
       scope :with_actual_amount, ->(*opts){ joins(outerjoin_arg(:donation_records, :project)).merge(DonationRecord.with_actual_funds(*opts))
           .except(:select).select('projects.*', "sum(amount) as actual_amount").group('projects.id') }

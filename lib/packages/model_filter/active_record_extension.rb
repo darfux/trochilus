@@ -31,9 +31,6 @@ module ModelFilter
 
       # add your static(class) methods here
       module ClassMethods
-        # def get_config
-        #   FilterConfig
-        # end
         def handle_filter(filters)
           scopes        = _filter_config.scopes
           where_keys    = _filter_config.where_keys
@@ -65,7 +62,7 @@ module ModelFilter
             tmp.reverse! if desc
             relation = tmp
           end
-          relation.to_a
+          relation
         end
       end
     end

@@ -1,32 +1,21 @@
 <%= render 'fund_header' %>
- 
-<% if params[:type].nil? || params[:type]=='actual' %>
+
+<% is_actul =  params[:type].nil? || params[:type]=='actual' %>
+
 <table class="fund-data-table">
   <% time = params.direct_fetch([:filters, filter_type.where, :time], {}) %>
   <div class='time-filter'><%= date_field_tag :fund_time_from, time[:from] %>-<%= date_field_tag :fund_time_to, time[:to] %></div>
-  <tbody>
-
-    <% total_fund = 0 %>
-    <% fund_list = capture do %>
-      <% @actual_funds.each do |fund| %>
-      <tr>
-        <td><%= link_to fund.project.name, fund.project %></td>
-        <%= decorate_amount fund.real_amount %>
-        <td><%= l_d fund.time %></td>
-        <td><%= link_to fund.relate_unit.name, fund.relate_unit %></td>
-        <% total_fund += fund.real_amount %>
-      </tr>
-      <% end %>
-    <% end %>
 
     <tr>
       <th><%= gen_sort '项目', :project_py %></th>
       <th>
         <%= gen_sort '金额', :amount %>
+        <% if is_actul %>
         <span class='filter' filter-type='<%= filter_type.scope %>'><%= select_tag :select_by_type, 
           options_for_select(
             (pt=Fund.poly_types; { "收入"=>pt.actual_in, "支出"=>pt.actual_out}), 
           params.direct_fetch([:filters, filter_type.scope, :select_by_type])), prompt: "全部" %></span>
+        <% end %>
       </th>
       <th><%= gen_sort '时间', :time %> </th>
       <th>相关人</th>
@@ -34,52 +23,26 @@
     
     <tr>
       <th></th>
-      <th><%= money_show total_fund %></th>
+      <th><%= money_show @total_amount %></th>
       <th></th>
       <th></th>
     </tr>
-    <%= fund_list %>
-  </tbody>
-</table>
-<% else %>
-<table class="fund-data-table">
-  <% time = params.direct_fetch([:filters, :time], {}) %>
-  <div class='time-filter'><%= date_field_tag :fund_time_from, time[:from] %>-<%= date_field_tag :fund_time_to, time[:to] %></div>
 
-  <% total_fund = 0 %>
-  <% fund_list = capture do %>
-    <% @plan_funds.each do |fund| %>
+    <% @funds.each do |fund| %>
       <tr>
-        <td><%= link_to fund.project.name, fund.project %></td>
-        <td class="currency-show"><%= money_show fund.amount %></td>
+        <td><%= link_to fund[:project_name], project_path(fund[:project_id]) %></td>
+        <%= decorate_amount fund.real_amount %>
         <td><%= l_d fund.time %></td>
-        <% begin %>
-        <td><%= link_to fund.relate_unit.name, fund.relate_unit %></td>
-        <% rescue %>
-        <% binding.pry %>
-        <% end %>
-        <% total_fund += fund.amount %>
+        <td><%= link_to fund[:relate_name], (id=fund[:relate_id];case fund[:relate_type]
+                                            when 'customer'
+                                              customer_path(id)
+                                            when 'manager'
+                                              univ_unit_manager_path(id)
+                                            end) %></td>
       </tr>
     <% end %>
-  <% end %>
-
-
-  <tbody>
-    <tr>
-      <th><%= gen_sort '项目', :project_py %></th>
-      <th><%= gen_sort '金额', :amount %></th>
-      <th><%= gen_sort '时间', :time %></th>
-      <th>相关人</th>
-    </tr>
-    <tr>
-      <th></th>
-      <th class="currency-show"><%= money_show total_fund %></th>
-      <th></th>
-      <th></th>
-    </tr>
-
-    <%= fund_list %>
 
   </tbody>
 </table>
-<% end %>
+
+<%= paginate @funds %>

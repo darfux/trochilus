@@ -13,7 +13,7 @@ module SimpleReflector
         when :belongs_to
           (r.options[:foreign_key]   || r.class_name.foreign_key).to_sym
         else
-          (r.options[:foreign_key]   || ar.to_s.foreign_key).to_sym
+          (r.options[:foreign_key]   || r.options[:as].try(:to_s).try(:foreign_key) || ar.to_s.foreign_key).to_sym
         end
       )
       @primary_key  = r.options[:primary_key]   || :id
