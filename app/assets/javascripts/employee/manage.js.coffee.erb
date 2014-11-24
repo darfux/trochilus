@@ -9,6 +9,8 @@ initTableFilters = ->
 		filter_type = $(this).attr('filter-type')
 		$(this).children('select').each ->
 			$(this).change ->
+				if filter_type!="<%= filter_type.sort %>"
+					$.query.REMOVE('page')
 				param_field = "filters[#{filter_type}]"
 				f = $.query.get(param_field)
 				f ||= {}
@@ -27,6 +29,7 @@ initTableFilters = ->
 		param_field = "filters[<%= filter_type.where %>]"
 		((type)->
 			$("#fund_time_#{type}").change ->
+				$.query.REMOVE('page')
 				f = $.query.get(param_field)
 				f ||= {}
 				time_key = 'time'
@@ -41,6 +44,7 @@ initTableFilters = ->
 
 		((type)->
 			$("#project_time_#{type}").change ->
+				$.query.REMOVE('page')
 				f = $.query.get(param_field)
 				f ||= {}
 				time_key = 'create_date'
