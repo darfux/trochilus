@@ -32,13 +32,14 @@ module ActiveRecordExtension
               name = a.name
               fk = ( 
                 tmpfk = ((tmp=a.options[:foreign_key]) ? tmp : ("#{name}_id")).to_sym
-                if options[:polymorphic]==true
+
+                #NTBI
+                if a.options[:polymorphic]==true
                   tmpft = a.options[:foreign_type] || "#{name}_type".to_sym
-                  tmp = [tmpfk, tmp]
                 end
                 #@options={:polymorphic=>true, :foreign_key=>:fund_instance_id, :foreign_type=>:fund_instance_type}
               )
-              fks[] = name
+              fks[tmpfk.to_sym] = name
             end
           end
         ).call()
