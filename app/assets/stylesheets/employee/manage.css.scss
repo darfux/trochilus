@@ -466,3 +466,21 @@ $elm_padding_top: 4px;
 .autidts-history-new-value{
 	color: blue;
 }
+
+.pagination{
+	span a{
+		text-decoration: none;
+		color: darken(blue, 20%);
+	}
+	.page{
+		a{
+			color: blue;
+		}
+		margin-right: 5px;
+	}
+	.current{
+		color: red;
+		font-weight: 800;
+	}
+
+}
