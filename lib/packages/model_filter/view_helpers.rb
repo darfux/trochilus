@@ -14,6 +14,12 @@ module ModelFilter
       end
     end
 
+    def filter_search_tag(scope, with_button=false)
+      content_tag('span', :class => "search-panel", scope: scope, title: t('helpers.hint.filter_search') ) do
+        text_field_tag :name_search, nil, placeholder: default_filter_val(scope, filter_type.where)
+      end
+    end
+
     def select_existed(host_klass, dest)
       host_table = host_klass.table_name
       dest_klass = 

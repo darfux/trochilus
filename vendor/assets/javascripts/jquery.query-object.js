@@ -190,7 +190,8 @@ new function(settings) {
         var i = 0, queryString = [], chunks = [], self = this;
         var encode = function(str) {
           str = str + "";
-          if ($spaces) str = str.replace(/ /g, "+");
+          // Comment the line below to avoid encoding space to '+'
+          // if ($spaces) str = str.replace(/ /g, "+"); 
           return encodeURIComponent(str);
         };
         var addFields = function(arr, key, value) {

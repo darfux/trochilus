@@ -25,7 +25,7 @@ class Project < ActiveRecord::Base
 
   validates_uniqueness_of :name
 
-  filter_where_keys [:project_type, :project_level, :create_unit, :endowment, {create_date: {type: :time}}]
+  filter_where_keys [:project_type, :project_level, :create_unit, :endowment, {create_date: {type: :time}}, {name: {op: :like, split: true}}]
   filter_scoped_orders [:total_amount, :order_by_actual_amount, :create_date, :rest_amount]
   filter_virtual_columns [:total_amount, :rest_amount]
   # filter_method_orders [:principle_rest]

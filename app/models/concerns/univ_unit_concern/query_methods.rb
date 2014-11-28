@@ -36,7 +36,7 @@ module UnivUnitConcern
       }
 
       scope :handle_filter_with_amounts, ->(filters){
-        with_amounts( filters.get_where_conditions([{time: {type: :time}}]) ).handle_filter(filters)
+        with_amounts( time: filters.where_keys[:time].try(:to_time_range) ).handle_filter(filters)
       }
 
     end

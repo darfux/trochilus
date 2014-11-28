@@ -56,6 +56,32 @@ initTableFilters = ->
 					if f[time_key] == {}
 						delete f[time_key]
 				location.search = $.query.set(param_field, f))(elm)
+
+	$('.search-panel').each ->
+		panel = $(this)
+		button = panel.children('button')
+		input = panel.children('input')
+		filter = panel.attr('scope')
+		handler = ->
+			param_field = "filters[<%= filter_type.where %>]"
+			f = $.query.get(param_field)
+			f ||= {}
+			if val = input.val()
+				f[filter] = val
+			else
+				delete f[filter]
+			params = $.query.set(param_field, f)
+			console.log params.toString()
+			if params.toString()
+				location.search = params
+			else
+				location.href = location.pathname
+		unless button.empty()
+			button.click -> handler()
+		else
+			input.keypress (e)->
+				if((e.keyCode || e.which)==13) then handler()
+
 			
 
 

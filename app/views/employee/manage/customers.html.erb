@@ -9,7 +9,10 @@
     <tr>
       <th>序号</th>
       <!-- <th>编号</th> -->
-      <th>姓名</th>
+      <th>
+        姓名
+        <%= filter_search_tag :name %>
+      </th>
       <th>
         类型
         <span class='filter'  filter-type="<%= filter_type.where %>"><%= select_tag :customer_type, 

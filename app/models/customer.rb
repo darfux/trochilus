@@ -33,7 +33,7 @@ class Customer < ActiveRecord::Base
     :link_projects, :creator, :customer_groups, :name_with_py, :country, :state, :city
   ]
 
-  filter_where_keys [:customer_type]
+  filter_where_keys [:customer_type, {name: {op: :like, split: true}}]
 
   def customer_type
     super

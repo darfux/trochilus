@@ -32,6 +32,7 @@ module ModelFilter
       # add your static(class) methods here
       module ClassMethods
         def handle_filter(filters)
+          filters.apply self
           scopes        = _filter_config.scopes
           where_keys    = _filter_config.where_keys
           scoped_orders = _filter_config.scoped_orders
