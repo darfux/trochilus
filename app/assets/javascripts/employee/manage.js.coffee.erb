@@ -82,7 +82,7 @@ initTableFilters = ->
 			input.keypress (e)->
 				if((e.keyCode || e.which)==13) then handler()
 
-	unless location.search
+	unless $.query.remove('page').toString()
 		$('#clear-filter').hide()
 			
 
