@@ -63,6 +63,7 @@ initTableFilters = ->
 		input = panel.children('input')
 		filter = panel.attr('scope')
 		handler = ->
+			$.query.REMOVE('page')
 			param_field = "filters[<%= filter_type.where %>]"
 			f = $.query.get(param_field)
 			f ||= {}
