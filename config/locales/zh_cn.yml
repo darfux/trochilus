@@ -404,3 +404,5 @@ zh_cn:
       previous: "&lsaquo; 前一页"
       next: "下一页 &rsaquo;"
       truncate: "&hellip;"
+    function:
+      clear_filter: 取消所有筛选项

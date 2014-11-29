@@ -13,12 +13,11 @@
   <span><strong>总金额</strong> <%= money_show @total_amount %></span> | 
   <span><strong>总余额</strong> <%= money_show @rest_amount %></span>
 </div>
+<span id='clear-filter'>
+  <%= link_to t('views.function.clear_filter'), nil  %>
+</span>
 <table class="employee-data-table">
   <tbody>
-    <tr>
-      <div>
-      </div>
-    </tr>
     <tr>
       <th>序号</th>
       <!-- <th>编号</th> -->

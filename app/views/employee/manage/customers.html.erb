@@ -4,6 +4,9 @@
 <%= content_for :nav_bar_function_area do %>
   <%= link_to '新客户', new_customer_path %>
 <% end %>
+<span id='clear-filter'>
+  <%= link_to t('views.function.clear_filter'), nil  %>
+</span>
 <table class="employee-data-table">
   <tbody>
     <tr>

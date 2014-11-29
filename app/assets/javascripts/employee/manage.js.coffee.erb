@@ -82,6 +82,8 @@ initTableFilters = ->
 			input.keypress (e)->
 				if((e.keyCode || e.which)==13) then handler()
 
+	unless location.search
+		$('#clear-filter').hide()
 			
 
 
