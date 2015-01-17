@@ -2,10 +2,10 @@
   <tbody>
     <tr>
       <th>操作类型</th>
-      <th>操作内容</th>
+      <th class="content">操作内容</th>
       <th>旧值</th>
       <th>新值</th>
-      <th>操作人</th>
+      <th class="operator">操作人</th>
       <th>操作时间</th>
     </tr>
     <% @project.audits.reorder('version DESC').each do |a| %>

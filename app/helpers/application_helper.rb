@@ -1,4 +1,6 @@
 module ApplicationHelper
+  # include PackageManager::Helpers
+  
   def resource_name
     :user
   end
@@ -42,7 +44,7 @@ module ApplicationHelper
   end
 
   def current_path(overwrite={})
-    url_for :only_path => true, :params => params.tap{ |p| p.delete(:action);p.delete(:controller)}.merge(overwrite)
+    url_for :only_path => true, :params => params.tap{ |p| p.delete(:action);p.delete(:controller)}.deep_merge(overwrite)
   end
 
   def common_form

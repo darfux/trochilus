@@ -1,57 +1,36 @@
 class Employee::ManageController < ApplicationController
   def index
+    
   end
 
   def projects
-    tmp = (
-      Project.all
-    )
-    tmp = handle_filter(tmp)
-    tmp = tmp.sort_by{ |e| e.name_with_py }
-    tmp = handle_sort(tmp)
-    @projects = tmp
+
+    tmp = Project.all.order(:name_abbrpy).manage_view.handle_filter(current_filter)
+    @tmp = current_filter
     @total_amount = @rest_amount = 0
-    @projects.each { |p| @total_amount+=p.total_amount; @rest_amount+=p.principle_rest }
+    # @projects = Kaminari.paginate_array(tmp).page(params[:page]).per(100)
+    @projects = tmp.page(params[:page]).per(30)
+
+    #NTBI
+    @total_amount = tmp.sum('total_amount')
+    @rest_amount = tmp.sum('total_amount-principle_used')
   end
 
   def customers
-    tmp = (
-      Customer.all
-    )
-    tmp = handle_filter(tmp)
-    tmp = tmp.sort_by{ |e| e.name_with_py }
-    @customers = tmp
+    @customers = Customer.manage_view.order(:name_abbrpy).handle_filter(current_filter).page(params[:page]).per(30)
   end
 
   def funds
-    filters = params.fetch(:filters, {}).dup.tap{ |f| f.delete(:fund_direction) }
     tmp = (
-      if true||current_user.account.to_s == 'fkadmin'
-        case params.direct_fetch([:filters, :fund_direction])
-        when 'in'
-          Fund.where('fund_instance_type == ?', 'DonationRecord::ActualFund').order('time DESC')
-        when 'out'
-          Fund.where('fund_instance_type == ?', 'UsageRecord::UsedFund').order('time DESC')
-        else
-          Fund.where('fund_instance_type != ?', 'DonationRecord').order('time DESC')
-        end
+      if params[:type].nil? || params[:type]=='actual'
+        Fund.select_by_type(Fund.poly_types.actual_all)
       else
-        get_actual_funds(params.direct_fetch([:filters, :fund_direction]))
+        Fund.select_by_type(Fund.poly_types.plan)
       end
     )
-    tmp = handle_filter(tmp, filters)
-    tmp = handle_sort(tmp)
-    @actual_funds = tmp
-    tmp = (
-      if true||current_user.account.to_s == 'fkadmin'
-        Fund.where('fund_instance_type == ?', 'DonationRecord').order('time DESC')
-      else
-        get_plan_funds.order('time DESC')
-      end
-    ) 
-    tmp = handle_filter(tmp, filters)
-    tmp = handle_sort(tmp)
-    @plan_funds = tmp
+    tmp = tmp.manage_view.order('time DESC').handle_filter(current_filter)
+    @total_amount = tmp.sum("case funds.fund_instance_type when 'UsageRecord::UsedFund' then -funds.amount else funds.amount end")
+    @funds = tmp.page(params[:page]).per(30)
   end
 
   def others
@@ -74,27 +53,5 @@ class Employee::ManageController < ApplicationController
       render 'fund_amount_result'
     end
   end
-  private
 
-    def get_actual_funds(direction='all')
-      af = ArrayRelation.new
-      if direction!='out'
-        draf = Fund.joins("JOIN donation_record_actual_funds ON donation_record_actual_funds.id = funds.fund_instance_id 
-          AND funds.fund_instance_type = 'DonationRecord::ActualFund'").joins("JOIN donation_records ON 
-          donation_record_actual_funds.donation_record_id = donation_records.id").where("donation_records.creator_id = ? ", current_user.id)
-        af.concat draf
-      end
-      if direction!='in'
-        uf = Fund.joins("JOIN usage_record_used_funds ON usage_record_used_funds.id = funds.fund_instance_id 
-          AND funds.fund_instance_type = 'UsageRecord::UsedFund'").joins("JOIN usage_records ON 
-          usage_record_used_funds.usage_record_id = usage_records.id").where("usage_records.creator_id = ? ", current_user.id)
-        af.concat uf
-      end
-      af.sort_by{ |e| e.time }.reverse!
-      af
-    end
-    def get_plan_funds
-      Fund.joins("JOIN donation_records ON donation_records.id = funds.fund_instance_id 
-        AND funds.fund_instance_type = 'DonationRecord'").where("donation_records.creator_id = ? ", current_user.id)
-    end
 end

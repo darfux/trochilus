@@ -62,6 +62,7 @@ gem 'yaml_db', github: 'jetthoughts/yaml_db', ref: 'fb4b6bd7e12de3cffa93e0a298a1
 
 gem 'ruby-pinyin'
 
+#I18N form
 gem 'dynamic_form'
 
 gem 'thin', group: :production
@@ -75,3 +76,10 @@ gem "auto_strip_attributes", "~> 2.0"
 gem "activerecord-tableless", "~> 1.0"
 
 gem "audited-activerecord", "~> 4.0"
+
+#paginate
+gem 'kaminari'
+
+gem 'awesome_print', group: :development
+
+gem 'active_record_union'

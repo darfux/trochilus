@@ -1,27 +1,36 @@
 # Place all the behaviors and hooks related to the matching controller here.
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
+<% environment.context_class.instance_eval { include Rails.application.routes.url_helpers } %>
+<% environment.context_class.instance_eval { include ModelFilter::ViewHelpers } %>
 
 initTableFilters = ->
-	$('.filter').children('select').each ->
-		$(this).change ->
-			f = $.query.get('filters')
-			f ||= {}
-			filter = $(this).attr('id')
-			if $(this).val()
-				f[filter] = $(this).val()
-			else
-				delete f[filter]
-			params = $.query.set('filters', f)
-			if params.toString()
-				location.search = params
-			else
-				location.href = location.pathname
+	$('.filter').each ->
+		filter_type = $(this).attr('filter-type')
+		$(this).children('select').each ->
+			$(this).change ->
+				if filter_type!="<%= filter_type.sort %>"
+					$.query.REMOVE('page')
+				param_field = "filters[#{filter_type}]"
+				f = $.query.get(param_field)
+				f ||= {}
+				filter = $(this).attr('id')
+				if $(this).val()
+					f[filter] = $(this).val()
+				else
+					delete f[filter]
+				params = $.query.set(param_field, f)
+				if params.toString()
+					location.search = params
+				else
+					location.href = location.pathname
 
 	for elm in ['from', 'to']
+		param_field = "filters[<%= filter_type.where %>]"
 		((type)->
 			$("#fund_time_#{type}").change ->
-				f = $.query.get('filters')
+				$.query.REMOVE('page')
+				f = $.query.get(param_field)
 				f ||= {}
 				time_key = 'time'
 				f[time_key] ||= {}
@@ -31,11 +40,12 @@ initTableFilters = ->
 					delete f[time_key][type]
 					if f[time_key] == {}
 						delete f[time_key]
-				location.search = $.query.set('filters', f))(elm)
+				location.search = $.query.set(param_field, f))(elm)
 
 		((type)->
 			$("#project_time_#{type}").change ->
-				f = $.query.get('filters')
+				$.query.REMOVE('page')
+				f = $.query.get(param_field)
 				f ||= {}
 				time_key = 'create_date'
 				f[time_key] ||= {}
@@ -45,7 +55,36 @@ initTableFilters = ->
 					delete f[time_key][type]
 					if f[time_key] == {}
 						delete f[time_key]
-				location.search = $.query.set('filters', f))(elm)
+				location.search = $.query.set(param_field, f))(elm)
+
+	$('.search-panel').each ->
+		panel = $(this)
+		button = panel.children('button')
+		input = panel.children('input')
+		filter = panel.attr('scope')
+		handler = ->
+			$.query.REMOVE('page')
+			param_field = "filters[<%= filter_type.where %>]"
+			f = $.query.get(param_field)
+			f ||= {}
+			if val = input.val()
+				f[filter] = val
+			else
+				delete f[filter]
+			params = $.query.set(param_field, f)
+			console.log params.toString()
+			if params.toString()
+				location.search = params
+			else
+				location.href = location.pathname
+		unless button.empty()
+			button.click -> handler()
+		else
+			input.keypress (e)->
+				if((e.keyCode || e.which)==13) then handler()
+
+	unless $.query.remove('page').toString()
+		$('#clear-filter').hide()
 			
 
 

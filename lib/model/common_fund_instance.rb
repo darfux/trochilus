@@ -15,7 +15,7 @@ module CommonFundInstance
 		  end
 		end
 	  def join_fund_arg
-			"JOIN funds ON funds.fund_instance_id = #{self.table_name}.id AND 
+			"JOIN funds ON funds.fund_instance_id = #{self.table_name}.id AND \
 	  			funds.fund_instance_type = '#{self.to_s}'"
 	  end
 	end
@@ -23,7 +23,7 @@ module CommonFundInstance
 	module InstanceMethods
 
 	  def set_default_fund
-	  	build_fund unless self.fund #check fund.extists? to avoid loop when show .all
+	  	build_fund unless self.persisted? || self.fund #check fund.extists? to avoid loop when show .all
 	  end
 
 	end

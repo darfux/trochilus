@@ -27,11 +27,13 @@ class ApplicationController < ActionController::Base
       else
         desc = params[:sort]=='1' ? true : false
         # binding.pry
+        # relation.s
         tmp = relation.sort_by{|p| p.send(col)}
         tmp = tmp.reverse if desc
         tmp
       end
     end
+
     def handle_filter(relation, filters=nil)
       filters ||= params.fetch(:filters, {}).dup
       return relation if (f = filters).empty?
@@ -44,6 +46,8 @@ class ApplicationController < ActionController::Base
       end
       relation.where(f)
     end
+
+    
     def gen_time_range(param)
       v = param
       if v.is_a?(Hash) && (v['from'] || v['to'])
@@ -55,7 +59,7 @@ class ApplicationController < ActionController::Base
       end
     end
 
-    
+
     def search_params
       params.require(:search_object).permit(:type, :query)
     end

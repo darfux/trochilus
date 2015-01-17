@@ -1,4 +1,5 @@
 class Project < ActiveRecord::Base
+  include ProjectConcern::QueryMethods
   audited except: [:name_abbrpy, :creator_id]
   has_pin_yin_name
   belongs_to :project_level
@@ -23,7 +24,13 @@ class Project < ActiveRecord::Base
   validates_presence_of_all except: [:interest_rate, :endowment, :brief, :serialnum, :create_manager, :comment]
 
   validates_uniqueness_of :name
-  
+
+  filter_where_keys [:project_type, :project_level, :create_unit, :endowment, {create_date: {type: :time}}, {name: {op: :like, split: true}}]
+  filter_scoped_orders [:total_amount, :order_by_actual_amount, :create_date, :rest_amount]
+  filter_virtual_columns [:total_amount, :rest_amount]
+  # filter_method_orders [:principle_rest]
+
+
   def endowment_t
     e = endowment ? :eyes : :eno
     I18n.translate(e, scope: 'project.endowment')
@@ -34,33 +41,32 @@ class Project < ActiveRecord::Base
     return value unless attribute
     Project.new(key => value).send(attribute).name
   end
-
-  [:total_amount, :actual_amount, :interest_amount].each do |method_name|      
-    define_method(method_name, 
-      ->(opts = {}, *splat, &block) do
-        amount = 0
-        donation_records.each do |r|
-          amount+=r.send(method_name, opts)
-        end
-        amount
-      end
-    )
+  
+  def total_amount(opts={})
+    donation_records.merge(DonationRecord.with_fund).sum(:amount)
   end
+
+  def actual_funds
+    donation_records.merge(DonationRecord.with_actual_amount.except(:group))
+  end
+
+  def actual_amount(opts={})
+    actual_funds.sum(:amount)
+  end
+
+
   alias_method :principle_amount, :total_amount
 
+  def interest_amount
+    donation_records.merge(DonationRecord.with_interest_amount).sum(:interest_amount)
+  end
 
-  [:principle_used, :interest_used].each do |method_name|
-    type = method_name.to_s.split('_')[0]
-    type_id = FundType.where(name: type).take
-    define_method(method_name,
-     ->(opts = {}, *splat, &block) do                
-        amount = 0                                
-        usage_records.each do |r|
-          amount += r.send(method_name, opts)
-        end
-        amount
-      end
-    )
+  def principle_used
+    UsageRecord.with_amount.merge(usage_records).sum('principle_funds.amount')
+  end
+
+  def interest_used
+    UsageRecord.with_amount.merge(usage_records).sum('interest_funds.amount')
   end
 
   [:principle_rest, :interest_rest].each do |method_name|

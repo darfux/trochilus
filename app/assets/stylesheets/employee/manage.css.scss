@@ -441,6 +441,12 @@ $elm_padding_top: 4px;
 		border-bottom: solid 1px gray
 	}
 	th{
+		&.content{
+			width: 320px;
+		}
+		&.operator{
+			width: 64px;
+		}
 		$color: black;
 		color: $color;
 		a{
@@ -459,4 +465,29 @@ $elm_padding_top: 4px;
 
 .autidts-history-new-value{
 	color: blue;
+}
+
+.pagination{
+	span a{
+		text-decoration: none;
+		color: darken(blue, 20%);
+	}
+	.page{
+		a{
+			color: blue;
+		}
+		margin-right: 5px;
+	}
+	.current{
+		color: red;
+		font-weight: 800;
+	}
+
+}
+
+#clear-filter{
+	a{
+		color: gray;
+		text-decoration: none;
+	}
 }

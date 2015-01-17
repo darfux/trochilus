@@ -1,5 +1,13 @@
-require_dependency "active_record_extension"
-require_dependency "date_extension"
-require_dependency "array_relation"
-require_dependency "hash_direct_fetch_extension"
-require_dependency "form_builder_extension"
+require "date_extension"
+require "array_relation"
+require "hash_extension"
+require "form_builder_extension"
+
+
+ActiveRecord::Base.send(:include, ActiveRecordExtension)
+PackageManager.use('ModelFilter')
+
+# PackageManager.use(:simple_reflector)
+
+# ActiveRecord::Base.send(:include, ActiveRecordExtension)
+# ActionController::Base.send(:include, ActionControllerExtension)

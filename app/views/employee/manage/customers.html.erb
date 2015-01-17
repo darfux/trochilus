@@ -4,17 +4,23 @@
 <%= content_for :nav_bar_function_area do %>
   <%= link_to '新客户', new_customer_path %>
 <% end %>
+<span id='clear-filter'>
+  <%= link_to t('views.function.clear_filter'), nil  %>
+</span>
 <table class="employee-data-table">
   <tbody>
     <tr>
       <th>序号</th>
       <!-- <th>编号</th> -->
-      <th>姓名</th>
+      <th>
+        姓名
+        <%= filter_search_tag :name %>
+      </th>
       <th>
         类型
-        <span class='filter'><%= select_tag :customer_type, 
+        <span class='filter'  filter-type="<%= filter_type.where %>"><%= select_tag :customer_type, 
           options_for_select({ "个人客户"=>:IndividualCustomer, "公司客户"=>:CorporateCustomer, "团体客户"=>:CustomerGroup}, 
-          ((f=params[:filters]) ? f[:customer_type] : nil)), prompt: "全部" %></span>
+          ((f=params.direct_fetch([:filters, filter_type.where])) ? f[:customer_type] : nil)), prompt: "全部" %></span>
       </th>
       <!-- <th>国籍</th> -->
       <th>联系电话</th>
@@ -30,8 +36,8 @@
     <tr>
       <td><%= (counter+=1).to_s.rjust(2, '0') %></td>
       <!-- <td>X1234</td> -->
-      <td><%= link_to c.name, c.customer %></td>
-      <td><%= c.customer.class.model_name.human %> <%= judge_sf(c) ? '（校友）' : '' %></td>
+      <td><%= link_to c.name, self.send("#{c.customer_type.underscore}_path", c[:instance_id]) %></td>
+      <td><%= c.customer_type.constantize.model_name.human %> <%= judge_sf(c) ? '（校友）' : '' %></td>
       <!-- <td>中国大陆</td> -->
       <td><%= c.tel %></td>
       <!-- <td><%# c.total_donation %></td> -->
@@ -43,3 +49,5 @@
     <% end %>
   </tbody>
 </table>
+
+<%= paginate @customers %>

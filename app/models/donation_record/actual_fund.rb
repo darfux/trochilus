@@ -9,6 +9,14 @@ class DonationRecord::ActualFund < ActiveRecord::Base
   # validates_presence_of :proof
   accepts_nested_attributes_for :proof, update_only: true
 
+  scope :with_fund, ->(opts={}){ 
+    condition = {}
+    if t=opts[:time]
+      condition = {funds: {time: t}}
+    end
+    joins(outerjoin_arg(:fund, :fund_instance, condition)).select('* ,funds.*') 
+  }
+
   def project
     donation_record.project
   end
@@ -16,4 +24,5 @@ class DonationRecord::ActualFund < ActiveRecord::Base
   def record
     donation_record
   end
+
 end

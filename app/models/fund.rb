@@ -1,22 +1,22 @@
 class Fund < ActiveRecord::Base
   include PolymorphicExtension
+  include FundConcern::QueryMethods
   belongs_to :currency
-
   belongs_to :fund_instance, polymorphic: true
-
-  # has_one :donation_record_actual_fund
-  # has_one :donation_record_actual, class_name: :DonationRecord, through: :donation_record_actual_fund, source: :donation_record
-
-  # accepts_nested_attributes_for :donation_record_plan
 
   validates :amount, presence: true
   validates :time, presence: true
   validate :check_origin_amount
+
+  filter_scopes [:select_by_type]
+  filter_scoped_orders [:time, :amount, :project_py]
+  filter_virtual_columns [:project_py]
+  filter_where_keys [{time: {type: :time}}]
+
   after_initialize :defaults
   def defaults
-    self.currency ||= Currency.CNY
+    self.currency_id ||= Currency.CNY.id
   end
-
 
   def check_origin_amount
     if self.currency != Currency.CNY 
@@ -50,10 +50,10 @@ class Fund < ActiveRecord::Base
 
   def real_amount
     case fund_instance_type
-    when 'DonationRecord', 'DonationRecord::ActualFund'
-      amount
     when 'UsageRecord::UsedFund'
       -amount
+    else
+      amount
     end
   end
 end

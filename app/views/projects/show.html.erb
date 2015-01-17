@@ -178,10 +178,10 @@
   <% if endowment %>
     <span>本金支出：<%= money_show @principle_used_amount %></span>
     <span>利息支出 <%= money_show @interest_used_amount %></span>
-    <span>本金 [总余额：<%= money_show @all_principle_rest %> 账面： <%= money_show @actual_principle_rest %>]</span>
+    <span>本金余额：<%= money_show @actual_principle_rest %> </span>
     <span>利息余额： <%= money_show @intereset_rest %></span>
   <% else %>
-  总支出：<%= money_show @principle_used_amount %> 总余额：<%= money_show @all_principle_rest %> 账面余额：<%= money_show @actual_principle_rest %>
+  总支出：<%= money_show @principle_used_amount %> 余额：<%= money_show @actual_principle_rest %>
   <% end %>
   </div>
   <table class="project-table">

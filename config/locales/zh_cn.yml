@@ -394,3 +394,15 @@ zh_cn:
       project_news:
         create: 添加
         update: 更新
+    hint:
+      filter_search: 空格键分割关键字，回车搜索
+
+  views:
+    pagination:
+      first: "&laquo; 第一页"
+      last: "最后 &raquo;"
+      previous: "&lsaquo; 前一页"
+      next: "下一页 &rsaquo;"
+      truncate: "&hellip;"
+    function:
+      clear_filter: 取消所有筛选项

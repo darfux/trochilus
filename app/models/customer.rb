@@ -1,5 +1,6 @@
 class Customer < ActiveRecord::Base
   include PolymorphicExtension
+  include CustomerConcern::QueryMethods
   has_pin_yin_name
   belongs_to :customer, polymorphic: true
   # has_and_belongs_to_many :customer_groups
@@ -29,8 +30,11 @@ class Customer < ActiveRecord::Base
   
   set_accessable_attributes [
     :total_donation, :contact_records, :donation_records, 
-    :link_projects, :creator, :customer_groups, :name_with_py, :country, :state, :city]
-  
+    :link_projects, :creator, :customer_groups, :name_with_py, :country, :state, :city
+  ]
+
+  filter_where_keys [:customer_type, {name: {op: :like, split: true}}]
+
   def customer_type
     super
   end

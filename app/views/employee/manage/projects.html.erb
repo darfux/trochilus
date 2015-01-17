@@ -7,38 +7,41 @@
 <% end %>
 
 <p></p>
-<% time = params.direct_fetch([:filters, :create_date], {}) %>
+<% time = params.direct_fetch([:filters, filter_type.where, :create_date], {}) %>
 <div class='time-filter'><%= date_field_tag :project_time_from, time[:from] %>-<%= date_field_tag :project_time_to, time[:to] %></div>
-<span><strong>总金额</strong> <%= money_show @total_amount %></span> | 
-<span><strong>总余额</strong> <%= money_show @rest_amount %></span>
+<div>
+  <span><strong>总金额</strong> <%= money_show @total_amount %></span> | 
+  <span><strong>总余额</strong> <%= money_show @rest_amount %></span>
+</div>
+<span id='clear-filter'>
+  <%= link_to t('views.function.clear_filter'), nil  %>
+</span>
 <table class="employee-data-table">
   <tbody>
     <tr>
-      <div>
-      </div>
-    </tr>
-    <tr>
       <th>序号</th>
       <!-- <th>编号</th> -->
-      <th>名称</th>
+      <th>名称
+        <%= filter_search_tag :name %>
+      </th>
       <th>
         类型 
-        <span class='filter'><%= select_tag :project_type, select_existed(Project, :project_type), prompt: "全部" %></span>
+        <%= filter_tag Project, :project_type, filter_type.where %>
       </th>
       <th>
         级别
-        <span class='filter'><%= select_tag :project_level, select_existed(Project, :project_level), prompt: "全部" %></span>
+        <%= filter_tag Project, :project_level, filter_type.where %>
       </th>
       <th>
         管理单位
-        <span class='filter'><%= select_tag :create_unit, select_existed(Project, :create_unit), prompt: "全部" %></span>
+        <%= filter_tag Project, :create_unit, filter_type.where %>
       </th>      
       <th>
         是否留本
-        <span class='filter'><%= select_tag :endowment, options_for_select({"是" => true, "否" => false}, default_filter_val(:endowment)), prompt: "全部" %></span>
+        <span class='filter' filter-type="<%= filter_type.where %>"><%= select_tag :endowment, options_for_select({"是" => true, "否" => false}, default_filter_val(:endowment, filter_type.where)), prompt: "全部" %></span>
       </th>
       <th><%= gen_sort '总额', :total_amount %></th>
-      <th><%= gen_sort '余额', :principle_rest %></th>
+      <th><%= gen_sort '余额', :rest_amount %></th>
       <th>
         <%= gen_sort '创建日期', :create_date %>
       </th>
@@ -47,18 +50,16 @@
     <% @projects.each do |p| %>
     <tr>
       <td><%= (counter+=1).to_s.rjust(2, '0') %></td>
-      <!-- <td><%= p.serialnum %></td> -->
       <td><a href="/projects/<%= p.id %>"><%= p.name %></a></td>
-      <td><%= p.project_type.name %></td>
-      <td><%= p.project_level.name %></td>
-      <td><%= p.create_unit.name %></td>
+      <td><%= p[:type] %></td>
+      <td><%= p[:level] %></td>
+      <td><%= p[:unit] %></td>
       <td><%= p.endowment_t %></td>
-      <td class="currency-show"><%= money_show p.total_amount %></td>
-      <td class="currency-show"><%= money_show p.principle_rest %></td>
+      <td class="currency-show"><%= money_show p[:total_amount] %></td>
+      <td class="currency-show"><%= money_show p[:rest_amount] %></td>
       <td><%= l p.create_date %></td>
     </tr>
     <% end %>
   </tbody>
 </table>
-
-
+<%= paginate @projects %>
