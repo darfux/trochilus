@@ -79,11 +79,13 @@ module ModelFilter
     end
     private
       def trans_value(v, opts)
-        case v
-        when 'true' then true
-        when 'false' then false
-        else v
-        end
+        v = (
+          case v
+          when 'true' then true
+          when 'false' then false
+          else v
+          end
+        )
         v = v.split if opts[:split]
         v = [v].flatten.collect{ |v| "%#{v}%" } if opts[:op]==:like
         v
