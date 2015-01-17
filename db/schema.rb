@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141124081314) do
+ActiveRecord::Schema.define(version: 20150117072538) do
 
   create_table "attachments", force: true do |t|
     t.integer  "attachment_owner_id"
@@ -396,6 +396,11 @@ ActiveRecord::Schema.define(version: 20141124081314) do
   end
 
   add_index "teacher_titles", ["name_abbrpy"], name: "index_teacher_titles_on_name_abbrpy"
+
+  create_table "undetermined_funds", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "univ_unit_managers", force: true do |t|
     t.string   "name"

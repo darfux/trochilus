@@ -103,3 +103,6 @@ rails g model CorporateCustomer::LinkMan::LinkType name:string
 rails g model Region::Country name:string code:string
 rails g model Region::State name:string code:string region_country:references
 rails g model Region::City name:string code:string region_state:references
+
+#2015-01-17 13:08:19
+rails g scaffold UndeterminedFund

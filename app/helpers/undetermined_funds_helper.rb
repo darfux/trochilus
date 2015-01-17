@@ -1,0 +1,2 @@
+module UndeterminedFundsHelper
+end

@@ -1,0 +1,39 @@
+<div class="common-form">
+
+<%= form_for(@undetermined_fund) do |f| %>
+  <% if @undetermined_fund.errors.any? %>
+    <div id="error_explanation">
+      <%= error_messages_for @undetermined_fund %>
+    </div>
+  <% end %>
+
+  <%= f.fields_for :fund do |f_f| %>
+    <div class="field">
+      <%= f_f.label :amount %><br />
+      <%= f_f.text_field :amount %>
+    </div>
+    <div class="field">
+      <%= f_f.label '时间' %><br />
+      <%= f_f.date_select :time, start_year: default_start_year, default: DateTime.now.beginning_of_day  %>
+    </div>
+
+    <div class="field">
+      <%= f_f.label :comment %><br />
+      <%= f_f.text_area :comment %>
+    </div>
+    <div class="field">
+      <%= f_f.label :currency %><br />
+      <%= f_f.select(:currency_id, Currency.all_ssym.collect {|e| [ e.symbol+'-'+e.name, e.id ] }) %>
+    </div>
+    <div class="field">
+      <%= f_f.label :origin_amount %><br />
+      <%= f_f.text_field :origin_amount %>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+</div>

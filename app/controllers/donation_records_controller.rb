@@ -84,6 +84,10 @@ class DonationRecordsController < ApplicationController
     redirect_to @donation_record
   end
 
+  def trans_undetermined_in
+    
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_donation_record

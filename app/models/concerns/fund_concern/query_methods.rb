@@ -7,6 +7,7 @@ module FundConcern
         t.actual_in   = :in
         t.actual_out  = :out
         t.actual_all  = :all
+        t.undetermined  = :undeter
       end
 
       scope :select_by_type, ->(type=nil){
@@ -18,9 +19,11 @@ module FundConcern
           when POLY_TYPE.actual_out
             ['fund_instance_type == ?', 'UsageRecord::UsedFund']
           when POLY_TYPE.actual_all
-            ['fund_instance_type != ?', 'DonationRecord']
+            ['fund_instance_type == ? OR fund_instance_type == ?', 'DonationRecord::ActualFund', 'UsageRecord::UsedFund']
           when POLY_TYPE.plan
             ['fund_instance_type == ?', 'DonationRecord']
+          when POLY_TYPE.undetermined
+            ['fund_instance_type == ?', 'UndeterminedFund']
           else
             raise 'wrong type'
           end

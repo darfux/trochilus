@@ -1,0 +1,23 @@
+<h1>Listing undetermined_funds</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @undetermined_funds.each do |undetermined_fund| %>
+      <tr>
+        <td><%= link_to 'Show', undetermined_fund %></td>
+        <td><%= link_to 'Edit', edit_undetermined_fund_path(undetermined_fund) %></td>
+        <td><%= link_to 'Destroy', undetermined_fund, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Undetermined fund', new_undetermined_fund_path %>

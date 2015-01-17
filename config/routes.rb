@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
 
+  resources :undetermined_funds
+
   namespace :region do
     get 'country', as: :country
     get 'state', as: :state
@@ -73,6 +75,7 @@ Rails.application.routes.draw do
 
   resources :donation_records, only: origin_actions do
     member do
+      get 'trans_undetermined_in', as: :trans_undetermined_in
       get 'new_attachment'
       post 'attachments', to: 'donation_records#create_attachment', as: :attachments
       delete 'attachments/:attachment_id', to: 'donation_records#destroy_attachment', as: :attachment
@@ -150,6 +153,7 @@ Rails.application.routes.draw do
       get 'funds', as: :funds
       namespace :fund do
         get 'manage_unit', to: '', as: :manage_unit
+        get 'undetermined_fund', to: '', as: :undetermined_fund
       end
       get 'others'
     end

@@ -1,0 +1,21 @@
+<%= render 'employee/manage/fund_header' %>
+<table class="fund-data-table">
+  <% time = params.direct_fetch([:filters, filter_type.where, :time], {}) %>
+  <div class='time-filter'><%= date_field_tag :fund_time_from, time[:from] %>-<%= date_field_tag :fund_time_to, time[:to] %></div>
+  <%= link_to '添加', new_undetermined_fund_path %>
+  <tbody>
+    <tr>
+      <th><%= gen_sort '金额', :amount %></th>
+      <th><%= gen_sort '日期', :time %></th>
+      <th>备注</th>
+    </tr>
+
+  <% @undetermined_funds.each do |f| %>
+    <tr>
+      <td class="currency-show"><%= money_show f[:amount] %></td>
+      <td class="currency-show"><%= lt f[:time] %></td>
+      <td class="currency-show"><%= f[:comment] %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
