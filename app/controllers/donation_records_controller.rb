@@ -1,7 +1,7 @@
 class DonationRecordsController < ApplicationController
   before_action :set_donation_record, only: [:show, :edit, :update, :destroy,
-    :new_attachment, :create_attachment, :destroy_attachment]
-  before_action :set_project, only: [:show, :new, :create, :edit,  :destroy]
+    :new_attachment, :create_attachment, :destroy_attachment, :trans_undetermined_in, :handle_undetermined_trans]
+  before_action :set_project, only: [:show, :new, :create, :edit,  :destroy, :trans_undetermined_in]
   before_action :set_attachments, only: [:show]
   # GET /donation_records
   # GET /donation_records.json
@@ -85,7 +85,28 @@ class DonationRecordsController < ApplicationController
   end
 
   def trans_undetermined_in
-    
+    @undetermined_funds = Fund.select_by_type(Fund.poly_types.undetermined).handle_filter(current_filter)
+  end
+
+  def handle_undetermined_trans
+    fund = Fund.find(params[:undetermined_fund])
+    if fund.fund_instance_type == UndeterminedFund.to_s
+      ufund = UndeterminedFund.find(fund.fund_instance_id)
+      af = DonationRecord::ActualFund.new(
+        fund: fund, donation_record: @donation_record, fund_type_id: FundType.principle_id, serialnum: "")
+      respond_to do |format|
+        if af.save
+          ufund.destroy
+          format.html { redirect_to @donation_record }
+          format.json { render :show, status: :ok, location: af }
+        else
+          format.html { render :wrong_undetermined_fund }
+          format.json { render json: af.errors, status: :unprocessable_entity }
+        end
+      end
+    else
+      raise 'unmatched undetermined fund'
+    end
   end
 
   private
@@ -95,7 +116,7 @@ class DonationRecordsController < ApplicationController
     end
 
     def set_attachments
-      @attachments = @donation_record.attachments
+      @attachments = @donation_record.attachments()
     end
 
     def set_project

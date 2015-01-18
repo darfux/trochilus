@@ -69,6 +69,7 @@ zh_cn:
       employee: 职员
       project_type: 项目类型
       project/news: 项目新闻报道
+      undetermined_fund: 待定资金
     attributes:
       employee:
         name: 姓名
@@ -291,6 +292,13 @@ zh_cn:
           confirm: 确定删除此客户？（将会删除其个人数据）
         link_man:
           confirm: 确定删除此联系人？（仅删除关系，不会删除其个人数据）
+      undetermined_fund:
+        trans_in: |
+          确认转入款项
+            金额: %{amount} 
+            日期: %{date} 
+            备注： %{comment} 
+          至 %{project} 中么？
     label: 
       customer: &peopleinfo
         country: 国家或地区
@@ -394,6 +402,8 @@ zh_cn:
       project_news:
         create: 添加
         update: 更新
+      undetermined_fund:
+        create: "添加%{model}"
     hint:
       filter_search: 空格键分割关键字，回车搜索
 

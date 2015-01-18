@@ -11,7 +11,7 @@ class Fund < ActiveRecord::Base
   filter_scopes [:select_by_type]
   filter_scoped_orders [:time, :amount, :project_py]
   filter_virtual_columns [:project_py]
-  filter_where_keys [{time: {type: :time}}]
+  filter_where_keys [{time: {type: :time}}, :amount]
 
   after_initialize :defaults
   def defaults

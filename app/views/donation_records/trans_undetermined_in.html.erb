@@ -1,0 +1,29 @@
+<%= content_for :nav_bar_title do %>
+    转入款项
+<% end %>
+<table class="fund-data-table">
+  <% time = params.direct_fetch([:filters, filter_type.where, :time], {}) %>
+  <div class='time-filter'><%= date_field_tag :fund_time_from, time[:from] %>-<%= date_field_tag :fund_time_to, time[:to] %></div>
+  <tbody>
+    <tr>
+      <th id="trans_undetermined_in_amount"><%= gen_sort '金额', :amount %><%= filter_search_tag :amount %></th>
+      <th><%= gen_sort '日期', :time %></th>
+      <th>备注</th>
+      <th></th>
+    </tr>
+
+  <% @undetermined_funds.each do |f| %>
+    <tr>
+      <td class="currency-show"><%= money_show f[:amount] %></td>
+      <td><%= l_d f[:time] %></td>
+      <td><%= f[:comment] %></td>
+      <td><%= link_to '转入', { undetermined_fund: f[:id] },  
+            method: :post, data: { confirm: t(
+              'helpers.link.undetermined_fund.trans_in', 
+              amount: money_show(f[:amount]), date: l_d(f[:time]), comment: f[:comment], project: @project.name
+              )  } %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

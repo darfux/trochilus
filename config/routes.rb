@@ -76,6 +76,7 @@ Rails.application.routes.draw do
   resources :donation_records, only: origin_actions do
     member do
       get 'trans_undetermined_in', as: :trans_undetermined_in
+      post 'trans_undetermined_in', to: 'donation_records#handle_undetermined_trans'
       get 'new_attachment'
       post 'attachments', to: 'donation_records#create_attachment', as: :attachments
       delete 'attachments/:attachment_id', to: 'donation_records#destroy_attachment', as: :attachment

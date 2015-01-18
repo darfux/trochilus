@@ -13,7 +13,7 @@
   <% @undetermined_funds.each do |f| %>
     <tr>
       <td class="currency-show"><%= money_show f[:amount] %></td>
-      <td class="currency-show"><%= lt f[:time] %></td>
+      <td class="currency-show"><%= l_d f[:time] %></td>
       <td class="currency-show"><%= f[:comment] %></td>
     </tr>
   <% end %>
