@@ -77,6 +77,13 @@ init_region_select = ->
 						selector.change()
 				})
 		)(h,l)
+	default_country = null
+	$('#region_country_select option').each ->
+		if $(this).html().match('中国')
+			default_country = $(this).val()
+			return false
+	$('#region_country_select').val(default_country)
+	$('#region_country_select').change()
 
 
 reverse_date_select_field = ->
