@@ -35,6 +35,8 @@ class Customer < ActiveRecord::Base
   ]
 
   filter_where_keys [:customer_type, {name: {op: :like, split: true}}]
+  filter_virtual_columns [:donation_amount]
+  filter_scoped_orders [:donation_amount]
 
   def customer_type
     super

@@ -4,6 +4,10 @@
 <%= content_for :nav_bar_function_area do %>
   <%= link_to '新客户', new_customer_path %>
 <% end %>
+<div>
+捐赠总额<%= text_field_tag :donation_amount_min, nil, placeholder: params.direct_fetch([:filters, :wk, :donation_amount, :from]) %>-<%= text_field_tag :donation_amount_max, nil, placeholder: params.direct_fetch([:filters, :wk, :donation_amount, :to]) %><button id="donation_amount_button">筛选</button>  <% time = params.direct_fetch([:filters, filter_type.where, :time], {}) %>
+  <div class='time-filter'>捐款区间<%= date_field_tag :fund_time_from, time[:from] %>-<%= date_field_tag :fund_time_to, time[:to] %></div>
+</div>
 <span id='clear-filter'>
   <%= link_to t('views.function.clear_filter'), nil  %>
 </span>
@@ -24,7 +28,7 @@
       </th>
       <!-- <th>国籍</th> -->
       <th>联系电话</th>
-      <!-- <th>总捐赠额</th> -->
+      <th><%= gen_sort '总捐赠额', :donation_amount %></th>
       <!-- <th>评级</th> -->
       <!-- <td>其他</td> -->
       <% if current_user.account == 'fkadmin' %>
@@ -42,6 +46,7 @@
       <td><%= c.tel %></td>
       <!-- <td><%# c.total_donation %></td> -->
       <!-- <td>5*</td> -->
+      <td><%= money_show c[:donation_amount] %></td>
       <% if current_user.account == 'fkadmin' %>
         <td><%= c.creator.name %></td>
       <% end %>

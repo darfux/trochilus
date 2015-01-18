@@ -17,7 +17,29 @@ class Employee::ManageController < ApplicationController
   end
 
   def customers
-    @customers = Customer.manage_view.order(:name_abbrpy).handle_filter(current_filter).page(params[:page]).per(30)
+    # raise current_filter.inspect
+    dm = params.direct_fetch([:filters, :wk, :donation_amount], {})
+    wk = []
+    map = {}
+    [['from','>='], ['to', '<=']].each do |t|
+      if dm[t[0]]
+        wk << "cus_with_amount.donation_amount #{t[1]} :dm_#{t[0]}"
+        map["dm_#{t[0]}".to_sym] = dm[t[0]].to_f
+      end
+    end
+    str=wk.join(' AND ')
+    time = params.direct_fetch([:filters, :wk, :time])
+    opts = {}
+    if time
+      opts[:time] = time.to_time_range
+    end
+    @customers = Customer.order(:name_abbrpy).handle_filter(current_filter).manage_view(opts)
+    unless wk.empty?
+      @customers = Customer.joins(%Q|INNER JOIN(#{@customers.to_sql}) cus_with_amount on cus_with_amount.id = customers.id|).where(str, map).select("customers.*", "cus_with_amount.instance_id as instance_id", 
+          "cus_with_amount.schoolfellow as schoolfellow", "cus_with_amount.donation_amount as donation_amount")
+    end
+    @customers = @customers.page(params[:page]).per(30)
+    # binding.pry
   end
 
   def funds

@@ -87,13 +87,32 @@ initTableFilters = ->
 		$('#clear-filter').hide()
 			
 
-
+initDonationFilter = ->
+	$('#donation_amount_button').click ->
+		$.query.REMOVE('page')
+		param_field = "filters[wk]"
+		f = $.query.get(param_field)
+		f ||= {}
+		filter = 'donation_amount'
+		f[filter] || = {}
+		f[filter]['from'] = $('#donation_amount_min').val()
+		f[filter]['to'] = $('#donation_amount_max').val()
+		location.search = $.query.set(param_field, f)
+		# f ||= {}
+		# f['from'] ||= {}
+		# if $(this).val()
+		# 	f[time_key][type] = $(this).val()
+		# else
+		# 	delete f[time_key][type]
+		console.log f
+		false
 ready = ->
 	# puts $('#employee-nav-bar-function-area').html()
 	bar = $('#employee-nav-bar-function-area')
 	bardiv = $('#employee-nav-bar-function-area div')
 	bar.css("margin-left", -bar.outerWidth()/2)
 	initTableFilters()
+	initDonationFilter()
 
 $(document).ready(ready)
 $(document).on('page:load', ready)
