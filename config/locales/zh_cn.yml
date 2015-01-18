@@ -60,6 +60,9 @@ zh_cn:
       donation_record: 捐赠记录
       donation_record/actual_fund: 到款
       donation_record/interest_period: 利息周期
+      item_donation_record: 物品捐赠记录
+      item: 物品
+      item_category: 物品分类
       donation_type: 捐赠类型
       univ_unit_manager: 学校人员
       customer: 客户
@@ -118,6 +121,14 @@ zh_cn:
         start: 开始时间
         end: 结束时间
         comment: 备注
+      item_donation_record:
+        customer: 客户
+      item:
+        name: 物品名称
+        amount: 数量
+        price: 总价值
+        comment: 备注
+        item_category: 分类
       usage_record:
         creator: *user_as_creator
         principle_fund: 本金
@@ -214,6 +225,16 @@ zh_cn:
         donation_record/interest_period:
           attributes:
             rate:
+              <<: *common_errors
+        item_donation_record:
+          attributes:
+            customer:
+              <<: *common_errors
+        item:
+          attributes:
+            name:
+              <<: *common_errors
+            amount:
               <<: *common_errors
         attachment:
           attributes:
@@ -404,6 +425,12 @@ zh_cn:
         update: 更新
       undetermined_fund:
         create: "添加%{model}"
+      item_donation_record:
+        create: "添加%{model}"
+        update: "更新%{model}"
+      item:
+        create: "添加%{model}"
+        update: "更新%{model}"
     hint:
       filter_search: 空格键分割关键字，回车搜索
 

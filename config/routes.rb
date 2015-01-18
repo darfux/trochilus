@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :item_categories
 
   resources :undetermined_funds
 
@@ -41,6 +42,7 @@ Rails.application.routes.draw do
 
   resources :projects do
     resources :donation_records, only: nested_actions
+    resources :item_donation_records, only: nested_actions
     resources :usage_records, only: nested_actions
     scope module: :project do
       resources :link_men
@@ -80,6 +82,17 @@ Rails.application.routes.draw do
       get 'new_attachment'
       post 'attachments', to: 'donation_records#create_attachment', as: :attachments
       delete 'attachments/:attachment_id', to: 'donation_records#destroy_attachment', as: :attachment
+    end
+  end
+
+
+  resources :items, only: origin_actions
+  resources :item_donation_records, only: origin_actions do
+    resources :items, only: nested_actions
+    member do
+      get 'new_attachment'
+      post 'attachments', to: 'item_donation_records#create_attachment', as: :attachments
+      delete 'attachments/:attachment_id', to: 'item_donation_records#destroy_attachment', as: :attachment
     end
   end
 

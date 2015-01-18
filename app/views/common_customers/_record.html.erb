@@ -17,6 +17,23 @@
     </tbody>
   </table>
   <p></p>
+  <table class="employee-data-table">
+  <strong>物品捐贈记录：</strong>
+  <tbody>
+    <tr>
+      <th>项目</th>
+      <th>价值</th>
+      <th>日期</th>
+    </tr>
+    <% @self_customer.item_donation_records!.each do |dr| %>
+      <tr>
+        <td><%= link_to dr.project.name, dr.project %></td>
+        <td><%= money_show dr.total_price %></td>
+        <td><%= l_d dr.time %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
   <% if @self_customer.is_a?(IndividualCustomer) %>
     <table class="employee-data-table">
     <strong>单位捐贈记录：</strong>

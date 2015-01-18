@@ -106,3 +106,8 @@ rails g model Region::City name:string code:string region_state:references
 
 #2015-01-17 13:08:19
 rails g scaffold UndeterminedFund
+
+#2015-01-18 15:35:31
+rails g scaffold ItemCategory name:string name_abbrpy:string
+rails g scaffold ItemDonationRecord customer:references project:references creator:references
+rails g scaffold Item name:string name_abbrpy:string amount:integer price:decimal comment:text item_donation_record:references item_category:references

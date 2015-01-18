@@ -1,0 +1,9 @@
+<div class="item-fields nested-fields">
+      <%= f.text_field :name, placeholder: :name, :class => :name_input %>
+      <%= f.text_field :price, placeholder: :price, :class => :price_input %>
+      <%= f.number_field :amount, placeholder: :amount, :class => :amount_input %>
+      <%= f.select(:item_category_id, ItemCategory.all_spy.collect {|e| [ e.name, e.id ] }, { include_blank: true }, :class => :category_input) %>
+      <%= f.text_area :comment, :class => :item_name_input %>
+    
+    <%= link_to_remove_association "remove", f %>
+</div>

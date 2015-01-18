@@ -12,6 +12,7 @@ class Project < ActiveRecord::Base
   has_many :project_link_men, dependent: :destroy
   has_many :link_men, class_name: :Customer, through: :project_link_men, source: :customer
   has_many :donation_records, dependent: :destroy
+  has_many :item_donation_records, dependent: :destroy
   has_many :usage_records, dependent: :destroy
   has_many :news, dependent: :destroy
 

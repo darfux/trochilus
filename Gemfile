@@ -83,3 +83,6 @@ gem 'kaminari'
 gem 'awesome_print', group: :development
 
 gem 'active_record_union'
+
+#nested forms
+#gem "cocoon"

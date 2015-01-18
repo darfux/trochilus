@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @item.name %>
+</p>
+
+<p>
+  <strong>Name abbrpy:</strong>
+  <%= @item.name_abbrpy %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @item.amount %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @item.price %>
+</p>
+
+<p>
+  <strong>Comment:</strong>
+  <%= @item.comment %>
+</p>
+
+<p>
+  <strong>Item donation record:</strong>
+  <%= @item.item_donation_record %>
+</p>
+
+<p>
+  <strong>Item category:</strong>
+  <%= @item.item_category %>
+</p>
+
+<%= link_to 'Edit', edit_item_path(@item) %> |
+<%= link_to 'Back', items_path %>

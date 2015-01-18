@@ -18,6 +18,7 @@ class Customer < ActiveRecord::Base
   
 
   has_many :donation_records
+  has_many :item_donation_records
   has_many :contact_records
 
   has_many :project_link_men
@@ -29,7 +30,7 @@ class Customer < ActiveRecord::Base
   validates_presence_of :name
   
   set_accessable_attributes [
-    :total_donation, :contact_records, :donation_records, 
+    :total_donation, :contact_records, :donation_records, :item_donation_records,
     :link_projects, :creator, :customer_groups, :name_with_py, :country, :state, :city
   ]
 

@@ -1,0 +1,43 @@
+<%= content_for :nav_bar_function_area do %>
+  <% if current_user.user_type == :Employee.to_s %>
+    <%= link_to '返回项目', @project %>
+  <% end %>
+<% end %>
+<%= content_for :nav_bar_title do %>
+    物品捐赠
+<% end %>
+<div>  
+  <h4>附件</h4>
+  <% @attachments.each do |a| %>
+  <p><%= link_to a.filename, a.file.url %><span class='delete-attachment'><%= link_to t('helpers.link.delete.name'), attachment_item_donation_record_path(@item_donation_record, a), method: :delete, data: { confirm: t('helpers.link.delete.confirm') } %></span></p>
+  <% end %>
+  <div><%= link_to '新建', new_attachment_item_donation_record_path %></div>
+</div>
+<hr>
+<div>
+  <table>
+    <thead>
+      <tr>
+        <th>种类</th>
+        <th>名称</th>
+        <th>数量</th>
+        <th>总价值</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @item_donation_record.items.each do |item| %>
+      <tr>
+        <td><%= item.item_category.try(:name) %></td>
+        <td><%= item.name %></td>
+        <td><%= item.amount %></td>
+        <td><%= item.price %></td>
+        <td><%= link_to "删除", item_path(item), del_confirm %><br></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+  
+  <%= link_to '添加捐赠物品', new_item_donation_record_item_path(@item_donation_record) %>
+</div>

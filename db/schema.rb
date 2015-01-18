@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150117072538) do
+ActiveRecord::Schema.define(version: 20150118110743) do
 
   create_table "attachments", force: true do |t|
     t.integer  "attachment_owner_id"
@@ -233,6 +233,41 @@ ActiveRecord::Schema.define(version: 20150117072538) do
   end
 
   add_index "individual_customers", ["corporate_customer_id"], name: "index_individual_customers_on_corporate_customer_id"
+
+  create_table "item_categories", force: true do |t|
+    t.string   "name"
+    t.string   "name_abbrpy"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "item_donation_records", force: true do |t|
+    t.integer  "customer_id"
+    t.integer  "project_id"
+    t.integer  "creator_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "time"
+  end
+
+  add_index "item_donation_records", ["creator_id"], name: "index_item_donation_records_on_creator_id"
+  add_index "item_donation_records", ["customer_id"], name: "index_item_donation_records_on_customer_id"
+  add_index "item_donation_records", ["project_id"], name: "index_item_donation_records_on_project_id"
+
+  create_table "items", force: true do |t|
+    t.string   "name"
+    t.string   "name_abbrpy"
+    t.integer  "amount"
+    t.decimal  "price"
+    t.text     "comment"
+    t.integer  "item_donation_record_id"
+    t.integer  "item_category_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "items", ["item_category_id"], name: "index_items_on_item_category_id"
+  add_index "items", ["item_donation_record_id"], name: "index_items_on_item_donation_record_id"
 
   create_table "majors", force: true do |t|
     t.string   "name"

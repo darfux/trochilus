@@ -1,0 +1,22 @@
+<div class="common-form">
+<%= form_for(@form_param) do |f| %>
+  <% if @item_donation_record.errors.any? %>
+    <div id="error_explanation">
+      <%= error_messages_for @item_donation_record %>
+    </div>
+  <% end %>
+
+    <div class="field">
+      <%= f.label :customer %> <%= link_to '新建', new_customer_path, target: :_blank  %><br />
+      <%= f.select(:customer_id, Customer.all_spy.collect {|e| [ e.name_with_py, e.id ] }, { include_blank: true }) %>
+    </div>
+    <div class="field">
+      <%= f.label '时间' %><br />
+      <%= f.date_select :time, start_year: default_start_year, default: DateTime.now.beginning_of_day  %>
+    </div>
+    <%= f.hidden_field(:project_id) %>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+</div>
