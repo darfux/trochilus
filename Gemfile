@@ -86,3 +86,6 @@ gem 'active_record_union'
 
 #nested forms
 #gem "cocoon"
+
+#Rack CORS Middleware
+gem 'rack-cors', :require => 'rack/cors'

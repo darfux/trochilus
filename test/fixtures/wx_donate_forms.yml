@@ -1,0 +1,41 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  donator: MyString
+  wx_donate_project_id: 1
+  wx_donate_project_sub_id: 1
+  amount: 1
+  gender: false
+  email: MyString
+  phone: MyString
+  address: MyText
+  postcode: MyString
+  company: MyString
+  nk_relation_id: MyString
+  nk_relation_sub_id: MyString
+  school_info: MyText
+  message: MyText
+  need_cert: 1
+  need_receipt: 1
+  out_trade_no: MyString
+  notify_flag: false
+
+two:
+  donator: MyString
+  wx_donate_project_id: 1
+  wx_donate_project_sub_id: 1
+  amount: 1
+  gender: false
+  email: MyString
+  phone: MyString
+  address: MyText
+  postcode: MyString
+  company: MyString
+  nk_relation_id: MyString
+  nk_relation_sub_id: MyString
+  school_info: MyText
+  message: MyText
+  need_cert: 1
+  need_receipt: 1
+  out_trade_no: MyString
+  notify_flag: false

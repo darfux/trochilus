@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+  post 'wechat_donate/create'
+
+  post 'wechat_donate/notify'
+
+  get 'wechat_donate/form_list', as: 'wechat_form_list'
+
   resources :item_categories
 
   resources :undetermined_funds

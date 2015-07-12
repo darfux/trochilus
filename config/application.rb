@@ -30,5 +30,12 @@ module Trochilus
     config.i18n.default_locale = :"zh_cn"
 
     config.assets.paths << "#{Rails.root}/app/assets/stylesheets/employee"
+
+    config.middleware.insert_before 0, "Rack::Cors" do
+      allow do
+        origins 'localhost:3000', '192.168.1.100:8080', 'http://fuxtestwc.sinaapp.com'
+        resource '*', :headers => :any, :methods => [:get, :post, :options]
+      end
+    end
   end
 end

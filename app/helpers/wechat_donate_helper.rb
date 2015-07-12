@@ -1,0 +1,2 @@
+module WechatDonateHelper
+end
