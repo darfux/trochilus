@@ -38,6 +38,7 @@ class WechatDonateController < ApplicationController
       need_cert: formData[:cert],
       need_receipt: formData[:receipt],
       out_trade_no: params[:out_trade_no],
+      openid: params[:openid],
       notify_flag: nil
     })
     form.save
