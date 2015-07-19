@@ -30,7 +30,7 @@ class DonationRecord::InterestPeriod < ActiveRecord::Base
   end
 
   def amount
-    DonationRecord.with_interest_amount.where("donation_records.id": donation_record.id).sum(:interest_amount)
+    DonationRecord.with_interest_amount.where("donation_records.id" => donation_record.id).sum(:interest_amount)
   end
   
   def months
