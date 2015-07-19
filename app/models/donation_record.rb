@@ -20,7 +20,8 @@ class DonationRecord < ActiveRecord::Base
     if t=opts[:time]
       condition = {funds: {time: t}}
     end
-    joins(outerjoin_arg(:fund, :fund_instance, condition)).select('* ,funds.*')
+    joins(outerjoin_arg(:fund, :fund_instance, condition))
+    .select('donation_records.* , funds.currency_id, funds.amount, funds.time, funds.origin_amount, funds.comment')
   }
 
   scope :with_actual_amount, ->(*opts){
@@ -33,7 +34,7 @@ class DonationRecord < ActiveRecord::Base
     .merge(DonationRecord::ActualFund.with_fund(*opts)).where({"donation_record_actual_funds.fund_type_id" => FundType.interest_id})
     .except(:select).select('amount as interest_amount, donation_records.*')
     .union(
-      joins(:interest_periods).merge(DonationRecord::InterestPeriod.with_amount(*opts)).select('donation_records.*')
+      DonationRecord::InterestPeriod.with_amount(*opts).select('donation_records.*')
       )
   }
 

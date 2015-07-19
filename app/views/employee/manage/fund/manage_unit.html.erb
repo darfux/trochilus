@@ -5,7 +5,7 @@
   <tbody>
     <tr>
       <th>单位</th>
-      <th><%= gen_sort '计划资金', :total_amount %></th>
+      <!-- <th><%# gen_sort '计划资金', :total_amount %></th> -->
       <th><%= gen_sort '到账资金', :actual_amount %></th>
       <th><%= gen_sort '利息', :interest_amount %></th>
       <th><%= gen_sort '支出', :total_used_amount %></th>
@@ -14,7 +14,7 @@
   <% @manage_units.each do |u| %>
     <tr>
       <td><%= link_to u.name, u %></td>
-      <td class="currency-show"><%= money_show u[:total_amount] %></td>
+      <!-- <td class="currency-show"><%# money_show u[:total_amount] %></td> -->
       <td class="currency-show"><%= money_show u[:actual_amount] %></td>
       <td class="currency-show"><%= money_show u[:interest_amount] %></td>
       <td class="currency-show"><%= money_show u[:total_used_amount] %></td>

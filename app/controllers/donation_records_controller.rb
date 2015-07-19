@@ -133,8 +133,8 @@ class DonationRecordsController < ApplicationController
     def donation_record_params
       params.require(:donation_record)
         .permit(  :customer_id, :project_id, :donation_type_id,
-                  fund_attributes: [:amount, :time, :comment, :currency_id, :origin_amount]
-                  )
+                  fund_attributes: [:time, :comment, :currency_id, :origin_amount]
+                  ).tap{ |p| p[:fund_attributes][:amount] = 0}
     end
     def attachment_params
       params.require(:attachment).permit(:file).tap{ |p| p[:attachment_owner]=@donation_record }

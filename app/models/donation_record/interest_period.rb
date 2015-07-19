@@ -4,11 +4,11 @@ class DonationRecord::InterestPeriod < ActiveRecord::Base
 
   scope :with_amount, ->(opts={}){ 
     time = opts[:time]
-    joins(:donation_record).merge(DonationRecord.with_fund)
+    joins(:donation_record).merge(DonationRecord.with_actual_funds)
     .except(:select).select(
-    "max(( (strftime('%Y',#{case_time('end', time, false)})-strftime('%Y',#{case_time('start', time)})  )*12 +"\
+    "sum(max(( (strftime('%Y',#{case_time('end', time, false)})-strftime('%Y',#{case_time('start', time)})  )*12 +"\
     "(strftime('%m',#{case_time('end', time, false)})-strftime('%m', #{case_time('start', time)}) ) ), 0)/12.0"\
-    "*(rate/100.0) *amount as interest_amount"
+    "*(rate/100.0) *amount) as interest_amount"
     ) # use max() to avoid nagative duration 
   }
 
@@ -30,7 +30,7 @@ class DonationRecord::InterestPeriod < ActiveRecord::Base
   end
 
   def amount
-    donation_record.amount! * rate! * start.month_before(self.end) / 12.0
+    DonationRecord.with_interest_amount.where("donation_records.id": donation_record.id).sum(:interest_amount)
   end
   
   def months

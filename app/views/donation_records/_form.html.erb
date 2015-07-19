@@ -8,10 +8,10 @@
   <% end %>
 
   <%= f.fields_for :fund do |f_f| %>
-    <div class="field">
-      <%= f_f.label :amount %><br />
-      <%= f_f.text_field :amount %>
-    </div>
+<!--     <div class="field">
+      <%# f_f.label :amount %><br />
+      <%# f_f.text_field :amount %>
+    </div> -->
     <div class="field">
       <%= f_f.label '时间' %><br />
       <%= f_f.date_select :time, start_year: default_start_year, default: DateTime.now.beginning_of_day  %>

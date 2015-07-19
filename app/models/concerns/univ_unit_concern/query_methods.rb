@@ -28,8 +28,7 @@ module UnivUnitConcern
         .group('univ_units.id')
       }
       scope :with_amounts, ->(*opts){
-        select("univ_units.*, actual_amount, total_amount, interest_amount, interest_used, principle_used, (interest_used + principle_used) as total_used_amount")
-        .joins(%Q|INNER JOIN(#{with_total_amount(*opts).to_sql}) univ_units_with_total_amount on "univ_units".'id' == 'univ_units_with_total_amount'.'id'|)
+        select("univ_units.*, actual_amount, interest_amount, interest_used, principle_used, (interest_used + principle_used) as total_used_amount")
         .joins(%Q|INNER JOIN(#{with_actual_amount(*opts).to_sql}) univ_units_with_actual_amount on "univ_units".'id' == 'univ_units_with_actual_amount'.'id'|)
         .joins(%Q|INNER JOIN(#{with_interest_amount(*opts).to_sql}) univ_units_with_inerest on "univ_units".'id' == 'univ_units_with_inerest'.'id'|)
         .joins(%Q|INNER JOIN(#{with_used(*opts).to_sql}) univ_units_with_used on "univ_units".'id' == 'univ_units_with_used'.'id'|)

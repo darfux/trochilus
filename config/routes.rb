@@ -172,8 +172,8 @@ Rails.application.routes.draw do
       get 'customers'
       get 'funds', as: :funds
       namespace :fund do
-        get 'manage_unit', to: '', as: :manage_unit
-        get 'undetermined_fund', to: '', as: :undetermined_fund
+        get 'manage_unit', as: :manage_unit
+        get 'undetermined_fund', as: :undetermined_fund
       end
       get 'others'
     end

@@ -44,7 +44,7 @@ class Project < ActiveRecord::Base
   end
   
   def total_amount(opts={})
-    donation_records.merge(DonationRecord.with_fund).sum(:amount)
+    actual_funds.sum(:amount)
   end
 
   def actual_funds
