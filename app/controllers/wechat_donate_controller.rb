@@ -13,7 +13,7 @@ class WechatDonateController < ApplicationController
       donator: formData[:donator],
       wx_donate_project_id: formData[:project_id],
       wx_donate_project_sub_id: formData[:project_sub_id],
-      amount: formData[:amount]*100,
+      amount: (formData[:amount].to_r*100).to_i,
       gender: formData[:gender],
       email: formData[:email],
       phone: formData[:phone],
