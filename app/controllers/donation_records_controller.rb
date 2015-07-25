@@ -30,8 +30,19 @@ class DonationRecordsController < ApplicationController
   # POST /donation_records.json
   def create
     @donation_record = DonationRecord.new(donation_record_params)
+    fund_amount = donation_record_params[:fund_attributes][:amount]
+    autofund = OpenStruct.new("save!" => true)
+    if fund_amount.to_i != 0
+      autofund = DonationRecord::ActualFund.new(fund_type_id: FundType.principle_id, fund_attributes: donation_record_params[:fund_attributes])
+      @donation_record.actual_funds << autofund
+    end
+
     @donation_record.creator = current_user
     @form_param = [@donation_record.project, @donation_record]
+
+    # @donation_record.transaction do
+    #   @donation_record.save!
+    #   autofund.save!
     respond_to do |format|
       if @donation_record.save
         format.html { redirect_to @project }
@@ -133,8 +144,8 @@ class DonationRecordsController < ApplicationController
     def donation_record_params
       params.require(:donation_record)
         .permit(  :customer_id, :project_id, :donation_type_id,
-                  fund_attributes: [:time, :comment, :currency_id, :origin_amount]
-                  ).tap{ |p| p[:fund_attributes][:amount] = 0}
+                  fund_attributes: [:time, :comment, :currency_id, :origin_amount, :amount]
+                  ).tap{ |p| p[:fund_attributes][:amount].blank? ? p[:fund_attributes][:amount] = '0' : nil }
     end
     def attachment_params
       params.require(:attachment).permit(:file).tap{ |p| p[:attachment_owner]=@donation_record }

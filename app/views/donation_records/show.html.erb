@@ -58,6 +58,8 @@
         <% end %>
         <th>进账凭证</th>
         <th>凭单号</th>
+        <th>录入人</th>
+        <th>最后编辑人</th>
       </tr>
     </thead>
 
@@ -71,6 +73,14 @@
           <% end %>
           <td><%= (p=actual_fund.proof) ? link_to(p.filename, p.file.url) : '无'%></td>
           <td><%= actual_fund.serialnum %></td>
+          <% audits = actual_fund.fund.audits.reorder('version DESC') %>
+          <% unless audits.empty? %>
+          <td><%= link_to_with User.find(audits.last.user_id).user, :name  %></td>
+          <td><%= link_to_with User.find(audits.first.user_id).user, :name  %></td>
+          <% else %>
+          <td></td>         
+          <td></td>         
+          <% end %>
           <td><%= link_to '编辑', edit_donation_record_actual_fund_path(actual_fund) %></td>
           <td><%= link_to '删除', donation_record_actual_fund_path(actual_fund), del_confirm %></td>
         </tr>

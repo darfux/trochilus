@@ -1,6 +1,8 @@
 class Fund < ActiveRecord::Base
   include PolymorphicExtension
   include FundConcern::QueryMethods
+
+  audited
   belongs_to :currency
   belongs_to :fund_instance, polymorphic: true
 
