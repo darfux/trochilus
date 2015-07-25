@@ -157,7 +157,7 @@
         <td><%= r.donation_type.name if r.donation_type %></td>
         <td><%= link_to_with r.customer, :name %></td>
         <td><%= Currency.find(r.currency_id).name %></td>
-        <td><%= localize_date Time.new(r.time) %></td>
+        <td><%= localize_date r.time.to_time %></td>
         <!-- <td class="currency-show"><%# money_show r.amount %></td> -->
         <td class="currency-show"><%= money_show r.actual_amount %></td>
         <% if endowment %>
