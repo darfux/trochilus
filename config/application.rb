@@ -33,7 +33,7 @@ module Trochilus
 
     config.middleware.insert_before 0, "Rack::Cors" do
       allow do
-        origins 'localhost:3000', '192.168.1.100:8080', 'http://fuxtestwc.sinaapp.com'
+        origins 'localhost:3000', '192.168.1.100:8080', 'http://fuxtestwc.sinaapp.com', 'http://nkuef.sinaapp.com'
         resource '*', :headers => :any, :methods => [:get, :post, :options]
       end
     end
