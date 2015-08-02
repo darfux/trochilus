@@ -22,7 +22,7 @@
   </fieldset>
   <fieldset>
     <legend><%= f.label :principle_fund %></legend>
-     <%= f.fields_for :principle_fund, @usage_record.interest_fund || UsageRecord::UsedFund.new do |p_f| %>
+     <%= f.fields_for :principle_fund, @usage_record.principle_fund || UsageRecord::UsedFund.new do |p_f| %>
         <%= p_f.fields_for :fund do |f_f| %>
         <div class="field">
           <%= check_box_tag :'use[principle]' %>
@@ -34,7 +34,7 @@
  </fieldset>
   <% else %>
       <%= hidden_field :use, :principle, value: 1 %>
-      <%= f.fields_for :principle_fund, @usage_record.interest_fund || UsageRecord::UsedFund.new do |p_f| %>
+      <%= f.fields_for :principle_fund, @usage_record.principle_fund || UsageRecord::UsedFund.new do |p_f| %>
         <%= p_f.fields_for :fund do |f_f| %>
         <div class="field">
           <%= f_f.label :amount %><br />

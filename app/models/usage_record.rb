@@ -36,7 +36,7 @@ class UsageRecord < ActiveRecord::Base
   accepts_nested_attributes_for :principle_fund, update_only: true
 
   # auto_build :interest_fund, :principle_fund if oncreate
-  after_initialize :set_default_fund
+  # after_initialize :set_default_fund
   validates_presence_of_all except: [:interest_fund, :principle_fund, :usage_type, :usage_comment, :comment]
   validate :at_least_one_fund
 

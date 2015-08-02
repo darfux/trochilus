@@ -17,6 +17,7 @@ class UsageRecordsController < ApplicationController
   # GET /usage_records/new
   def new
     @usage_record = UsageRecord.new
+    @usage_record.set_default_fund
     @usage_record.project = Project.find(params[:project_id])
     @usage_record.creator = current_user
     @usage_record.exec_unit = @usage_record.project.create_unit
@@ -38,6 +39,8 @@ class UsageRecordsController < ApplicationController
       u.interest_fund = nil unless params[:use] && params[:use][:interest]
     }
     @usage_record.creator = current_user
+    @fund_time = OpenStruct.new
+    @fund_time.time = @usage_record.time
     respond_to do |format|
       if @usage_record.save
         format.html { redirect_to @project }
@@ -117,9 +120,10 @@ class UsageRecordsController < ApplicationController
               interest_fund_attributes: [fund_attributes: [:amount]],
               principle_fund_attributes: [fund_attributes: [:amount]]
               )
-        .tap{ |p|
-        p[:interest_fund_attributes] && p[:interest_fund_attributes][:fund_attributes].merge!(params[:fund_time])
-        p[:principle_fund_attributes][:fund_attributes].merge! params[:fund_time]
+      .tap{ |p|
+        fund_time = params[:fund_time]
+        p[:interest_fund_attributes] && p[:interest_fund_attributes][:fund_attributes].merge!(fund_time)
+        p[:principle_fund_attributes][:fund_attributes].merge! fund_time
       }
     end
 
