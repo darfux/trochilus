@@ -28,7 +28,8 @@ class UsageRecord < ActiveRecord::Base
     .joins( UsageRecord::UsedFund.outerjoin_arg({fund: {as: :interest_funds}}, {fund_instance: {as: :interest}}, interest_condition) )
     .joins( UsageRecord::UsedFund.outerjoin_arg({fund: {as: :principle_funds}}, {fund_instance: {as: :principle}}, principle_condition) )
     .select(%Q{"usage_records".*,  
-      ifnull("interest_funds".amount, 0) as "interest_amount",ifnull( "principle_funds".amount,0) as "principle_amount"})
+      ifnull("interest_funds".amount, 0) as "interest_amount",ifnull( "principle_funds".amount,0) as "principle_amount", 
+      ifnull("principle_funds".time, "interest_funds".time) as record_time})
   }
 
 

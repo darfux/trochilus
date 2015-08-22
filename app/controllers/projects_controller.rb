@@ -13,6 +13,7 @@ class ProjectsController < ApplicationController
   # GET /projects/1.json
   def show
     @donation_records = @project.donation_records.with_fund.order("funds.time")
+    @usage_records = @project.usage_records.with_amount.order("record_time")
   end
 
   # GET /projects/new

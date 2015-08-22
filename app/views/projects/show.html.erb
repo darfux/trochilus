@@ -224,7 +224,7 @@
         <th>用途</th>
         <th>其他</th>
       </tr>
-      <% @project.usage_records.each_with_index do |r, index| %>
+      <% @usage_records.each_with_index do |r, index| %>
       <tr>
         <td><%= index+1 %></td>
         <td><%= l_d r.time %></td>
@@ -232,9 +232,9 @@
         <td><%= link_to_with r.exec_manager, :name %></td>        
         <td><%= link_to_with r.benefit_unit, :name %></td>
         <td><%= link_to_with r.benefit_manager, :name %></td>
-        <td class="currency-show"><%= money_show r.principle_amount%></td>
+        <td class="currency-show"><%= money_show r["principle_amount"]%></td>
         <% if endowment %>
-        <td class="currency-show"><%= money_show r.interest_amount%></td>
+        <td class="currency-show"><%= money_show r["interest_amount"]%></td>
         <% end %>
         <td><%= (rt = r.usage_type).nil? ? @project.project_type.name : rt.name%></td>
         <td><%= link_to '查看', r %>|<%= link_to '编辑', edit_usage_record_path(r) %><%= link_to '删除', r, method: :delete, data: { confirm: 'Are you sure?' } %></td>
