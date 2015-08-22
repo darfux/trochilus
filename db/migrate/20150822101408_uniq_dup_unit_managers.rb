@@ -34,7 +34,7 @@ class UniqDupUnitManagers < ActiveRecord::Migration
         end
 
         puts "Deleting duplicate mamanger..."
-        m.destroy!
+        m.delete
         puts "===Over==="
         puts
       end
