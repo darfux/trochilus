@@ -69,13 +69,15 @@ gem 'thin', group: :production
 
 gem 'pry'
 
+gem 'pry-byebug'
+
 gem 'nokogiri'
 
 gem "auto_strip_attributes", "~> 2.0"
 
 gem "activerecord-tableless", "~> 1.0"
 
-gem "audited-activerecord", "~> 4.0"
+gem "audited-activerecord", "~> 4.2"
 
 #paginate
 gem 'kaminari'
