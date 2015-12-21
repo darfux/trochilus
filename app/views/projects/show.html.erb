@@ -147,6 +147,7 @@
         <% if endowment %>
         <th>利息收入</th>
         <% end %>
+        <th>备注</th>
         <th>其他</th>
       </tr>
 
@@ -163,6 +164,7 @@
         <% if endowment %>
         <td class="currency-show"><%= money_show r.interest_amount %></td>
         <% end %>
+        <td><%= r.comment %></td>
         <td><%= link_to "详情", r %>|<%= link_to "编辑", edit_donation_record_path(r) %>|<%= link_to '删除', r, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
 
@@ -222,6 +224,7 @@
         <th>使用利息</th>
         <% end %>
         <th>用途</th>
+        <th>备注</th>
         <th>其他</th>
       </tr>
       <% @usage_records.each_with_index do |r, index| %>
@@ -237,6 +240,7 @@
         <td class="currency-show"><%= money_show r["interest_amount"]%></td>
         <% end %>
         <td><%= (rt = r.usage_type).nil? ? @project.project_type.name : rt.name%></td>
+        <td><%= r.comment %></td>
         <td><%= link_to '查看', r %>|<%= link_to '编辑', edit_usage_record_path(r) %><%= link_to '删除', r, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
       <% end %>
