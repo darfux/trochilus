@@ -164,7 +164,7 @@
         <% if endowment %>
         <td class="currency-show"><%= money_show r.interest_amount %></td>
         <% end %>
-        <td><%= r.comment %></td>
+        <td><%= truncate r.comment, length: 12 %></td>
         <td><%= link_to "详情", r %>|<%= link_to "编辑", edit_donation_record_path(r) %>|<%= link_to '删除', r, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
 
