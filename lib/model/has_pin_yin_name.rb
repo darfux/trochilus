@@ -2,7 +2,7 @@ module HasPinYinName
   extend ActiveSupport::Concern
 
   def name_with_py
-    (self.name_abbrpy || PinYin.abbr(name))[0].upcase+'-'+name
+    (self.try(:name_abbrpy) || PinYin.abbr(name))[0].upcase+'-'+name
   end
 
   protected
