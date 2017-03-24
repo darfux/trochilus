@@ -114,3 +114,7 @@ rails g scaffold Item name:string name_abbrpy:string amount:integer price:decima
 
 #2015-07-13 00:36:48
 rails g model WxDonateForm donator:string wx_donate_project_id:integer wx_donate_project_sub_id:integer amount:integer gender:boolean email:string phone:string address:text postcode:string company:string nk_relation_id nk_relation_sub_id school_info:text message:text need_cert:integer need_receipt:integer out_trade_no:string openid:string notify_flag:boolean
+
+
+#2017-03-24 20:45:01
+rails g scaffold Project::NecessaryDate date:date comment:string project:references

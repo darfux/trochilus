@@ -1,5 +1,14 @@
 Rails.application.routes.draw do
 
+
+  # namespace :project do
+  #   resources :necessary_dates
+  # end
+
+  # namespace :project do
+  #   resources :dates
+  # end
+
   post 'wechat_donate/create'
 
   post 'wechat_donate/notify'
@@ -53,6 +62,7 @@ Rails.application.routes.draw do
     scope module: :project do
       resources :link_men
       resources :news, only: nested_actions
+      resources :necessary_dates, only: nested_actions
     end
     member do
       get 'history', as: :history
@@ -65,6 +75,7 @@ Rails.application.routes.draw do
     
   namespace :project do
     resources :news, only: origin_actions
+    resources :necessary_dates, only: origin_actions
   end
 
   get 'link_men/search'

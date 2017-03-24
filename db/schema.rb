@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150822101408) do
+ActiveRecord::Schema.define(version: 20170324133617) do
 
   create_table "attachments", force: true do |t|
     t.integer  "attachment_owner_id"
@@ -285,6 +285,16 @@ ActiveRecord::Schema.define(version: 20150822101408) do
     t.datetime "updated_at"
   end
 
+  create_table "project_dates", force: true do |t|
+    t.date     "date"
+    t.string   "comment"
+    t.integer  "project_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "project_dates", ["project_id"], name: "index_project_dates_on_project_id"
+
   create_table "project_levels", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -303,6 +313,16 @@ ActiveRecord::Schema.define(version: 20150822101408) do
 
   add_index "project_link_men", ["customer_id"], name: "index_project_link_men_on_customer_id"
   add_index "project_link_men", ["project_id"], name: "index_project_link_men_on_project_id"
+
+  create_table "project_necessary_dates", force: true do |t|
+    t.date     "date"
+    t.string   "comment"
+    t.integer  "project_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "project_necessary_dates", ["project_id"], name: "index_project_necessary_dates_on_project_id"
 
   create_table "project_news", force: true do |t|
     t.string   "title"

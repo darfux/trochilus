@@ -99,6 +99,9 @@ zh_cn:
         title: 标题
         link: 新闻链接
         comment: 备注
+      project/necessary_date:
+        date: 日期
+        comment: 备注
       fund:
         amount: 金额
         origin_amount: 原始金额
@@ -422,6 +425,9 @@ zh_cn:
         create: 创建
       project_news:
         create: 添加
+        update: 更新
+      project_necessary_date:
+        create: 新建
         update: 更新
       undetermined_fund:
         create: "添加%{model}"

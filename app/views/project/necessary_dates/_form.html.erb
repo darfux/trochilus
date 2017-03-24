@@ -1,0 +1,30 @@
+<div class="common-form">
+<%= form_for(@project_necessary_date) do |f| %>
+  <% if @project_necessary_date.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@project_necessary_date.errors.count, "error") %> prohibited this project_necessary_date from being saved:</h2>
+
+      <ul>
+      <% @project_necessary_date.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :date %><br>
+    <%= f.date_select :date, :discard_year => true %>
+  </div>
+  <div class="field">
+    <%= f.label :comment %><br>
+    <%= f.text_field :comment %>
+  </div>
+  <div class="field">
+    <%= f.hidden_field :project_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+</div>

@@ -15,6 +15,7 @@ class Project < ActiveRecord::Base
   has_many :item_donation_records, dependent: :destroy
   has_many :usage_records, dependent: :destroy
   has_many :news, dependent: :destroy
+  has_many :necessary_dates, ->{ order(date: :asc) }, dependent: :destroy
 
   has_many :attachments, as: :attachment_owner, validate: true, dependent: :destroy
   

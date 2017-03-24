@@ -50,6 +50,21 @@
     <p>
       <div><strong>创建日期：</strong> <span><%= @project.create_date %></span></div>
     </p>
+
+    <p>
+      重要日期
+      <%= link_to new_project_necessary_date_path(@project.id) do %>
+        <%= button_tag '添加' %>
+      <% end %>
+    </p>
+    <ul>
+      <% @project.necessary_dates.each do |nd| %>
+      <li>
+        <%= nd.date.strftime("%m-%d") %>   <%= nd.comment %> 
+        <span class='delete-cross'><%= link_to 'x', nd, method: :delete, data: { confirm: t('helpers.link.delete.confirm') } %></span>
+      </li>
+      <% end %>
+    </ul>
   </div>
   <% if @project.endowment %>
   <div class="info-block">

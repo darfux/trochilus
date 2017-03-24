@@ -45,6 +45,7 @@
       <th>
         <%= gen_sort '创建日期', :create_date %>
       </th>
+      <th>重要日期<th>
     </tr>
     <% counter=0 %>
     <% @projects.each do |p| %>
@@ -58,6 +59,7 @@
       <td class="currency-show"><%= money_show p[:total_amount] %></td>
       <td class="currency-show"><%= money_show p[:rest_amount] %></td>
       <td><%= l p.create_date %></td>
+      <td><%= p[:necessary_date] %></td>
     </tr>
     <% end %>
   </tbody>
