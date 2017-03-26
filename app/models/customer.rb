@@ -53,4 +53,12 @@ class Customer < ActiveRecord::Base
   def to_s
     name
   end
+
+  def can_safe_delete?
+    donation_records.empty? &&
+    item_donation_records.empty? &&
+    contact_records.empty? &&
+    link_projects.empty? &&
+    customer_groups.empty?
+  end
 end

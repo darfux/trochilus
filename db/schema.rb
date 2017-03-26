@@ -285,16 +285,6 @@ ActiveRecord::Schema.define(version: 20170324133617) do
     t.datetime "updated_at"
   end
 
-  create_table "project_dates", force: true do |t|
-    t.date     "date"
-    t.string   "comment"
-    t.integer  "project_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "project_dates", ["project_id"], name: "index_project_dates_on_project_id"
-
   create_table "project_levels", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
