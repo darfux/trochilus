@@ -45,7 +45,9 @@
       <th>
         <%= gen_sort '创建日期', :create_date %>
       </th>
-      <th>重要日期<th>
+      <th>
+        <%= gen_sort '重要日期', :necessary_date %>
+      <th>
     </tr>
     <% counter=0 %>
     <% @projects.each do |p| %>
