@@ -53,7 +53,8 @@ module ModelFilter
           sa=sort.attribute
           if scoped_orders.include? sa
             if column_names.include? sa.to_s or virtual_columns.include? sa.to_sym
-              relation = relation.reorder("#{sa}#{desc_sql}")
+              # http://stackoverflow.com/questions/821798/order-by-date-showing-nulls-first-then-most-recent-dates
+              relation = relation.reorder("(case when  #{sa} is null then 1 else 0 end) ASC, #{sa}#{desc_sql}")
             else
               relation = relation.send(sa, desc)
             end
