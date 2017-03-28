@@ -360,6 +360,18 @@ $elm_padding_top: 4px;
 	}
 }
 
+
+.necessary_date_cell{
+	.necessary_date_comment{
+		display: none;
+	}
+	&:hover{
+		.necessary_date_comment{
+			display: block;
+		}
+	}
+}
+
 //====FUND LIST====
 #employee-fund-list{
 	color: black;

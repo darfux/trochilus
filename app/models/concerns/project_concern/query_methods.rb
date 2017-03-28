@@ -28,7 +28,9 @@ module ProjectConcern
 
       scope :manage_view, ->(*opts){
         select("projects.*, total_amount, (total_amount-principle_used) as rest_amount,"+
-          "project_levels.name as level, project_types.name as type, univ_units.name as unit, necessary_dates.date as necessary_date")
+          "project_levels.name as level, project_types.name as type, univ_units.name as unit,"+
+          "strftime('%m-%d', necessary_dates.date) as necessary_date, necessary_dates.comment as necessary_date_comment"
+          )
         .joins(%Q|INNER JOIN(#{with_total_amount(*opts).to_sql}) projects_with_total_amount on "projects".'id' == 'projects_with_total_amount'.'id'|)
         .joins(%Q|INNER JOIN(#{with_used(*opts).to_sql}) projects_with_used on "projects".'id' == 'projects_with_used'.'id'|)
         .joins(%Q|

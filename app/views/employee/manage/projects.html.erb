@@ -61,7 +61,14 @@
       <td class="currency-show"><%= money_show p[:total_amount] %></td>
       <td class="currency-show"><%= money_show p[:rest_amount] %></td>
       <td><%= l p.create_date %></td>
-      <td><%= p[:necessary_date] %></td>
+      <td class="necessary_date_cell">
+        <span class="necessary_date">
+          <%= p[:necessary_date] %>
+        </span>
+        <span class="necessary_date_comment">
+          <%=  p[:necessary_date_comment] %>
+        </span>
+      </td>
     </tr>
     <% end %>
   </tbody>
