@@ -21,23 +21,24 @@
     <tr>
       <th>序号</th>
       <!-- <th>编号</th> -->
-      <th>名称
+      <th>
+        名称<br>
         <%= filter_search_tag :name %>
       </th>
       <th>
-        类型 
+        类型 <br>
         <%= filter_tag Project, :project_type, filter_type.where %>
       </th>
       <th>
-        级别
+        级别<br>
         <%= filter_tag Project, :project_level, filter_type.where %>
       </th>
-      <th>
-        管理单位
+      <th id="create-unit-th">
+        管理单位<br>
         <%= filter_tag Project, :create_unit, filter_type.where %>
       </th>      
       <th>
-        是否留本
+        是否留本<br>
         <span class='filter' filter-type="<%= filter_type.where %>"><%= select_tag :endowment, options_for_select({"是" => true, "否" => false}, default_filter_val(:endowment, filter_type.where)), prompt: "全部" %></span>
       </th>
       <th><%= gen_sort '总额', :total_amount %></th>
@@ -47,7 +48,11 @@
       </th>
       <th>
         <%= gen_sort '重要日期', :necessary_date %>
+      </th>
       <th>
+        状态<br>
+        <%= filter_tag Project, :project_state, filter_type.where %>
+      </th>
     </tr>
     <% counter=0 %>
     <% @projects.each do |p| %>
@@ -56,7 +61,7 @@
       <td><a href="/projects/<%= p.id %>"><%= p.name %></a></td>
       <td><%= p[:type] %></td>
       <td><%= p[:level] %></td>
-      <td><%= p[:unit] %></td>
+      <td title="<%= p[:unit] %>"><%= truncate p[:unit], length: 14 %></td>
       <td><%= p.endowment_t %></td>
       <td class="currency-show"><%= money_show p[:total_amount] %></td>
       <td class="currency-show"><%= money_show p[:rest_amount] %></td>
@@ -69,6 +74,7 @@
           <%=  p[:necessary_date_comment] %>
         </span>
       </td>
+      <td><%= p[:state] %></td>
     </tr>
     <% end %>
   </tbody>

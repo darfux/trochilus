@@ -28,7 +28,7 @@ module ProjectConcern
 
       scope :manage_view, ->(*opts){
         select("projects.*, total_amount, (total_amount-principle_used) as rest_amount,"+
-          "project_levels.name as level, project_types.name as type, univ_units.name as unit,"+
+          "project_levels.name as level, project_types.name as type, project_states.name as state, univ_units.name as unit,"+
           "strftime('%m-%d', necessary_dates.date) as necessary_date, necessary_dates.comment as necessary_date_comment"
           )
         .joins(%Q|INNER JOIN(#{with_total_amount(*opts).to_sql}) projects_with_total_amount on "projects".'id' == 'projects_with_total_amount'.'id'|)
@@ -41,7 +41,7 @@ module ProjectConcern
             GROUP by project_id
             ) necessary_dates on necessary_dates.project_id = projects.id and necessary_dates.date = necessary_dates.min_date
           |)
-        .joins(:project_level).joins(:project_type).joins(:create_unit)
+        .joins(:project_level).joins(:project_type).joins(:project_state).joins(:create_unit)
         # .where(%Q| strftime( '%m-%d', COALESCE(necessary_date, julianday('1900-12-31')) ) >= strftime('%m-%d','now')   |)
 
       }
