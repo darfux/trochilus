@@ -6,22 +6,22 @@ module ProjectConcern
       #http://archive.railsforum.com/viewtopic.php?id=6097#p25502
       #use entry[column.name] instead of entry.column to avoid local method
       scope :with_total_amount, ->(*opts){ joins(outerjoin_arg(:donation_records, :project)).merge(DonationRecord.with_fund(*opts))
-          .except(:select).select("projects.*", "COALESCE(sum(amount), 0) as total_amount").group('projects.id') }  
+          .except(:select).select("projects.id", "COALESCE(sum(amount), 0) as total_amount").group('projects.id') }
 
       scope :with_actual_amount, ->(*opts){ joins(outerjoin_arg(:donation_records, :project)).merge(DonationRecord.with_actual_funds(*opts))
-          .except(:select).select('projects.*', "sum(amount) as actual_amount").group('projects.id') }
+          .except(:select).select('projects.id', "sum(amount) as actual_amount").group('projects.id') }
 
       scope :with_interest_amount, ->(*opts){ joins(%Q|LEFT OUTER JOIN #{DonationRecord.with_interest_amount(*opts).send(:build_from).to_sql} ON "donation_records"."project_id" = "projects"."id"|)
-        .select('projects.*', "COALESCE(sum(interest_amount), 0) as actual_amount").group('projects.id') 
+        .select('projects.id', "COALESCE(sum(interest_amount), 0) as actual_amount").group('projects.id')
       }
 
       scope :with_used, ->(*opts){
         joins(outerjoin_arg(:usage_records, :project)).merge(UsageRecord.with_amount(*opts))
-        .except(:select).select('projects.*', "COALESCE(sum('interest_funds'.'amount'),0) as interest_used", "COALESCE(sum('principle_funds'.'amount'),0) as principle_used").group('projects.id') 
+        .except(:select).select('projects.id', "COALESCE(sum('interest_funds'.'amount'),0) as interest_used", "COALESCE(sum('principle_funds'.'amount'),0) as principle_used").group('projects.id')
       }
 
       scope :order_by_total_amount, ->(desc=false) { with_total_amount.reorder("total_amount#{desc ? ' DESC' : ''}") }
-      
+
       # scope :order_by_actual_amount, ->(desc=false) { with_total_amount.reorder("actual_amount#{desc ? ' DESC' : ''}") }
 
       scope :total_amount, ->{ donation_records.merge(DonationRecord.with_fund).sum(:amount) }
@@ -35,7 +35,7 @@ module ProjectConcern
         .joins(%Q|INNER JOIN(#{with_used(*opts).to_sql}) projects_with_used on "projects".'id' == 'projects_with_used'.'id'|)
         .joins(%Q|
           LEFT OUTER JOIN (
-            SELECT *, MIN(date) as min_date
+            SELECT MIN(date) as min_date, project_id, date, comment
             FROM project_necessary_dates
             WHERE strftime( '%m-%d', COALESCE(date, julianday('1900-12-31')) ) >= strftime('%m-%d','now')
             GROUP by project_id
