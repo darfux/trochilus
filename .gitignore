@@ -31,3 +31,5 @@
 # Ignore external data
 /lib/tasks/data/LocList.xml
 /trochilus.sublime-workspace
+
+deploy/
