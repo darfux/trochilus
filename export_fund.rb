@@ -9,15 +9,18 @@ def p(obj)
 	@arr << "\"#{obj}\""
 end
 
-counter = 0 
+counter = 0
 
 @all = []
 
 
 begin
-Fund.select_by_type(Fund.poly_types.actual_in).manage_view.order('time ASC').each do |f|
+Fund.select_by_type(Fund.poly_types.actual_in).manage_view.
+# order('time ASC').
+# where("time >= ?", Date.new(,,)).
+each do |f|
 	@arr = []
-	
+
 
 	@fund = f
 	time = f["time"]
@@ -77,6 +80,8 @@ Fund.select_by_type(Fund.poly_types.actual_in).manage_view.order('time ASC').eac
 	p recorder
 	p last_editor
 
+	p f['created_at']
+
 	counter += 1
 
 	puts counter if counter % 100 == 0
@@ -93,8 +98,8 @@ end
 
 # puts @arr.join(',')
 
-File.open("projects_info.csv", "w") do |file|
-	header = "到账时间	到账金额	捐赠类型（现金、投资、利息……）	币种	原始金额	所属项目	捐赠客户	客户类型（个人、企业、团体）	备注	录入人	最后编辑人"
+File.open("fund_info.csv", "w") do |file|
+	header = "到账时间\t到账金额\t捐赠类型（现金、投资、利息……）\t币种\t原始金额\t所属项目\t捐赠客户\t客户类型（个人、企业、团体）\t备注\t录入人\t最后编辑人\t录入时间"
 	header.split.join(',')
 	file.puts header
 	@all.each do |ar|
